@@ -1,262 +1,164 @@
 <!DOCTYPE html>
 <html lang="pt" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="BAZILAR — Calculadora BaZi de precisão astronômica. Os Quatro Pilares calculados com Tempo Solar Real, Termos Solares precisos e algoritmo de Meeus.">
-  <meta name="theme-color" content="#0A0A0F">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Bazilar">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="BAZILAR — Calculadora BaZi de Precisão">
-  <meta property="og:description" content="Os Quatro Pilares BaZi calculados com precisão astronômica. Tempo Solar Real, Termos Solares exatos, IANA TZ para horário de verão histórico.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://bazilar.app">
-
-  <title>BAZILAR · 命理堂 — BaZi de Precisão</title>
-
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAZILAR — BaZi Calculator</title>
+<meta name="description" content="BAZILAR — Precision astronomical BaZi calculator. Four Pillars, Hidden Stems, Luck Pillars, Ten Gods.">
+<meta property="og:title" content="BAZILAR — Precision BaZi Calculator">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0A0F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════ TOPBAR -->
-<header class="topbar" role="banner">
-  <a href="/" class="brand" aria-label="Bazilar - Voltar ao início">
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="#" class="topbar-brand" onclick="return false">
+    <div class="topbar-sym" aria-hidden="true">八</div>
     <span class="brand-name">BAZILAR</span>
-    <span class="brand-chars">命理堂</span>
+    <span class="brand-by">by SOLLUN</span>
   </a>
-  <span class="brand-ecosystem">Sollun · Portal de Oráculos</span>
-
-  <div class="topbar-controls">
-    <!-- Language dropdown -->
-    <div class="lang-dropdown-wrap" role="navigation" aria-label="Idioma">
-      <button class="lang-dropdown-btn" id="langDropdownBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Selecionar idioma">
-        <span class="lang-flag" id="langFlag">🇧🇷</span>
-        <span class="lang-code" id="langCode">PT</span>
-        <span class="lang-chevron">▾</span>
-      </button>
-      <ul class="lang-menu" id="langMenu" role="listbox" aria-label="Idiomas disponíveis">
-        <li role="option" data-lang="pt" class="lang-option active" aria-selected="true">
-          <span class="lang-opt-flag">🇧🇷</span>
-          <span class="lang-opt-name">Português</span>
-          <span class="lang-opt-code">PT</span>
-        </li>
-        <li role="option" data-lang="en" class="lang-option" aria-selected="false">
-          <span class="lang-opt-flag">🇬🇧</span>
-          <span class="lang-opt-name">English</span>
-          <span class="lang-opt-code">EN</span>
-        </li>
-        <li role="option" data-lang="zh" class="lang-option" aria-selected="false">
-          <span class="lang-opt-flag">🇨🇳</span>
-          <span class="lang-opt-name">中文</span>
-          <span class="lang-opt-code">ZH</span>
-        </li>
-      </ul>
+  <div class="topbar-right">
+    <div class="gender-wrap">
+      <button class="gender-btn active" data-g="M" id="gM" aria-pressed="true">♂</button>
+      <button class="gender-btn"        data-g="F" id="gF" aria-pressed="false">♀</button>
     </div>
 
-    <!-- Theme toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Alternar modo claro/escuro" title="Alternar tema">
-      <span class="theme-icon" id="themeIcon">☀</span>
-    </button>
+    <!-- Language Dropdown -->
+    <div class="lang-wrap" id="langWrap">
+      <button class="lang-btn" id="langBtn"
+        aria-haspopup="true" aria-expanded="false" aria-controls="langMenu"
+        aria-label="Select language">
+        <span id="langFlag" aria-hidden="true">🇧🇷</span>
+        <span id="langLabel">PT</span>
+        <span class="lang-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="lang-menu" id="langMenu" role="menu">
+        <button class="lang-opt" role="menuitem" data-lang="en" tabindex="-1"><span aria-hidden="true">🇺🇸</span> English</button>
+        <button class="lang-opt" role="menuitem" data-lang="zh" tabindex="-1"><span aria-hidden="true">🇨🇳</span> <span class="zh-label">中文</span></button>
+        <button class="lang-opt" role="menuitem" data-lang="es" tabindex="-1"><span aria-hidden="true">🇪🇸</span> Español</button>
+        <button class="lang-opt active" role="menuitem" data-lang="pt" tabindex="0"><span aria-hidden="true">🇧🇷</span> Português</button>
+      </div>
+    </div>
 
-    <button class="install-btn" id="installBtn" hidden aria-label="Instalar app">⊕</button>
+    <!-- Dark / Light toggle -->
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle dark/light mode">
+      <span id="themeIcon">☀️</span>
+    </button>
   </div>
 </header>
 
-<!-- ══════════════════════════════════════════════ HERO -->
-<section class="hero" aria-label="Apresentação">
-  <h1 class="hero-title">BAZILAR</h1>
-  <span class="hero-chars">命 · 理 · 堂</span>
-  <p class="hero-tagline" data-i18n="tagline">Calculadora Astronômica BaZi de Precisão</p>
-  <div class="hero-precision">
-    Longitude solar Meeus ±0.01° · Termos Solares bissecção ±1s · IANA TZ DST histórico
-  </div>
-</section>
+<!-- PAGE -->
+<div class="page">
 
-<!-- ══════════════════════════════════════════════ MAIN -->
-<main class="main-container" role="main">
+  <!-- INPUT PANEL -->
+  <aside class="input-panel" aria-label="Birth data">
+    <h2 class="panel-title" id="uiTitle">Dados de Nascimento</h2>
 
-  <!-- ─── FORM SECTION ─────────────────────────────── -->
-  <section class="form-section" aria-label="Formulário de nascimento">
-    <h2 class="form-title" data-i18n="formTitle">Dados de Nascimento</h2>
-
-    <div class="form-grid">
-
-      <!-- Date -->
-      <div class="form-group">
-        <label class="form-label" data-i18n="labelDate">Data de Nascimento</label>
-        <div class="form-row">
-          <input type="number" id="dayInput"   placeholder="Dia"  min="1"  max="31"   aria-label="Dia">
-          <input type="number" id="monthInput" placeholder="Mês"  min="1"  max="12"   aria-label="Mês">
-          <input type="number" id="yearInput"  placeholder="Ano"  min="1900" max="2100" aria-label="Ano">
+    <!-- Date -->
+    <div class="field-group">
+      <span class="field-label" id="uiDate">Data</span>
+      <div class="field-row3">
+        <div>
+          <label class="field-label field-label--sm" for="inY" id="uiYear">Ano</label>
+          <input type="number" id="inY" value="1990" min="1800" max="2200">
+        </div>
+        <div>
+          <label class="field-label field-label--sm" for="inM" id="uiMonth">Mês</label>
+          <input type="number" id="inM" value="6" min="1" max="12">
+        </div>
+        <div>
+          <label class="field-label field-label--sm" for="inD" id="uiDay">Dia</label>
+          <input type="number" id="inD" value="15" min="1" max="31">
         </div>
       </div>
-
-      <!-- Time -->
-      <div class="form-group">
-        <label class="form-label" data-i18n="labelTime">Hora de Nascimento</label>
-        <div class="form-row-2">
-          <input type="number" id="hourInput" placeholder="HH" min="0" max="23" aria-label="Hora">
-          <input type="number" id="minInput"  placeholder="MM" min="0" max="59" aria-label="Minutos">
-        </div>
-      </div>
-
-      <!-- City search -->
-      <div class="form-group full">
-        <label class="form-label" for="cityInput" data-i18n="labelCity">Cidade de Nascimento</label>
-        <div class="city-search">
-          <input type="text" id="cityInput" data-i18n="labelSearchCity" placeholder="Buscar cidade..." autocomplete="off" aria-autocomplete="list" aria-label="Cidade de nascimento">
-          <div class="city-dropdown" id="cityDropdown" role="listbox" aria-label="Cidades encontradas"></div>
-        </div>
-        <div class="tz-status" id="tzStatus" aria-live="polite"></div>
-      </div>
-
-      <!-- Longitude / Latitude -->
-      <div class="form-group">
-        <label class="form-label" for="lonInput" data-i18n="labelLongitude">Longitude</label>
-        <input type="number" id="lonInput" placeholder="-46.6333" step="0.0001" aria-label="Longitude">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="latInput" data-i18n="labelLatitude">Latitude</label>
-        <input type="number" id="latInput" placeholder="-23.5505" step="0.0001" aria-label="Latitude">
-      </div>
-
-      <!-- Timezone -->
-      <div class="form-group">
-        <label class="form-label" for="tzSelect" data-i18n="labelTimezone">Fuso Horário</label>
-        <select id="tzSelect" aria-label="Fuso horário IANA">
-          <!-- populated by JS -->
-        </select>
-      </div>
-
-      <!-- Gender -->
-      <div class="form-group">
-        <span class="form-label" data-i18n="labelGender">Gênero</span>
-        <div class="gender-group">
-          <label class="gender-label">
-            <input type="radio" name="gender" value="M" checked>
-            <span data-i18n="labelGenderM">Masculino</span>
-          </label>
-          <label class="gender-label">
-            <input type="radio" name="gender" value="F">
-            <span data-i18n="labelGenderF">Feminino</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Options -->
-      <div class="form-group full">
-        <div class="check-group">
-          <input type="checkbox" id="earlyZiCheck" checked>
-          <label for="earlyZiCheck" data-i18n="labelEarlyZi">Método Early Zǐ</label>
-        </div>
-        <div class="check-group">
-          <input type="checkbox" id="eotCheck" checked>
-          <div>
-            <label for="eotCheck" data-i18n="labelEoT">Equação do Tempo (TST completo)</label>
-            <div class="check-hint" data-i18n="labelEoTHint">Precisão premium — corrige até ±16 min pela órbita elíptica</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /form-grid -->
-
-    <!-- Error message -->
-    <div class="error-msg" id="errorMsg" role="alert"></div>
-
-    <!-- Action buttons -->
-    <div class="btn-row">
-      <button class="btn-primary" id="calcBtn" data-i18n="btnCalculate">
-        Calcular Quatro Pilares
-      </button>
-      <button class="btn-secondary" id="printBtn" aria-label="Imprimir ou salvar como PDF">
-        🖨 <span data-i18n="btnPrint">Imprimir / PDF</span>
-      </button>
-      <button class="btn-secondary" id="resetBtn">
-        ↺ <span data-i18n="btnReset">Novo Cálculo</span>
-      </button>
     </div>
 
-  </section>
+    <!-- Time -->
+    <div class="field-group">
+      <label class="field-label" for="inT" id="uiTime">Hora (00:00 – 23:59)</label>
+      <input type="time" id="inT" value="14:35">
+    </div>
 
-  <!-- ─── RESULTS ──────────────────────────────────── -->
-  <section id="resultsSection" aria-label="Resultado do cálculo BaZi" aria-live="polite">
+    <!-- City -->
+    <div class="field-group">
+      <label class="field-label" for="inCity" id="uiCity">Local de Nascimento</label>
+      <div class="geo-wrap">
+        <input type="text" id="inCity" value="" placeholder="ex: São Paulo, Brasil"
+          autocomplete="off" aria-autocomplete="list" aria-controls="sugBox">
+        <div class="geo-spin" id="geoSpin" aria-hidden="true"></div>
+        <div class="sug-box" id="sugBox" role="listbox" aria-label="Sugestões de local"></div>
+      </div>
+      <p class="loc-prev" id="locPrev"></p>
+    </div>
 
-    <!-- Dual Zi warning -->
-    <div class="zi-warning" id="ziWarning" role="alert"></div>
+    <!-- Coordinates -->
+    <div class="field-group">
+      <div class="field-row">
+        <div>
+          <label class="field-label" for="inLo" id="uiLong">Longitude</label>
+          <input type="number" id="inLo" value="-46.63" step="0.01" min="-180" max="180">
+        </div>
+        <div>
+          <label class="field-label" for="inLa" id="uiLat">Latitude</label>
+          <input type="number" id="inLa" value="-23.55" step="0.01" min="-90" max="90">
+        </div>
+      </div>
+    </div>
 
-    <!-- Four Pillars -->
-    <article class="result-card" aria-label="Os Quatro Pilares">
-      <div id="pillarSection"></div>
-    </article>
+    <!-- Timezone -->
+    <div class="field-group">
+      <label class="field-label" for="inTZ" id="uiTZ">Fuso Horário (GMT)</label>
+      <select id="inTZ">
+        <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
+        <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
+        <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
+        <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
+        <option value="-5">GMT −5</option><option value="-4.5">GMT −4:30</option>
+        <option value="-4">GMT −4</option><option value="-3.5">GMT −3:30</option>
+        <option value="-3" selected>GMT −3</option>
+        <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
+        <option value="0">GMT 0</option><option value="1">GMT +1</option>
+        <option value="2">GMT +2</option><option value="3">GMT +3</option>
+        <option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
+        <option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
+        <option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
+        <option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
+        <option value="7">GMT +7</option><option value="8">GMT +8</option>
+        <option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
+        <option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
+        <option value="11">GMT +11</option><option value="12">GMT +12</option>
+      </select>
+    </div>
 
-    <!-- Element Balance -->
-    <article class="result-card" aria-label="Equilíbrio dos cinco elementos">
-      <div id="balanceSection"></div>
-    </article>
+    <!-- DST -->
+    <div class="chk-row">
+      <input type="checkbox" id="inDST">
+      <label for="inDST" id="uiDST">Ajuste de Horário de Verão (DST)</label>
+    </div>
 
-    <!-- Ten Gods -->
-    <article class="result-card" aria-label="Dez Deuses">
-      <div id="godsSection"></div>
-    </article>
+    <!-- Calculate button -->
+    <button class="calc-btn" id="calcBtn">
+      <span id="uiCalc">Calcular Quatro Pilares</span>
+    </button>
+  </aside>
 
-    <!-- Interactions -->
-    <article class="result-card" aria-label="Interações entre ramos">
-      <div id="interactionsSection"></div>
-    </article>
+  <!-- RESULTS -->
+  <main id="results" aria-live="polite">
+    <div class="empty" id="emptyState">
+      <div class="empty-ico" aria-hidden="true">八</div>
+      <h2 class="empty-ttl" id="uiEmpTitle">Motor de Cálculo BaZi</h2>
+      <p class="empty-sub" id="uiEmpSub">Preencha os dados e clique em Calcular para gerar os Quatro Pilares com base no Tempo Solar Real e nos Termos Solares astronômicos.</p>
+    </div>
+  </main>
 
-    <!-- Great Cycles -->
-    <article class="result-card" aria-label="Grandes Ciclos de Sorte">
-      <div id="cyclesSection"></div>
-    </article>
+</div>
 
-    <!-- Technical Log -->
-    <article class="result-card" aria-label="Log técnico">
-      <div id="logSection"></div>
-    </article>
-
-  </section>
-
-</main>
-
-<!-- ══════════════════════════════════════════════ FOOTER -->
-<footer class="footer">
-  <div>BAZILAR · 命理堂 · Sollun Ecosystem</div>
-  <div style="margin-top:0.5rem">
-    Motor astronômico: <a href="https://github.com/Shouqun/bazi-engine">engine.js</a> ·
-    Algoritmo de Meeus (1991) · IANA TZ Database ·
-    <a href="https://www.singing-dragon.com/book/calculating-the-bazi/">Taylor Wu (2017)</a>
-  </div>
-  <div style="margin-top:0.25rem;color:#3a3a5a">
-    Verificado contra: Hong Kong Observatory · JPL Horizons · Wan Nian Li 萬年曆
-  </div>
-</footer>
-
-<!-- ══════════════════════════════════════════════ SCRIPTS -->
-<script src="engine.js"></script>
-<script src="i18n.js"></script>
-<script src="geo.js"></script>
-<script src="app.js"></script>
-
-<script>
-  // Register Service Worker
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch(err => {
-        console.warn('SW registration failed:', err);
-      });
-    });
-  }
-</script>
+<!-- Único ponto de entrada JS — tudo via ES Modules -->
+<script type="module" src="js/app.js"></script>
 
 </body>
 </html>

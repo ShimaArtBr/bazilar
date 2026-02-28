@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "outputDirectory": "public",
+  "functions": {
+    "api/calculate.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/calculate",
+      "destination": "/api/calculate.js"
+    }
+  ]
+}
