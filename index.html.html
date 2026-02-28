@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BaZi Calculator — Engine v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&family=Noto+Sans+SC:wght@400&family=Noto+Serif:wght@400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════
+   DESIGN TOKENS  dark / light
+═══════════════════════════════════ */
+:root,[data-theme="dark"]{
+  --bg:#0d0d1a; --surface:#13132a; --panel:#1a1a30; --panel2:#20203a;
+  --text:#e8e4da; --muted:#8888a4; --dim:#555570;
+  --input-bg:#20203a; --input-bd:rgba(136,136,164,.25);
+  --shadow:rgba(0,0,0,.55);
+}
+[data-theme="light"]{
+  --bg:#f4f1eb; --surface:#fffef9; --panel:#ffffff; --panel2:#f4f1eb;
+  --text:#1a1828; --muted:#60608a; --dim:#9090a8;
+  --input-bg:#f9f7f2; --input-bd:rgba(100,90,70,.22);
+  --shadow:rgba(0,0,0,.1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#c9a84c; --gold2:#e8c97a;
+  --green:#3d9970; --green2:#52c498;
+  --water2:#5b9fc9;
+  --bg-gold:rgba(201,168,76,.18);
+  --r:8px;
+}
+html{font-size:15px;scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans',sans-serif; background:var(--bg); color:var(--text);
+  min-height:100vh; line-height:1.65;
+  transition:background .25s,color .25s;
+}
+
+/* TOP BAR */
+.topbar{
+  background:var(--surface); border-bottom:1px solid var(--bg-gold);
+  padding:0 22px; display:flex; align-items:center;
+  justify-content:space-between; height:52px;
+  position:sticky; top:0; z-index:100;
+  box-shadow:0 2px 14px var(--shadow);
+}
+.topbar-brand{
+  display:flex; align-items:center; gap:10px;
+  color:var(--gold); font-size:.93rem; letter-spacing:.04em;
+  text-decoration:none; flex-shrink:0;
+}
+.topbar-sym{
+  width:30px; height:30px; border:1.5px solid var(--gold);
+  border-radius:50%; display:flex; align-items:center;
+  justify-content:center; font-size:.85rem;
+}
+.topbar-right{display:flex;align-items:center;gap:9px}
+.topbar-badge{
+  background:rgba(61,153,112,.15); border:1px solid rgba(61,153,112,.4);
+  border-radius:20px; padding:2px 9px; font-size:.67rem;
+  color:var(--green2); letter-spacing:.07em;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* Language dropdown */
+.lang-wrap{position:relative}
+.lang-btn{
+  display:flex; align-items:center; gap:5px;
+  background:var(--panel); border:1px solid var(--bg-gold);
+  border-radius:var(--r); padding:5px 9px;
+  cursor:pointer; color:var(--text); font-size:.79rem;
+  font-family:'Noto Sans',sans-serif;
+  transition:border-color .2s;
+}
+.lang-btn:hover,.lang-btn:focus-visible{border-color:var(--gold);outline:none}
+.lang-arrow{font-size:.52rem;color:var(--muted);transition:transform .2s}
+.lang-wrap.open .lang-arrow{transform:rotate(180deg)}
+.lang-menu{
+  display:none; position:absolute; top:calc(100% + 5px); right:0;
+  background:var(--panel); border:1px solid var(--bg-gold);
+  border-radius:var(--r); min-width:155px;
+  box-shadow:0 8px 24px var(--shadow); z-index:200; overflow:hidden;
+}
+.lang-wrap.open .lang-menu{display:block}
+.lang-opt{
+  display:flex; align-items:center; gap:8px;
+  padding:8px 12px; font-size:.82rem; color:var(--text);
+  text-decoration:none; cursor:pointer;
+  transition:background .15s; border:none;
+  background:transparent; width:100%; text-align:left;
+  font-family:'Noto Sans',sans-serif;
+}
+.lang-opt:hover,.lang-opt:focus-visible{background:rgba(201,168,76,.12);color:var(--gold2);outline:none}
+.lang-opt.active{color:var(--gold)}
+
+/* Theme button */
+.theme-btn{
+  display:flex; align-items:center; justify-content:center;
+  width:34px; height:34px; background:var(--panel);
+  border:1px solid var(--bg-gold); border-radius:var(--r);
+  cursor:pointer; font-size:1rem;
+  transition:border-color .2s;
+}
+.theme-btn:hover,.theme-btn:focus-visible{border-color:var(--gold);outline:none}
+
+/* PAGE */
+.page{
+  max-width:1060px; margin:0 auto; padding:30px 22px 56px;
+  display:grid; grid-template-columns:340px 1fr;
+  gap:24px; align-items:start;
+}
+
+/* INPUT PANEL */
+.input-panel{
+  background:var(--panel); border:1px solid var(--bg-gold);
+  border-radius:12px; padding:22px;
+  position:sticky; top:68px;
+  box-shadow:0 4px 18px var(--shadow);
+}
+.panel-title{
+  font-family:'Noto Serif',serif; font-size:1.02rem;
+  color:var(--gold); margin-bottom:17px;
+  padding-bottom:11px; border-bottom:1px solid var(--bg-gold);
+}
+.field-group{margin-bottom:13px}
+.field-label{
+  font-size:.61rem; color:var(--muted);
+  letter-spacing:.09em; text-transform:uppercase;
+  margin-bottom:4px; display:block;
+}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.field-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+
+input[type=number],input[type=text],select{
+  width:100%; background:var(--input-bg); border:1px solid var(--input-bd);
+  border-radius:var(--r); color:var(--text);
+  font-family:'Noto Sans',sans-serif; font-size:.86rem;
+  padding:8px 10px; outline:none;
+  transition:border-color .2s,background .25s;
+  -webkit-appearance:none; appearance:none;
+}
+input:focus,select:focus{border-color:var(--gold)}
+input::placeholder{color:var(--dim)}
+select option{background:var(--input-bg);color:var(--text)}
+
+.chk-row{display:flex;align-items:center;gap:7px;margin-top:4px}
+.chk-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+.chk-row label{font-size:.79rem;color:var(--muted);cursor:pointer}
+
+.calc-btn{
+  width:100%; margin-top:17px; padding:12px;
+  border-radius:var(--r); background:var(--gold);
+  border:none; color:#1a1828;
+  font-family:'Noto Sans',sans-serif; font-size:.89rem; font-weight:500;
+  cursor:pointer; transition:background .2s,transform .1s;
+  letter-spacing:.03em;
+}
+.calc-btn:hover{background:var(--gold2)}
+.calc-btn:active{transform:scale(.98)}
+
+/* RST live */
+.rst-box{
+  background:rgba(61,153,112,.1); border:1px solid rgba(61,153,112,.3);
+  border-radius:var(--r); padding:10px 13px; margin-top:12px;
+}
+.rst-lbl{font-size:.58rem;color:var(--green2);letter-spacing:.1em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.rst-val{font-size:1.22rem;color:var(--gold2);margin:3px 0}
+.rst-det{font-size:.68rem;color:var(--muted);line-height:1.65}
+
+/* Location preview */
+.loc-prev{font-size:.69rem;color:var(--muted);margin-top:4px;font-family:'JetBrains Mono',monospace;min-height:.9rem}
+
+/* Geocode wrapper + spinner */
+.geo-wrap{position:relative}
+.geo-spin{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  width:14px;height:14px;
+  border:2px solid rgba(201,168,76,.25);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+  opacity:0;transition:opacity .2s;pointer-events:none;
+}
+@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+
+/* Suggestions dropdown */
+.sug-box{
+  display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;
+  background:var(--panel);border:1px solid var(--bg-gold);
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:0 8px 24px var(--shadow);z-index:300;
+  max-height:240px;overflow-y:auto;
+}
+.sug-item{
+  display:flex;flex-direction:column;gap:2px;
+  width:100%;padding:9px 12px;border:none;
+  background:transparent;cursor:pointer;
+  text-align:left;font-family:'Noto Sans',sans-serif;
+  transition:background .15s;border-bottom:1px solid rgba(201,168,76,.08);
+}
+.sug-item:last-child{border-bottom:none}
+.sug-item:hover,.sug-item:focus{background:rgba(201,168,76,.1);outline:none}
+.sug-name{font-size:.82rem;color:var(--text);line-height:1.3}
+.sug-coords{font-size:.66rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.sug-none{padding:10px 12px;font-size:.8rem;color:var(--muted);font-style:italic}
+.sug-attr{
+  padding:5px 10px;font-size:.6rem;color:var(--dim);
+  border-top:1px solid rgba(201,168,76,.08);text-align:right;
+}
+.sug-attr a{color:var(--dim);text-decoration:none}
+.sug-attr a:hover{color:var(--muted)}
+
+/* RESULTS */
+.sec-label{
+  font-size:.6rem; color:var(--muted); letter-spacing:.1em;
+  text-transform:uppercase; margin-bottom:9px;
+  font-family:'JetBrains Mono',monospace;
+  padding-bottom:5px; border-bottom:1px solid var(--bg-gold);
+}
+
+/* Pillars */
+.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:20px}
+.pillar-card{
+  background:var(--panel); border:1px solid var(--bg-gold);
+  border-radius:12px; overflow:hidden;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.pillar-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 6px 20px var(--shadow)}
+.pillar-hd{
+  padding:7px 5px; text-align:center;
+  font-size:.59rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); border-bottom:1px solid var(--bg-gold);
+}
+.pillar-hd.active{color:var(--gold)}
+.p-stem,.p-branch{
+  padding:14px 7px; text-align:center;
+  border-bottom:1px solid rgba(136,136,164,.07);
+}
+.p-branch{border-bottom:none}
+.p-char{font-family:'Noto Sans SC',sans-serif;font-size:2.4rem;line-height:1;display:block;margin-bottom:5px}
+.p-py{font-size:.61rem;color:var(--muted);display:block;margin-bottom:3px;font-style:italic}
+.p-elem{display:inline-flex;padding:2px 7px;border-radius:10px;font-size:.59rem;letter-spacing:.05em}
+.p-god{font-size:.59rem;color:var(--muted);margin-top:4px;display:block}
+
+/* Info cards */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:20px}
+.info-card{background:var(--panel);border:1px solid var(--bg-gold);border-radius:10px;padding:12px 14px}
+.ic-title{font-size:.57rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.ic-val{font-size:.89rem;color:var(--text)}
+.ic-sub{font-size:.69rem;color:var(--muted);margin-top:3px}
+
+/* Term bar */
+.term-bar{background:var(--panel);border:1px solid var(--bg-gold);border-radius:10px;padding:12px 14px;margin-bottom:20px}
+.term-ttl{font-size:.57rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.term-track{display:flex;gap:3px;flex-wrap:wrap}
+.term-dot{padding:3px 7px;border-radius:4px;font-size:.62rem;color:var(--dim);background:rgba(128,128,160,.05);cursor:default;white-space:nowrap;transition:background .2s}
+.term-dot.past{background:rgba(201,168,76,.1);color:var(--gold)}
+.term-dot.cur{background:var(--gold);color:#1a1828;font-weight:500}
+
+/* Log */
+.log-card{
+  background:var(--panel2); border:1px solid var(--bg-gold);
+  border-radius:10px; padding:16px; margin-bottom:9px;
+  font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--muted);
+}
+.fl{margin-bottom:5px;line-height:1.75}
+.fl:last-child{margin-bottom:0}
+.hg{color:var(--gold2)} .hv{color:var(--green2)} .hc{color:var(--dim)}
+
+/* ══ HIDDEN STEMS ══ */
+.p-hidden{
+  padding:9px 7px; border-top:1px solid rgba(136,136,164,.08);
+  background:rgba(0,0,0,.15);
+}
+.p-hidden-lbl{
+  font-size:.52rem; color:var(--dim); letter-spacing:.1em;
+  text-transform:uppercase; font-family:'JetBrains Mono',monospace;
+  margin-bottom:5px; display:block;
+}
+.hs-row{
+  display:flex; align-items:center; gap:4px;
+  margin-bottom:3px; flex-wrap:wrap;
+}
+.hs-char{font-family:'Noto Sans SC',sans-serif;font-size:1.1rem;color:var(--text);line-height:1}
+.hs-py{font-size:.57rem;color:var(--muted)}
+.hs-god{font-size:.55rem;color:var(--dim);font-style:italic}
+.hs-role{
+  font-size:.5rem; padding:1px 5px; border-radius:3px;
+  background:rgba(201,168,76,.1); color:var(--gold);
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ══ SECTION LABEL EXTENDED ══ */
+.sec-label-lg{
+  font-size:.6rem; color:var(--muted); letter-spacing:.1em;
+  text-transform:uppercase; margin:26px 0 12px;
+  font-family:'JetBrains Mono',monospace;
+  padding-bottom:5px; border-bottom:1px solid var(--bg-gold);
+  display:flex; align-items:center; gap:8px;
+}
+.sec-label-lg span{color:var(--gold)}
+
+/* ══ DAYUN ══ */
+.dayun-meta{
+  background:var(--panel); border:1px solid var(--bg-gold);
+  border-radius:10px; padding:12px 14px; margin-bottom:12px;
+  display:flex; gap:20px; flex-wrap:wrap;
+}
+.dy-info{display:flex;flex-direction:column;gap:3px}
+.dy-info-lbl{font-size:.57rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.dy-info-val{font-size:.89rem;color:var(--text)}
+.dayun-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+@media(max-width:800px){.dayun-grid{grid-template-columns:repeat(2,1fr)}}
+.dy-card{
+  background:var(--panel); border:1px solid var(--bg-gold);
+  border-radius:10px; padding:11px 9px; text-align:center;
+  transition:border-color .2s,transform .2s;
+  position:relative; overflow:hidden;
+}
+.dy-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.dy-card.current-dy{
+  border-color:var(--gold);
+  background:rgba(201,168,76,.08);
+}
+.dy-card.current-dy::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--gold);
+}
+.dy-num{font-size:.54rem;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:4px;letter-spacing:.08em}
+.dy-age{font-size:.78rem;color:var(--gold);font-family:'JetBrains Mono',monospace;margin-bottom:7px}
+.dy-char{font-family:'Noto Sans SC',sans-serif;font-size:1.5rem;line-height:1.15;color:var(--text)}
+.dy-py{font-size:.56rem;color:var(--muted);margin-top:2px}
+.dy-elem{margin-top:5px;display:flex;gap:3px;justify-content:center;flex-wrap:wrap}
+
+/* ══ INTERACTIONS ══ */
+.inter-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:20px;
+}
+@media(max-width:640px){.inter-grid{grid-template-columns:1fr}}
+.inter-card{
+  background:var(--panel); border:1px solid var(--bg-gold);
+  border-radius:10px; padding:12px 14px;
+}
+.inter-type{
+  font-size:.57rem; color:var(--muted); letter-spacing:.1em;
+  text-transform:uppercase; font-family:'JetBrains Mono',monospace;
+  margin-bottom:8px;
+}
+.inter-item{
+  display:flex; align-items:center; gap:8px;
+  padding:5px 0; border-bottom:1px solid rgba(201,168,76,.06);
+}
+.inter-item:last-child{border-bottom:none}
+.inter-chars{
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:1.15rem; color:var(--text); flex-shrink:0; width:52px;
+}
+.inter-detail{font-size:.74rem;color:var(--muted)}
+.inter-el{font-size:.63rem;color:var(--gold)}
+.inter-pos{
+  font-size:.54rem;color:var(--dim);
+  font-family:'JetBrains Mono',monospace;
+}
+.inter-none{font-size:.78rem;color:var(--dim);font-style:italic;padding:4px 0}
+
+/* ══ ACCURACY ══ */
+.acc{
+  background:rgba(91,159,201,.07); border:1px solid rgba(91,159,201,.2);
+  border-radius:8px; padding:10px 13px;
+  font-size:.73rem; color:var(--muted); line-height:1.7; margin-top:7px;
+}
+.acc strong{color:var(--water2)}
+
+/* Empty / error */
+.empty{
+  background:var(--panel); border:1px dashed var(--bg-gold);
+  border-radius:12px; padding:44px 22px; text-align:center;
+}
+.empty-ico{font-size:2.3rem;margin-bottom:13px;opacity:.35}
+.empty-ttl{font-family:'Noto Serif',serif;font-size:1rem;color:var(--muted);margin-bottom:7px}
+.empty-sub{font-size:.8rem;color:var(--dim);max-width:265px;margin:0 auto;line-height:1.7}
+.err{background:rgba(192,105,43,.1);border:1px solid rgba(192,105,43,.4);border-radius:8px;padding:10px 13px;font-size:.81rem;color:#e07a3a;margin-bottom:13px}
+
+/* Responsive */
+@media(max-width:800px){
+  .page{grid-template-columns:1fr}
+  .input-panel{position:static}
+  .pillars-grid{grid-template-columns:repeat(2,1fr)}
+  .topbar-badge{display:none}
+}
+@media(max-width:480px){.info-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="bazi-landing.html" class="topbar-brand">
+    <div class="topbar-sym" aria-hidden="true">八</div>
+    BaZi Calculator
+  </a>
+  <div class="topbar-right">
+
+    <a href="bazi-landing.html" style="color:var(--muted);font-size:.78rem;text-decoration:none;letter-spacing:.04em;transition:color .2s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">← Início</a>
+
+    <!-- Language Dropdown — EN / ZH / ES / PT -->
+    <div class="lang-wrap" id="langWrap">
+      <button class="lang-btn" id="langBtn"
+        aria-haspopup="true" aria-expanded="false" aria-controls="langMenu"
+        aria-label="Select language">
+        <span id="langFlag" aria-hidden="true">🇧🇷</span>
+        <span id="langLabel">PT</span>
+        <span class="lang-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="lang-menu" id="langMenu" role="menu">
+        <button class="lang-opt" role="menuitem" data-lang="en" tabindex="-1"><span aria-hidden="true">🇺🇸</span> English</button>
+        <button class="lang-opt" role="menuitem" data-lang="zh" tabindex="-1"><span aria-hidden="true">🇨🇳</span> <span style="font-family:'Noto Sans SC',sans-serif">中文</span></button>
+        <button class="lang-opt" role="menuitem" data-lang="es" tabindex="-1"><span aria-hidden="true">🇪🇸</span> Español</button>
+        <button class="lang-opt active" role="menuitem" data-lang="pt" tabindex="0"><span aria-hidden="true">🇧🇷</span> Português</button>
+      </div>
+    </div>
+
+    <!-- Dark / Light toggle -->
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle dark/light mode">
+      <span id="themeIcon">☀️</span>
+    </button>
+
+    <span class="topbar-badge">ENGINE v2</span>
+  </div>
+</header>
+
+<!-- PAGE -->
+<div class="page">
+  <!-- INPUT -->
+  <aside class="input-panel" aria-label="Birth data">
+    <h2 class="panel-title" id="uiTitle">Dados de Nascimento</h2>
+
+    <div class="field-group">
+      <span class="field-label" id="uiDate">Data</span>
+      <div class="field-row3">
+        <div><label class="field-label" style="font-size:.56rem" for="inY" id="uiYear">Ano</label><input type="number" id="inY" value="1990" min="1800" max="2200"></div>
+        <div><label class="field-label" style="font-size:.56rem" for="inM" id="uiMonth">Mês</label><input type="number" id="inM" value="6" min="1" max="12"></div>
+        <div><label class="field-label" style="font-size:.56rem" for="inD" id="uiDay">Dia</label><input type="number" id="inD" value="15" min="1" max="31"></div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="inT" id="uiTime">Hora (00:00 – 23:59)</label>
+      <input type="text" id="inT" value="14:35" placeholder="14:35">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="inCity" id="uiCity">Local de Nascimento</label>
+      <div class="geo-wrap">
+        <input type="text" id="inCity" value="" placeholder="ex: São Paulo, Brasil"
+          autocomplete="off" aria-autocomplete="list" aria-controls="sugBox">
+        <div class="geo-spin" id="geoSpin" aria-hidden="true"></div>
+        <div class="sug-box" id="sugBox" role="listbox" aria-label="Sugestões de local"></div>
+      </div>
+      <p class="loc-prev" id="locPrev"></p>
+    </div>
+
+    <div class="field-group">
+      <div class="field-row">
+        <div><label class="field-label" for="inLo" id="uiLong">Longitude</label><input type="number" id="inLo" value="-46.63" step="0.01" min="-180" max="180"></div>
+        <div><label class="field-label" for="inLa" id="uiLat">Latitude</label><input type="number" id="inLa" value="-23.55" step="0.01" min="-90" max="90"></div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="inTZ" id="uiTZ">Fuso Horário (GMT)</label>
+      <select id="inTZ">
+        <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
+        <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
+        <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
+        <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
+        <option value="-5">GMT −5</option><option value="-4.5">GMT −4:30</option>
+        <option value="-4">GMT −4</option><option value="-3.5">GMT −3:30</option>
+        <option value="-3" selected>GMT −3</option>
+        <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
+        <option value="0">GMT 0</option><option value="1">GMT +1</option>
+        <option value="2">GMT +2</option><option value="3">GMT +3</option>
+        <option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
+        <option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
+        <option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
+        <option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
+        <option value="7">GMT +7</option><option value="8">GMT +8</option>
+        <option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
+        <option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
+        <option value="11">GMT +11</option><option value="12">GMT +12</option>
+      </select>
+    </div>
+
+    <div class="chk-row">
+      <input type="checkbox" id="inDST">
+      <label for="inDST" id="uiDST">Ajuste de Horário de Verão (DST)</label>
+    </div>
+
+    <div id="rstBox" class="rst-box" style="display:none" aria-live="polite">
+      <p class="rst-lbl" id="uiRSTLbl">Tempo Solar Real</p>
+      <p class="rst-val" id="rstV">—</p>
+      <p class="rst-det" id="rstD"></p>
+    </div>
+
+    <div class="field-group" style="margin-top:11px">
+      <label class="field-label" for="inGender">Gênero · Gender · 性别</label>
+      <select id="inGender">
+        <option value="m">Masculino / Male / 男</option>
+        <option value="f">Feminino / Female / 女</option>
+      </select>
+    </div>
+
+    <button class="calc-btn" id="calcBtn"><span id="uiCalc">Calcular Quatro Pilares</span></button>
+  </aside>
+
+  <!-- RESULTS -->
+  <main id="results" aria-live="polite">
+    <div class="empty" id="emptyState">
+      <div class="empty-ico" aria-hidden="true">八</div>
+      <h2 class="empty-ttl" id="uiEmpTitle">Motor de Cálculo BaZi</h2>
+      <p class="empty-sub" id="uiEmpSub">Preencha os dados e clique em Calcular para gerar os Quatro Pilares com base no Tempo Solar Real e nos Termos Solares astronômicos.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+'use strict';
+
+/* ══════════════════════════════════════
+   TRANSLATIONS
+══════════════════════════════════════ */
+var LANG = 'pt';
+var T = {
+en:{
+  flag:'🇺🇸', lbl:'EN',
+  title:'Birth Data', date:'Date', year:'Year', month:'Month', day:'Day',
+  time:'Hour (00:00 – 23:59)', city:'Place of Birth',
+  cityPH:'e.g. London, United Kingdom',
+  long:'Longitude', lat:'Latitude', tz:'Timezone (GMT)',
+  dst:'Daylight Saving Time (DST)', rstLbl:'Real Solar Time',
+  clk:'Clock', corr:'Correction',
+  calc:'Calculate Four Pillars',
+  etitle:'BaZi Calculation Engine',
+  esub:'Enter birth data and click Calculate to generate the Four Pillars based on Real Solar Time and astronomical Solar Terms.',
+  errFill:'⚠ Please fill all fields correctly.',
+  secPil:'四柱 — The Four Pillars', secLog:'Calculation Log',
+  pH:'Hour · 时', pD:'Day · 日 ★', pM:'Month · 月', pY:'Year · 年',
+  dm:'Day Master · 日主', dmSub:'Central pillar of the BaZi chart',
+  rst:'Real Solar Time · RST',
+  yr:'BaZi Year · 八字年', yrSub:'Changes at 立春 (~4 Feb)',
+  sun:'Solar Longitude', sunSub:'Computed by Meeus formula',
+  terms:'Solar Terms of %y — BaZi month indicator',
+  acc:'<strong>Astronomical precision:</strong> Solar longitude by Meeus ±0.01° (~15 s). Solar Terms by bisection ±1 s. Day reference verified: 戊午 = 1 Jan 2000.',
+  el:{Wood:'Wood',Fire:'Fire',Earth:'Earth',Metal:'Metal',Water:'Water'},
+  yang:'Yang', yin:'Yin',
+  lTitle:'// Calculation log — %d/%m/%y',
+  lSun:'// Solar longitude on %d/%m/%y',
+  lJD:'// Julian Day Number (Meeus) for %d/%m/%y noon',
+  lYC:'// Year Pillar — 60-cycle from 甲子 = 1984',
+  lYS:'yearStem = (%Y − 4) mod 10 = %si → %sc',
+  lYB:'yearBranch = (%Y − 4) mod 12 = %bi → %bc',
+  lMC:'// Month Pillar — term %tn (lon %tl°)',
+  lMB:'monthBranch = seq[%mi] = %bi → %bc',
+  lMS:'monthStem = base(%ys) + %mi = %si → %sc',
+  lDC:'// Day Pillar — ref: 戊午 (idx 54) at JD 2451545',
+  lDF:'dayIdx = (%jd − 2451545 + 54) mod 60 = %di',
+  lHC:'// Hour Pillar — RST %rst',
+  lHB:'hourBranch = ⌊(%rh + 1) / 2⌋ mod 12 = %bi → %bc (%hrs)',
+  lHS:'hourStem = base(%ds) + %hi = %si → %sc',
+  lRC:'// RST = clock + longCorr + EoT + DST',
+  lRF:'RST = %ct + %lc\' + %eot\' + %dst\' = %rst',
+},
+zh:{
+  flag:'🇨🇳', lbl:'中文',
+  title:'出生数据', date:'日期', year:'年', month:'月', day:'日',
+  time:'时间 (00:00 – 23:59)', city:'出生地点',
+  cityPH:'例: 上海, 中国',
+  long:'经度', lat:'纬度', tz:'时区 (GMT)',
+  dst:'夏令时调整 (DST)', rstLbl:'真太阳时',
+  clk:'时钟', corr:'修正',
+  calc:'计算四柱',
+  etitle:'八字计算引擎',
+  esub:'填写出生数据并点击计算，以基于真太阳时和天文节气生成四柱命盘。',
+  errFill:'⚠ 请正确填写所有字段。',
+  secPil:'四柱命盘', secLog:'计算日志',
+  pH:'时柱', pD:'日柱 ★', pM:'月柱', pY:'年柱',
+  dm:'日主', dmSub:'八字命盘的核心',
+  rst:'真太阳时',
+  yr:'八字年', yrSub:'在立春时更换（约2月4日）',
+  sun:'太阳经度', sunSub:'由Meeus公式计算',
+  terms:'%y年节气 — 八字月份指示',
+  acc:'<strong>天文精度：</strong>太阳经度由Meeus公式计算±0.01°（约15秒）。节气通过二分法确定±1秒。日柱参考：戊午 = 2000年1月1日。',
+  el:{Wood:'木',Fire:'火',Earth:'土',Metal:'金',Water:'水'},
+  yang:'阳', yin:'阴',
+  lTitle:'// 计算日志 — %d/%m/%y',
+  lSun:'// %d/%m/%y 太阳黄经',
+  lJD:'// %d/%m/%y 正午儒略日（Meeus）',
+  lYC:'// 年柱 — 60甲子，基准甲子=1984',
+  lYS:'年干 = (%Y − 4) mod 10 = %si → %sc',
+  lYB:'年支 = (%Y − 4) mod 12 = %bi → %bc',
+  lMC:'// 月柱 — 节气 %tn（黄经 %tl°）',
+  lMB:'月支 = seq[%mi] = %bi → %bc',
+  lMS:'月干 = 基准(%ys) + %mi = %si → %sc',
+  lDC:'// 日柱 — 参考：戊午（序号54）JD 2451545',
+  lDF:'日序 = (%jd − 2451545 + 54) mod 60 = %di',
+  lHC:'// 时柱 — TSR %rst',
+  lHB:'时支 = ⌊(%rh + 1) / 2⌋ mod 12 = %bi → %bc（%hrs）',
+  lHS:'时干 = 基准(%ds) + %hi = %si → %sc',
+  lRC:'// TSR = 时钟 + 经度修正 + 时差方程 + 夏令时',
+  lRF:'TSR = %ct + %lc\' + %eot\' + %dst\' = %rst',
+},
+es:{
+  flag:'🇪🇸', lbl:'ES',
+  title:'Datos de Nacimiento', date:'Fecha', year:'Año', month:'Mes', day:'Día',
+  time:'Hora (00:00 – 23:59)', city:'Lugar de Nacimiento',
+  cityPH:'ej: Buenos Aires, Argentina',
+  long:'Longitud', lat:'Latitud', tz:'Zona Horaria (GMT)',
+  dst:'Horario de Verano (DST)', rstLbl:'Tiempo Solar Real',
+  clk:'Reloj', corr:'Corrección',
+  calc:'Calcular Cuatro Pilares',
+  etitle:'Motor de Cálculo BaZi',
+  esub:'Ingresa los datos de nacimiento y haz clic en Calcular para generar los Cuatro Pilares basados en el Tiempo Solar Real y los Términos Solares astronómicos.',
+  errFill:'⚠ Por favor, completa todos los campos.',
+  secPil:'四柱 — Los Cuatro Pilares', secLog:'Registro de Cálculo',
+  pH:'Hora · 时', pD:'Día · 日 ★', pM:'Mes · 月', pY:'Año · 年',
+  dm:'Maestro del Día · 日主', dmSub:'Pilar central del mapa BaZi',
+  rst:'Tiempo Solar Real · TSR',
+  yr:'Año BaZi · 八字年', yrSub:'Cambia en 立春 (~4 Feb)',
+  sun:'Longitud Solar', sunSub:'Calculada por fórmula de Meeus',
+  terms:'Términos Solares de %y — indicador del mes BaZi',
+  acc:'<strong>Precisión astronómica:</strong> Longitud solar por Meeus ±0.01° (~15 s). Términos Solares por bisección ±1 s. Referencia del día verificada: 戊午 = 1 Ene 2000.',
+  el:{Wood:'Madera',Fire:'Fuego',Earth:'Tierra',Metal:'Metal',Water:'Agua'},
+  yang:'Yang', yin:'Yin',
+  lTitle:'// Registro de cálculo — %d/%m/%y',
+  lSun:'// Longitud eclíptica del Sol el %d/%m/%y',
+  lJD:'// Número de Día Juliano (Meeus) para %d/%m/%y mediodía',
+  lYC:'// Pilar del Año — ciclo 60 desde 甲子 = 1984',
+  lYS:'troncoAño = (%Y − 4) mod 10 = %si → %sc',
+  lYB:'ramaAño = (%Y − 4) mod 12 = %bi → %bc',
+  lMC:'// Pilar del Mes — término %tn (lon %tl°)',
+  lMB:'ramaMes = seq[%mi] = %bi → %bc',
+  lMS:'troncoMes = base(%ys) + %mi = %si → %sc',
+  lDC:'// Pilar del Día — ref: 戊午 (idx 54) en JD 2451545',
+  lDF:'idxDía = (%jd − 2451545 + 54) mod 60 = %di',
+  lHC:'// Pilar de la Hora — TSR %rst',
+  lHB:'ramaHora = ⌊(%rh + 1) / 2⌋ mod 12 = %bi → %bc (%hrs)',
+  lHS:'troncoHora = base(%ds) + %hi = %si → %sc',
+  lRC:'// TSR = reloj + corrLong + EoT + DST',
+  lRF:'TSR = %ct + %lc\' + %eot\' + %dst\' = %rst',
+},
+pt:{
+  flag:'🇧🇷', lbl:'PT',
+  title:'Dados de Nascimento', date:'Data', year:'Ano', month:'Mês', day:'Dia',
+  time:'Hora (00:00 – 23:59)', city:'Local de Nascimento',
+  cityPH:'ex: São Paulo, Brasil',
+  long:'Longitude', lat:'Latitude', tz:'Fuso Horário (GMT)',
+  dst:'Ajuste de Horário de Verão (DST)', rstLbl:'Tempo Solar Real',
+  clk:'Relógio', corr:'Correção',
+  calc:'Calcular Quatro Pilares',
+  etitle:'Motor de Cálculo BaZi',
+  esub:'Preencha os dados e clique em Calcular para gerar os Quatro Pilares com base no Tempo Solar Real e nos Termos Solares astronômicos.',
+  errFill:'⚠ Preencha todos os campos corretamente.',
+  secPil:'四柱 — Os Quatro Pilares', secLog:'Log do Cálculo',
+  pH:'Hora · 时', pD:'Dia · 日 ★', pM:'Mês · 月', pY:'Ano · 年',
+  dm:'Mestre do Dia · 日主', dmSub:'Pilar central do mapa BaZi',
+  rst:'Tempo Solar Real · TSR',
+  yr:'Ano BaZi · 八字年', yrSub:'Muda em 立春 (~4 Fev)',
+  sun:'Longitude Solar', sunSub:'Calculada pela fórmula de Meeus',
+  terms:'Termos Solares de %y — indicador do mês BaZi',
+  acc:'<strong>Precisão astronômica:</strong> Longitude solar pela fórmula de Meeus ±0.01° (~15 s). Termos Solares por bissecção ±1 s. Referência do pilar do dia verificada: 戊午 = 1 Jan 2000.',
+  el:{Wood:'Madeira',Fire:'Fogo',Earth:'Terra',Metal:'Metal',Water:'Água'},
+  yang:'Yang', yin:'Yin',
+  lTitle:'// Log do cálculo — %d/%m/%y',
+  lSun:'// Longitude eclíptica do Sol em %d/%m/%y',
+  lJD:'// Número do Dia Juliano (Meeus) para %d/%m/%y ao meio-dia',
+  lYC:'// Pilar do Ano — ciclo 60 desde 甲子 = 1984',
+  lYS:'troncoAno = (%Y − 4) mod 10 = %si → %sc',
+  lYB:'ramoAno = (%Y − 4) mod 12 = %bi → %bc',
+  lMC:'// Pilar do Mês — termo %tn (lon %tl°)',
+  lMB:'ramoMes = seq[%mi] = %bi → %bc',
+  lMS:'troncoMes = base(%ys) + %mi = %si → %sc',
+  lDC:'// Pilar do Dia — ref: 戊午 (idx 54) em JD 2451545',
+  lDF:'idxDia = (%jd − 2451545 + 54) mod 60 = %di',
+  lHC:'// Pilar da Hora — TSR %rst',
+  lHB:'ramoHora = ⌊(%rh + 1) / 2⌋ mod 12 = %bi → %bc (%hrs)',
+  lHS:'troncoHora = base(%ds) + %hi = %si → %sc',
+  lRC:'// TSR = relógio + corrLong + EoT + DST',
+  lRF:'TSR = %ct + %lc\' + %eot\' + %dst\' = %rst',
+},
+};
+
+function t(k){ return (T[LANG]||T.pt)[k]||k; }
+function te(e){ var n=T[LANG]; return (n&&n.el&&n.el[e])?n.el[e]:e; }
+function tp(p){ return p==='Yang'?t('yang'):t('yin'); }
+function tpl(key,map){
+  var s=t(key);
+  Object.keys(map).forEach(function(k){s=s.split(k).join(map[k]);});
+  return s;
+}
+
+function applyLang(code){
+  LANG=code;
+  var n=T[code]||T.pt;
+  document.documentElement.lang=code;
+  document.body.style.fontFamily=code==='zh'
+    ?"'Noto Sans SC','Noto Sans',sans-serif"
+    :"'Noto Sans',sans-serif";
+  document.getElementById('langFlag').textContent=n.flag;
+  document.getElementById('langLabel').textContent=n.lbl;
+  document.querySelectorAll('.lang-opt').forEach(function(o){
+    o.classList.toggle('active',o.dataset.lang===code);
+    o.tabIndex=o.dataset.lang===code?0:-1;
+  });
+  var map={
+    uiTitle:'title',uiDate:'date',uiYear:'year',uiMonth:'month',uiDay:'day',
+    uiTime:'time',uiCity:'city',uiLong:'long',uiLat:'lat',uiTZ:'tz',
+    uiDST:'dst',uiRSTLbl:'rstLbl',uiCalc:'calc',
+    uiEmpTitle:'etitle',uiEmpSub:'esub'
+  };
+  Object.keys(map).forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.textContent=n[map[id]]||'';
+  });
+  var ci=document.getElementById('inCity');
+  if(ci)ci.placeholder=n.cityPH||'';
+  updateRST();
+  updateLocPrev();
+}
+
+/* ══════════════════════════════════════
+   THEME
+══════════════════════════════════════ */
+var dark=true;
+document.getElementById('themeBtn').addEventListener('click',function(){
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  document.getElementById('themeIcon').textContent=dark?'☀️':'🌙';
+});
+
+/* ══════════════════════════════════════
+   LANGUAGE DROPDOWN
+══════════════════════════════════════ */
+var lWrap=document.getElementById('langWrap');
+var lBtn=document.getElementById('langBtn');
+function openL(){lWrap.classList.add('open');lBtn.setAttribute('aria-expanded','true');var f=lWrap.querySelector('.lang-opt');if(f)f.focus();}
+function closeL(){lWrap.classList.remove('open');lBtn.setAttribute('aria-expanded','false');}
+lBtn.addEventListener('click',function(e){e.stopPropagation();lWrap.classList.contains('open')?closeL():openL();});
+lBtn.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '||e.key==='ArrowDown'){e.preventDefault();openL();}if(e.key==='Escape')closeL();});
+document.addEventListener('click',function(e){if(!e.target.closest('#langWrap'))closeL();});
+document.querySelectorAll('.lang-opt[data-lang]').forEach(function(b){
+  b.addEventListener('click',function(){applyLang(this.dataset.lang);closeL();lBtn.focus();});
+  b.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();applyLang(this.dataset.lang);closeL();lBtn.focus();}
+    if(e.key==='Escape'){closeL();lBtn.focus();}
+    if(e.key==='ArrowDown'){e.preventDefault();var n=this.nextElementSibling;if(n)n.focus();}
+    if(e.key==='ArrowUp'){e.preventDefault();var p=this.previousElementSibling;if(p)p.focus();}
+  });
+});
+
+/* ══════════════════════════════════════
+   ASTRONOMICAL CORE  (Meeus 1991)
+══════════════════════════════════════ */
+function toJD(y,m,d,h){
+  if(h===undefined)h=12;
+  if(m<=2){y--;m+=12;}
+  var A=Math.floor(y/100),B=2-A+Math.floor(A/4);
+  return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5+h/24;
+}
+function fromJD(jd){
+  var z=Math.floor(jd+.5),f=jd+.5-z,A=z;
+  if(z>=2299161){var a=Math.floor((z-1867216.25)/36524.25);A=z+1+a-Math.floor(a/4);}
+  var B=A+1524,C=Math.floor((B-122.1)/365.25),D=Math.floor(365.25*C),E=Math.floor((B-D)/30.6001);
+  var d=B-D-Math.floor(30.6001*E),m=E<14?E-1:E-13,y=m>2?C-4716:C-4715;
+  return{year:y,month:m,day:d,hours:f*24};
+}
+function sunLon(jd){
+  var T=(jd-2451545)/36525,T2=T*T;
+  var L0=((280.46646+36000.76983*T+.0003032*T2)%360+360)%360;
+  var M=((357.52911+35999.05029*T-.0001537*T2)%360+360)%360;
+  var Mr=M*Math.PI/180;
+  var C=(1.914602-.004817*T-.000014*T2)*Math.sin(Mr)+(0.019993-.000101*T)*Math.sin(2*Mr)+.000289*Math.sin(3*Mr);
+  var om=((125.04-1934.136*T)*Math.PI/180);
+  return(((L0+C-.00569-.00478*Math.sin(om))%360)+360)%360;
+}
+function findTermJD(lon,apx){
+  var lo=apx-18,hi=apx+18;
+  for(var i=0;i<64;i++){
+    var mid=(lo+hi)/2,d=sunLon(mid)-lon;
+    if(d>180)d-=360;if(d<-180)d+=360;
+    if(d>0)hi=mid;else lo=mid;
+    if(hi-lo<1e-6)break;
+  }
+  return(lo+hi)/2;
+}
+var _tc={};
+function termJD(lon,y){
+  var k=lon+':'+y;
+  if(!_tc[k]){
+    var dy=((lon+360)%360)/360*365.25,adj=(dy+79)%365.25;
+    _tc[k]=findTermJD(lon,toJD(y,1,1,12)+adj);
+  }
+  return _tc[k];
+}
+
+/* ══════════════════════════════════════
+   CHINESE DATA
+══════════════════════════════════════ */
+var ST=[
+  {zh:'甲',py:'Jiǎ',el:'Wood',po:'Yang'},{zh:'乙',py:'Yǐ', el:'Wood',po:'Yin'},
+  {zh:'丙',py:'Bǐng',el:'Fire',po:'Yang'},{zh:'丁',py:'Dīng',el:'Fire',po:'Yin'},
+  {zh:'戊',py:'Wù', el:'Earth',po:'Yang'},{zh:'己',py:'Jǐ', el:'Earth',po:'Yin'},
+  {zh:'庚',py:'Gēng',el:'Metal',po:'Yang'},{zh:'辛',py:'Xīn',el:'Metal',po:'Yin'},
+  {zh:'壬',py:'Rén',el:'Water',po:'Yang'},{zh:'癸',py:'Guǐ',el:'Water',po:'Yin'},
+];
+var EB=[
+  {zh:'子',py:'Zǐ',  el:'Water',po:'Yang',an:'Rat',    hr:'23–01'},
+  {zh:'丑',py:'Chǒu',el:'Earth',po:'Yin', an:'Ox',     hr:'01–03'},
+  {zh:'寅',py:'Yín', el:'Wood', po:'Yang',an:'Tiger',  hr:'03–05'},
+  {zh:'卯',py:'Mǎo', el:'Wood', po:'Yin', an:'Rabbit', hr:'05–07'},
+  {zh:'辰',py:'Chén',el:'Earth',po:'Yang',an:'Dragon', hr:'07–09'},
+  {zh:'巳',py:'Sì',  el:'Fire', po:'Yin', an:'Snake',  hr:'09–11'},
+  {zh:'午',py:'Wǔ',  el:'Fire', po:'Yang',an:'Horse',  hr:'11–13'},
+  {zh:'未',py:'Wèi', el:'Earth',po:'Yin', an:'Goat',   hr:'13–15'},
+  {zh:'申',py:'Shēn',el:'Metal',po:'Yang',an:'Monkey', hr:'15–17'},
+  {zh:'酉',py:'Yǒu', el:'Metal',po:'Yin', an:'Rooster',hr:'17–19'},
+  {zh:'戌',py:'Xū',  el:'Earth',po:'Yang',an:'Dog',    hr:'19–21'},
+  {zh:'亥',py:'Hài', el:'Water',po:'Yin', an:'Pig',    hr:'21–23'},
+];
+var MT=[
+  {l:315,n:'立春',py:'Lì Chūn'  },{l:345,n:'惊蛰',py:'Jīng Zhé'},
+  {l: 15,n:'清明',py:'Qīng Míng'},{l: 45,n:'立夏',py:'Lì Xià'  },
+  {l: 75,n:'芒种',py:'Máng Zhòng'},{l:105,n:'小暑',py:'Xiǎo Shǔ'},
+  {l:135,n:'立秋',py:'Lì Qiū'  },{l:165,n:'白露',py:'Bái Lù'  },
+  {l:195,n:'寒露',py:'Hán Lù'  },{l:225,n:'立冬',py:'Lì Dōng' },
+  {l:255,n:'大雪',py:'Dà Xuě'  },{l:285,n:'小寒',py:'Xiǎo Hán'},
+];
+var MBS=[2,3,4,5,6,7,8,9,10,11,0,1];
+var YMS=[2,4,6,8,0,2,4,6,8,0];
+var DHS=[0,2,4,6,8,0,2,4,6,8];
+var TG={
+  ss:{zh:'比肩',py:'Bǐ Jiān'},   sd:{zh:'劫财',py:'Jié Cái'},
+  os:{zh:'食神',py:'Shí Shén'},  od:{zh:'伤官',py:'Shāng Guān'},
+  is:{zh:'偏印',py:'Piān Yìn'},  id:{zh:'正印',py:'Zhèng Yìn'},
+  cs:{zh:'偏财',py:'Piān Cái'},  cd:{zh:'正财',py:'Zhèng Cái'},
+  ks:{zh:'七杀',py:'Qī Shā'},    kd:{zh:'正官',py:'Zhèng Guān'},
+};
+function tenGod(dm,o){
+  if(dm<0||o<0)return null;
+  var de=Math.floor(dm/2),oe=Math.floor(o/2),sp=dm%2===o%2;
+  var g=(de+1)%5,gm=(de+4)%5,c=(de+3)%5,cm=(de+2)%5;
+  if(oe===de)return TG[sp?'ss':'sd'];
+  if(oe===g) return TG[sp?'os':'od'];
+  if(oe===gm)return TG[sp?'is':'id'];
+  if(oe===c) return TG[sp?'cs':'cd'];
+  if(oe===cm)return TG[sp?'ks':'kd'];
+  return null;
+}
+
+/* ══════════════════════════════════════
+   HIDDEN STEMS (藏干 Cáng Gān)
+   1-based index: principal, middle, residual
+══════════════════════════════════════ */
+var HIDDEN=[
+  [9],          // 子 Zǐ   → 癸
+  [5,9,7],      // 丑 Chǒu → 己,癸,辛
+  [0,2,4],      // 寅 Yín  → 甲,丙,戊
+  [1],          // 卯 Mǎo  → 乙
+  [4,1,9],      // 辰 Chén → 戊,乙,癸
+  [2,6,4],      // 巳 Sì   → 丙,庚,戊
+  [3,5],        // 午 Wǔ   → 丁,己
+  [5,3,1],      // 未 Wèi  → 己,丁,乙
+  [6,8,4],      // 申 Shēn → 庚,壬,戊
+  [7],          // 酉 Yǒu  → 辛
+  [4,7,3],      // 戌 Xū   → 戊,辛,丁
+  [8,0],        // 亥 Hài  → 壬,甲
+];
+var HS_ROLES=['主','中','餘'];
+
+/* find sexagenary index 0–59 from stem+branch */
+function sexIdx(si,bi){
+  for(var i=0;i<60;i++){if(i%10===si&&i%12===bi)return i;}
+  return 0;
+}
+function pillarFromSexIdx(i){i=((i%60)+60)%60;return{si:i%10,bi:i%12};}
+
+/* ══════════════════════════════════════
+   GRANDES CICLOS (大運 Dà Yùn)
+══════════════════════════════════════ */
+function calcDayun(birthJD,birthHour,yearStemIdx,monthSI,monthBI,gender,birthYear){
+  /* direction: Yang year + Male = forward; Yin year + Female = forward */
+  var yangYear=(yearStemIdx%2===0);
+  var male=(gender==='m');
+  var forward=(yangYear&&male)||(!yangYear&&!male);
+
+  /* find nearest relevant Solar Term */
+  /* We need to search months around birth */
+  var bestJD=-1,minDist=9999;
+  var birthFull=birthJD+(birthHour/24);
+  for(var yr=birthYear-1;yr<=birthYear+1;yr++){
+    for(var ti=0;ti<12;ti++){
+      var tjd=termJD(MT[ti].l,yr);
+      var dist=tjd-birthFull;
+      if(forward&&dist>0&&dist<minDist){minDist=dist;bestJD=tjd;}
+      if(!forward&&dist<0&&-dist<minDist){minDist=-dist;bestJD=tjd;}
+    }
+  }
+  if(bestJD<0){bestJD=birthFull+(forward?90:-90);}
+
+  var distDays=Math.abs(bestJD-birthFull);
+  var fullYears=Math.floor(distDays/3);
+  var remDays=(distDays%3)*30/3;  /* leftover converted to months */
+  var remMonths=Math.round(remDays);
+  var startAge=fullYears+(remMonths/12);
+
+  var mIdx=sexIdx(monthSI,monthBI);
+  var dir=forward?1:-1;
+
+  var cycles=[];
+  for(var n=1;n<=8;n++){
+    var p=pillarFromSexIdx(mIdx+n*dir);
+    var ageStart=startAge+(n-1)*10;
+    var ageEnd=ageStart+9.99;
+    cycles.push({
+      num:n, si:p.si, bi:p.bi,
+      ageStart:ageStart, ageEnd:ageEnd,
+      startYr:Math.round(birthYear+ageStart)
+    });
+  }
+  return{cycles:cycles,startAge:startAge,startYr:Math.round(birthYear+startAge),forward:forward};
+}
+
+/* ══════════════════════════════════════
+   BRANCH INTERACTIONS (地支關係)
+══════════════════════════════════════ */
+var PILLAR_NAMES=['年','月','日','時']; // year,month,day,hour
+var LIU_HE=[ /* [b1,b2,element] */
+  [0,1,'Terra'],[2,11,'Madeira'],[3,10,'Fogo'],
+  [4,9,'Metal'],[5,8,'Água'],[6,7,'Terra']
+];
+var SAN_HE=[ /* [b1,b2,b3,element] */
+  [2,6,10,'Fogo'],[5,9,1,'Metal'],[8,0,4,'Água'],[11,3,7,'Madeira']
+];
+var LIU_CHONG=[[0,6],[1,7],[2,8],[3,9],[4,10],[5,11]];
+var LIU_HAI=[[0,7],[1,6],[2,5],[3,4],[8,11],[9,10]];
+var SAN_XING=[
+  {type:'arrogância',branches:[2,5,8]},
+  {type:'ingratidão',branches:[1,10,7]},
+  {type:'autopunição',branches:[0,3]},
+];
+var SELF_PEN=[4,6,9,11]; // 辰午酉亥 — self-penalty
+
+function detectInteractions(branches){
+  /* branches = [yb,mb,db,hb] */
+  var res={liuhe:[],sanhe:[],liuchong:[],liuhai:[],sanxing:[]};
+  var posName=['Ano','Mês','Dia','Hora'];
+
+  /* 6 Harmonias */
+  LIU_HE.forEach(function(rule){
+    var found=[];
+    for(var i=0;i<4;i++){for(var j=i+1;j<4;j++){
+      if((branches[i]===rule[0]&&branches[j]===rule[1])||(branches[i]===rule[1]&&branches[j]===rule[0])){
+        found.push({a:i,b:j,el:rule[2]});
+      }
+    }}
+    found.forEach(function(f){
+      res.liuhe.push({chars:EB[branches[f.a]].zh+EB[branches[f.b]].zh,
+        pos:posName[f.a]+'+'+posName[f.b],el:f.el,
+        py:EB[branches[f.a]].py+' + '+EB[branches[f.b]].py});
+    });
+  });
+
+  /* 3 Harmonias */
+  SAN_HE.forEach(function(rule){
+    var idx=[];
+    for(var i=0;i<4;i++){
+      if(branches[i]===rule[0]||branches[i]===rule[1]||branches[i]===rule[2])idx.push(i);
+    }
+    if(idx.length>=3){
+      res.sanhe.push({
+        chars:idx.map(function(i){return EB[branches[i]].zh;}).join(''),
+        pos:idx.map(function(i){return posName[i];}).join('+'),
+        el:rule[3]
+      });
+    }
+    /* partial (2 of 3) */
+    if(idx.length===2){
+      res.sanhe.push({
+        chars:idx.map(function(i){return EB[branches[i]].zh;}).join(''),
+        pos:idx.map(function(i){return posName[i];}).join('+'),
+        el:rule[3], partial:true
+      });
+    }
+  });
+
+  /* 6 Choques */
+  LIU_CHONG.forEach(function(pair){
+    for(var i=0;i<4;i++){for(var j=i+1;j<4;j++){
+      if((branches[i]===pair[0]&&branches[j]===pair[1])||(branches[i]===pair[1]&&branches[j]===pair[0])){
+        res.liuchong.push({
+          chars:EB[branches[i]].zh+'↔'+EB[branches[j]].zh,
+          pos:posName[i]+'/'+posName[j],
+          py:EB[branches[i]].py+' ↔ '+EB[branches[j]].py
+        });
+      }
+    }}
+  });
+
+  /* 6 Danos */
+  LIU_HAI.forEach(function(pair){
+    for(var i=0;i<4;i++){for(var j=i+1;j<4;j++){
+      if((branches[i]===pair[0]&&branches[j]===pair[1])||(branches[i]===pair[1]&&branches[j]===pair[0])){
+        res.liuhai.push({
+          chars:EB[branches[i]].zh+'·'+EB[branches[j]].zh,
+          pos:posName[i]+'/'+posName[j],
+          py:EB[branches[i]].py+' · '+EB[branches[j]].py
+        });
+      }
+    }}
+  });
+
+  /* 3 Penalidades */
+  SAN_XING.forEach(function(rule){
+    var idx=[];
+    for(var i=0;i<4;i++){if(rule.branches.indexOf(branches[i])>=0)idx.push(i);}
+    if(idx.length>=2){
+      res.sanxing.push({
+        chars:idx.map(function(i){return EB[branches[i]].zh;}).join(''),
+        pos:idx.map(function(i){return posName[i];}).join('+'),
+        type:rule.type
+      });
+    }
+  });
+  SELF_PEN.forEach(function(b){
+    var cnt=0;
+    for(var i=0;i<4;i++){if(branches[i]===b)cnt++;}
+    if(cnt>=2){
+      res.sanxing.push({
+        chars:EB[b].zh+EB[b].zh, pos:'autopunição', type:'auto'
+      });
+    }
+  });
+
+  return res;
+}
+
+
+══════════════════════════════════════ */
+function yearPil(jd){
+  var y=fromJD(jd).year;
+  if(jd<termJD(315,y))y--;
+  return{si:((y-4)%10+10)%10,bi:((y-4)%12+12)%12,by:y};
+}
+function monthPil(jd){
+  var y=fromJD(jd).year,mi=-1;
+  for(var yr=y;yr>=y-1;yr--){
+    for(var i=11;i>=0;i--){if(jd>=termJD(MT[i].l,yr)){mi=i;break;}}
+    if(mi>=0)break;
+  }
+  if(mi<0)mi=0;
+  var bi=MBS[mi],ys=yearPil(jd).si,si=(YMS[ys]+mi)%10;
+  return{si:si,bi:bi,mi:mi};
+}
+function dayPil(jd){
+  var idx=((Math.round(jd)-2451545+54)%60+60)%60;
+  return{si:idx%10,bi:idx%12,idx:idx};
+}
+function hourPil(rh,ds){
+  var bi=Math.floor(((rh+1)%24)/2);
+  return{si:(DHS[ds]+bi)%10,bi:bi};
+}
+
+/* ══════════════════════════════════════
+   RST
+══════════════════════════════════════ */
+function doy(y,m,d){
+  var md=[31,28+(((y%4===0&&y%100!==0)||y%400===0)?1:0),31,30,31,30,31,31,30,31,30,31],n=d;
+  for(var i=0;i<m-1;i++)n+=md[i];return n;
+}
+function eot(y,m,d){
+  var B=(360/365)*(doy(y,m,d)-81)*(Math.PI/180);
+  return 9.87*Math.sin(2*B)-7.53*Math.cos(B)-1.5*Math.sin(B);
+}
+function calcRST(y,m,d,hh,mm,lo,tz,dst){
+  var tot=hh*60+mm,lc=(lo-tz*15)*4,e=eot(y,m,d),dc=dst?-60:0;
+  var r=tot+lc+e+dc;
+  while(r<0)r+=1440;while(r>=1440)r-=1440;
+  return{h:Math.floor(r/60),m:Math.floor(r%60),lc:lc,e:e,dc:dc,corr:lc+e+dc};
+}
+function p2(n){return String(Math.floor(n)).padStart(2,'0');}
+function ft(h,m){return p2(h)+':'+p2(m);}
+function sgn(n){return(n>=0?'+':'')+n.toFixed(1);}
+
+/* ══════════════════════════════════════
+   ELEMENT BADGES
+══════════════════════════════════════ */
+var ES={
+  Wood: {bg:'rgba(74,124,78,.2)',   tx:'#7dba82'},
+  Fire: {bg:'rgba(176,58,46,.2)',   tx:'#e05c4a'},
+  Earth:{bg:'rgba(139,105,20,.18)', tx:'#c9a84c'},
+  Metal:{bg:'rgba(110,125,138,.18)',tx:'#b0bec5'},
+  Water:{bg:'rgba(36,113,163,.18)', tx:'#5b9fc9'},
+};
+function badge(el){
+  var c=ES[el]||{};
+  return'<span class="p-elem" style="background:'+c.bg+';color:'+c.tx+'">'+te(el)+'</span>';
+}
+
+/* ══════════════════════════════════════
+   PILLAR CARD
+══════════════════════════════════════ */
+function pilCard(hdr,si,bi,dm,isDay){
+  if(si<0)return'<div class="pillar-card"><div class="pillar-hd">—</div></div>';
+  var s=ST[si],b=EB[bi],g=(!isDay&&dm>=0)?tenGod(dm,si):null;
+  /* hidden stems */
+  var hs=HIDDEN[bi]||[];
+  var hsHtml='';
+  if(hs.length){
+    hsHtml='<div class="p-hidden"><span class="p-hidden-lbl">藏干</span>';
+    hs.forEach(function(hsi,idx){
+      var hs_s=ST[hsi];
+      var hs_c=ES[hs_s.el]||{};
+      var hs_g=(dm>=0)?tenGod(dm,hsi):null;
+      hsHtml+='<div class="hs-row">'
+        +'<span class="hs-char" style="color:'+hs_c.tx+'">'+hs_s.zh+'</span>'
+        +'<span class="hs-py">'+hs_s.py+'</span>'
+        +'<span class="hs-role">'+HS_ROLES[idx]+'</span>'
+        +(hs_g?'<span class="hs-god">'+hs_g.zh+'</span>':'')
+        +'</div>';
+    });
+    hsHtml+='</div>';
+  }
+  return'<div class="pillar-card">'
+    +'<div class="pillar-hd'+(isDay?' active':'')+'">'+hdr+'</div>'
+    +'<div class="p-stem">'
+      +'<span class="p-char">'+s.zh+'</span>'
+      +'<span class="p-py">'+s.py+'</span>'
+      +badge(s.el)
+      +'<span class="p-py" style="margin-top:3px">'+tp(s.po)+'</span>'
+      +(g?'<span class="p-god">'+g.zh+' '+g.py+'</span>':'')
+    +'</div>'
+    +'<div class="p-branch">'
+      +'<span class="p-char">'+b.zh+'</span>'
+      +'<span class="p-py">'+b.py+'</span>'
+      +badge(b.el)
+      +'<span class="p-py" style="margin-top:3px">'+b.an+' · '+tp(b.po)+'</span>'
+    +'</div>'
+    +hsHtml
+  +'</div>';
+}
+
+/* ══════════════════════════════════════
+   TRANSLATED LOG BUILDER
+══════════════════════════════════════ */
+function buildLog(p){
+  var mt=MT[p.mi]||MT[0];
+  function L(key,map){
+    var s=tpl(key,map||{});
+    if(s.trim().indexOf('//')===0)
+      return'<p class="fl"><span class="hc">'+s+'</span></p>';
+    if(s.indexOf(' = ')!==-1){
+      var parts=s.split(' = ');
+      return'<p class="fl"><span class="hg">'+parts[0]+'</span>'
+        +' = <span class="hv">'+parts.slice(1).join(' = ')+'</span></p>';
+    }
+    return'<p class="fl">'+s+'</p>';
+  }
+  return[
+    L('lTitle',{'%d':p2(p.d),'%m':p2(p.m),'%y':p.y}),
+    '<br>',
+    L('lSun', {'%d':p2(p.d),'%m':p2(p.m),'%y':p.y}),
+    '<p class="fl"><span class="hg">sunLon</span> = <span class="hv">'+p.sunL.toFixed(4)+'°</span></p>',
+    '<br>',
+    L('lJD',  {'%d':p2(p.d),'%m':p2(p.m),'%y':p.y}),
+    '<p class="fl"><span class="hg">JD</span> = <span class="hv">'+p.jd.toFixed(1)+'</span></p>',
+    '<br>',
+    L('lYC'),
+    L('lYS',{'%Y':p.by,'%si':p.ys,'%sc':ST[p.ys].zh}),
+    L('lYB',{'%Y':p.by,'%bi':p.yb,'%bc':EB[p.yb].zh}),
+    '<br>',
+    L('lMC',{'%tn':mt.n,'%tl':mt.l}),
+    L('lMB',{'%mi':p.mi,'%bi':p.mb,'%bc':EB[p.mb].zh}),
+    L('lMS',{'%ys':p.ys,'%mi':p.mi,'%si':p.ms,'%sc':ST[p.ms].zh}),
+    '<br>',
+    L('lDC'),
+    L('lDF',{'%jd':Math.round(p.jd),'%di':p.di}),
+    '<br>',
+    L('lHC',{'%rst':ft(p.rst.h,p.rst.m)}),
+    L('lHB',{'%rh':p.rst.h,'%bi':p.hb,'%bc':EB[p.hb].zh,'%hrs':EB[p.hb].hr}),
+    L('lHS',{'%ds':p.ds,'%hi':p.hb,'%si':p.hs,'%sc':ST[p.hs].zh}),
+    '<br>',
+    L('lRC'),
+    L('lRF',{'%ct':ft(p.ch,p.cm),'%lc':sgn(p.rst.lc),'%eot':sgn(p.rst.e),'%dst':p.rst.dc,'%rst':ft(p.rst.h,p.rst.m)}),
+  ].join('');
+}
+
+/* ══════════════════════════════════════
+   NOMINATIM GEOCODING
+   openstreetmap.org — sem chave de API
+   Limite: 1 req/seg (respeitado via debounce)
+══════════════════════════════════════ */
+
+/* Tabela de offset UTC por country_code.
+   Casos complexos (EUA, Rússia, Austrália) usam a longitude. */
+var TZ_CC = {
+  br:-3, pt:0, es:1, fr:1, de:1, it:1, nl:1, be:1, ch:1, at:1,
+  pl:1, cz:1, sk:1, hu:1, ro:2, bg:2, gr:2, fi:2, ee:2, lv:2, lt:2,
+  dk:1, no:1, se:1, ie:0, gb:0, is:0,
+  ua:2, md:2, by:3, tr:3,
+  ma:1, dz:1, tn:1, ly:2, eg:2, ng:1, gh:0, sn:0, ci:0, ke:3, za:2, tz:3,
+  sa:3, ye:3, kw:3, iq:3, jo:2, lb:2, il:2, sy:2, cy:2,
+  ir:3.5, pk:5, in:5.5, np:5.75, lk:5.5, bd:6, mm:6.5,
+  th:7, vn:7, kh:7, la:7, id:7, cn:8, hk:8, tw:8, ph:8, my:8, sg:8,
+  kr:9, jp:9, nz:12,
+  co:-5, ve:-4, pe:-5, cl:-4, ar:-3, bo:-4, py:-4, uy:-3, ec:-5,
+  mx:-6, gt:-6, cr:-6, pa:-5, cu:-5, do:-4, jm:-5,
+};
+
+function tzFromCoords(lat, lon, cc) {
+  cc = (cc || '').toLowerCase();
+  if (cc === 'us' || cc === 'ca') {
+    if (lon < -150) return -10;
+    if (lon < -115) return -8;
+    if (lon < -101) return -7;
+    if (lon < -85)  return -6;
+    if (lon < -67)  return -5;
+    return -4;
+  }
+  if (cc === 'au') {
+    if (lon < 129) return 8;
+    if (lon < 138) return 9.5;
+    return 10;
+  }
+  if (cc === 'ru') {
+    if (lon < 40)  return 3;
+    if (lon < 55)  return 5;
+    if (lon < 73)  return 6;
+    if (lon < 85)  return 7;
+    if (lon < 97)  return 8;
+    if (lon < 115) return 9;
+    if (lon < 135) return 10;
+    if (lon < 150) return 11;
+    return 12;
+  }
+  if (TZ_CC[cc] !== undefined) return TZ_CC[cc];
+  return Math.round(lon / 15); // fallback geométrico
+}
+
+function setTZSelect(offset) {
+  var sel = document.getElementById('inTZ');
+  /* tentativa exata */
+  for (var i = 0; i < sel.options.length; i++) {
+    if (parseFloat(sel.options[i].value) === offset) { sel.value = String(offset); return; }
+  }
+  /* opção mais próxima */
+  var best = 0, bestD = 999;
+  for (var j = 0; j < sel.options.length; j++) {
+    var d = Math.abs(parseFloat(sel.options[j].value) - offset);
+    if (d < bestD) { bestD = d; best = j; }
+  }
+  sel.selectedIndex = best;
+}
+
+function escH(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* Debounce: espera 600 ms após o usuário parar de digitar */
+var _geoTimer = null;
+function geoDebounce(q) {
+  clearTimeout(_geoTimer);
+  if (!q || q.length < 2) { hideSug(); showSpin(false); return; }
+  showSpin(true);
+  _geoTimer = setTimeout(function() { geoFetch(q); }, 600);
+}
+
+function geoFetch(q) {
+  /* Nominatim User-Agent obrigatório pela política de uso */
+  var url = 'https://nominatim.openstreetmap.org/search'
+    + '?q=' + encodeURIComponent(q)
+    + '&format=json&limit=6&addressdetails=1'
+    + '&accept-language=' + LANG;
+
+  fetch(url, { headers: {'User-Agent':'BaZiCalculator/2.0 (educational)','Accept-Language':LANG} })
+    .then(function(r){ return r.json(); })
+    .then(function(data){ showSpin(false); renderSug(data); })
+    .catch(function(){ showSpin(false); renderSug([]); });
+}
+
+var NO_RES = {en:'No results',zh:'无结果',es:'Sin resultados',pt:'Sem resultados'};
+
+function renderSug(results) {
+  var box = document.getElementById('sugBox');
+  if (!box) return;
+  if (!results || results.length === 0) {
+    box.innerHTML = '<div class="sug-none">' + (NO_RES[LANG]||NO_RES.en) + '</div>';
+    box.style.display = 'block';
+    return;
+  }
+  var html = results.map(function(r, idx) {
+    var parts = r.display_name.split(', ');
+    var short = parts.slice(0, 4).join(', ');
+    var lat4  = parseFloat(r.lat).toFixed(4);
+    var lon4  = parseFloat(r.lon).toFixed(4);
+    return '<button class="sug-item" data-idx="' + idx + '" type="button" role="option">'
+      + '<span class="sug-name">' + escH(short) + '</span>'
+      + '<span class="sug-coords">' + lat4 + '°,  ' + lon4 + '°</span>'
+      + '</button>';
+  }).join('');
+  html += '<div class="sug-attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></div>';
+  box.innerHTML = html;
+  box.style.display = 'block';
+
+  results.forEach(function(r, idx) {
+    var btn = box.querySelector('[data-idx="' + idx + '"]');
+    if (btn) btn.addEventListener('click', function() { selectSug(r); });
+    if (btn) btn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectSug(r); }
+      if (e.key === 'ArrowDown') { e.preventDefault(); var n=this.nextElementSibling; if(n&&n.classList.contains('sug-item'))n.focus(); }
+      if (e.key === 'ArrowUp')   { e.preventDefault(); var p=this.previousElementSibling; if(p&&p.classList.contains('sug-item'))p.focus(); else document.getElementById('inCity').focus(); }
+      if (e.key === 'Escape')    { hideSug(); document.getElementById('inCity').focus(); }
+    });
+  });
+
+  /* foco no primeiro item com ArrowDown no campo */
+  document.getElementById('inCity').onkeydown = function(e) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      var first = box.querySelector('.sug-item');
+      if (first) first.focus();
+    }
+    if (e.key === 'Escape') hideSug();
+  };
+}
+
+function selectSug(r) {
+  var lat = parseFloat(r.lat);
+  var lon = parseFloat(r.lon);
+  var addr = r.address || {};
+  var cc   = addr.country_code || '';
+
+  /* preenche longitude e latitude */
+  document.getElementById('inLo').value = lon.toFixed(4);
+  document.getElementById('inLa').value = lat.toFixed(4);
+
+  /* nome legível: cidade + país */
+  var city    = addr.city || addr.town || addr.village || addr.county || addr.state || '';
+  var country = addr.country || '';
+  var display = (city && country) ? city + ', ' + country
+                : r.display_name.split(', ').slice(0, 2).join(', ');
+  document.getElementById('inCity').value = display;
+
+  /* fuso horário automático */
+  setTZSelect(tzFromCoords(lat, lon, cc));
+
+  hideSug();
+  updateLocPrev();
+  updateRST();
+}
+
+function hideSug() {
+  var box = document.getElementById('sugBox');
+  if (box) { box.style.display = 'none'; box.innerHTML = ''; }
+}
+
+function showSpin(on) {
+  var sp = document.getElementById('geoSpin');
+  if (sp) sp.style.opacity = on ? '1' : '0';
+}
+
+/* fecha sugestões ao clicar fora */
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.geo-wrap')) hideSug();
+});
+
+/* ══════════════════════════════════════
+   LOCATION PREVIEW
+══════════════════════════════════════ */
+function updateLocPrev(){
+  var c=(document.getElementById('inCity').value||'').trim();
+  var lo=parseFloat(document.getElementById('inLo').value);
+  var la=parseFloat(document.getElementById('inLa').value);
+  var pr=document.getElementById('locPrev');
+  if(pr)pr.textContent=(c&&!isNaN(lo)&&!isNaN(la))
+    ?c+' ('+la.toFixed(2)+', '+lo.toFixed(2)+')':'';
+}
+
+/* ══════════════════════════════════════
+   RST LIVE
+══════════════════════════════════════ */
+function getI(){
+  var tv=(document.getElementById('inT').value||'00:00').split(':');
+  var genderEl=document.getElementById('inGender');
+  return{
+    y:parseInt(document.getElementById('inY').value)||1990,
+    m:parseInt(document.getElementById('inM').value)||6,
+    d:parseInt(document.getElementById('inD').value)||15,
+    hh:parseInt(tv[0])||0, mm:parseInt(tv[1])||0,
+    lo:parseFloat(document.getElementById('inLo').value)||0,
+    la:parseFloat(document.getElementById('inLa').value)||0,
+    tz:parseFloat(document.getElementById('inTZ').value)||0,
+    dst:document.getElementById('inDST').checked,
+    city:(document.getElementById('inCity').value||'').trim(),
+    gender:genderEl?genderEl.value:'m',
+  };
+}
+function updateRST(){
+  var i=getI();
+  var r=calcRST(i.y,i.m,i.d,i.hh,i.mm,i.lo,i.tz,i.dst);
+  document.getElementById('rstBox').style.display='block';
+  document.getElementById('rstV').textContent=ft(r.h,r.m);
+  document.getElementById('rstD').innerHTML=
+    t('clk')+': '+ft(i.hh,i.mm)
+    +' &nbsp;|&nbsp; '+t('corr')+': '+sgn(r.corr)+' min<br>'
+    +'Lon: '+sgn(r.lc)+' min &nbsp;EoT: '+sgn(r.e)+' min &nbsp;DST: '+r.dc+' min';
+}
+
+/* ══════════════════════════════════════
+   MAIN CALC
+══════════════════════════════════════ */
+function runCalc(){
+  var i=getI();
+  if(isNaN(i.hh)||isNaN(i.mm)||i.m<1||i.m>12||i.d<1||i.d>31){
+    document.getElementById('results').innerHTML='<div class="err">'+t('errFill')+'</div>';
+    return;
+  }
+  var jd=toJD(i.y,i.m,i.d,12);
+  var rst=calcRST(i.y,i.m,i.d,i.hh,i.mm,i.lo,i.tz,i.dst);
+  var yP=yearPil(jd),mP=monthPil(jd),dP=dayPil(jd),hP=hourPil(rst.h+rst.m/60,dP.si);
+  var dm=dP.si,sl=sunLon(jd);
+
+  var tds=MT.map(function(mt,idx){
+    var tj=termJD(mt.l,i.y),td=fromJD(tj);
+    return{n:mt.n,jd:tj,date:td,past:jd>=tj,idx:idx};
+  });
+  var cti=tds.filter(function(x){return x.past;}).length-1;
+
+  var lp={
+    y:i.y,m:i.m,d:i.d,by:yP.by,jd:jd,sunL:sl,
+    ys:yP.si,yb:yP.bi,ms:mP.si,mb:mP.bi,mi:mP.mi,
+    ds:dP.si,db:dP.bi,di:dP.idx,hs:hP.si,hb:hP.bi,
+    ch:i.hh,cm:i.mm,rst:rst,
+  };
+
+  /* Grandes Ciclos */
+  var dy=calcDayun(jd,rst.h+rst.m/60,yP.si,mP.si,mP.bi,i.gender,i.y);
+  var currentAge=new Date().getFullYear()-i.y;
+
+  /* Interações */
+  var inter=detectInteractions([yP.bi,mP.bi,dP.bi,hP.bi]);
+
+  var locStr=i.city?(i.city+' ('+i.la.toFixed(2)+', '+i.lo.toFixed(2)+')'):t('sunSub');
+  var termTtl=tpl('terms',{'%y':i.y});
+
+  /* build dayun html */
+  function dyHtml(){
+    var dirLbl=dy.forward?'Crescente ⟳ (sequência natural)':'Decrescente ⟲ (sequência inversa)';
+    var h='<div class="dayun-meta">'
+      +'<div class="dy-info"><span class="dy-info-lbl">Início do 1º Ciclo</span>'
+        +'<span class="dy-info-val">~'+dy.startYr+' ('+dy.startAge.toFixed(1)+' anos)</span></div>'
+      +'<div class="dy-info"><span class="dy-info-lbl">Direção</span>'
+        +'<span class="dy-info-val">'+dirLbl+'</span></div>'
+      +'<div class="dy-info"><span class="dy-info-lbl">Referência</span>'
+        +'<span class="dy-info-val">Pilar do Mês ± n · 3 dias = 1 ano</span></div>'
+    +'</div>';
+    h+='<div class="dayun-grid">';
+    dy.cycles.forEach(function(c){
+      var isCur=(currentAge>=c.ageStart&&currentAge<c.ageStart+10);
+      var s=ST[c.si],b=EB[c.bi];
+      var hsb=HIDDEN[c.bi]||[];
+      h+='<div class="dy-card'+(isCur?' current-dy':'')+'"">'
+        +'<div class="dy-num">CICLO '+c.num+(isCur?' · ATUAL':'')+' </div>'
+        +'<div class="dy-age">'+Math.floor(c.ageStart)+'–'+Math.floor(c.ageStart+9)+'a · '+c.startYr+'</div>'
+        +'<div class="dy-char">'+s.zh+'<br>'+b.zh+'</div>'
+        +'<div class="dy-py">'+s.py+' '+b.py+'</div>'
+        +'<div class="dy-elem">'+badge(s.el)+badge(b.el)+'</div>'
+        +(hsb.length?'<div style="margin-top:6px;font-size:.58rem;color:var(--dim)">藏: '+hsb.map(function(hsi){return ST[hsi].zh;}).join(' ')+'</div>':'')
+      +'</div>';
+    });
+    h+='</div>';
+    return h;
+  }
+
+  /* build interactions html */
+  function interHtml(){
+    function section(title,items,renderFn){
+      var h='<div class="inter-card">'
+        +'<div class="inter-type">'+title+'</div>';
+      if(!items.length){
+        h+='<div class="inter-none">Nenhuma detectada</div>';
+      } else {
+        items.forEach(function(it){h+=renderFn(it);});
+      }
+      return h+'</div>';
+    }
+    var liuheH=section('六合 Liù Hé — 6 Harmonias',inter.liuhe,function(it){
+      return'<div class="inter-item">'
+        +'<span class="inter-chars">'+it.chars+'</span>'
+        +'<div><div class="inter-detail">'+it.py+'</div>'
+        +'<div class="inter-el">→ '+te(it.el)+'</div>'
+        +'<div class="inter-pos">'+it.pos+'</div></div>'
+      +'</div>';
+    });
+    var sanheH=section('三合 Sān Hé — 3 Harmonias',inter.sanhe,function(it){
+      return'<div class="inter-item">'
+        +'<span class="inter-chars">'+it.chars+'</span>'
+        +'<div><div class="inter-el">'+te(it.el)+' 局'+(it.partial?' (parcial)':'')+'</div>'
+        +'<div class="inter-pos">'+it.pos+'</div></div>'
+      +'</div>';
+    });
+    var chongH=section('六沖 Liù Chōng — 6 Choques',inter.liuchong,function(it){
+      return'<div class="inter-item">'
+        +'<span class="inter-chars" style="color:var(--water2)">'+it.chars+'</span>'
+        +'<div><div class="inter-detail">'+it.py+'</div>'
+        +'<div class="inter-pos">'+it.pos+'</div></div>'
+      +'</div>';
+    });
+    var haiH=section('六害 Liù Hài — 6 Danos',inter.liuhai,function(it){
+      return'<div class="inter-item">'
+        +'<span class="inter-chars" style="color:#c06040">'+it.chars+'</span>'
+        +'<div><div class="inter-detail">'+it.py+'</div>'
+        +'<div class="inter-pos">'+it.pos+'</div></div>'
+      +'</div>';
+    });
+    var xingH=section('三刑 Sān Xíng — 3 Penalidades',inter.sanxing,function(it){
+      return'<div class="inter-item">'
+        +'<span class="inter-chars" style="color:#b05080">'+it.chars+'</span>'
+        +'<div><div class="inter-detail">'+it.type+'</div>'
+        +'<div class="inter-pos">'+it.pos+'</div></div>'
+      +'</div>';
+    });
+    return'<div class="inter-grid">'+liuheH+sanheH+chongH+haiH+'</div>'
+      +'<div class="inter-grid">'+xingH+'</div>';
+  }
+
+  document.getElementById('results').innerHTML=
+    '<p class="sec-label">'+t('secPil')+'</p>'
+    +'<div class="pillars-grid">'
+      +pilCard(t('pH'),hP.si,hP.bi,dm,false)
+      +pilCard(t('pD'),dP.si,dP.bi,dm,true)
+      +pilCard(t('pM'),mP.si,mP.bi,dm,false)
+      +pilCard(t('pY'),yP.si,yP.bi,dm,false)
+    +'</div>'
+    +'<div class="info-grid">'
+      +'<div class="info-card"><p class="ic-title">'+t('dm')+'</p>'
+        +'<p class="ic-val">'+ST[dm].zh+' '+ST[dm].py+' — '+te(ST[dm].el)+' '+tp(ST[dm].po)+'</p>'
+        +'<p class="ic-sub">'+t('dmSub')+'</p></div>'
+      +'<div class="info-card"><p class="ic-title">'+t('rst')+'</p>'
+        +'<p class="ic-val">'+ft(rst.h,rst.m)+'</p>'
+        +'<p class="ic-sub">'+t('clk')+': '+ft(i.hh,i.mm)+' · '+t('corr')+': '+sgn(rst.corr)+' min</p></div>'
+      +'<div class="info-card"><p class="ic-title">'+t('yr')+'</p>'
+        +'<p class="ic-val">'+ST[yP.si].zh+EB[yP.bi].zh+' · '+yP.by+'</p>'
+        +'<p class="ic-sub">'+t('yrSub')+'</p></div>'
+      +'<div class="info-card"><p class="ic-title">'+t('sun')+'</p>'
+        +'<p class="ic-val">'+sl.toFixed(3)+'°</p>'
+        +'<p class="ic-sub">'+locStr+'</p></div>'
+    +'</div>'
+    +'<div class="term-bar"><p class="term-ttl">'+termTtl+'</p>'
+      +'<div class="term-track" role="list">'
+        +tds.map(function(td,i){
+          var c=i<cti?'past':i===cti?'cur':'';
+          var d=td.date;
+          return'<span class="term-dot '+c+'" role="listitem">'+td.n+' '+p2(d.day)+'/'+p2(d.month)+'</span>';
+        }).join('')
+      +'</div></div>'
+    +'<p class="sec-label-lg">大運 — <span>Grandes Ciclos</span></p>'
+    +dyHtml()
+    +'<p class="sec-label-lg">地支關係 — <span>Interações entre Ramos</span></p>'
+    +interHtml()
+    +'<p class="sec-label">'+t('secLog')+'</p>'
+    +'<div class="log-card">'+buildLog(lp)+'</div>'
+    +'<div class="acc">'+t('acc')+'</div>';
+}
+
+/* ══════════════════════════════════════
+   EVENTS + INIT
+══════════════════════════════════════ */
+['inY','inM','inD','inT','inLo','inLa','inTZ','inDST'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el){el.addEventListener('input',updateRST);el.addEventListener('change',updateRST);}
+});
+['inCity','inLo','inLa'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(!el) return;
+  if(id==='inCity'){
+    el.addEventListener('input',function(){ geoDebounce(this.value.trim()); });
+  } else {
+    el.addEventListener('input',updateLocPrev);
+  }
+});
+document.getElementById('calcBtn').addEventListener('click',runCalc);
+
+window.addEventListener('DOMContentLoaded',function(){
+  applyLang('pt');
+  updateLocPrev();
+  /* Não executa runCalc automaticamente —
+     o usuário deve primeiro confirmar o local de nascimento */
+});
+</script>
+</body>
+</html>
