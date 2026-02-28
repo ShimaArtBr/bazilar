@@ -82,39 +82,132 @@ const BaZiEngine = (() => {
   // Controls: W→E→W→F→M→W (Wood controls Earth, Earth controls Water...)
   const CONTROLS  = [2,3,4,0,1]; // Wood controls Earth, Fire controls Metal...
 
-  // Solar Terms (Jié 節) that start BaZi months — sun longitudes
-  // Mapped to Branch index they initiate
+  // ═══════════════════════════════════════════════════════════════
+  // BRANCH ANIMALS — Chinese zodiac animals (0-indexed, 子=0)
+  // ═══════════════════════════════════════════════════════════════
+  // PT=Português · EN=English · ZH=Chinese
+  const BRANCH_ANIMALS = {
+    pt: ['Rato','Boi','Tigre','Coelho','Dragão','Serpente','Cavalo','Cabra','Macaco','Galo','Cão','Porco'],
+    en: ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'],
+    zh: ['鼠','牛','虎','兔','龍','蛇','馬','羊','猴','雞','狗','豬'],
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // 12 LIFE PHASES — 十二長生 Shí Èr Zhǎng Shēng
+  // ═══════════════════════════════════════════════════════════════
+  // Starting branch (長生) for each element, indexed by [element][yin]
+  // Yang: forward sequence (+1 each phase)
+  // Yin:  reverse sequence (-1 each phase)
+  const LIFE_PHASE_START = [
+    [11, 6],  // Wood: Yang starts at 亥(11), Yin starts at 午(6)
+    [2,  9],  // Fire: Yang starts at 寅(2),  Yin starts at 酉(9)
+    [2,  9],  // Earth: same as Fire (most classical schools)
+    [5,  0],  // Metal: Yang starts at 巳(5),  Yin starts at 子(0)
+    [8,  3],  // Water: Yang starts at 申(8),  Yin starts at 卯(3)
+  ];
+
+  // Phase names (index 0=長生 through 11=養)
+  const LIFE_PHASE_CN = ['長生','沐浴','冠帶','臨官','帝旺','衰','病','死','墓','絕','胎','養'];
+
+  /**
+   * Return the 12-life-cycle phase index (0=長生…11=養) for a
+   * given stem's element/polarity and a branch.
+   */
+  function lifePhase(stemIdx, branchIdx) {
+    const el  = STEM_ELEMENT[stemIdx];
+    const yin = STEM_YIN[stemIdx];
+    const start = LIFE_PHASE_START[el][yin];
+    if (yin === 0) return (branchIdx - start + 12) % 12;
+    else           return (start - branchIdx + 12) % 12;
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // DM STRENGTH — Força do Mestre do Dia
+  // Supported = same element (比劫) + resource (印)
+  // Opposing  = output (食傷) + wealth (財) + power (官殺)
+  // ═══════════════════════════════════════════════════════════════
+  function dmStrength(pillars, dayStemIdx) {
+    const dayEl  = STEM_ELEMENT[dayStemIdx];
+    let supporting = 0, opposing = 0;
+
+    function addWeight(stemIdx, weight) {
+      const el  = STEM_ELEMENT[stemIdx];
+      // Resource (generates DM): supporting
+      if (GENERATES[el] === dayEl) { supporting += weight; return; }
+      // Same element: supporting
+      if (el === dayEl) { supporting += weight; return; }
+      // Output (DM generates it): opposing
+      if (GENERATES[dayEl] === el) { opposing += weight; return; }
+      // Wealth (DM controls it): opposing
+      if (CONTROLS[dayEl] === el) { opposing += weight; return; }
+      // Power (controls DM): opposing
+      if (CONTROLS[el] === dayEl) { opposing += weight; return; }
+    }
+
+    for (const p of pillars) {
+      addWeight(p.stem, 1.0);
+      addWeight(HIDDEN_STEMS[p.branch][0], 0.6); // main hidden stem
+      if (HIDDEN_STEMS[p.branch][1] != null) addWeight(HIDDEN_STEMS[p.branch][1], 0.3);
+      if (HIDDEN_STEMS[p.branch][2] != null) addWeight(HIDDEN_STEMS[p.branch][2], 0.15);
+    }
+    // Remove Day Master's own contribution (it doesn't count for its own strength)
+    addWeight(dayStemIdx, -1.0);
+
+    const total = supporting + opposing || 1;
+    return {
+      supporting: Math.round((supporting / total) * 100),
+      opposing:   Math.round((opposing   / total) * 100),
+    };
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // SOLAR TERMS — CORRECTED TABLE
+  // Each Jié (節) longitude and the BaZi branch month it initiates.
+  //
+  // ⚠ BUG FIX: Previous table had all longitudes +30° offset.
+  //   Verified values:
+  //   立春 = 315° (~Feb 4)  → 寅(2) [also year boundary]
+  //   驚蟄 = 345° (~Mar 6)  → 卯(3)
+  //   清明 =  15° (~Apr 5)  → 辰(4)
+  //   立夏 =  45° (~May 6)  → 巳(5)
+  //   芒種 =  75° (~Jun 6)  → 午(6)
+  //   小暑 = 105° (~Jul 7)  → 未(7)
+  //   立秋 = 135° (~Aug 7)  → 申(8)
+  //   白露 = 165° (~Sep 8)  → 酉(9)
+  //   寒露 = 195° (~Oct 8)  → 戌(10)
+  //   立冬 = 225° (~Nov 7)  → 亥(11)
+  //   大雪 = 255° (~Dec 7)  → 子(0)
+  //   小寒 = 285° (~Jan 6)  → 丑(1)
+  // ═══════════════════════════════════════════════════════════════
   const JIEQI_MONTHS = [
-    { lon: 285, branch: 0 }, // 大雪 Dà Xuě → 子 Zǐ
-    { lon: 315, branch: 1 }, // 小寒 Xiǎo Hán → 丑 Chǒu
-    { lon: 345, branch: 2 }, // 立春 Lì Chūn → 寅 Yín (+ year boundary)
-    { lon: 15,  branch: 3 }, // 驚蟄 Jīng Zhé → 卯 Mǎo
-    { lon: 45,  branch: 4 }, // 清明 Qīng Míng → 辰 Chén
-    { lon: 75,  branch: 5 }, // 立夏 Lì Xià → 巳 Sì
-    { lon: 105, branch: 6 }, // 芒種 Máng Zhòng → 午 Wǔ
-    { lon: 135, branch: 7 }, // 小暑 Xiǎo Shǔ → 未 Wèi
-    { lon: 165, branch: 8 }, // 立秋 Lì Qiū → 申 Shēn
-    { lon: 195, branch: 9 }, // 白露 Bái Lù → 酉 Yǒu
-    { lon: 225, branch:10 }, // 寒露 Hán Lù → 戌 Xū
-    { lon: 255, branch:11 }, // 立冬 Lì Dōng → 亥 Hài
+    { lon: 255, branch: 0 }, // 大雪 Dà Xuě  → 子 Zǐ   (~Dec 7)
+    { lon: 285, branch: 1 }, // 小寒 Xiǎo Hán → 丑 Chǒu (~Jan 6)
+    { lon: 315, branch: 2 }, // 立春 Lì Chūn  → 寅 Yín  (~Feb 4) ← year boundary
+    { lon: 345, branch: 3 }, // 驚蟄 Jīng Zhé → 卯 Mǎo  (~Mar 6)
+    { lon: 15,  branch: 4 }, // 清明 Qīng Míng → 辰 Chén (~Apr 5)
+    { lon: 45,  branch: 5 }, // 立夏 Lì Xià   → 巳 Sì   (~May 6)
+    { lon: 75,  branch: 6 }, // 芒種 Máng Zhòng → 午 Wǔ  (~Jun 6)
+    { lon: 105, branch: 7 }, // 小暑 Xiǎo Shǔ  → 未 Wèi (~Jul 7)
+    { lon: 135, branch: 8 }, // 立秋 Lì Qiū   → 申 Shēn (~Aug 7)
+    { lon: 165, branch: 9 }, // 白露 Bái Lù   → 酉 Yǒu  (~Sep 8)
+    { lon: 195, branch:10 }, // 寒露 Hán Lù   → 戌 Xū   (~Oct 8)
+    { lon: 225, branch:11 }, // 立冬 Lì Dōng  → 亥 Hài  (~Nov 7)
   ];
 
   const JIEQI_NAMES = {
-    285: { cn:'大雪', en:'Major Snow',       pt:'Grande Neve' },
-    315: { cn:'小寒', en:'Minor Cold',       pt:'Frio Menor' },
-    345: { cn:'立春', en:'Start of Spring',  pt:'Início da Primavera' },
-     15: { cn:'驚蟄', en:'Awakening Insects',pt:'Despertar dos Insetos' },
-     45: { cn:'清明', en:'Clear and Bright', pt:'Clara e Brilhante' },
-     75: { cn:'立夏', en:'Start of Summer',  pt:'Início do Verão' },
-    105: { cn:'芒種', en:'Grain in Ear',     pt:'Grão na Espiga' },
-    135: { cn:'小暑', en:'Minor Heat',       pt:'Calor Menor' },
-    165: { cn:'立秋', en:'Start of Autumn',  pt:'Início do Outono' },
-    195: { cn:'白露', en:'White Dew',        pt:'Orvalho Branco' },
-    225: { cn:'寒露', en:'Cold Dew',         pt:'Orvalho Frio' },
-    255: { cn:'Start of Winter', en:'Start of Winter', pt:'Início do Inverno' },
+    255: { cn:'大雪', en:'Major Snow',        pt:'Grande Neve' },
+    285: { cn:'小寒', en:'Minor Cold',        pt:'Frio Menor' },
+    315: { cn:'立春', en:'Start of Spring',   pt:'Início da Primavera' },
+    345: { cn:'驚蟄', en:'Awakening Insects', pt:'Despertar dos Insetos' },
+     15: { cn:'清明', en:'Clear and Bright',  pt:'Clara e Brilhante' },
+     45: { cn:'立夏', en:'Start of Summer',   pt:'Início do Verão' },
+     75: { cn:'芒種', en:'Grain in Ear',      pt:'Grão na Espiga' },
+    105: { cn:'小暑', en:'Minor Heat',        pt:'Calor Menor' },
+    135: { cn:'立秋', en:'Start of Autumn',   pt:'Início do Outono' },
+    165: { cn:'白露', en:'White Dew',         pt:'Orvalho Branco' },
+    195: { cn:'寒露', en:'Cold Dew',          pt:'Orvalho Frio' },
+    225: { cn:'立冬', en:'Start of Winter',   pt:'Início do Inverno' },
   };
-  // Correction: 255 = 立冬
-  JIEQI_NAMES[255] = { cn:'立冬', en:'Start of Winter', pt:'Início do Inverno' };
 
   // 60-cycle Jiǎzǐ table — index 0 = 甲子 (verified: JD 2451545 = 1 Jan 2000 = 戊午 = idx 54)
   // Build cycle on demand from stem/branch
@@ -240,49 +333,35 @@ const BaZiEngine = (() => {
   }
 
   /**
-   * Get the 12 Jié Solar Terms for a given year
-   * Returns array sorted by JD with { lon, branch, jd, date }
+   * Get the 12 Jié Solar Terms for a given year.
+   * Approximate months are matched to the CORRECTED JIEQI_MONTHS longitudes.
+   * Returns array sorted by JD with { lon, branch, jd }
    */
   function getSolarTermsForYear(year) {
+    // Approximate calendar month for each solar longitude (corrected table)
+    // lon → [approxMonth, yearOffset]  (yearOffset: 0=same year, -1=prev year not used here)
+    const APPROX = {
+      255: [12, 0], // 大雪 Dec
+      285: [1,  0], // 小寒 Jan
+      315: [2,  0], // 立春 Feb
+      345: [3,  0], // 驚蟄 Mar
+       15: [4,  0], // 清明 Apr
+       45: [5,  0], // 立夏 May
+       75: [6,  0], // 芒種 Jun
+      105: [7,  0], // 小暑 Jul
+      135: [8,  0], // 立秋 Aug
+      165: [9,  0], // 白露 Sep
+      195: [10, 0], // 寒露 Oct
+      225: [11, 0], // 立冬 Nov
+    };
+
     const terms = [];
-    // We need terms from late Dec previous year through early Jan next year
-    const searchYears = [year - 1, year, year + 1];
-
     for (const jm of JIEQI_MONTHS) {
-      // Estimate approximate date
-      let approxMonth, approxYear;
-      if (jm.lon >= 285) {
-        // Dec/Jan range — could be end of year or start
-        approxMonth = jm.lon >= 345 ? 2 : (jm.lon >= 315 ? 1 : 12);
-        approxYear = jm.lon >= 345 ? year : year - 1;
-      } else if (jm.lon >= 255) {
-        approxMonth = 11; approxYear = year;
-      } else if (jm.lon >= 225) {
-        approxMonth = 10; approxYear = year;
-      } else if (jm.lon >= 195) {
-        approxMonth = 9; approxYear = year;
-      } else if (jm.lon >= 165) {
-        approxMonth = 8; approxYear = year;
-      } else if (jm.lon >= 135) {
-        approxMonth = 7; approxYear = year;
-      } else if (jm.lon >= 105) {
-        approxMonth = 6; approxYear = year;
-      } else if (jm.lon >= 75) {
-        approxMonth = 5; approxYear = year;
-      } else if (jm.lon >= 45) {
-        approxMonth = 4; approxYear = year;
-      } else if (jm.lon >= 15) {
-        approxMonth = 3; approxYear = year;
-      } else {
-        approxMonth = 3; approxYear = year;
-      }
-
-      const approxJD = dateToJD(approxYear, approxMonth, 15, 12);
-      const exactJD = findSolarTerm(jm.lon, approxJD);
+      const [approxMonth] = APPROX[jm.lon] || [6, 0];
+      const approxJD = dateToJD(year, approxMonth, 15, 12);
+      const exactJD  = findSolarTerm(jm.lon, approxJD);
       terms.push({ ...jm, jd: exactJD });
     }
-
-    // Sort by JD
     terms.sort((a, b) => a.jd - b.jd);
     return terms;
   }
@@ -789,17 +868,17 @@ const BaZiEngine = (() => {
       p.hiddenStems = HIDDEN_STEMS[p.branch];
     }
 
-    // Step 5: 10 Gods (relative to Day Master)
+    // Step 5: 10 Gods + Life Phases (relative to Day Master)
     const dayMaster = dp.stem;
     for (const p of pillars) {
       p.tenGod = tenGod(dayMaster, p.stem);
-      p.tenGodBranch = null; // branch has no 10 god directly
-      // Hidden stems 10 gods
       p.hiddenStemGods = p.hiddenStems.map(hs => tenGod(dayMaster, hs));
+      p.lifePhase = lifePhase(dayMaster, p.branch);  // 12-phase for this branch vs DM
     }
 
-    // Step 6: Element balance
-    const balance = elementBalance(pillars);
+    // Step 6: Element balance + DM Strength
+    const balance  = elementBalance(pillars);
+    const strength = dmStrength(pillars, dayMaster);
 
     // Step 7: Interactions
     const interactions = findInteractions(pillars);
@@ -842,6 +921,7 @@ const BaZiEngine = (() => {
       pillars,
       dayMaster: { stem: dp.stem, element: STEM_ELEMENT[dp.stem], yin: STEM_YIN[dp.stem] },
       balance,
+      strength,
       interactions,
       cycles,
       liChun: lcDate,
@@ -914,7 +994,8 @@ const BaZiEngine = (() => {
     STEMS_CN, BRANCHES_CN, STEM_PINYIN, BRANCH_PINYIN,
     STEM_ELEMENT, BRANCH_ELEMENT, STEM_YIN, BRANCH_YIN,
     HIDDEN_STEMS, ELEMENT_COLORS, ELEMENT_LIGHT,
-    elementCN, jdToDate, dateToJD, sunLongitude, equationOfTime,
+    BRANCH_ANIMALS, LIFE_PHASE_CN,
+    elementCN, lifePhase, jdToDate, dateToJD, sunLongitude, equationOfTime,
   };
 
 })();

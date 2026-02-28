@@ -35,13 +35,40 @@
   </a>
   <span class="brand-ecosystem">Sollun · Portal de Oráculos</span>
 
-  <div class="lang-switcher" role="group" aria-label="Seletor de idioma">
-    <button class="lang-btn active" data-lang="pt" aria-label="Português">PT</button>
-    <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
-    <button class="lang-btn" data-lang="zh" aria-label="中文">中文</button>
-  </div>
+  <div class="topbar-controls">
+    <!-- Language dropdown -->
+    <div class="lang-dropdown-wrap" role="navigation" aria-label="Idioma">
+      <button class="lang-dropdown-btn" id="langDropdownBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Selecionar idioma">
+        <span class="lang-flag" id="langFlag">🇧🇷</span>
+        <span class="lang-code" id="langCode">PT</span>
+        <span class="lang-chevron">▾</span>
+      </button>
+      <ul class="lang-menu" id="langMenu" role="listbox" aria-label="Idiomas disponíveis">
+        <li role="option" data-lang="pt" class="lang-option active" aria-selected="true">
+          <span class="lang-opt-flag">🇧🇷</span>
+          <span class="lang-opt-name">Português</span>
+          <span class="lang-opt-code">PT</span>
+        </li>
+        <li role="option" data-lang="en" class="lang-option" aria-selected="false">
+          <span class="lang-opt-flag">🇬🇧</span>
+          <span class="lang-opt-name">English</span>
+          <span class="lang-opt-code">EN</span>
+        </li>
+        <li role="option" data-lang="zh" class="lang-option" aria-selected="false">
+          <span class="lang-opt-flag">🇨🇳</span>
+          <span class="lang-opt-name">中文</span>
+          <span class="lang-opt-code">ZH</span>
+        </li>
+      </ul>
+    </div>
 
-  <button class="install-btn" id="installBtn" hidden aria-label="Instalar app">⊕ Instalar</button>
+    <!-- Theme toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar modo claro/escuro" title="Alternar tema">
+      <span class="theme-icon" id="themeIcon">☀</span>
+    </button>
+
+    <button class="install-btn" id="installBtn" hidden aria-label="Instalar app">⊕</button>
+  </div>
 </header>
 
 <!-- ══════════════════════════════════════════════ HERO -->

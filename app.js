@@ -32,22 +32,6 @@ const App = (() => {
     return BaZiEngine.ELEMENT_LIGHT[elIdx];
   }
 
-  // ─── LANGUAGE SWITCHING ───────────────────────────────────────
-  function setLanguage(lang) {
-    currentLang = lang;
-    document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : lang;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (el.tagName === 'INPUT' && el.type === 'text') {
-        el.placeholder = t(key);
-      } else {
-        el.textContent = t(key);
-      }
-    });
-    // Re-render results if available
-    if (currentResult) renderResults(currentResult);
-  }
-
   // ─── CITY SEARCH ──────────────────────────────────────────────
   function setupCitySearch() {
     const input  = el('cityInput');
@@ -180,16 +164,15 @@ const App = (() => {
 
   // ─── RENDERING ────────────────────────────────────────────────
   function renderResults(result) {
-    const { pillars, dayMaster, balance, interactions, cycles, tst, input, baziYear, dualZi } = result;
+    const { pillars, dayMaster, balance, strength, interactions, cycles, tst, input, baziYear, dualZi } = result;
 
-    el('pillarSection').innerHTML   = renderPillars(pillars, dayMaster, tst, input, baziYear);
-    el('balanceSection').innerHTML  = renderBalance(balance);
-    el('godsSection').innerHTML     = renderTenGods(pillars, dayMaster);
-    el('interactionsSection').innerHTML = renderInteractions(interactions, pillars);
-    el('cyclesSection').innerHTML   = renderCycles(cycles);
-    el('logSection').innerHTML      = renderLog(result);
+    el('pillarSection').innerHTML        = renderPillars(pillars, dayMaster, tst, input, baziYear);
+    el('balanceSection').innerHTML       = renderBalance(balance, strength, dayMaster);
+    el('godsSection').innerHTML          = renderTenGods(pillars, dayMaster);
+    el('interactionsSection').innerHTML  = renderInteractions(interactions, pillars);
+    el('cyclesSection').innerHTML        = renderCycles(cycles);
+    el('logSection').innerHTML           = renderLog(result);
 
-    // Dual Zi warning
     const warnEl = el('ziWarning');
     if (dualZi) {
       warnEl.textContent = t('warnZiHour');
@@ -198,52 +181,70 @@ const App = (() => {
       warnEl.style.display = 'none';
     }
 
-    // Animate in
     document.querySelectorAll('.result-card').forEach((card, i) => {
       card.style.animationDelay = `${i * 0.08}s`;
       card.classList.add('fade-in');
     });
   }
 
-  function pillarOrderForDisplay() {
-    // Display order: Hour, Day, Month, Year (right to left reading, but we show left to right: H D M Y)
-    return [0, 1, 2, 3]; // indices in result.pillars
-  }
-
   function renderPillars(pillars, dayMaster, tst, input, baziYear) {
-    const pillarLabels = [t('pillarHour'), t('pillarDay'), t('pillarMonth'), t('pillarYear')];
     const lang = currentLang;
+    const pillarLabels = [t('pillarHour'), t('pillarDay'), t('pillarMonth'), t('pillarYear')];
+    const langAnimals  = (I18N[lang] || I18N.pt).animals || I18N.pt.animals;
+    const langPhases   = (I18N[lang] || I18N.pt).lifePhases || I18N.pt.lifePhases;
+    const langPhaseCN  = (I18N[lang] || I18N.pt).lifePhaseCN || I18N.pt.lifePhaseCN;
 
     const pillarCards = pillars.map((p, i) => {
       const stemEl   = BaZiEngine.STEM_ELEMENT[p.stem];
       const branchEl = BaZiEngine.BRANCH_ELEMENT[p.branch];
       const isDay    = p.label === 'day';
-      const tenGodDisplay = isDay ? '' : `<div class="ten-god-tag" style="background:${elementColor(stemEl)}20;color:${elementLightColor(stemEl)}">${BaZiEngine.tenGodName(p.tenGod, lang)}</div>`;
 
+      const tenGodDisplay = isDay
+        ? `<div class="pillar-dm-badge">日主</div>`
+        : `<div class="ten-god-tag" style="background:${elementColor(stemEl)}18;color:${elementLightColor(stemEl)};border:1px solid ${elementColor(stemEl)}40">${BaZiEngine.tenGodName(p.tenGod, lang)}</div>`;
+
+      // Hidden stems row
       const hiddenHTML = p.hiddenStems.map((hs, j) => {
-        const hsEl = BaZiEngine.STEM_ELEMENT[hs];
-        return `<span class="hidden-stem" style="color:${elementLightColor(hsEl)}" title="${BaZiEngine.stemPinyin(hs)} · ${BaZiEngine.elementName(hsEl, lang)}">${BaZiEngine.stemCN(hs)}</span>`;
+        const hsEl  = BaZiEngine.STEM_ELEMENT[hs];
+        const hsGod = p.hiddenStemGods[j];
+        return `<span class="hidden-stem" style="color:${elementLightColor(hsEl)}" title="${BaZiEngine.stemPinyin(hs)} · ${BaZiEngine.elementName(hsEl, lang)} · ${BaZiEngine.tenGodName(hsGod, lang)}">${BaZiEngine.stemCN(hs)}</span>`;
       }).join('');
+
+      // Life phase
+      const phaseIdx = p.lifePhase;
+      const phaseCN  = langPhaseCN[phaseIdx];
+      const phasePT  = langPhases[phaseIdx];
+
+      // Animal
+      const animal = langAnimals[p.branch];
 
       return `
         <div class="pillar-card${isDay ? ' pillar-day-master' : ''}">
           <div class="pillar-label">${pillarLabels[i]}</div>
           ${tenGodDisplay}
+
           <div class="pillar-stem" style="color:${elementLightColor(stemEl)}">
             <span class="char-cn">${BaZiEngine.stemCN(p.stem)}</span>
             <span class="char-pin">${BaZiEngine.stemPinyin(p.stem)}</span>
             <span class="char-el">${BaZiEngine.elementName(stemEl, lang)} ${BaZiEngine.polarityName(BaZiEngine.STEM_YIN[p.stem], lang)}</span>
           </div>
+
           <div class="pillar-branch" style="color:${elementLightColor(branchEl)}">
             <span class="char-cn">${BaZiEngine.branchCN(p.branch)}</span>
             <span class="char-pin">${BaZiEngine.branchPinyin(p.branch)}</span>
+            <span class="char-animal">${animal}</span>
             <span class="char-el">${BaZiEngine.elementName(branchEl, lang)} ${BaZiEngine.polarityName(BaZiEngine.BRANCH_YIN[p.branch], lang)}</span>
           </div>
+
+          <div class="life-phase-row" title="${phasePT}">
+            <span class="phase-cn" style="color:${elementLightColor(branchEl)}">${phaseCN}</span>
+            <span class="phase-pt">${lang === 'zh' ? '' : phasePT}</span>
+          </div>
+
           <div class="hidden-stems-row">
             <span class="hidden-label">藏干</span>
             ${hiddenHTML}
           </div>
-          ${isDay ? `<div class="day-master-badge">日主</div>` : ''}
         </div>`;
     }).join('');
 
@@ -259,27 +260,44 @@ const App = (() => {
     return `<h2 class="section-title">${t('sectionPillars')}</h2>${tstInfo}<div class="pillars-grid">${pillarCards}</div>`;
   }
 
-  function renderBalance(balance) {
+  function renderBalance(balance, strength, dayMaster) {
     const lang = currentLang;
     const { weighted } = balance;
     const total = weighted.reduce((a, b) => a + b, 0) || 1;
-    const names = lang === 'zh'
-      ? ['木','火','土','金','水']
-      : t('elements');
+    const names = (I18N[lang] || I18N.pt).elements;
+    const dmEl  = BaZiEngine.STEM_ELEMENT[dayMaster.stem];
 
     const bars = weighted.map((w, i) => {
       const pct = Math.round((w / total) * 100);
+      const active = i === dmEl ? ' elem-row-active' : '';
       return `
-        <div class="elem-row">
+        <div class="elem-row${active}">
           <div class="elem-name" style="color:${elementLightColor(i)}">${names[i]} ${BaZiEngine.elementCN(i)}</div>
           <div class="elem-bar-wrap">
-            <div class="elem-bar" style="width:${pct}%;background:${elementColor(i)};box-shadow:0 0 8px ${elementColor(i)}80"></div>
+            <div class="elem-bar" style="width:${pct}%;background:${elementColor(i)};box-shadow:0 0 6px ${elementColor(i)}60"></div>
           </div>
           <div class="elem-pct">${pct}%</div>
         </div>`;
     }).join('');
 
-    return `<h2 class="section-title">${t('sectionBalance')}</h2><div class="balance-grid">${bars}</div>`;
+    // DM Strength bar
+    const sup = strength ? strength.supporting : 0;
+    const opp = strength ? strength.opposing   : 0;
+    const strengthBar = `
+      <div class="strength-section">
+        <div class="strength-title">${t('sectionStrength') || 'Força do Mestre do Dia'}</div>
+        <div class="strength-bar-wrap">
+          <div class="strength-seg strength-support" style="width:${sup}%">${sup}%</div>
+          <div class="strength-seg strength-oppose"  style="width:${opp}%">${opp}%</div>
+        </div>
+        <div class="strength-labels">
+          <span class="strength-label-l">✦ ${t('strengthSupport') || 'Favorável'}</span>
+          <span class="strength-label-r">${t('strengthOppose') || 'Desfavorável'} ✦</span>
+        </div>
+        <div class="strength-hint">${t('strengthHint') || ''}</div>
+      </div>`;
+
+    return `<h2 class="section-title">${t('sectionBalance')}</h2><div class="balance-grid">${bars}</div>${strengthBar}`;
   }
 
   function renderTenGods(pillars, dayMaster) {
@@ -414,23 +432,141 @@ const App = (() => {
   }
 
   // ─── PRINT / PDF ──────────────────────────────────────────────
-  function printChart() {
-    window.print();
+  function printChart() { window.print(); }
+
+  // ─── THEME ────────────────────────────────────────────────────
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('bazilar-theme', theme);
+    const icon = el('themeIcon');
+    if (icon) icon.textContent = theme === 'dark' ? '☀' : '☾';
+    // Update meta theme-color
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'dark' ? '#0A0A0F' : '#F5F0E8';
+  }
+
+  function detectTheme() {
+    const saved = localStorage.getItem('bazilar-theme');
+    if (saved) return saved;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  // ─── LANGUAGE AUTO-DETECT ─────────────────────────────────────
+  function detectLanguage() {
+    const saved = localStorage.getItem('bazilar-lang');
+    if (saved && ['pt','en','zh'].includes(saved)) return saved;
+    // Browser language
+    const langs = navigator.languages || [navigator.language || 'en'];
+    for (const l of langs) {
+      const code = l.toLowerCase();
+      if (code.startsWith('zh')) return 'zh';
+      if (code.startsWith('pt')) return 'pt';
+      if (code.startsWith('en')) return 'en';
+    }
+    return 'pt'; // default
+  }
+
+  // ─── LANGUAGE DROPDOWN ────────────────────────────────────────
+  const LANG_META = {
+    pt: { flag: '🇧🇷', code: 'PT' },
+    en: { flag: '🇬🇧', code: 'EN' },
+    zh: { flag: '🇨🇳', code: 'ZH' },
+  };
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('bazilar-lang', lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : lang;
+
+    // Update dropdown button label
+    const meta = LANG_META[lang] || LANG_META.pt;
+    const flagEl = el('langFlag'), codeEl = el('langCode');
+    if (flagEl) flagEl.textContent = meta.flag;
+    if (codeEl) codeEl.textContent = meta.code;
+
+    // Update active state in menu
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      const isActive = opt.getAttribute('data-lang') === lang;
+      opt.classList.toggle('active', isActive);
+      opt.setAttribute('aria-selected', String(isActive));
+    });
+
+    // Translate static elements
+    document.querySelectorAll('[data-i18n]').forEach(elem => {
+      const key = elem.getAttribute('data-i18n');
+      if (elem.tagName === 'INPUT' && elem.type === 'text') {
+        elem.placeholder = t(key);
+      } else {
+        elem.textContent = t(key);
+      }
+    });
+
+    if (currentResult) renderResults(currentResult);
+  }
+
+  function setupLangDropdown() {
+    const btn  = el('langDropdownBtn');
+    const menu = el('langMenu');
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+
+    menu.querySelectorAll('.lang-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        setLanguage(opt.getAttribute('data-lang'));
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
   }
 
   // ─── INIT ─────────────────────────────────────────────────────
   function init() {
+    // 1. Apply theme (auto-detect → user pref → OS pref)
+    applyTheme(detectTheme());
+
+    // 2. Theme toggle button
+    el('themeToggle')?.addEventListener('click', toggleTheme);
+
+    // Listen to OS theme changes at runtime
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      // Only update if user hasn't manually overridden
+      if (!localStorage.getItem('bazilar-theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+
+    // 3. Language (auto-detect)
+    const detectedLang = detectLanguage();
+    setupLangDropdown();
+    setLanguage(detectedLang); // applies translations + sets dropdown label
+
     buildTimezoneSelector();
     setupCitySearch();
-
-    // Language buttons
-    document.querySelectorAll('[data-lang]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-lang]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        setLanguage(btn.getAttribute('data-lang'));
-      });
-    });
 
     // Calculate button
     el('calcBtn').addEventListener('click', doCalculate);
@@ -446,7 +582,7 @@ const App = (() => {
       if (e.key === 'Enter' && e.target.closest('.form-section')) doCalculate();
     });
 
-    // Default values for testing
+    // Default values
     el('yearInput').value  = '1984';
     el('monthInput').value = '5';
     el('dayInput').value   = '23';
@@ -457,7 +593,7 @@ const App = (() => {
     el('cityInput').value  = 'São Paulo, Brasil';
     el('tzStatus').textContent = '✓ America/Sao_Paulo';
 
-    // PWA Install prompt
+    // PWA install
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
@@ -467,7 +603,7 @@ const App = (() => {
     el('installBtn')?.addEventListener('click', async () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
+        await deferredPrompt.userChoice;
         deferredPrompt = null;
         el('installBtn').setAttribute('hidden', '');
       }
