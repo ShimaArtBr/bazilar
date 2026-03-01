@@ -4,7 +4,6 @@
 import { renderResults } from './render.js';
 import { setLang }       from './i18n.js';
 import { initGeo }       from './geo.js';
-import { initDrumPicker } from './drum.js';
 
 const $ = id => document.getElementById(id);
 
@@ -53,15 +52,20 @@ document.querySelectorAll('.gender-btn').forEach(b => {
 // ── Geocodificação ─────────────────────────
 initGeo();
 
-// ── Drum Picker ────────────────────────────
-const drumEl = $('drum-picker');
-if (drumEl) {
-  initDrumPicker(drumEl);
-  drumEl.addEventListener('drum-change', e => {
-    const el = $(e.detail.id);
-    if (el) el.value = e.detail.value;
-  });
-}
+// ── Máscaras de data e hora ─────────────────
+$('dateInput')?.addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g, '');
+  if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+  if (v.length > 5) v = v.slice(0,5) + '/' + v.slice(5);
+  if (v.length > 10) v = v.slice(0,10);
+  e.target.value = v;
+});
+$('timeInput')?.addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g, '');
+  if (v.length > 2) v = v.slice(0,2) + ':' + v.slice(2);
+  if (v.length > 5) v = v.slice(0,5);
+  e.target.value = v;
+});
 
 // ── Painel Avançado ─────────────────────────
 $('advBtn')?.addEventListener('click', () => {
@@ -78,6 +82,25 @@ $('calcBtn')?.addEventListener('click', async () => {
 
   spinner.hidden  = false;
   resultEl.innerHTML = '';
+
+  // Parse data DD/MM/AAAA
+  const dateRaw = ($('dateInput')?.value || '').trim();
+  const dm = dateRaw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (dm) {
+    $('day').value   = dm[1];
+    $('month').value = dm[2];
+    $('year').value  = dm[3];
+  }
+  // Parse hora HH:MM
+  const timeRaw = ($('timeInput')?.value || '').trim();
+  const tm = timeRaw.match(/^(\d{1,2}):(\d{2})$/);
+  if (tm) {
+    $('hour').value = tm[1];
+    $('min').value  = tm[2];
+  } else {
+    $('hour').value = '0';
+    $('min').value  = '0';
+  }
 
   const earlyZi = document.querySelector('input[name="earlyzi"]:checked')?.value === '1';
 

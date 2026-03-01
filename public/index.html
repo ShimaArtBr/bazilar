@@ -56,13 +56,17 @@
       </div>
 
       <div class="fg">
-        <label class="fl" for="datetime">DATA E HORA DE NASCIMENTO</label>
-        <input id="datetime" type="text" placeholder="DD/MM/AAAA HH:MM" maxlength="16" autocomplete="off">
-        <input type="hidden" id="day"   value="">
-        <input type="hidden" id="month" value="">
-        <input type="hidden" id="year"  value="">
-        <input type="hidden" id="hour"  value="0">
-        <input type="hidden" id="min"   value="0">
+        <label class="fl" for="dateInput">DATA DE NASCIMENTO</label>
+        <input id="dateInput" type="text" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric" autocomplete="off">
+        <input type="hidden" id="day">
+        <input type="hidden" id="month">
+        <input type="hidden" id="year">
+      </div>
+      <div class="fg">
+        <label class="fl" for="timeInput">HORA DE NASCIMENTO</label>
+        <input id="timeInput" type="text" placeholder="HH:MM" maxlength="5" inputmode="numeric" autocomplete="off">
+        <input type="hidden" id="hour">
+        <input type="hidden" id="min">
       </div>
 
       <div class="fg">
