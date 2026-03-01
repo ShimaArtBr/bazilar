@@ -8,7 +8,7 @@ import { initGeo }       from './geo.js';
 const $ = id => document.getElementById(id);
 
 let _result = null;
-let _gender = 'F';
+let _gender = null;
 let _dark   = true;
 
 // ── Tema ───────────────────────────────────
@@ -23,8 +23,7 @@ applyTheme();
 // ── Idioma ─────────────────────────────────
 $('langBtn')?.addEventListener('click', () => {
   const m = $('langMenu');
-  const open = m.style.display === 'block';
-  m.style.display = open ? 'none' : 'block';
+  m.style.display = m.style.display === 'block' ? 'none' : 'block';
 });
 document.querySelectorAll('.lang-opt').forEach(b => {
   b.addEventListener('click', () => {
@@ -67,6 +66,16 @@ $('timeInput')?.addEventListener('input', e => {
   e.target.value = v;
 });
 
+// ── Checkbox "não sei a hora" ───────────────
+$('noHour')?.addEventListener('change', e => {
+  const ti = $('timeInput');
+  if (ti) {
+    ti.disabled = e.target.checked;
+    ti.value    = e.target.checked ? '' : '';
+    ti.placeholder = e.target.checked ? '—' : 'HH:MM';
+  }
+});
+
 // ── Painel Avançado ─────────────────────────
 $('advBtn')?.addEventListener('click', () => {
   const panel = $('advPanel');
@@ -75,32 +84,54 @@ $('advBtn')?.addEventListener('click', () => {
   $('advBtn').textContent = open ? '▶ Opções avançadas' : '▼ Opções avançadas';
 });
 
-// ── Calcular ───────────────────────────────
+// ── Validação e Calcular ────────────────────
 $('calcBtn')?.addEventListener('click', async () => {
+  const errEl    = $('formErr');
   const spinner  = $('spinner');
   const resultEl = $('result');
 
-  spinner.hidden  = false;
-  resultEl.innerHTML = '';
+  errEl.hidden = true;
 
-  // Parse data DD/MM/AAAA
+  // Parse data
   const dateRaw = ($('dateInput')?.value || '').trim();
   const dm = dateRaw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if (dm) {
-    $('day').value   = dm[1];
-    $('month').value = dm[2];
-    $('year').value  = dm[3];
-  }
-  // Parse hora HH:MM
+
+  // Parse hora
+  const noHour  = $('noHour')?.checked;
   const timeRaw = ($('timeInput')?.value || '').trim();
-  const tm = timeRaw.match(/^(\d{1,2}):(\d{2})$/);
-  if (tm) {
-    $('hour').value = tm[1];
-    $('min').value  = tm[2];
-  } else {
-    $('hour').value = '0';
-    $('min').value  = '0';
+  const tm      = timeRaw.match(/^(\d{1,2}):(\d{2})$/);
+
+  // Validação: data obrigatória
+  if (!dm) {
+    errEl.textContent = '⚠ Preencha a data de nascimento no formato DD/MM/AAAA.';
+    errEl.hidden = false;
+    return;
   }
+
+  // Validação: hora obrigatória se não marcou "não sei"
+  if (!noHour && !tm) {
+    errEl.textContent = '⚠ Preencha a hora de nascimento ou marque "Não sei a hora".';
+    errEl.hidden = false;
+    return;
+  }
+
+  // Validação: local obrigatório (longitude não pode ser o valor padrão vazio)
+  const lng = $('lng').value.trim();
+  const lat = $('lat').value.trim();
+  if (!lng || !lat || !$('city').value.trim()) {
+    errEl.textContent = '⚠ Preencha o local de nascimento.';
+    errEl.hidden = false;
+    return;
+  }
+
+  spinner.hidden = false;
+  resultEl.innerHTML = '';
+
+  $('day').value   = dm[1];
+  $('month').value = dm[2];
+  $('year').value  = dm[3];
+  $('hour').value  = tm ? tm[1] : '12';
+  $('min').value   = tm ? tm[2] : '0';
 
   const earlyZi = document.querySelector('input[name="earlyzi"]:checked')?.value === '1';
 
@@ -108,13 +139,13 @@ $('calcBtn')?.addEventListener('click', async () => {
     year:      +$('year').value,
     month:     +$('month').value,
     day:       +$('day').value,
-    hour:      +($('hour').value || 0),
-    minute:    +($('min').value  || 0),
-    longitude: +$('lng').value,
-    latitude:  +$('lat').value,
+    hour:      +$('hour').value,
+    minute:    +$('min').value,
+    longitude: +lng,
+    latitude:  +lat,
     timezone:  +$('tz').value,
     dst:       $('dst').checked,
-    gender:    _gender,
+    gender:    _gender || 'M',
     earlyZi,
   };
 
@@ -130,8 +161,9 @@ $('calcBtn')?.addEventListener('click', async () => {
       return;
     }
     _result = JSON.parse(txt);
-    _result._name   = ($('name')?.value || '').trim();
-    _result._gender = _gender;
+    _result._name    = ($('name')?.value || '').trim();
+    _result._gender  = _gender;
+    _result._noHour  = noHour;
     renderOut(_result);
   } catch(e) {
     resultEl.innerHTML = `<div class="err-msg">❌ ${e.message}</div>`;
@@ -146,7 +178,6 @@ function renderOut(r) {
   const el = $('result');
   try {
     el.innerHTML = renderResults(r);
-    // Ativa abas
     const bar = el.querySelector('.rbar');
     bar?.addEventListener('click', e => {
       const btn = e.target.closest('.rtab');
