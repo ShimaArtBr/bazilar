@@ -9,7 +9,7 @@ import { initDrumPicker } from './drum.js';
 const $ = id => document.getElementById(id);
 
 let _result = null;
-let _gender = 'M';
+let _gender = 'F';
 let _dark   = true;
 
 // ── Tema ───────────────────────────────────

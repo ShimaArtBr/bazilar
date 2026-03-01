@@ -6,12 +6,11 @@
   <title>BAZILAR · 命理堂</title>
   <meta name="description" content="Calculadora astronômica BaZi de precisão — Tempo Solar Real, Meeus 1991">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- TOPBAR -->
 <header class="topbar">
   <div class="brand">
     <span class="brand-name">BAZILAR</span>
@@ -19,9 +18,7 @@
   </div>
   <div class="topbar-r">
     <div class="lang-wrap">
-      <button id="langBtn" class="lang-btn">
-        <span id="langLabel">PT</span> <span class="arr">▾</span>
-      </button>
+      <button id="langBtn" class="lang-btn"><span id="langLabel">PT</span><span class="arr">▾</span></button>
       <div id="langMenu" class="lang-menu">
         <button class="lang-opt" data-lang="pt">🇧🇷 Português</button>
         <button class="lang-opt" data-lang="en">🇺🇸 English</button>
@@ -33,149 +30,134 @@
   </div>
 </header>
 
-<!-- LAYOUT -->
-<div class="layout">
+<div class="page">
+  <div class="center-wrap">
 
-  <!-- PAINEL ESQUERDO -->
-  <aside class="panel">
-
-    <div class="hero">
-      <div class="hero-title">BAZILAR</div>
-      <div class="hero-zh">命 · 理 · 堂</div>
-      <div class="hero-sub">CALCULADORA ASTRONÔMICA BAZI DE PRECISÃO</div>
-      <div class="hero-tags">
-        <span>Longitude solar Meeus ±0.01°</span>
-        <span>·</span>
-        <span>Termos Solares ±1s</span>
-        <span>·</span>
-        <span>IANA TZ · DST histórico</span>
-      </div>
-    </div>
-
-    <!-- Nome + Género -->
-    <div class="fg">
-      <label class="fl" for="name">IDENTIFICAÇÃO</label>
-      <input id="name" type="text" placeholder="Nome ou apelido (opcional)" autocomplete="off">
-      <div class="gen-row">
-        <span class="fl fl--sm">GÉNERO</span>
-        <div class="gen-wrap">
-          <button class="gender-btn active" data-g="M">♂ Masc.</button>
-          <button class="gender-btn"        data-g="F">♀ Fem.</button>
+    <aside class="panel">
+      <div class="hero">
+        <div class="hero-title">BAZILAR</div>
+        <div class="hero-zh">命 · 理 · 堂</div>
+        <div class="hero-sub">CALCULADORA ASTRONÔMICA BAZI DE PRECISÃO</div>
+        <div class="hero-tags">
+          <span>Longitude solar Meeus ±0.01°</span><span>·</span>
+          <span>Termos Solares ±1s</span><span>·</span>
+          <span>IANA TZ · DST histórico</span>
         </div>
       </div>
-    </div>
 
-    <!-- Drum Picker -->
-    <div class="fg">
-      <span class="fl">DATA E HORA DE NASCIMENTO</span>
-      <div id="drum-picker"></div>
-      <!-- hidden inputs mantêm os valores -->
-      <input type="hidden" id="day"   value="23">
-      <input type="hidden" id="month" value="5">
-      <input type="hidden" id="year"  value="1984">
-      <input type="hidden" id="hour"  value="14">
-      <input type="hidden" id="min"   value="30">
-    </div>
-
-    <!-- Cidade -->
-    <div class="fg">
-      <label class="fl" for="city">LOCAL DE NASCIMENTO</label>
-      <div class="geo-wrap">
-        <input id="city" type="text" placeholder="ex: Bairro, Cidade, País" autocomplete="off">
-        <div id="geoSpin" class="geo-spin"></div>
-        <div id="sugBox"  class="sug-box"></div>
-      </div>
-      <p id="locPrev" class="loc-prev"></p>
-    </div>
-
-    <!-- Coords -->
-    <div class="fg">
-      <div class="row2">
-        <div>
-          <label class="fl" for="lng">LONGITUDE</label>
-          <input id="lng" type="number" value="-46.6333" step="0.0001" min="-180" max="180">
-        </div>
-        <div>
-          <label class="fl" for="lat">LATITUDE</label>
-          <input id="lat" type="number" value="-23.5505" step="0.0001" min="-90" max="90">
-        </div>
-      </div>
-    </div>
-
-    <!-- Fuso -->
-    <div class="fg">
-      <label class="fl" for="tz">FUSO HORÁRIO</label>
-      <select id="tz">
-        <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
-        <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
-        <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
-        <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
-        <option value="-5">GMT −5</option><option value="-4.5">GMT −4:30</option>
-        <option value="-4">GMT −4</option><option value="-3.5">GMT −3:30</option>
-        <option value="-3" selected>GMT −3</option>
-        <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
-        <option value="0">GMT 0</option><option value="1">GMT +1</option>
-        <option value="2">GMT +2</option><option value="3">GMT +3</option>
-        <option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
-        <option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
-        <option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
-        <option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
-        <option value="7">GMT +7</option><option value="8">GMT +8</option>
-        <option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
-        <option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
-        <option value="11">GMT +11</option><option value="12">GMT +12</option>
-      </select>
-    </div>
-
-    <!-- DST -->
-    <div class="chk-row">
-      <input id="dst" type="checkbox">
-      <label for="dst">Horário de Verão (DST)</label>
-    </div>
-
-    <!-- Avançado -->
-    <div class="fg">
-      <button id="advBtn" class="adv-btn">▶ Opções avançadas</button>
-      <div id="advPanel" class="adv-panel">
-        <label class="adv-opt">
-          <input type="radio" name="earlyzi" value="1" checked>
-          <div>
-            <div class="adv-title">早子時 Early Zǐ <span class="adv-tag">PADRÃO</span></div>
-            <div class="adv-desc">23:00–23:59 usa o tronco do dia seguinte. Método clássico (子平真詮).</div>
+      <div class="fg">
+        <label class="fl" for="name">IDENTIFICAÇÃO</label>
+        <input id="name" type="text" placeholder="Nome ou apelido (opcional)" autocomplete="off">
+        <div class="gen-row">
+          <span class="fl fl--sm">GÉNERO</span>
+          <div class="gen-wrap">
+            <button class="gender-btn active" data-g="F">♀ Feminino</button>
+            <button class="gender-btn"        data-g="M">♂ Masculino</button>
           </div>
-        </label>
-        <label class="adv-opt">
-          <input type="radio" name="earlyzi" value="0">
-          <div>
-            <div class="adv-title">晚子時 Late Zǐ</div>
-            <div class="adv-desc">23:00–23:59 é hora 子 do mesmo dia. Método simplificado.</div>
-          </div>
-        </label>
+        </div>
       </div>
-    </div>
 
-    <!-- Botão calcular -->
-    <button id="calcBtn" class="calc-btn">Calcular Quatro Pilares</button>
-    <div id="spinner" class="spinner" hidden>Calculando…</div>
+      <div class="fg">
+        <span class="fl">DATA E HORA DE NASCIMENTO</span>
+        <div id="drum-picker"></div>
+        <input type="hidden" id="day"   value="23">
+        <input type="hidden" id="month" value="5">
+        <input type="hidden" id="year"  value="1984">
+        <input type="hidden" id="hour"  value="14">
+        <input type="hidden" id="min"   value="30">
+      </div>
 
-  </aside>
+      <div class="fg">
+        <label class="fl" for="city">LOCAL DE NASCIMENTO</label>
+        <div class="geo-wrap">
+          <input id="city" type="text" placeholder="ex: Bairro, Cidade, País" autocomplete="off">
+          <div id="geoSpin" class="geo-spin"></div>
+          <div id="sugBox" class="sug-box"></div>
+        </div>
+        <p id="locPrev" class="loc-prev"></p>
+      </div>
 
-  <!-- RESULTADOS -->
-  <main id="result" class="result-area">
-    <div class="empty">
-      <div class="empty-glyph">命</div>
-      <div class="empty-msg">Preencha os dados e clique em Calcular</div>
-    </div>
-  </main>
+      <div class="fg">
+        <div class="row2">
+          <div>
+            <label class="fl" for="lng">LONGITUDE</label>
+            <input id="lng" type="number" value="-46.6333" step="0.0001" min="-180" max="180">
+          </div>
+          <div>
+            <label class="fl" for="lat">LATITUDE</label>
+            <input id="lat" type="number" value="-23.5505" step="0.0001" min="-90" max="90">
+          </div>
+        </div>
+      </div>
 
+      <div class="fg">
+        <label class="fl" for="tz">FUSO HORÁRIO</label>
+        <select id="tz">
+          <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
+          <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
+          <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
+          <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
+          <option value="-5">GMT −5</option><option value="-4.5">GMT −4:30</option>
+          <option value="-4">GMT −4</option><option value="-3.5">GMT −3:30</option>
+          <option value="-3" selected>GMT −3</option>
+          <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
+          <option value="0">GMT 0</option><option value="1">GMT +1</option>
+          <option value="2">GMT +2</option><option value="3">GMT +3</option>
+          <option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
+          <option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
+          <option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
+          <option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
+          <option value="7">GMT +7</option><option value="8">GMT +8</option>
+          <option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
+          <option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
+          <option value="11">GMT +11</option><option value="12">GMT +12</option>
+        </select>
+      </div>
+
+      <div class="chk-row">
+        <input id="dst" type="checkbox">
+        <label for="dst">Horário de Verão (DST)</label>
+      </div>
+
+      <div class="fg">
+        <button id="advBtn" class="adv-btn">▶ Opções avançadas</button>
+        <div id="advPanel" class="adv-panel">
+          <label class="adv-opt">
+            <input type="radio" name="earlyzi" value="1" checked>
+            <div>
+              <div class="adv-title">早子時 Early Zǐ <span class="adv-tag">PADRÃO</span></div>
+              <div class="adv-desc">23:00–23:59 usa o tronco do dia seguinte. Método clássico (子平真詮).</div>
+            </div>
+          </label>
+          <label class="adv-opt">
+            <input type="radio" name="earlyzi" value="0">
+            <div>
+              <div class="adv-title">晚子時 Late Zǐ</div>
+              <div class="adv-desc">23:00–23:59 é hora 子 do mesmo dia. Método simplificado.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <button id="calcBtn" class="calc-btn">Revelar os Quatro Pilares</button>
+      <div id="spinner" class="spinner" hidden>Calculando…</div>
+    </aside>
+
+    <main id="result" class="result-area">
+      <div class="empty">
+        <div class="empty-glyph">命</div>
+        <div class="empty-title">O céu guarda a memória do seu primeiro instante.</div>
+        <div class="empty-msg">Informe data, hora e local de nascimento<br>para revelar os Quatro Pilares inscritos<br>no momento em que chegou ao mundo.</div>
+      </div>
+    </main>
+
+  </div>
 </div>
 
 <footer class="footer">
   BAZILAR · 命理堂
-  <span class="fsep">·</span>
-  Algoritmo de Meeus (1991)
-  <span class="fsep">·</span>
-  Verificado: Hong Kong Observatory · JPL Horizons · 萬年曆
+  <span class="fsep">·</span>Algoritmo de Meeus (1991)
+  <span class="fsep">·</span>Verificado: Hong Kong Observatory · JPL Horizons · 萬年曆
 </footer>
 
 <script type="module" src="js/app.js"></script>
