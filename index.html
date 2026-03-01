@@ -19,25 +19,19 @@
   </a>
 
   <div class="topbar-right">
-    <!-- Género -->
-    <div class="gender-wrap">
-      <button class="gender-btn active" data-g="M" id="gM" aria-pressed="true">♂</button>
-      <button class="gender-btn"        data-g="F" id="gF" aria-pressed="false">♀</button>
-    </div>
-
-    <!-- Language -->
+    <!-- Language dropdown -->
     <div class="lang-wrap" id="langWrap">
       <button class="lang-btn" id="langBtn"
         aria-haspopup="true" aria-expanded="false" aria-controls="langMenu"
-        aria-label="Select language">
+        aria-label="Idioma">
         <span id="langLabel">PT</span>
-        <span class="lang-arrow" aria-hidden="true">▾</span>
+        <span class="lang-arrow">▾</span>
       </button>
-      <div class="lang-menu" id="langMenu" role="menu">
-        <button class="lang-opt" role="menuitem" data-lang="pt" tabindex="0">🇧🇷 Português</button>
-        <button class="lang-opt" role="menuitem" data-lang="en" tabindex="-1">🇺🇸 English</button>
-        <button class="lang-opt" role="menuitem" data-lang="es" tabindex="-1">🇪🇸 Español</button>
-        <button class="lang-opt" role="menuitem" data-lang="zh" tabindex="-1">🇨🇳 中文</button>
+      <div class="lang-menu" id="langMenu" role="menu" style="display:none">
+        <button class="lang-opt" role="menuitem" data-lang="pt">🇧🇷 Português</button>
+        <button class="lang-opt" role="menuitem" data-lang="en">🇺🇸 English</button>
+        <button class="lang-opt" role="menuitem" data-lang="es">🇪🇸 Español</button>
+        <button class="lang-opt" role="menuitem" data-lang="zh">🇨🇳 中文</button>
       </div>
     </div>
 
@@ -62,80 +56,63 @@
         <span>·</span>
         <span>Termos Solares bissecção ±1s</span>
         <span>·</span>
-        <span>IANA TZ</span>
-        <span>·</span>
-        <span>DST histórico</span>
+        <span>IANA TZ · DST histórico</span>
       </div>
     </div>
 
-    <h2 class="panel-title" id="uiTitle">Dados de Nascimento</h2>
-
-    <!-- Date -->
+    <!-- Nome + Género -->
     <div class="field-group">
-      <span class="field-label" id="uiDate">DATA DE NASCIMENTO</span>
-      <div class="field-row3">
-        <div>
-          <label class="field-label field-label--sm" for="day">Dia</label>
-          <input type="number" id="day"   value="23" min="1"    max="31">
-        </div>
-        <div>
-          <label class="field-label field-label--sm" for="month">Mês</label>
-          <input type="number" id="month" value="5"  min="1"    max="12">
-        </div>
-        <div>
-          <label class="field-label field-label--sm" for="year">Ano</label>
-          <input type="number" id="year"  value="1984" min="1800" max="2200">
+      <label class="field-label" for="name">IDENTIFICAÇÃO</label>
+      <input type="text" id="name" placeholder="Nome ou identificação (opcional)" autocomplete="off">
+      <div class="gender-row">
+        <span class="field-label field-label--sm">GÉNERO</span>
+        <div class="gender-wrap">
+          <button class="gender-btn active" data-g="M" aria-pressed="true">♂ Masculino</button>
+          <button class="gender-btn"        data-g="F" aria-pressed="false">♀ Feminino</button>
         </div>
       </div>
     </div>
 
-    <!-- Time -->
+    <!-- Drum Picker (Data + Hora) -->
     <div class="field-group">
-      <span class="field-label" id="uiTime">HORA DE NASCIMENTO</span>
-      <div class="field-row">
-        <div>
-          <label class="field-label field-label--sm" for="hour">Hora</label>
-          <input type="number" id="hour" value="14" min="0" max="23">
-        </div>
-        <div>
-          <label class="field-label field-label--sm" for="min">Min</label>
-          <input type="number" id="min"  value="30" min="0" max="59">
-        </div>
-        <div style="display:flex;align-items:flex-end;padding-bottom:2px">
-          <button class="now-btn" id="now-btn" title="Hora atual">⟳ agora</button>
-        </div>
-      </div>
+      <span class="field-label">DATA E HORA DE NASCIMENTO</span>
+      <div id="drum-picker"></div>
+      <input type="hidden" id="day"   value="23">
+      <input type="hidden" id="month" value="5">
+      <input type="hidden" id="year"  value="1984">
+      <input type="hidden" id="hour"  value="14">
+      <input type="hidden" id="min"   value="30">
     </div>
 
-    <!-- City -->
+    <!-- Cidade -->
     <div class="field-group">
-      <label class="field-label" for="city" id="uiCity">CIDADE DE NASCIMENTO</label>
+      <label class="field-label" for="city">LOCAL DE NASCIMENTO</label>
       <div class="geo-wrap">
         <input type="text" id="city" placeholder="ex: Bairro, Cidade, País"
           autocomplete="off" aria-autocomplete="list" aria-controls="sugBox">
-        <div class="geo-spin" id="geoSpin" aria-hidden="true"></div>
-        <div class="sug-box" id="sugBox" role="listbox" aria-label="Sugestões"></div>
+        <div class="geo-spin" id="geoSpin"></div>
+        <div class="sug-box" id="sugBox" role="listbox"></div>
       </div>
       <p class="loc-prev" id="locPrev"></p>
     </div>
 
-    <!-- Coordinates -->
+    <!-- Coordenadas -->
     <div class="field-group">
       <div class="field-row">
         <div>
-          <label class="field-label" for="lng" id="uiLong">LONGITUDE</label>
+          <label class="field-label" for="lng">LONGITUDE</label>
           <input type="number" id="lng" value="-46.6333" step="0.0001" min="-180" max="180">
         </div>
         <div>
-          <label class="field-label" for="lat" id="uiLat">LATITUDE</label>
+          <label class="field-label" for="lat">LATITUDE</label>
           <input type="number" id="lat" value="-23.5505" step="0.0001" min="-90"  max="90">
         </div>
       </div>
     </div>
 
-    <!-- Timezone -->
+    <!-- Fuso -->
     <div class="field-group">
-      <label class="field-label" for="tz" id="uiTZ">FUSO HORÁRIO</label>
+      <label class="field-label" for="tz">FUSO HORÁRIO</label>
       <select id="tz">
         <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
         <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
@@ -161,18 +138,40 @@
     <!-- DST -->
     <div class="chk-row">
       <input type="checkbox" id="dst">
-      <label for="dst" id="uiDST">Horário de Verão (DST)</label>
+      <label for="dst">Horário de Verão (DST)</label>
     </div>
 
-    <!-- Actions -->
-    <div class="action-row">
-      <button class="calc-btn" id="calcBtn">
-        <span id="uiCalc">Calcular Quatro Pilares</span>
+    <!-- Avançado: Early Zǐ -->
+    <div class="field-group">
+      <button class="advanced-toggle" id="advToggle" type="button">
+        <span class="adv-arrow">▶</span>
+        Opções Avançadas
       </button>
+      <div class="advanced-panel" id="advPanel">
+        <label class="adv-option">
+          <input type="radio" name="early-zi" value="1" checked>
+          <div>
+            <div class="adv-option-title">早子時 Early Zǐ <span class="adv-tag">PADRÃO</span></div>
+            <div class="adv-option-desc">23:00–23:59 usa o tronco do dia seguinte para a hora 子. Método clássico (子平真詮).</div>
+          </div>
+        </label>
+        <label class="adv-option">
+          <input type="radio" name="early-zi" value="0">
+          <div>
+            <div class="adv-option-title">晚子時 Late Zǐ</div>
+            <div class="adv-option-desc">23:00–23:59 é hora 子 do mesmo dia. Mais simples, usado por algumas escolas modernas.</div>
+          </div>
+        </label>
+      </div>
     </div>
+
+    <!-- Botão -->
+    <button class="calc-btn" id="calcBtn">Calcular Quatro Pilares</button>
 
     <!-- Spinner -->
-    <div id="spinner" class="spinner" hidden aria-label="Calculando…"></div>
+    <div id="spinner" hidden style="text-align:center;padding:12px;color:var(--muted);font-size:.8rem">
+      Calculando…
+    </div>
 
   </aside>
 
@@ -186,7 +185,6 @@
 
 </div>
 
-<!-- Footer mínimo -->
 <footer class="site-footer">
   <span>BAZILAR · 命理堂</span>
   <span class="footer-sep">·</span>

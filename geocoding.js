@@ -1,12 +1,9 @@
 /**
  * geocoding.js — Geocodificação via Nominatim (OpenStreetMap)
- * Roda no browser. Sem chave de API — respeita política de uso (1 req/s).
+ * IDs usados: city, lat, lng, tz, sugBox, geoSpin, locPrev
  */
 
-// ─────────────────────────────────────────────
-// TABELA DE FUSOS POR COUNTRY_CODE
-// Casos complexos (US, CA, AU, RU) usam longitude
-// ─────────────────────────────────────────────
+// ── TABELA DE FUSOS POR COUNTRY_CODE ──────────
 const TZ_CC = {
   br: -3, pt: 0,  es: 1,  fr: 1,  de: 1,  it: 1,  nl: 1,  be: 1,  ch: 1,  at: 1,
   pl: 1,  cz: 1,  sk: 1,  hu: 1,  ro: 2,  bg: 2,  gr: 2,  fi: 2,  ee: 2,  lv: 2,
@@ -20,33 +17,23 @@ const TZ_CC = {
   ph: 8,  my: 8,  sg: 8,  kr: 9,  jp: 9,  nz: 12,
   co: -5, ve: -4, pe: -5, cl: -4, ar: -3, bo: -4, py: -4, uy: -3, ec: -5,
   mx: -6, gt: -6, cr: -6, pa: -5, cu: -5, do: -4, jm: -5,
-  // Melhorias em relação ao original:
-  ac: -5,   // Acre (Brasil) — GMT-5
-  'br-ac': -5,
 };
 
-/**
- * Inferência de fuso a partir de coordenadas + country_code.
- * Trata casos de múltiplos fusos internos (US, CA, AU, RU).
- */
 export function tzFromCoords(lat, lon, cc) {
   cc = (cc || '').toLowerCase();
-
   if (cc === 'us' || cc === 'ca') {
-    if (lon < -150) return -10;   // Hawaii / Yukon
-    if (lon < -115) return -8;    // Pacific (Arizona = -7 sem DST, mas usamos -8 como base)
-    if (lon < -101) return -7;    // Mountain
-    if (lon <  -85) return -6;    // Central
-    if (lon <  -67) return -5;    // Eastern
-    return -4;                    // Atlantic
+    if (lon < -150) return -10;
+    if (lon < -115) return -8;
+    if (lon < -101) return -7;
+    if (lon <  -85) return -6;
+    if (lon <  -67) return -5;
+    return -4;
   }
-
   if (cc === 'au') {
-    if (lon < 129) return 8;      // Western Australia
-    if (lon < 138) return 9.5;    // Central (SA, NT)
-    return 10;                    // Eastern
+    if (lon < 129) return 8;
+    if (lon < 138) return 9.5;
+    return 10;
   }
-
   if (cc === 'ru') {
     if (lon <  40) return 3;
     if (lon <  55) return 5;
@@ -58,28 +45,20 @@ export function tzFromCoords(lat, lon, cc) {
     if (lon < 150) return 11;
     return 12;
   }
-
   if (TZ_CC[cc] !== undefined) return TZ_CC[cc];
-
-  // Fallback geométrico (±15° por fuso)
   return Math.round(lon / 15);
 }
 
-/**
- * Define o <select> de fuso para o offset calculado.
- * Tenta match exato; se não achar, escolhe o mais próximo.
- */
 export function setTZSelect(offset) {
-  const sel = document.getElementById('inTZ');
+  const sel = document.getElementById('tz');   // ID correto
   if (!sel) return;
-
   for (let i = 0; i < sel.options.length; i++) {
     if (parseFloat(sel.options[i].value) === offset) {
-      sel.value = String(offset);
+      sel.selectedIndex = i;
       return;
     }
   }
-
+  // fallback: mais próximo
   let best = 0, bestD = 999;
   for (let j = 0; j < sel.options.length; j++) {
     const d = Math.abs(parseFloat(sel.options[j].value) - offset);
@@ -88,47 +67,51 @@ export function setTZSelect(offset) {
   sel.selectedIndex = best;
 }
 
-// ─────────────────────────────────────────────
-// GEOCODIFICAÇÃO — Nominatim
-// ─────────────────────────────────────────────
-
-function escH(s) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// ── GEOCODIFICAÇÃO ────────────────────────────
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-let _geoTimer = null;
+let _timer = null;
 
-/**
- * Debounce: espera 600 ms após o usuário parar de digitar.
- */
-export function geoDebounce(q, lang, onSelect) {
-  clearTimeout(_geoTimer);
-  if (!q || q.length < 2) { hideSug(); showSpin(false); return; }
-  showSpin(true);
-  _geoTimer = setTimeout(() => geoFetch(q, lang, onSelect), 600);
+// Chamada ao evento input do campo city
+export function initGeocoding() {
+  const cityEl = document.getElementById('city');
+  if (!cityEl) return;
+
+  cityEl.addEventListener('input', () => {
+    clearTimeout(_timer);
+    const q = cityEl.value.trim();
+    if (q.length < 2) { hideSug(); showSpin(false); return; }
+    showSpin(true);
+    _timer = setTimeout(() => geoFetch(q), 600);
+  });
+
+  // Fecha ao clicar fora
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.geo-wrap')) hideSug();
+  });
 }
 
-async function geoFetch(q, lang, onSelect) {
-  const url = 'https://nominatim.openstreetmap.org/search'
+async function geoFetch(q) {
+  const lang = document.documentElement.lang || 'pt';
+  const url  = 'https://nominatim.openstreetmap.org/search'
     + `?q=${encodeURIComponent(q)}`
     + `&format=json&limit=6&addressdetails=1&accept-language=${lang}`;
-
   try {
-    const r    = await fetch(url, {
-      headers: { 'User-Agent': 'Bazilar/1.0 (educational)', 'Accept-Language': lang },
-    });
+    const r    = await fetch(url, { headers: { 'User-Agent': 'Bazilar/1.0 (educational)' } });
     const data = await r.json();
     showSpin(false);
-    renderSug(data, onSelect);
+    renderSug(data);
   } catch {
     showSpin(false);
-    renderSug([], onSelect);
+    renderSug([]);
   }
 }
 
 const NO_RES = { en: 'No results', zh: '无结果', es: 'Sin resultados', pt: 'Sem resultados' };
 
-export function renderSug(results, onSelect) {
+function renderSug(results) {
   const box = document.getElementById('sugBox');
   if (!box) return;
 
@@ -145,64 +128,48 @@ export function renderSug(results, onSelect) {
     const lat4  = parseFloat(r.lat).toFixed(4);
     const lon4  = parseFloat(r.lon).toFixed(4);
     return `<button class="sug-item" data-idx="${idx}" type="button" role="option">
-      <span class="sug-name">${escH(short)}</span>
-      <span class="sug-coords">${lat4}°,  ${lon4}°</span>
+      <span class="sug-name">${esc(short)}</span>
+      <span class="sug-coords">${lat4}°, ${lon4}°</span>
     </button>`;
   }).join('')
   + `<div class="sug-attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></div>`;
 
   box.style.display = 'block';
 
-  // Eventos de seleção
   results.forEach((r, idx) => {
     const btn = box.querySelector(`[data-idx="${idx}"]`);
-    if (!btn) return;
-    btn.addEventListener('click', () => selectSug(r, onSelect));
-    btn.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectSug(r, onSelect); }
-      if (e.key === 'ArrowDown') { e.preventDefault(); btn.nextElementSibling?.classList.contains('sug-item') && btn.nextElementSibling.focus(); }
-      if (e.key === 'ArrowUp')   { e.preventDefault(); btn.previousElementSibling?.classList.contains('sug-item') ? btn.previousElementSibling.focus() : document.getElementById('inCity')?.focus(); }
-      if (e.key === 'Escape')    { hideSug(); document.getElementById('inCity')?.focus(); }
-    });
+    btn?.addEventListener('click', () => selectResult(r));
   });
-
-  // ArrowDown no campo de cidade
-  const cityInput = document.getElementById('inCity');
-  if (cityInput) {
-    cityInput.onkeydown = e => {
-      if (e.key === 'ArrowDown') { e.preventDefault(); box.querySelector('.sug-item')?.focus(); }
-      if (e.key === 'Escape')    hideSug();
-    };
-  }
 }
 
-function selectSug(r, onSelect) {
-  const lat = parseFloat(r.lat);
-  const lon = parseFloat(r.lon);
+function selectResult(r) {
+  const lat  = parseFloat(r.lat);
+  const lon  = parseFloat(r.lon);
   const addr = r.address || {};
   const cc   = addr.country_code || '';
 
-  const city    = addr.city || addr.town || addr.village || addr.county || addr.state || '';
+  const city    = addr.neighbourhood || addr.suburb || addr.city_district
+                || addr.city || addr.town || addr.village || addr.county || '';
+  const cityFull = addr.city || addr.town || addr.village || '';
   const country = addr.country || '';
-  const display = (city && country)
-    ? `${city}, ${country}`
-    : r.display_name.split(', ').slice(0, 2).join(', ');
 
-  // Preenche os campos de coordenadas e cidade
-  const inLo   = document.getElementById('inLo');
-  const inLa   = document.getElementById('inLa');
-  const inCity = document.getElementById('inCity');
-  if (inLo)   inLo.value   = lon.toFixed(4);
-  if (inLa)   inLa.value   = lat.toFixed(4);
-  if (inCity) inCity.value = display;
+  // Monta display com bairro se disponível
+  const parts = [city, cityFull !== city ? cityFull : '', country].filter(Boolean);
+  const display = parts.join(', ');
 
-  // Fuso automático
+  // Preenche campos — IDs corretos
+  const cityEl = document.getElementById('city');
+  const latEl  = document.getElementById('lat');
+  const lngEl  = document.getElementById('lng');
+  const prevEl = document.getElementById('locPrev');
+
+  if (cityEl) cityEl.value = display;
+  if (latEl)  latEl.value  = lat.toFixed(4);
+  if (lngEl)  lngEl.value  = lon.toFixed(4);
+  if (prevEl) prevEl.textContent = `✓ ${display}`;
+
   setTZSelect(tzFromCoords(lat, lon, cc));
-
   hideSug();
-
-  // Callback para o app.js atualizar preview e RST
-  onSelect?.({ lat, lon, display, cc });
 }
 
 export function hideSug() {
@@ -214,8 +181,3 @@ export function showSpin(on) {
   const sp = document.getElementById('geoSpin');
   if (sp) sp.style.opacity = on ? '1' : '0';
 }
-
-// Fecha sugestões ao clicar fora
-document.addEventListener('click', e => {
-  if (!e.target.closest('.geo-wrap')) hideSug();
-});

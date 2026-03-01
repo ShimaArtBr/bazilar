@@ -2,90 +2,117 @@
  * app.js — Controlador principal do BAZILAR
  */
 import { renderResults } from './render.js';
-import { setLang, LANG }  from './i18n.js';
-import { geoDebounce, setTZSelect } from './geocoding.js';
+import { setLang }       from './i18n.js';
+import { initGeocoding } from './geocoding.js';
+import { initDrumPicker, getDrumValues } from './drum.js';
 
-// ── Estado global ──────────────────────────
-let _result  = null;
-let _gender  = 'M';
-let _dark    = true;
-let _lang    = 'pt';
-
-// ── DOM ────────────────────────────────────
+// ── Helpers ────────────────────────────────
 const $ = id => document.getElementById(id);
-const form     = $('bazi-form');
-const resultEl = $('result');
-const spinner  = $('spinner');
-const genderBtns = document.querySelectorAll('.gender-btn');
-const langSel    = $('lang-sel');
-const themeBtn   = $('theme-btn');
-const cityIn     = $('city');
-const latIn      = $('lat');
-const lngIn      = $('lng');
-const tzSel      = $('tz');
-const dstChk     = $('dst');
+
+// ── Estado ─────────────────────────────────
+let _result = null;
+let _gender = 'M';
+let _dark   = true;
+let _lang   = 'pt';
 
 // ── Tema ───────────────────────────────────
 function applyTheme() {
   document.documentElement.dataset.theme = _dark ? 'dark' : 'light';
-  if (themeBtn) themeBtn.textContent = _dark ? '☀️' : '🌙';
+  const btn = $('theme-btn');
+  if (btn) btn.textContent = _dark ? '☀️' : '🌙';
 }
-themeBtn?.addEventListener('click', () => { _dark = !_dark; applyTheme(); });
+$('theme-btn')?.addEventListener('click', () => { _dark = !_dark; applyTheme(); });
 applyTheme();
 
-// ── Género ─────────────────────────────────
-genderBtns.forEach(btn => {
+// ── Idioma ─────────────────────────────────
+document.querySelectorAll('.lang-opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    _lang = btn.dataset.lang;
+    setLang(_lang);
+    document.documentElement.lang = _lang;
+    const lbl = $('langLabel');
+    if (lbl) lbl.textContent = _lang.toUpperCase();
+    $('langMenu').style.display = 'none';
+    $('langBtn')?.setAttribute('aria-expanded', 'false');
+    if (_result) renderOut(_result);
+  });
+});
+$('langBtn')?.addEventListener('click', () => {
+  const menu     = $('langMenu');
+  const expanded = $('langBtn').getAttribute('aria-expanded') === 'true';
+  menu.style.display = expanded ? 'none' : 'block';
+  $('langBtn').setAttribute('aria-expanded', !expanded);
+});
+
+// ── Gérero ─────────────────────────────────
+document.querySelectorAll('.gender-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     _gender = btn.dataset.g;
-    genderBtns.forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.gender-btn').forEach(b => {
+      b.classList.toggle('active', b === btn);
+      b.setAttribute('aria-pressed', b === btn);
+    });
     if (_result) renderOut(_result);
   });
 });
 
-// ── Idioma ─────────────────────────────────
-langSel?.addEventListener('change', () => {
-  _lang = langSel.value;
-  setLang(_lang);
-  if (_result) renderOut(_result);
-});
-
 // ── Geocodificação ─────────────────────────
-cityIn?.addEventListener('input', geoDebounce(cityIn, latIn, lngIn, tzSel));
+initGeocoding();
 
-// ── Hora agora ─────────────────────────────
-$('now-btn')?.addEventListener('click', () => {
-  const now = new Date();
-  $('hour').value  = String(now.getHours()).padStart(2,'0');
-  $('min').value   = String(now.getMinutes()).padStart(2,'0');
+// ── Drum Picker ────────────────────────────
+const drumEl = $('drum-picker');
+if (drumEl) {
+  initDrumPicker(drumEl);
+  drumEl.addEventListener('drum-change', e => {
+    const el = $(e.detail.id);
+    if (el) el.value = e.detail.value;
+  });
+}
+
+// ── Advanced (Early Zǐ) ────────────────────
+$('advToggle')?.addEventListener('click', () => {
+  $('advToggle').classList.toggle('open');
+  $('advPanel').classList.toggle('open');
 });
 
-// ── Submissão ──────────────────────────────
-form?.addEventListener('submit', async e => {
-  e.preventDefault();
+// ── Calcular ───────────────────────────────
+$('calcBtn')?.addEventListener('click', async () => {
+  const spinner  = $('spinner');
+  const resultEl = $('result');
+
   spinner.hidden = false;
   resultEl.innerHTML = '';
 
+  const earlyZi = document.querySelector('input[name="early-zi"]:checked')?.value === '1';
+
   const body = {
+    name:      ($('name')?.value || '').trim() || undefined,
     year:      +$('year').value,
     month:     +$('month').value,
     day:       +$('day').value,
-    hour:      +($('hour').value || '0'),
-    minute:    +($('min').value  || '0'),
-    longitude: +lngIn.value,
-    latitude:  +latIn.value,
-    timezone:  +tzSel.value,
-    dst:       dstChk.checked,
+    hour:      +($('hour').value  || '0'),
+    minute:    +($('min').value   || '0'),
+    longitude: +$('lng').value,
+    latitude:  +$('lat').value,
+    timezone:  +$('tz').value,
+    dst:       $('dst').checked,
     gender:    _gender,
+    earlyZi,
   };
 
   try {
-    const res  = await fetch('/api/calculate', {
+    const res = await fetch('/api/calculate', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(body),
     });
-    if (!res.ok) throw new Error(await res.text());
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(txt);
+    }
     _result = await res.json();
+    _result._name   = body.name;
+    _result._gender = _gender;
     renderOut(_result);
   } catch (err) {
     resultEl.innerHTML = `<div class="error-msg">Erro: ${err.message}</div>`;
@@ -96,32 +123,31 @@ form?.addEventListener('submit', async e => {
 
 // ── Renderização ───────────────────────────
 function renderOut(r) {
+  const resultEl = $('result');
   resultEl.innerHTML = renderResults(r);
   activateTabs();
   resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ── Lógica de abas ─────────────────────────
+// ── Abas ───────────────────────────────────
 function activateTabs() {
-  const bar    = resultEl.querySelector('.rtab-bar');
-  const panels = resultEl.querySelectorAll('.rtab-panel');
+  const resultEl = $('result');
+  const bar      = resultEl?.querySelector('.rtab-bar');
   if (!bar) return;
 
   bar.addEventListener('click', e => {
     const btn = e.target.closest('.rtab-btn');
     if (!btn) return;
     const target = btn.dataset.tab;
-
     bar.querySelectorAll('.rtab-btn').forEach(b => {
       b.classList.toggle('rtab-btn--active', b === btn);
       b.setAttribute('aria-selected', b === btn);
     });
-    panels.forEach(p => {
+    resultEl.querySelectorAll('.rtab-panel').forEach(p => {
       p.classList.toggle('rtab-panel--active', p.id === `panel-${target}`);
     });
   });
 
-  // Teclado
   bar.addEventListener('keydown', e => {
     const btns = [...bar.querySelectorAll('.rtab-btn')];
     const cur  = btns.indexOf(document.activeElement);
