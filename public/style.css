@@ -61,14 +61,14 @@ button { font-family: inherit; cursor: pointer; }
   flex-shrink: 0;
 }
 .brand        { display: flex; align-items: baseline; gap: 9px; }
-.brand-name   { font-size: 1rem; font-weight: 600; letter-spacing: .14em; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
-.brand-sub    { font-size: .7rem; letter-spacing: .18em; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+.brand-name   { font-size: 1rem; font-weight: 600; letter-spacing: .14em; color: var(--gold); font-family: ui-monospace, 'Cascadia Code', monospace; }
+.brand-sub    { font-size: .7rem; letter-spacing: .18em; color: var(--muted); font-family: ui-monospace, 'Cascadia Code', monospace; }
 .topbar-r     { display: flex; align-items: center; gap: 8px; }
 .theme-btn    { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 9px; color: var(--text); font-size: .8rem; transition: border-color .15s; }
 .theme-btn:hover { border-color: var(--gold); }
 
 .lang-wrap  { position: relative; }
-.lang-btn   { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 5px 11px; color: var(--text); font-size: .78rem; display: flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono', monospace; transition: border-color .15s; }
+.lang-btn   { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 5px 11px; color: var(--text); font-size: .78rem; display: flex; align-items: center; gap: 4px; font-family: ui-monospace, 'Cascadia Code', monospace; transition: border-color .15s; }
 .lang-btn:hover { border-color: var(--gold); }
 .arr        { font-size: .55rem; color: var(--muted); }
 .lang-menu  { display: none; position: absolute; right: 0; top: calc(100% + 5px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; min-width: 150px; z-index: 300; box-shadow: 0 10px 30px var(--shadow); }
@@ -115,14 +115,14 @@ button { font-family: inherit; cursor: pointer; }
   border-bottom: 1px solid var(--border);
   margin-bottom: 20px;
 }
-.hero-title { font-size: 1.9rem; font-weight: 600; letter-spacing: .18em; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+.hero-title { font-size: 1.9rem; font-weight: 600; letter-spacing: .18em; color: var(--gold); font-family: ui-monospace, 'Cascadia Code', monospace; }
 .hero-zh    { font-size: .95rem; letter-spacing: .4em; color: var(--muted); margin: 5px 0; }
-.hero-sub   { font-size: .55rem; letter-spacing: .11em; color: var(--dim); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
-.hero-tags  { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 9px; font-size: .55rem; color: var(--dim); font-family: 'JetBrains Mono', monospace; }
+.hero-sub   { font-size: .55rem; letter-spacing: .11em; color: var(--dim); text-transform: uppercase; font-family: ui-monospace, 'Cascadia Code', monospace; }
+.hero-tags  { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 9px; font-size: .55rem; color: var(--dim); font-family: ui-monospace, 'Cascadia Code', monospace; }
 
 /* ── FORM ────────────────────────────────── */
 .fg   { margin-bottom: 14px; }
-.fl   { display: block; font-size: .58rem; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; margin-bottom: 5px; font-family: 'JetBrains Mono', monospace; }
+.fl   { display: block; font-size: .58rem; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; margin-bottom: 5px; font-family: ui-monospace, 'Cascadia Code', monospace; }
 .fl--sm { font-size: .56rem; }
 
 /* Inputs com fonte monospace */
@@ -136,7 +136,7 @@ select {
   color: var(--text);
   padding: 9px 12px;
   font-size: .88rem;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
   transition: border-color .15s;
   letter-spacing: .02em;
 }
@@ -165,7 +165,7 @@ select {
   color: var(--muted);
   border-radius: 20px;
   transition: all .15s;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
   letter-spacing: .02em;
 }
 .gender-btn:hover  { border-color: rgba(196,163,90,.4); color: var(--text); }
@@ -180,23 +180,23 @@ select {
 .sug-item:last-of-type { border-bottom: none; }
 .sug-item:hover { background: var(--surface2); }
 .sug-name   { flex: 1; text-align: left; }
-.sug-coords { font-size: .63rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+.sug-coords { font-size: .63rem; color: var(--muted); font-family: ui-monospace, 'Cascadia Code', monospace; white-space: nowrap; }
 .sug-none   { padding: 10px 14px; color: var(--muted); font-size: .82rem; }
 .sug-attr   { padding: 6px 14px; font-size: .6rem; color: var(--dim); border-top: 1px solid var(--border); }
-.loc-prev   { font-size: .72rem; color: var(--gold); margin-top: 5px; min-height: 1em; font-family: 'JetBrains Mono', monospace; }
+.loc-prev   { font-size: .72rem; color: var(--gold); margin-top: 5px; min-height: 1em; font-family: ui-monospace, 'Cascadia Code', monospace; }
 
 /* Checkbox */
 .chk-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: .82rem; color: var(--muted); }
 .chk-row input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--gold); flex-shrink: 0; }
 
 /* Avançado */
-.adv-btn { background: none; border: none; color: var(--muted); font-size: .72rem; padding: 3px 0; display: block; margin-bottom: 8px; transition: color .15s; font-family: 'JetBrains Mono', monospace; }
+.adv-btn { background: none; border: none; color: var(--muted); font-size: .72rem; padding: 3px 0; display: block; margin-bottom: 8px; transition: color .15s; font-family: ui-monospace, 'Cascadia Code', monospace; }
 .adv-btn:hover { color: var(--text); }
 .adv-panel { display: none; }
 .adv-opt   { display: flex; align-items: flex-start; gap: 10px; padding: 10px; border: 1px solid var(--border); border-radius: var(--r); background: var(--surface2); margin-bottom: 6px; cursor: pointer; transition: border-color .15s; }
 .adv-opt:hover { border-color: rgba(196,163,90,.35); }
 .adv-opt input[type=radio] { margin-top: 3px; accent-color: var(--gold); flex-shrink: 0; }
-.adv-title { font-size: .8rem; font-weight: 500; margin-bottom: 3px; font-family: 'JetBrains Mono', monospace; }
+.adv-title { font-size: .8rem; font-weight: 500; margin-bottom: 3px; font-family: ui-monospace, 'Cascadia Code', monospace; }
 .adv-tag   { font-size: .58rem; color: var(--gold); margin-left: 6px; }
 .adv-desc  { font-size: .7rem; color: var(--muted); line-height: 1.4; }
 
@@ -217,7 +217,7 @@ select {
 }
 .calc-btn:hover  { opacity: .88; }
 .calc-btn:active { transform: scale(.985); }
-.spinner { text-align: center; color: var(--muted); font-size: .78rem; padding: 12px; font-family: 'JetBrains Mono', monospace; }
+.spinner { text-align: center; color: var(--muted); font-size: .78rem; padding: 12px; font-family: ui-monospace, 'Cascadia Code', monospace; }
 
 /* ── DRUM PICKER ─────────────────────────── */
 #drum-picker {
@@ -255,13 +255,13 @@ select {
   border-radius: 0 0 10px 10px;
 }
 .drum-col    { display: flex; flex-direction: column; align-items: center; }
-.drum-label  { font-size: .48rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; padding: 7px 0 4px; font-family: 'JetBrains Mono', monospace; position: relative; z-index: 3; width: 100%; text-align: center; }
+.drum-label  { font-size: .48rem; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; padding: 7px 0 4px; font-family: ui-monospace, 'Cascadia Code', monospace; position: relative; z-index: 3; width: 100%; text-align: center; }
 .drum-scroll { height: 220px; overflow-y: scroll; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; width: 100%; }
 .drum-scroll::-webkit-scrollbar { display: none; }
 .drum-spacer { height: 88px; flex-shrink: 0; scroll-snap-align: none; }
-.drum-item   { height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 400; color: var(--muted); scroll-snap-align: center; cursor: default; font-family: 'JetBrains Mono', monospace; transform-origin: center; will-change: transform, opacity; }
+.drum-item   { height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 400; color: var(--muted); scroll-snap-align: center; cursor: default; font-family: ui-monospace, 'Cascadia Code', monospace; transform-origin: center; will-change: transform, opacity; }
 .drum-item--selected { color: var(--gold); font-weight: 500; }
-.drum-sep    { display: flex; align-items: center; justify-content: center; width: 14px; padding-top: 28px; height: 258px; color: var(--dim); font-size: .85rem; flex-shrink: 0; position: relative; z-index: 3; font-family: 'JetBrains Mono', monospace; }
+.drum-sep    { display: flex; align-items: center; justify-content: center; width: 14px; padding-top: 28px; height: 258px; color: var(--dim); font-size: .85rem; flex-shrink: 0; position: relative; z-index: 3; font-family: ui-monospace, 'Cascadia Code', monospace; }
 
 /* ── ÁREA DE RESULTADOS ──────────────────── */
 .result-area {
@@ -279,7 +279,7 @@ select {
 .empty-title  { font-size: 1.4rem; font-style: italic; color: var(--text); font-weight: 300; max-width: 360px; line-height: 1.4; }
 .empty-msg    { font-size: .88rem; color: var(--muted); line-height: 1.7; max-width: 300px; }
 
-.err-msg { background: rgba(200,50,50,.1); border: 1px solid rgba(200,50,50,.25); border-radius: var(--r); padding: 12px 16px; color: #e05c4a; font-size: .82rem; font-family: 'JetBrains Mono', monospace; }
+.err-msg { background: rgba(200,50,50,.1); border: 1px solid rgba(200,50,50,.25); border-radius: var(--r); padding: 12px 16px; color: #e05c4a; font-size: .82rem; font-family: ui-monospace, 'Cascadia Code', monospace; }
 
 /* ── ABAS ────────────────────────────────── */
 .result-name { font-size: 1.3rem; color: var(--gold); margin-bottom: 14px; font-weight: 300; font-style: italic; }
@@ -289,7 +289,7 @@ select {
   background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
   padding: 6px 13px; color: var(--muted); font-size: .75rem;
   display: flex; flex-direction: column; align-items: center; gap: 1px;
-  transition: all .15s; font-family: 'JetBrains Mono', monospace;
+  transition: all .15s; font-family: ui-monospace, 'Cascadia Code', monospace;
 }
 .rtab:hover { border-color: rgba(196,163,90,.35); color: var(--text); }
 .rtab--on   { background: rgba(196,163,90,.1); border-color: var(--gold); color: var(--gold); }
@@ -301,41 +301,41 @@ select {
 /* ── PILARES ─────────────────────────────── */
 .p-grid   { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 18px; }
 .p-col    { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-.p-hdr    { background: var(--surface); text-align: center; padding: 6px 4px; font-size: .55rem; color: var(--muted); letter-spacing: .08em; font-family: 'JetBrains Mono', monospace; }
+.p-hdr    { background: var(--surface); text-align: center; padding: 6px 4px; font-size: .55rem; color: var(--muted); letter-spacing: .08em; font-family: ui-monospace, 'Cascadia Code', monospace; }
 .p-hdr--dm { background: rgba(196,163,90,.08); color: var(--gold); }
 .p-stem, .p-branch { display: flex; flex-direction: column; align-items: center; padding: 10px 6px; gap: 3px; border-bottom: 1px solid var(--border); }
 .p-branch  { border-bottom: none; }
 .p-hs      { padding: 6px 8px; }
 .p-big     { font-size: 2rem; line-height: 1; }
-.p-sm      { font-size: .62rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
-.p-po      { font-size: .58rem; color: var(--dim); font-family: 'JetBrains Mono', monospace; }
-.p-phase   { font-size: .58rem; color: var(--muted); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
-.hs-row    { display: flex; align-items: center; gap: 4px; margin-bottom: 2px; font-size: .62rem; font-family: 'JetBrains Mono', monospace; }
+.p-sm      { font-size: .62rem; color: var(--muted); font-family: ui-monospace, 'Cascadia Code', monospace; }
+.p-po      { font-size: .58rem; color: var(--dim); font-family: ui-monospace, 'Cascadia Code', monospace; }
+.p-phase   { font-size: .58rem; color: var(--muted); margin-top: 2px; font-family: ui-monospace, 'Cascadia Code', monospace; }
+.hs-row    { display: flex; align-items: center; gap: 4px; margin-bottom: 2px; font-size: .62rem; font-family: ui-monospace, 'Cascadia Code', monospace; }
 .hs-zh     { font-size: .88rem; font-weight: 500; }
 .hs-w      { color: var(--dim); }
 
 .info-chips { display: flex; flex-direction: column; gap: 6px; }
 .chip   { display: flex; align-items: baseline; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; }
-.chip-l { color: var(--muted); font-size: .6rem; min-width: 110px; flex-shrink: 0; font-family: 'JetBrains Mono', monospace; }
-.chip-v { color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: .8rem; }
+.chip-l { color: var(--muted); font-size: .6rem; min-width: 110px; flex-shrink: 0; font-family: ui-monospace, 'Cascadia Code', monospace; }
+.chip-v { color: var(--text); font-family: ui-monospace, 'Cascadia Code', monospace; font-size: .8rem; }
 .muted  { color: var(--muted); }
 
 /* ── DAY MASTER ──────────────────────────── */
 .dm-hero   { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; }
 .dm-char   { font-size: 4.5rem; line-height: 1; font-weight: 300; }
 .dm-name   { font-size: .95rem; }
-.sep-label { font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
+.sep-label { font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; margin-top: 4px; font-family: ui-monospace, 'Cascadia Code', monospace; }
 .str-bar-wrap { margin: 0 0 8px; }
 .str-track  { height: 10px; background: var(--surface2); border-radius: 5px; overflow: hidden; }
 .str-fill   { height: 100%; border-radius: 5px; transition: width .5s ease; }
-.str-labels { display: flex; justify-content: space-between; font-size: .58rem; color: var(--dim); margin-top: 3px; font-family: 'JetBrains Mono', monospace; }
-.str-detail { font-size: 1rem; font-weight: 500; font-family: 'JetBrains Mono', monospace; }
-.season-chip { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: .82rem; font-family: 'JetBrains Mono', monospace; }
-.dm-tag  { font-size: .62rem; background: rgba(196,163,90,.1); color: var(--gold); border-radius: 4px; padding: 1px 5px; font-family: 'JetBrains Mono', monospace; }
+.str-labels { display: flex; justify-content: space-between; font-size: .58rem; color: var(--dim); margin-top: 3px; font-family: ui-monospace, 'Cascadia Code', monospace; }
+.str-detail { font-size: 1rem; font-weight: 500; font-family: ui-monospace, 'Cascadia Code', monospace; }
+.season-chip { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: .82rem; font-family: ui-monospace, 'Cascadia Code', monospace; }
+.dm-tag  { font-size: .62rem; background: rgba(196,163,90,.1); color: var(--gold); border-radius: 4px; padding: 1px 5px; font-family: ui-monospace, 'Cascadia Code', monospace; }
 
 /* ── TEN GODS ────────────────────────────── */
 .tg-table  { width: 100%; border-collapse: collapse; font-size: .82rem; }
-.tg-table th { text-align: left; font-size: .58rem; font-weight: 500; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; }
+.tg-table th { text-align: left; font-size: .58rem; font-weight: 500; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--border); font-family: ui-monospace, 'Cascadia Code', monospace; }
 .tg-table td { padding: 7px 8px; border-bottom: 1px solid rgba(136,136,164,.07); vertical-align: middle; }
 .tg-hs { margin-right: 6px; font-size: .8rem; }
 
@@ -347,7 +347,7 @@ select {
 .cg-char  { width: 22px; text-align: center; font-size: 1.1rem; font-weight: 500; flex-shrink: 0; }
 .cg-bar-wrap { flex: 1; height: 8px; background: var(--surface); border-radius: 4px; overflow: hidden; }
 .cg-bar   { height: 100%; border-radius: 4px; }
-.cg-meta  { color: var(--muted); font-size: .62rem; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+.cg-meta  { color: var(--muted); font-size: .62rem; white-space: nowrap; font-family: ui-monospace, 'Cascadia Code', monospace; }
 
 /* ── ELEMENT BALANCE ─────────────────────── */
 .el-row      { display: flex; align-items: center; gap: 10px; }
@@ -357,7 +357,7 @@ select {
 /* ── INTERACTIONS ────────────────────────── */
 .ix-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
 .ix-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; font-size: .82rem; }
-.ix-name { font-weight: 500; flex: 1; font-family: 'JetBrains Mono', monospace; }
+.ix-name { font-weight: 500; flex: 1; font-family: ui-monospace, 'Cascadia Code', monospace; }
 
 /* ── DA YUN ──────────────────────────────── */
 .dy-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
@@ -365,7 +365,7 @@ select {
 .dy-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 .dy-card    { flex-shrink: 0; width: 88px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 8px; text-align: center; display: flex; flex-direction: column; gap: 4px; transition: border-color .15s; }
 .dy-card--cur { border-color: var(--gold); background: rgba(196,163,90,.06); }
-.dy-age   { font-size: .6rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+.dy-age   { font-size: .6rem; color: var(--muted); font-family: ui-monospace, 'Cascadia Code', monospace; }
 .dy-chars { font-size: 1.7rem; font-weight: 300; line-height: 1; }
 
 /* ── SOLAR TERMS ─────────────────────────── */
@@ -374,12 +374,12 @@ select {
 .term-row.past { opacity: .4; }
 .term-row.cur  { border-color: var(--gold); background: rgba(196,163,90,.06); }
 .term-zh   { font-size: 1rem; flex-shrink: 0; }
-.term-date { font-family: 'JetBrains Mono', monospace; font-size: .68rem; color: var(--muted); }
+.term-date { font-family: ui-monospace, 'Cascadia Code', monospace; font-size: .68rem; color: var(--muted); }
 
 /* ── BADGES ──────────────────────────────── */
-.bdg-el { display: inline-block; border-radius: 4px; padding: 1px 6px; font-size: .62rem; font-weight: 500; font-family: 'JetBrains Mono', monospace; }
+.bdg-el { display: inline-block; border-radius: 4px; padding: 1px 6px; font-size: .62rem; font-weight: 500; font-family: ui-monospace, 'Cascadia Code', monospace; }
 .bdg-tg { font-size: .72rem; font-weight: 500; }
 
 /* ── FOOTER ──────────────────────────────── */
-.footer { text-align: center; padding: 14px; font-size: .58rem; color: var(--dim); border-top: 1px solid var(--border); flex-shrink: 0; font-family: 'JetBrains Mono', monospace; letter-spacing: .04em; }
+.footer { text-align: center; padding: 14px; font-size: .58rem; color: var(--dim); border-top: 1px solid var(--border); flex-shrink: 0; font-family: ui-monospace, 'Cascadia Code', monospace; letter-spacing: .04em; }
 .fsep   { margin: 0 8px; opacity: .35; }

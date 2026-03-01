@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BAZILAR · 命理堂</title>
   <meta name="description" content="Calculadora astronômica BaZi de precisão — Tempo Solar Real, Meeus 1991">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -58,13 +56,13 @@
       </div>
 
       <div class="fg">
-        <span class="fl">DATA E HORA DE NASCIMENTO</span>
-        <div id="drum-picker"></div>
-        <input type="hidden" id="day"   value="23">
-        <input type="hidden" id="month" value="5">
-        <input type="hidden" id="year"  value="1984">
-        <input type="hidden" id="hour"  value="14">
-        <input type="hidden" id="min"   value="30">
+        <label class="fl" for="datetime">DATA E HORA DE NASCIMENTO</label>
+        <input id="datetime" type="text" placeholder="DD/MM/AAAA HH:MM" maxlength="16" autocomplete="off">
+        <input type="hidden" id="day"   value="">
+        <input type="hidden" id="month" value="">
+        <input type="hidden" id="year"  value="">
+        <input type="hidden" id="hour"  value="0">
+        <input type="hidden" id="min"   value="0">
       </div>
 
       <div class="fg">
