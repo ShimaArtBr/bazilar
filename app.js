@@ -4,16 +4,13 @@
 import { renderResults } from './render.js';
 import { setLang }       from './i18n.js';
 import { initGeocoding } from './geocoding.js';
-import { initDrumPicker, getDrumValues } from './drum.js';
+import { initDrumPicker } from './drum.js';
 
-// ── Helpers ────────────────────────────────
 const $ = id => document.getElementById(id);
 
-// ── Estado ─────────────────────────────────
 let _result = null;
 let _gender = 'M';
 let _dark   = true;
-let _lang   = 'pt';
 
 // ── Tema ───────────────────────────────────
 function applyTheme() {
@@ -25,32 +22,42 @@ $('theme-btn')?.addEventListener('click', () => { _dark = !_dark; applyTheme(); 
 applyTheme();
 
 // ── Idioma ─────────────────────────────────
+$('langBtn')?.addEventListener('click', () => {
+  const menu     = $('langMenu');
+  const expanded = $('langBtn').getAttribute('aria-expanded') === 'true';
+  menu.style.display = expanded ? 'none' : 'block';
+  $('langBtn').setAttribute('aria-expanded', String(!expanded));
+});
+
 document.querySelectorAll('.lang-opt').forEach(btn => {
   btn.addEventListener('click', () => {
-    _lang = btn.dataset.lang;
-    setLang(_lang);
-    document.documentElement.lang = _lang;
+    const lang = btn.dataset.lang;
+    setLang(lang);
+    document.documentElement.lang = lang;
     const lbl = $('langLabel');
-    if (lbl) lbl.textContent = _lang.toUpperCase();
+    if (lbl) lbl.textContent = lang.toUpperCase();
     $('langMenu').style.display = 'none';
     $('langBtn')?.setAttribute('aria-expanded', 'false');
     if (_result) renderOut(_result);
   });
 });
-$('langBtn')?.addEventListener('click', () => {
-  const menu     = $('langMenu');
-  const expanded = $('langBtn').getAttribute('aria-expanded') === 'true';
-  menu.style.display = expanded ? 'none' : 'block';
-  $('langBtn').setAttribute('aria-expanded', !expanded);
+
+// Fecha menu de idioma ao clicar fora
+document.addEventListener('click', e => {
+  if (!e.target.closest('.lang-wrap')) {
+    const m = $('langMenu');
+    if (m) m.style.display = 'none';
+    $('langBtn')?.setAttribute('aria-expanded', 'false');
+  }
 });
 
-// ── Gérero ─────────────────────────────────
+// ── Género ─────────────────────────────────
 document.querySelectorAll('.gender-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     _gender = btn.dataset.g;
     document.querySelectorAll('.gender-btn').forEach(b => {
       b.classList.toggle('active', b === btn);
-      b.setAttribute('aria-pressed', b === btn);
+      b.setAttribute('aria-pressed', String(b === btn));
     });
     if (_result) renderOut(_result);
   });
@@ -69,11 +76,16 @@ if (drumEl) {
   });
 }
 
-// ── Advanced (Early Zǐ) ────────────────────
-$('advToggle')?.addEventListener('click', () => {
-  $('advToggle').classList.toggle('open');
-  $('advPanel').classList.toggle('open');
-});
+// ── Advanced panel (Early Zǐ) ──────────────
+const advToggle = $('advToggle');
+const advPanel  = $('advPanel');
+if (advToggle && advPanel) {
+  advToggle.addEventListener('click', () => {
+    const isOpen = advPanel.style.display === 'block';
+    advPanel.style.display = isOpen ? 'none' : 'block';
+    advToggle.classList.toggle('open', !isOpen);
+  });
+}
 
 // ── Calcular ───────────────────────────────
 $('calcBtn')?.addEventListener('click', async () => {
@@ -86,7 +98,6 @@ $('calcBtn')?.addEventListener('click', async () => {
   const earlyZi = document.querySelector('input[name="early-zi"]:checked')?.value === '1';
 
   const body = {
-    name:      ($('name')?.value || '').trim() || undefined,
     year:      +$('year').value,
     month:     +$('month').value,
     day:       +$('day').value,
@@ -100,22 +111,35 @@ $('calcBtn')?.addEventListener('click', async () => {
     earlyZi,
   };
 
+  // Mostra erro legível se dados inválidos
+  if (!body.year || !body.month || !body.day) {
+    resultEl.innerHTML = `<div class="error-msg">⚠ Preencha data, hora e localização.</div>`;
+    spinner.hidden = true;
+    return;
+  }
+
   try {
     const res = await fetch('/api/calculate', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(body),
     });
+
+    const txt = await res.text();
+
     if (!res.ok) {
-      const txt = await res.text();
-      throw new Error(txt);
+      resultEl.innerHTML = `<div class="error-msg">Erro ${res.status}: ${txt}</div>`;
+      return;
     }
-    _result = await res.json();
-    _result._name   = body.name;
+
+    _result = JSON.parse(txt);
+    _result._name   = ($('name')?.value || '').trim();
     _result._gender = _gender;
     renderOut(_result);
+
   } catch (err) {
-    resultEl.innerHTML = `<div class="error-msg">Erro: ${err.message}</div>`;
+    resultEl.innerHTML = `<div class="error-msg">❌ ${err.message}<br><small>Verifique o console do browser para detalhes.</small></div>`;
+    console.error('[BAZILAR]', err);
   } finally {
     spinner.hidden = true;
   }
@@ -124,9 +148,14 @@ $('calcBtn')?.addEventListener('click', async () => {
 // ── Renderização ───────────────────────────
 function renderOut(r) {
   const resultEl = $('result');
-  resultEl.innerHTML = renderResults(r);
-  activateTabs();
-  resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  try {
+    resultEl.innerHTML = renderResults(r);
+    activateTabs();
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(err) {
+    resultEl.innerHTML = `<div class="error-msg">Erro ao renderizar: ${err.message}</div>`;
+    console.error('[BAZILAR render]', err);
+  }
 }
 
 // ── Abas ───────────────────────────────────
@@ -141,17 +170,10 @@ function activateTabs() {
     const target = btn.dataset.tab;
     bar.querySelectorAll('.rtab-btn').forEach(b => {
       b.classList.toggle('rtab-btn--active', b === btn);
-      b.setAttribute('aria-selected', b === btn);
+      b.setAttribute('aria-selected', String(b === btn));
     });
     resultEl.querySelectorAll('.rtab-panel').forEach(p => {
       p.classList.toggle('rtab-panel--active', p.id === `panel-${target}`);
     });
-  });
-
-  bar.addEventListener('keydown', e => {
-    const btns = [...bar.querySelectorAll('.rtab-btn')];
-    const cur  = btns.indexOf(document.activeElement);
-    if (e.key === 'ArrowRight') btns[(cur + 1) % btns.length]?.click();
-    if (e.key === 'ArrowLeft')  btns[(cur - 1 + btns.length) % btns.length]?.click();
   });
 }
