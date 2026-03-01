@@ -1,5 +1,5 @@
 'use strict';
-const { calculate } = require('../core/pillars');
+const { calculate } = require('./core/pillars');
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
