@@ -27,8 +27,8 @@ const dstChk     = $('dst');
 
 // ── Tema ───────────────────────────────────
 function applyTheme() {
-  document.body.classList.toggle('light', !_dark);
-  themeBtn.textContent = _dark ? '☀️' : '🌙';
+  document.documentElement.dataset.theme = _dark ? 'dark' : 'light';
+  if (themeBtn) themeBtn.textContent = _dark ? '☀️' : '🌙';
 }
 themeBtn?.addEventListener('click', () => { _dark = !_dark; applyTheme(); });
 applyTheme();
