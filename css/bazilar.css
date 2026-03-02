@@ -5,7 +5,7 @@
 
 :root,[data-theme="dark"]{
   --bg:#0b0a0a;--surface:#131211;--panel:#1c1a18;--panel2:#242120;
-  --text:#e8e5e0;--muted:#8a8580;--dim:#5c5855;
+  --text:#e8e5e0;--muted:#918c86;--dim:#6d6862;
   --input-bg:#1c1a18;--input-bd:rgba(201,168,76,.12);
   --shadow:rgba(0,0,0,.50);
 }
@@ -20,8 +20,11 @@
   --gold:#c9a84c;--gold2:#e8c97a;--gold-dim:#a08830;--gold-bg:rgba(201,168,76,.12);
   /* Element colors — ONLY for result cards/pillars, never UI nav */
   --wood:#7dba82;--fire:#e05c4a;--earth:#c9a84c;--metal:#b0bec5;--water:#5b9fc9;
-  --bg-gold:rgba(201,168,76,.15);
+  --bg-gold:rgba(201,168,76,.10);
   --r:8px;--r-lg:12px;
+  /* Spacing scale — base 4px */
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;
+  --sp-6:24px;--sp-8:32px;--sp-12:48px;--sp-16:64px;
 }
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:3px}
 html{font-size:15px;scroll-behavior:smooth}
@@ -38,6 +41,10 @@ body::after{
 }
 /* Global no-bold */
 strong,b,h1,h2,h3,h4,h5,h6{font-weight:400}
+
+/* Skip link */
+.skip-link{position:absolute;top:-40px;left:0;background:var(--gold);color:var(--bg);padding:8px 16px;font-family:'JetBrains Mono',monospace;font-size:.7rem;text-decoration:none;z-index:9999;border-radius:0 0 var(--r) 0;transition:top .2s}
+.skip-link:focus{top:0}
 
 /* ═══════ TOPBAR ═══════ */
 .topbar{
@@ -229,6 +236,7 @@ select option{background:var(--input-bg);color:var(--text)}
   animation:spin .7s linear infinite;opacity:0;transition:opacity .2s;pointer-events:none;
 }
 @keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 /* Suggestions */
 .sug-box{
@@ -395,7 +403,7 @@ select option{background:var(--input-bg);color:var(--text)}
   padding:36px 24px;transition:background .3s;
 }
 .footer-inner{
-  max-width:1120px;margin:0 auto;
+  max-width:1080px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;
   font-family:'JetBrains Mono',monospace;font-size:.52rem;
   color:var(--dim);letter-spacing:.08em;
