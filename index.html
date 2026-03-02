@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BAZILAR — Calculadora astronômica de Quatro Pilares do Destino (八字) com Tempo Solar Real">
+<meta name="theme-color" content="#0a0a14">
+<title>BAZILAR — Quatro Pilares do Destino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans:wght@300;400;500&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/bazilar.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a class="topbar-brand" href="#">
+    <div class="topbar-sym">八</div>
+    <span class="topbar-name">BAZILAR</span>
+  </a>
+  <div class="topbar-right">
+    <span class="topbar-badge">ENGINE v3.1</span>
+    <div class="lang-wrap" id="langWrap">
+      <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
+        <span id="langFlag">🇧🇷</span>
+        <span id="langLabel">PT</span>
+        <span class="lang-arrow" aria-hidden="true">▼</span>
+      </button>
+      <div class="lang-menu" id="langMenu" role="listbox">
+        <button class="lang-opt active" data-lang="pt" role="option">🇧🇷 Português</button>
+        <button class="lang-opt" data-lang="en" role="option">🇺🇸 English</button>
+        <button class="lang-opt" data-lang="es" role="option">🇪🇸 Español</button>
+        <button class="lang-opt" data-lang="zh" role="option">🇨🇳 中文</button>
+      </div>
+    </div>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"><span id="themeIcon">☀️</span></button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- INPUT PANEL -->
+  <aside class="input-panel">
+    <h2 class="panel-title"><span class="panel-title-zh">命盤</span> <span id="uiTitle">Dados de Nascimento</span></h2>
+
+    <div class="field-group">
+      <label class="field-label" for="inName" id="uiName">Nome / Apelido</label>
+      <input type="text" id="inName" placeholder="como deseja ser chamado(a)" maxlength="60">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" id="uiDate">Data</label>
+      <div class="field-row3">
+        <input type="number" id="inD" min="1" max="31" placeholder="DD">
+        <input type="number" id="inM" min="1" max="12" placeholder="MM">
+        <input type="number" id="inY" min="1900" max="2100" placeholder="AAAA">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="inT" id="uiTime">Hora (00:00 – 23:59)</label>
+      <input type="text" id="inT" placeholder="HH:MM" maxlength="5">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" id="uiGender">Gênero Biológico</label>
+      <div class="gender-row">
+        <button class="gender-btn" id="gF" data-gender="F" type="button">♀ <span id="uiGF">Feminino</span></button>
+        <button class="gender-btn" id="gM" data-gender="M" type="button">♂ <span id="uiGM">Masculino</span></button>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="inCity" id="uiCity">Local de Nascimento (bairro, cidade, país)</label>
+      <div class="geo-wrap">
+        <input type="text" id="inCity" placeholder="bairro, cidade, país" autocomplete="off">
+        <div class="geo-spin" id="geoSpin"></div>
+        <div class="sug-box" id="sugBox" role="listbox"></div>
+      </div>
+      <div class="loc-prev" id="locPrev"></div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" id="uiCoords">Coordenadas</label>
+      <div class="field-row">
+        <input type="number" id="inLo" step="0.0001" placeholder="longitude">
+        <input type="number" id="inLa" step="0.0001" placeholder="latitude">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="inTZ" id="uiTZ">Fuso Horário (GMT)</label>
+      <select id="inTZ">
+        <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
+        <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
+        <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
+        <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
+        <option value="-5">GMT −5</option><option value="-4">GMT −4</option>
+        <option value="-3.5">GMT −3:30</option><option value="-3" selected>GMT −3</option>
+        <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
+        <option value="0">GMT 0</option><option value="1">GMT +1</option>
+        <option value="2">GMT +2</option><option value="3">GMT +3</option>
+        <option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
+        <option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
+        <option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
+        <option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
+        <option value="7">GMT +7</option><option value="8">GMT +8</option>
+        <option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
+        <option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
+        <option value="11">GMT +11</option><option value="12">GMT +12</option>
+        <option value="13">GMT +13</option>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <div class="chk-row">
+        <input type="checkbox" id="inDST">
+        <label for="inDST" id="uiDST">Horário de Verão (DST)</label>
+      </div>
+    </div>
+
+    <div id="rstBox" class="rst-box" style="display:none" aria-live="polite">
+      <p class="rst-lbl" id="uiRSTLbl">Tempo Solar Real</p>
+      <p class="rst-val" id="rstV">—</p>
+      <p class="rst-det" id="rstD"></p>
+    </div>
+
+    <!-- Early / Late Zǐ selector -->
+    <div class="zi-selector" id="ziSelector">
+      <div class="zi-toggle-hd" id="ziToggle">
+        <span class="zi-toggle-arrow">▼</span>
+        <span id="uiAdvanced">Opções avançadas</span>
+      </div>
+      <div class="zi-opts" id="ziOpts">
+        <div class="zi-opt active" data-zi="early" id="ziEarly">
+          <div class="zi-radio"></div>
+          <div class="zi-label">
+            <div class="zi-name">
+              <span class="zi-name-zh">早子時</span>
+              <span class="zi-name-en">Early Zǐ</span>
+              <span class="zi-badge" id="uiDefault">PADRÃO</span>
+            </div>
+            <div class="zi-desc" id="uiEarlyDesc">23:00–23:59 usa o tronco do dia seguinte. Método clássico (子平真詮).</div>
+          </div>
+        </div>
+        <div class="zi-opt" data-zi="late" id="ziLate">
+          <div class="zi-radio"></div>
+          <div class="zi-label">
+            <div class="zi-name">
+              <span class="zi-name-zh">晚子時</span>
+              <span class="zi-name-en">Late Zǐ</span>
+            </div>
+            <div class="zi-desc" id="uiLateDesc">23:00–23:59 é hora 子 do mesmo dia. Método simplificado.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="calc-btn" id="calcBtn" type="button"><span id="uiCalc">Calcular Quatro Pilares</span></button>
+  </aside>
+
+  <!-- RESULTS -->
+  <main id="results" aria-live="polite">
+    <div class="empty" id="emptyState">
+      <div class="empty-ico" aria-hidden="true">八字</div>
+      <h2 class="empty-ttl" id="uiEmpTitle">Motor de Cálculo BaZi</h2>
+      <p class="empty-sub" id="uiEmpSub">Preencha os dados e clique em Calcular para gerar os Quatro Pilares com Tempo Solar Real, Troncos Ocultos, Grandes Ciclos, Estrelas Simbólicas e Interações.</p>
+    </div>
+  </main>
+
+</div>
+
+<!-- JS modules — order matters: data → engine → pillars → i18n → geo → render → ui -->
+<script src="js/data.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/pillars.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/geo.js"></script>
+<script src="js/render.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
