@@ -3,73 +3,65 @@
    Astronomical core: Julian Day, VSOP87 solar longitude,
    Solar Terms bisection, Equation of Time, Real Solar Time
 
-   Dependência CDN (adicionar no HTML antes deste script):
-   <script src="https://cdn.jsdelivr.net/npm/astronomia@4.1.1/dist/astronomia.js"></script>
+   Dependência CDN (já inserida no index.html antes deste script):
+   <script src="https://cdn.jsdelivr.net/npm/astronomia@3.3.0/dist/astronomia.min.js"></script>
 
-   Troca: Meeus cap.25 (polinômio simples) → VSOP87 via astronomia.solar
-   Precisão: < 0.01° (idêntica ao requisito original, base teórica superior)
-   astronomia.solar.apparentLongitude(jde) já aplica:
-     • VSOP87 (série completa para a Terra)
-     • Nutação em longitude (nutation.nutation)
-     • Aberração anual (−0.00569° − 0.00478°·sin Ω)
-   Resultado em radianos — convertido internamente para graus.
+   Usa astronomia v3 (bundle UMD — expõe window.astronomia).
+   v4 é ESM-only e não funciona via <script> tag simples.
+
+   astronomia.solar.apparentLongitude(jde) — VSOP87 completo:
+     • série VSOP87 para a Terra
+     • nutação em longitude
+     • aberração anual
+   Retorna radianos; convertido internamente para graus.
+   Precisão: < 0.01° (vs Meeus ~0.01°, base teórica superior)
 ══════════════════════════════════════════════════ */
 'use strict';
 
-/* ═══════ GUARD: verificar se a lib foi carregada ═══════ */
-function _astroCheck() {
+/* ═══════ GUARD: verificar uma vez no boot ═══════ */
+(function() {
   if (typeof astronomia === 'undefined' || !astronomia.solar || !astronomia.julian) {
-    throw new Error(
-      'BAZILAR: astronomia.js não carregado. ' +
-      'Adicione antes deste script:\n' +
-      '<script src="https://cdn.jsdelivr.net/npm/astronomia@4.1.1/dist/astronomia.js"></script>'
+    console.error(
+      'BAZILAR: astronomia.js não carregado.\n' +
+      'Verifique o <script> CDN no index.html:\n' +
+      '<script src="https://cdn.jsdelivr.net/npm/astronomia@3.3.0/dist/astronomia.min.js"></script>'
     );
   }
-}
+})();
 
 /* ═══════ JULIAN DAY ═══════
-   Antes: algoritmo Meeus inline (2 funções manuais).
-   Agora:  astronomia.julian — mesma fórmula, mesma referência J2000.
-
-   toJD(y, m, d, h) → número JD (h opcional, default 12h = meio-dia)
+   toJD(y, m, d, h) → número JD  (h opcional, default 12)
    fromJD(jd)       → {year, month, day, hours}
+
+   astronomia.julian.CalendarGregorianToJD aceita day fracional (d + h/24).
+   astronomia.julian.JDToCalendar devolve {year, month, day} com day fracional.
 */
 function toJD(y, m, d, h) {
-  _astroCheck();
   if (h === undefined) h = 12;
-  /* CalendarGregorianToJD aceita day fracional: d + h/24 */
   return astronomia.julian.CalendarGregorianToJD(y, m, d + h / 24);
 }
 
 function fromJD(jd) {
-  _astroCheck();
-  var cal = astronomia.julian.JDToCalendar(jd);
-  /* cal.day pode ser fracional — separar parte inteira e horas */
-  var dayInt   = Math.floor(cal.day);
-  var hours    = (cal.day - dayInt) * 24;
+  var cal    = astronomia.julian.JDToCalendar(jd);
+  var dayInt = Math.floor(cal.day);
+  var hours  = (cal.day - dayInt) * 24;
   return { year: cal.year, month: cal.month, day: dayInt, hours: hours };
 }
 
-/* ═══════ SOLAR LONGITUDE (VSOP87) ═══════
-   Antes: Meeus cap.25 — série de 3 termos + nutação simplificada.
-   Agora: astronomia.solar.apparentLongitude(jde) — VSOP87 completo.
+/* ═══════ SOLAR LONGITUDE — VSOP87 ═══════
+   Antes: Meeus cap.25 (polinômio de 3 termos + nutação simplificada).
+   Agora: apparentLongitude(jde) — VSOP87 completo via astronomia v3.
 
-   JDE (Julian Ephemeris Day) ≈ JD para fins de cálculo de posição solar
-   (diferença = ΔT, < 2 min no séc. XX–XXI, irrelevante para Termos Solares).
-
-   Retorna: graus decimais, intervalo [0, 360).
+   Retorna graus decimais em [0, 360).
 */
 function sunLon(jd) {
-  _astroCheck();
-  /* apparentLongitude devolve radianos */
-  var rad = astronomia.solar.apparentLongitude(jd);
+  var rad = astronomia.solar.apparentLongitude(jd);   /* radianos */
   var deg = rad * (180 / Math.PI);
   return ((deg % 360) + 360) % 360;
 }
 
 /* ═══════ SOLAR TERM — BISECTION ±1s ═══════
-   Idêntico ao original; apenas sunLon() foi trocada acima,
-   o algoritmo de bisseção em si não muda.
+   Algoritmo idêntico ao original; sunLon() acima é a única troca.
 */
 function findTermJD(lon, apx) {
   var lo = apx - 18, hi = apx + 18;
@@ -96,12 +88,7 @@ function termJD(lon, y) {
   return _tc[k];
 }
 
-/* ═══════ EQUATION OF TIME ═══════
-   Mantida a fórmula empírica de Spencer (1971) — precisão ±30 s,
-   suficiente para TSR / Real Solar Time.
-   (astronomia.sidereal / equation of time existem na lib mas
-    adicionariam ~30 ms de cálculo sem ganho prático para BaZi.)
-*/
+/* ═══════ EQUATION OF TIME (Spencer 1971) ±30 s ═══════ */
 function doy(y, m, d) {
   var md = [31, 28 + (((y % 4 === 0 && y % 100 !== 0) || y % 400 === 0) ? 1 : 0),
             31, 30, 31, 30, 31, 31, 30, 31, 30, 31], n = d;
@@ -114,7 +101,7 @@ function eot(y, m, d) {
   return 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
 }
 
-/* ═══════ REAL SOLAR TIME ═══════ — sem alterações */
+/* ═══════ REAL SOLAR TIME ═══════ */
 function calcRST(y, m, d, hh, mm, lo, tz, dst) {
   var tot = hh * 60 + mm;
   var lc  = (lo - tz * 15) * 4;
@@ -126,7 +113,7 @@ function calcRST(y, m, d, hh, mm, lo, tz, dst) {
   return { h: Math.floor(r / 60), m: Math.floor(r % 60), lc: lc, e: e, dc: dc, corr: lc + e + dc };
 }
 
-/* ═══════ UTILITIES ═══════ — sem alterações */
+/* ═══════ UTILITIES ═══════ */
 function p2(n)   { return String(Math.floor(n)).padStart(2, '0'); }
 function ft(h,m) { return p2(h) + ':' + p2(m); }
 function sgn(n)  { return (n >= 0 ? '+' : '') + n.toFixed(1); }
