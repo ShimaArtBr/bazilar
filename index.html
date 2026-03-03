@@ -15,19 +15,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;1,400&family=Noto+Sans:wght@300;400;500&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/bazilar.css">
-<style>
-/* ── Termos Solares: 2 linhas de 6 ── */
-.term-row {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 4px;
-  margin-bottom: 4px;
-}
-.term-row:last-child { margin-bottom: 0; }
-/* ── Validação de campos ── */
-input.input-ok  { border-color: rgba(125,186,130,.7) !important; }
-input.input-err { border-color: rgba(196,74,53,.6)   !important; }
-</style>
 </head>
 <body>
 
@@ -202,7 +189,7 @@ input.input-err { border-color: rgba(196,74,53,.6)   !important; }
   </div>
 </footer>
 
-<!-- JS modules — order matters: data → engine → pillars → i18n → geo → render → ui -->
+<!-- JS — ordem obrigatória: data → engine → pillars → i18n → geo → render → ui -->
 <script src="js/data.js"></script>
 <script src="js/engine.js"></script>
 <script src="js/pillars.js"></script>
