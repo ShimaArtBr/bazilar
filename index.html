@@ -24,6 +24,9 @@
   margin-bottom: 4px;
 }
 .term-row:last-child { margin-bottom: 0; }
+/* ── Validação de campos ── */
+input.input-ok  { border-color: rgba(125,186,130,.7) !important; }
+input.input-err { border-color: rgba(196,74,53,.6)   !important; }
 </style>
 </head>
 <body>
@@ -68,9 +71,9 @@
     <div class="field-group">
       <label class="field-label" id="uiDate">Data</label>
       <div class="field-row3">
-        <input type="number" id="inD" min="1" max="31" placeholder="DD">
-        <input type="number" id="inM" min="1" max="12" placeholder="MM">
-        <input type="number" id="inY" min="1900" max="2100" placeholder="AAAA">
+        <input type="text" id="inD" inputmode="numeric" maxlength="2" placeholder="DD" autocomplete="off">
+        <input type="text" id="inM" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="off">
+        <input type="text" id="inY" inputmode="numeric" maxlength="4" placeholder="AAAA" autocomplete="off">
       </div>
     </div>
 
