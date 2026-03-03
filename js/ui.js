@@ -213,16 +213,199 @@ function runCalc() {
   document.getElementById('results').innerHTML = out;
 }
 
-/* ═══════ EVENTS ═══════ */
-['inY','inM','inD','inT','inLo','inLa','inTZ','inDST'].forEach(function(id){
+
+/* ════════════════════════════════════════════════════════
+   SMART INPUT — autoavanço, máscara de hora, validação
+   ════════════════════════════════════════════════════════ */
+
+/* Utilitários */
+function focusNext(id) {
+  var el = document.getElementById(id);
+  if (el) { el.focus(); if (el.select) el.select(); }
+}
+function setValid(el, ok) {
+  el.classList.toggle('input-ok',  !!ok);
+  el.classList.toggle('input-err', !ok && el.value !== '');
+}
+function clamp(v, mn, mx) { return Math.max(mn, Math.min(mx, v)); }
+
+/* DIA (inD): 01-31, autoavança ao completar */
+(function() {
+  var el = document.getElementById('inD');
+  el.addEventListener('keydown', function(e) {
+    if (e.key.length === 1 && !/[0-9]/.test(e.key)) e.preventDefault();
+  });
+  el.addEventListener('input', function() {
+    var raw = this.value.replace(/\D/g,'');
+    if (!raw) { this.value=''; setValid(this,false); return; }
+    var n = parseInt(raw,10);
+    if (raw.length >= 2 || n > 3) {
+      n = clamp(n,1,31);
+      this.value = String(n).padStart(2,'0');
+      setValid(this,true); focusNext('inM');
+    } else {
+      this.value = raw; setValid(this,false);
+    }
+    updateRST();
+  });
+  el.addEventListener('blur', function() {
+    var n = parseInt(this.value,10);
+    if (!isNaN(n) && n >= 1) { this.value=String(clamp(n,1,31)).padStart(2,'0'); setValid(this,true); }
+    else setValid(this,false);
+    updateRST();
+  });
+})();
+
+/* MES (inM): 01-12, autoavança ao completar */
+(function() {
+  var el = document.getElementById('inM');
+  el.addEventListener('keydown', function(e) {
+    if (e.key.length === 1 && !/[0-9]/.test(e.key)) e.preventDefault();
+  });
+  el.addEventListener('input', function() {
+    var raw = this.value.replace(/\D/g,'');
+    if (!raw) { this.value=''; setValid(this,false); return; }
+    var n = parseInt(raw,10);
+    if (raw.length >= 2 || n > 1) {
+      n = clamp(n,1,12);
+      this.value = String(n).padStart(2,'0');
+      setValid(this,true); focusNext('inY');
+    } else {
+      this.value = raw; setValid(this,false);
+    }
+    updateRST();
+  });
+  el.addEventListener('blur', function() {
+    var n = parseInt(this.value,10);
+    if (!isNaN(n) && n >= 1) { this.value=String(clamp(n,1,12)).padStart(2,'0'); setValid(this,true); }
+    else setValid(this,false);
+    updateRST();
+  });
+})();
+
+/* ANO (inY): 1900-2100, autoavança com 4 digitos */
+(function() {
+  var el = document.getElementById('inY');
+  el.addEventListener('keydown', function(e) {
+    if (e.key.length === 1 && !/[0-9]/.test(e.key)) e.preventDefault();
+  });
+  el.addEventListener('input', function() {
+    var raw = this.value.replace(/\D/g,'').slice(0,4);
+    this.value = raw;
+    if (raw.length === 4) {
+      var n = clamp(parseInt(raw,10),1900,2100);
+      this.value = String(n);
+      setValid(this,true); focusNext('inT');
+    } else {
+      setValid(this, raw.length > 0);
+    }
+    updateRST();
+  });
+  el.addEventListener('blur', function() {
+    var n = parseInt(this.value,10);
+    if (!isNaN(n)) { this.value=String(clamp(n,1900,2100)); setValid(this,true); }
+    else setValid(this,false);
+    updateRST();
+  });
+})();
+
+/* HORA (inT): mascara HH:MM automatica, clamp, autoavanca */
+(function() {
+  var el = document.getElementById('inT');
+  el.setAttribute('inputmode','numeric');
+
+  el.addEventListener('keydown', function(e) {
+    var ctrl = ['Backspace','Delete','Tab','ArrowLeft','ArrowRight'];
+    if (ctrl.indexOf(e.key) !== -1) return;
+    if (e.key.length === 1 && !/[0-9]/.test(e.key)) e.preventDefault();
+  });
+
+  el.addEventListener('input', function() {
+    var digits = this.value.replace(/\D/g,'').slice(0,4);
+    if (!digits) { this.value=''; setValid(this,false); updateRST(); return; }
+
+    var hh = parseInt(digits.slice(0,2),10);
+    var masked;
+
+    if (digits.length <= 2) {
+      masked = digits;
+    } else {
+      hh = clamp(hh,0,23);
+      var mm = digits.slice(2);
+      masked = String(hh).padStart(2,'0') + ':' + mm;
+    }
+
+    if (digits.length === 4) {
+      hh = clamp(parseInt(digits.slice(0,2),10),0,23);
+      var mm2 = clamp(parseInt(digits.slice(2,4),10),0,59);
+      this.value = String(hh).padStart(2,'0')+':'+String(mm2).padStart(2,'0');
+      setValid(this,true);
+      focusNext('inName');
+      updateRST(); return;
+    }
+
+    this.value = masked;
+    setValid(this, false);
+    updateRST();
+  });
+
+  el.addEventListener('blur', function() {
+    var digits = this.value.replace(/\D/g,'');
+    if (!digits) { setValid(this,false); return; }
+    var hh = clamp(parseInt((digits+'00').slice(0,2),10),0,23);
+    var mm = clamp(parseInt((digits+'00').slice(2,4),10),0,59);
+    this.value = String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0');
+    setValid(this,true);
+    updateRST();
+  });
+})();
+
+/* LONGITUDE / LATITUDE: validar range no blur */
+(function() {
+  document.getElementById('inLo').addEventListener('blur', function() {
+    var v = parseFloat(this.value);
+    if (!isNaN(v)) { this.value=clamp(v,-180,180).toFixed(4); setValid(this,true); }
+    else setValid(this,false);
+    updateLocPrev(); updateRST();
+  });
+  document.getElementById('inLa').addEventListener('blur', function() {
+    var v = parseFloat(this.value);
+    if (!isNaN(v)) { this.value=clamp(v,-90,90).toFixed(4); setValid(this,true); }
+    else setValid(this,false);
+    updateLocPrev(); updateRST();
+  });
+  ['inLo','inLa'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', function() {
+      updateLocPrev(); updateRST();
+    });
+  });
+})();
+
+/* Enter em qualquer campo avanca para o proximo */
+(function() {
+  var seq = ['inD','inM','inY','inT','inName','inCity'];
+  seq.forEach(function(id, idx) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        var next = seq[idx+1];
+        if (next) focusNext(next);
+        else document.getElementById('calcBtn').focus();
+      }
+    });
+  });
+})();
+
+/* Listeners originais: TZ, DST, cidade, calcular */
+['inTZ','inDST'].forEach(function(id){
   var el=document.getElementById(id);
   if(el){el.addEventListener('input',updateRST);el.addEventListener('change',updateRST);}
 });
 document.getElementById('inCity').addEventListener('input',function(){geoDebounce(this.value.trim());});
-['inLo','inLa'].forEach(function(id){
-  document.getElementById(id).addEventListener('input',updateLocPrev);
-});
 document.getElementById('calcBtn').addEventListener('click',runCalc);
+
 
 /* ═══════ INIT ═══════ */
 window.addEventListener('DOMContentLoaded',function(){
