@@ -28,6 +28,8 @@ en:{
   ziNotice:'Zǐ hour: birth between 23:00–00:59. Method: %method.',
   acc:'Astronomical precision: Meeus ±0.01° (~15 s). Solar Terms bisection ±1 s. Day ref: 戊午 = 1 Jan 2000.',
   el:{Wood:'Wood',Fire:'Fire',Earth:'Earth',Metal:'Metal',Water:'Water'},yang:'Yang',yin:'Yin',
+  an:{Rat:'Rat',Ox:'Ox',Tiger:'Tiger',Rabbit:'Rabbit',Dragon:'Dragon',Snake:'Snake',Horse:'Horse',Goat:'Goat',Monkey:'Monkey',Rooster:'Rooster',Dog:'Dog',Pig:'Pig'},
+  srcYear:'year',srcDay:'day',starFound:'— present',
   harmony6:'Six Harmony',harmony3:'Three Harmony',clash:'Clash',harm:'Harm',penalty:'Penalty',
   produces:'produces',office:'office',greet:'Chart for',
   starTianYi:'TianYi 天乙',starTaoHua:'TaoHua 桃花',starYiMa:'YiMa 驛馬',
@@ -56,6 +58,8 @@ zh:{
   ziNotice:'子时：出生23:00–00:59。方法：%method。',
   acc:'精度：Meeus±0.01°。节气±1秒。参考：戊午=2000年1月1日。',
   el:{Wood:'木',Fire:'火',Earth:'土',Metal:'金',Water:'水'},yang:'阳',yin:'阴',
+  an:{Rat:'鼠',Ox:'牛',Tiger:'虎',Rabbit:'兔',Dragon:'龙',Snake:'蛇',Horse:'马',Goat:'羊',Monkey:'猴',Rooster:'鸡',Dog:'狗',Pig:'猪'},
+  srcYear:'年柱',srcDay:'日柱',starFound:'— 存在',
   harmony6:'六合',harmony3:'三合',clash:'六冲',harm:'六害',penalty:'三刑',
   produces:'化',office:'局',greet:'命盘：',
   starTianYi:'天乙贵人',starTaoHua:'桃花',starYiMa:'驿马',
@@ -84,6 +88,8 @@ es:{
   ziNotice:'Hora Zǐ: nacimiento 23:00–00:59. Método: %method.',
   acc:'Precisión: Meeus ±0.01°. Términos ±1s. Ref: 戊午=1Ene2000.',
   el:{Wood:'Madera',Fire:'Fuego',Earth:'Tierra',Metal:'Metal',Water:'Agua'},yang:'Yang',yin:'Yin',
+  an:{Rat:'Rata',Ox:'Buey',Tiger:'Tigre',Rabbit:'Conejo',Dragon:'Dragón',Snake:'Serpiente',Horse:'Caballo',Goat:'Cabra',Monkey:'Mono',Rooster:'Gallo',Dog:'Perro',Pig:'Cerdo'},
+  srcYear:'año',srcDay:'día',starFound:'— presente',
   harmony6:'Seis Armonías',harmony3:'Tres Armonías',clash:'Choque',harm:'Daño',penalty:'Penalidad',
   produces:'produce',office:'oficina',greet:'Carta de',
   starTianYi:'TianYi 天乙',starTaoHua:'TaoHua 桃花',starYiMa:'YiMa 驛馬',
@@ -117,6 +123,8 @@ pt:{
   ziNotice:'Aviso hora Zǐ: nascimento entre 23:00–00:59. Método: %method.',
   acc:'Precisão astronômica: Meeus ±0.01° (~15 s). Termos Solares ±1 s. Ref: 戊午 = 1 Jan 2000.',
   el:{Wood:'Madeira',Fire:'Fogo',Earth:'Terra',Metal:'Metal',Water:'Água'},yang:'Yang',yin:'Yin',
+  an:{Rat:'Rato',Ox:'Boi',Tiger:'Tigre',Rabbit:'Coelho',Dragon:'Dragão',Snake:'Serpente',Horse:'Cavalo',Goat:'Cabra',Monkey:'Macaco',Rooster:'Galo',Dog:'Cão',Pig:'Porco'},
+  srcYear:'ano',srcDay:'dia',starFound:'— presente',
   harmony6:'Seis Harmonias',harmony3:'Três Harmonias',clash:'Choque',harm:'Dano',penalty:'Penalidade',
   produces:'produz',office:'escritório',greet:'Mapa de',
   starTianYi:'TianYi 天乙 (Boa Fortuna)',starTaoHua:'TaoHua 桃花 (Flor de Pêssego)',starYiMa:'YiMa 驛馬 (Cavalo Viajante)',
@@ -132,4 +140,6 @@ pt:{
 function t(k)  { return (T[LANG]||T.pt)[k] || k; }
 function te(e) { var n=T[LANG]; return (n&&n.el&&n.el[e]) ? n.el[e] : e; }
 function tp(p) { return p==='Yang' ? t('yang') : t('yin'); }
+function tan(a){ var n=T[LANG]; return (n&&n.an&&n.an[a]) ? n.an[a] : a; }
+function tsrc(s){ var n=T[LANG]; if(!s)return ''; return s==='year'?(n&&n.srcYear||'ano'):s==='day'?(n&&n.srcDay||'dia'):s; }
 function tpl(key,map) { var s=t(key); Object.keys(map).forEach(function(k){s=s.split(k).join(map[k]);}); return s; }

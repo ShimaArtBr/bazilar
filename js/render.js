@@ -36,7 +36,7 @@ function pilCard(hdr, si, bi, dm, isDay) {
       + '<span class="p-char">'+b.zh+'</span>'
       + '<span class="p-py">'+b.py+'</span>'
       + badge(b.el)
-      + '<span class="p-py" style="margin-top:3px">'+b.an+' · '+tp(b.po)+'</span>'
+      + '<span class="p-py" style="margin-top:3px">'+tan(b.an)+' · '+tp(b.po)+'</span>'
       + hiddenHtml
     + '</div>'
   + '</div>';
@@ -90,7 +90,7 @@ function renderStars(stars, allBranches) {
     html+='<div class="star-card" style="opacity:'+(found?'1':'.5')+'">'
       +'<div class="star-name">'+t(star.name)+'</div>'
       +'<div class="star-val">'+bd.zh+' '+bd.py+(found?' ✓':' (—)')+'</div>'
-      +'<div class="star-desc">'+(star.source?'('+star.source+')':'')+(found?' — presente':'')+'</div></div>';
+      +'<div class="star-desc">'+(star.source?'('+tsrc(star.source)+')':'')+(found?' '+t('starFound'):'')+'</div></div>';
   });
   return '<div class="stars-section">'+html+'</div></div>';
 }
