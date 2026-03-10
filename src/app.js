@@ -454,6 +454,7 @@ function coletarBirthInput() {
 
   /** @type {import('../interfaces.d.ts').BirthInput} */
   const input = {
+    name: (inName?.value?.trim().toUpperCase() || ''),
     year: y, month: m, day: d,
     hour: h, minute: min,
     gender: state.gender,

@@ -1185,6 +1185,14 @@ export function renderBaziChart(mapa, container) {
     fourPillars?.month?.bi, fourPillars?.year?.bi,
   ].filter(b => b != null);
 
+  // 0. Nome — título da tab + header do mapa
+  document.title = birth?.name ? `${birth.name} · BAZILAR` : 'BAZILAR — Quatro Pilares do Destino';
+  if (birth?.name) {
+    const nameHd = el('div', ['chart-name-hd']);
+    nameHd.textContent = birth.name;
+    wrapper.appendChild(nameHd);
+  }
+
   // 1. Avisos (Zi, Hemisfério Sul)
   renderAvisos(mapa, wrapper);
 

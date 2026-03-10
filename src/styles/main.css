@@ -1086,3 +1086,14 @@ input.input-err { border-color: rgba(196,74,53,.6)   !important; }
   .deu-premium-gate { display: none; }
   .dez-deuses-premium-badge { display: none; }
 }
+
+/* ── Nome no topo do mapa ────────────────────────────────────────────────── */
+.chart-name-hd {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: .04em;
+  margin-bottom: 8px;
+}
