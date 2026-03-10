@@ -1080,20 +1080,8 @@ async function renderDezDeuses(mapa, dmStemIdx, container) {
 
   sec.appendChild(grid);
 
-  // Gate premium — overlay para usuários free
-  const gate = el('div', ['deus-premium-gate'], { 'aria-hidden': 'true' });
-  const gateInner = el('div', ['deus-premium-gate__inner']);
-  const gateTitle = el('p', ['deus-premium-gate__title']);
-  gateTitle.textContent = 'Interpretação dos 10 Deuses';
-  const gateText = el('p', ['deus-premium-gate__text']);
-  gateText.textContent = 'Desbloqueie a interpretação psicológica completa de cada pilar com o BaZi Premium.';
-  const gateBtn = el('button', ['deus-premium-gate__btn'], { type: 'button' });
-  gateBtn.textContent = 'Ver Premium';
-  gateInner.appendChild(gateTitle);
-  gateInner.appendChild(gateText);
-  gateInner.appendChild(gateBtn);
-  gate.appendChild(gateInner);
-  sec.appendChild(gate);
+  // Gate premium — TEMPORARIAMENTE DESATIVADO para validação de conteúdo
+  // TODO: reativar após validação
 
   container.appendChild(sec);
 }
