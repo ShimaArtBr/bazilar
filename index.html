@@ -54,24 +54,7 @@
 
     <div class="field-group">
       <label class="field-label" for="inName">Nome / Apelido</label>
-      <input type="text" id="inName" placeholder="COMO DESEJA SER CHAMADO(A)" maxlength="60">
-    </div>
-
-    <div class="field-group">
-      <label class="field-label" id="dateLabel">Data de Nascimento</label>
-      <div class="field-row3" role="group" aria-labelledby="dateLabel">
-        <label class="sr-only" for="inD">Dia</label>
-        <input type="text" id="inD" inputmode="numeric" maxlength="2" placeholder="DD" autocomplete="off">
-        <label class="sr-only" for="inM">Mês</label>
-        <input type="text" id="inM" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="off">
-        <label class="sr-only" for="inY">Ano</label>
-        <input type="text" id="inY" inputmode="numeric" maxlength="4" placeholder="AAAA" autocomplete="off">
-      </div>
-    </div>
-
-    <div class="field-group">
-      <label class="field-label" for="inT">Hora (00:00 – 23:59)</label>
-      <input type="text" id="inT" placeholder="HH:MM" maxlength="5">
+      <input type="text" id="inName" placeholder="Qual é o seu nome?" maxlength="60">
     </div>
 
     <div class="field-group">
@@ -93,7 +76,24 @@
     </div>
 
     <div class="field-group">
-      <label class="field-label" id="coordsLabel">Coordenadas</label>
+      <label class="field-label" id="dateLabel">Data de Nascimento</label>
+      <div class="field-row3" role="group" aria-labelledby="dateLabel">
+        <label class="sr-only" for="inD">Dia</label>
+        <input type="text" id="inD" inputmode="numeric" maxlength="2" placeholder="DD" autocomplete="off">
+        <label class="sr-only" for="inM">Mês</label>
+        <input type="text" id="inM" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="off">
+        <label class="sr-only" for="inY">Ano</label>
+        <input type="text" id="inY" inputmode="numeric" maxlength="4" placeholder="AAAA" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="inT">Hora (00:00 – 23:59)</label>
+      <input type="text" id="inT" placeholder="HH:MM" maxlength="5">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" id="coordsLabel">Coordenadas Automáticas</label>
       <div class="field-row" role="group" aria-labelledby="coordsLabel">
         <label class="sr-only" for="inLo">Longitude</label>
         <input type="number" id="inLo" step="0.0001" placeholder="LONGITUDE" aria-label="Longitude">
@@ -212,7 +212,7 @@
 
   <!-- RESULTS -->
   <main id="results" aria-live="polite">
-    <div class="empty" id="emptyState">
+    <div class="empty" id="emptyState" style="display:none" aria-hidden="true">
       <div class="empty-ico" aria-hidden="true">八字</div>
       <h2 class="empty-ttl">Motor de Cálculo BaZi</h2>
       <p class="empty-sub">Preencha os dados e clique em Calcular para gerar os Quatro Pilares com Tempo Solar Real, Troncos Ocultos, Grandes Ciclos, Estrelas Simbólicas e Interações.</p>

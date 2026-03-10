@@ -226,6 +226,17 @@ async function buscarCidade(query) {
   }
 }
 
+// Formata resultado Nominatim: "Município, Estado, País" ou "Cidade, País"
+function formatarLocalidade(r) {
+  const a = r.address || {};
+  const partes = [
+    a.city || a.town || a.municipality || a.village || a.county,
+    a.state,
+    a.country,
+  ].filter(Boolean);
+  return partes.length ? partes.join(', ') : r.display_name.split(',').slice(0, 3).join(',').trim();
+}
+
 function renderizarSugestoes(resultados) {
   if (!sugBox) return;
   sugBox.innerHTML = '';
@@ -249,7 +260,7 @@ function renderizarSugestoes(resultados) {
 
     const nome   = document.createElement('span');
     nome.className = 'sug-name';
-    nome.textContent = r.display_name;
+    nome.textContent = formatarLocalidade(r);
 
     const coords = document.createElement('span');
     coords.className = 'sug-coords';
@@ -269,13 +280,14 @@ function renderizarSugestoes(resultados) {
 }
 
 function selecionarSugestao(resultado, lat, lon, tzEst) {
-  if (inCity) inCity.value = resultado.display_name;
+  const label = formatarLocalidade(resultado);
+  if (inCity) inCity.value = label;
   if (inLo)   inLo.value  = lon.toFixed(4);
   if (inLa)   inLa.value  = lat.toFixed(4);
   selecionarFusoMaisProximo(tzEst);
 
   if (locPrev) {
-    locPrev.textContent = '📍 ' + resultado.display_name.split(',').slice(0, 3).join(', ');
+    locPrev.textContent = '📍 ' + label;
   }
 
   fecharSugestoes();
