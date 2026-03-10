@@ -10,7 +10,6 @@
  *   - Feature flags apenas via FLAGS (import.meta.env via flags.js)
  *
  * @see interfaces.d.ts — BirthInput, FourPillars, LuckPillar, Interaction
- * @owner Maya Chen (P2)
  * @sprint S3 — formulário restaurado
  */
 
@@ -300,7 +299,7 @@ inCity?.addEventListener('input', () => {
 });
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('.geo-wrap') && !e.target.closest('#sugBox')) fecharSugestoes();
+  if (!e.target.closest('.geo-wrap')) fecharSugestoes();
 });
 
 // ── Cálculo de RST em tempo real ──────────────────────────────────────────────
@@ -443,8 +442,6 @@ function coletarBirthInput() {
 function calcularMapa(birth) {
   const fourPillars = computeFourPillars(birth);
 
-  // Diagnóstico — expõe o que está chegando undefined
-  console.debug('[app] fourPillars:', fourPillars);
 
   if (!fourPillars?.year || !fourPillars?.month || !fourPillars?.day || !fourPillars?.hour) {
     throw new Error('[calcularMapa] computeFourPillars retornou estrutura incompleta: ' + JSON.stringify(fourPillars));
@@ -481,12 +478,13 @@ function calcularMapa(birth) {
   ];
   const tenGods   = computeTenGods(dmStemIdx, todosTroncos);
   const strength  = getDayMasterStrength(dmStemIdx, todosTroncos, ramos, 1);
-  // S4: passa balance como contexto para detecção de 從格
-  const _balanceTmp = elemBalance(
-    [fourPillars.hour.si, fourPillars.day.si, fourPillars.month.si, fourPillars.year.si],
-    [fourPillars.hour.bi, fourPillars.day.bi, fourPillars.month.bi, fourPillars.year.bi],
-  );
-  const favorable = getFavorableElements(strength, { balance: _balanceTmp });
+  // Ordem [hora, dia, mês, ano] para elemBalance e stars (convencional BAZILAR)
+  const stemsOrdered   = [fourPillars.hour.si, fourPillars.day.si, fourPillars.month.si, fourPillars.year.si];
+  const branchesOrdered = [fourPillars.hour.bi, fourPillars.day.bi, fourPillars.month.bi, fourPillars.year.bi];
+
+  const balance = elemBalance(stemsOrdered, branchesOrdered);
+
+  const favorable = getFavorableElements(strength, { balance });
 
   if (import.meta.env?.DEV) {
     console.debug('[app] FLAGS:', FLAGS);
@@ -495,11 +493,7 @@ function calcularMapa(birth) {
 
   // ── Dados adicionais para renderização completa ──────────────────────────────
 
-  // Ordem [hora, dia, mês, ano] para elemBalance e stars (convencional BAZILAR)
-  const stemsOrdered   = [fourPillars.hour.si, fourPillars.day.si, fourPillars.month.si, fourPillars.year.si];
-  const branchesOrdered = [fourPillars.hour.bi, fourPillars.day.bi, fourPillars.month.bi, fourPillars.year.bi];
 
-  const balance = elemBalance(stemsOrdered, branchesOrdered);
 
   const stars = findStars(
     fourPillars.year.bi, fourPillars.day.bi,
@@ -680,12 +674,6 @@ inT?.addEventListener('input', calcularRSTTempoReal);
 function inicializar() {
   inicializarTema();
   detectarFusoDispositivo();
-  // fallback: re-run após render caso tzHintTxt ainda não esteja no DOM
-  if (!document.getElementById('tzHintTxt')?.textContent.includes('America') &&
-      !document.getElementById('tzHintTxt')?.textContent.includes('+') &&
-      !document.getElementById('tzHintTxt')?.textContent.includes('-')) {
-    setTimeout(detectarFusoDispositivo, 100);
-  }
   registrarServiceWorker();
   console.log('[app] BaZi 八字 inicializado. FLAGS:', FLAGS);
 }

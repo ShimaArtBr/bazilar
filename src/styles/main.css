@@ -480,11 +480,12 @@ input.input-err { border-color: rgba(196,74,53,.6)   !important; }
 .p-hidden span { display: inline-block; padding: 1px 5px; border-radius: 4px; margin: 1px 2px; font-size: .65rem; }
 
 /* Info cards */
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 22px; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 32px; margin-bottom: 22px; }
 .info-card { background: var(--panel); border: 1px solid var(--bg-gold); border-radius: 10px; padding: 13px 15px; transition: var(--transition-theme); }
 .ic-title { font-size: .65rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; }
 .ic-val { font-size: .89rem; color: var(--text); }
 .ic-val--gold { color: var(--gold); }
+.ic-val--mono { font-family: 'JetBrains Mono', monospace; }
 .ic-sub { font-size: .68rem; color: var(--muted); margin-top: 3px; }
 
 /* Elements balance */

@@ -23,7 +23,6 @@ const ANO_ATUAL = new Date().getFullYear();
 
 /** Último mapa renderizado — mantido para exportação PDF sob demanda. */
 let _lastMapa = null;
-let _natalFourPillars = null;  // cópia dos pilares natais para restaurar após Da Yun
 
 /**
  * Substitui o conteúdo do .bazi-map com os pilares de um ciclo Da Yun.
@@ -34,10 +33,6 @@ function _swapMapaToDaYun(ciclo, tronco, ramo, startAge, endAge) {
   const mapaEl = document.querySelector('.bazi-map');
   if (!mapaEl || !_lastMapa) return;
 
-  // Guardar pilares natais antes da primeira troca
-  if (!_natalFourPillars) {
-    _natalFourPillars = _lastMapa.fourPillars;
-  }
 
   // Atualizar header de cada pilar para indicar modo Da Yun
   const headers = mapaEl.querySelectorAll('.bazi-pillar__header');
@@ -89,7 +84,6 @@ function _swapMapaToNatal() {
     return tempDiv.querySelector('.bazi-map') || tempDiv.firstElementChild;
   })());
 
-  _natalFourPillars = null;
 }
 
 const TRONCOS = [
@@ -124,12 +118,6 @@ const RAMOS = [
 const HIDDEN = [[9],[5,9,7],[0,2,4],[1],[4,1,9],[2,6,4],[3,5],[5,3,1],[6,8,4],[7],[4,7,3],[8,0]];
 const HIDDEN_ROLE = ['主', '中', '余'];
 
-// Ten Gods zh labels (index → label)
-const TEN_GOD_LABELS = {
-  '比肩': '比肩', '劫財': '劫財', '食神': '食神', '傷官': '傷官',
-  '正財': '正財', '偏財': '偏財', '正官': '正官', '七殺': '七殺',
-  '正印': '正印', '偏印': '偏印',
-};
 
 // Cores Wu Xing
 const EL_COLORS = {
@@ -144,8 +132,6 @@ const EL_PT = { wood: 'Madeira', fire: 'Fogo', earth: 'Terra', metal: 'Metal', w
 
 function elKey(e) { return e ? e.toLowerCase() : ''; }
 
-const LABELS_PILAR = ['Hora', 'Dia', 'Mês', 'Ano'];
-const LABELS_ZH    = ['时', '日', '月', '年'];
 
 // ── Helpers DOM ───────────────────────────────────────────────────────────────
 
@@ -221,12 +207,6 @@ function renderQuatroPilares(fourPillars, tenGods, container) {
     { pilar: fourPillars.year,  label: 'Ano',  zh: '年', isDia: false, tgIdx: 0 },
   ];
 
-  const tenGodMap = tenGods ? {
-    hora:  tenGods[3],
-    dia:   null,
-    mes:   tenGods[1],
-    ano:   tenGods[0],
-  } : {};
 
   pilares.forEach(({ pilar, label, zh, isDia, tgIdx }) => {
     const tronco = TRONCOS[pilar.si];
@@ -409,8 +389,7 @@ function renderInfoGrid(mapa, container) {
   // Card: Tempo Solar Real
   const cTSR = el('div', ['info-card']);
   const cTSRtitle = el('p', ['ic-title']); cTSRtitle.textContent = 'TEMPO SOLAR REAL · TSR';
-  const cTSRval = el('p', ['ic-val', 'ic-val--gold']);
-  cTSRval.style.fontFamily = "'JetBrains Mono', monospace";
+  const cTSRval = el('p', ['ic-val', 'ic-val--gold', 'ic-val--mono']);
   if (rst) {
     cTSRval.textContent = ft(rst.h, rst.m, rst.s);
     const cTSRsub = el('p', ['ic-sub']);
@@ -447,8 +426,7 @@ function renderInfoGrid(mapa, container) {
   // Card: Longitude Solar
   const cSun = el('div', ['info-card']);
   const cSuntitle = el('p', ['ic-title']); cSuntitle.textContent = 'LONGITUDE SOLAR';
-  const cSunval = el('p', ['ic-val']);
-  cSunval.style.fontFamily = "'JetBrains Mono', monospace";
+  const cSunval = el('p', ['ic-val', 'ic-val--mono']);
   cSunval.textContent = sl != null ? `${sl.toFixed(3)}°` : '—';
   const cSunsub = el('p', ['ic-sub']);
   const locStr = birth.latitude != null && birth.longitude != null
@@ -826,8 +804,8 @@ function renderInteracoes(interactions, container) {
 
     const tipo = el('span', ['interact-type']);
     const isClash = inter.type === 'clash' || inter.type === 'penalty';
-    if (isClash) tipo.style.color = 'var(--fire2, #e05c4a)';
-    else if (inter.type === 'harm') tipo.style.color = '#e0883a';
+    if (isClash) tipo.style.color = 'var(--fm, #D3232E)';
+    else if (inter.type === 'harm') tipo.style.color = 'var(--em, #B87C14)';
     tipo.textContent = LABEL_INTERACAO[inter.type] ?? inter.type.toUpperCase();
     item.appendChild(tipo);
 
@@ -877,17 +855,17 @@ function renderInteracoes(interactions, container) {
       item.appendChild(res);
     } else if (inter.type === 'penalty' && inter.zh) {
       const res = el('span', ['interact-result']);
-      if (isClash) res.style.color = 'var(--fire2, #e05c4a)';
+      if (isClash) res.style.color = 'var(--fm, #D3232E)';
       res.textContent = inter.zh;
       item.appendChild(res);
     } else if (inter.type === 'clash') {
       const res = el('span', ['interact-result']);
-      res.style.color = 'var(--fire2, #e05c4a)';
+      res.style.color = 'var(--fm, #D3232E)';
       res.textContent = '⚡';
       item.appendChild(res);
     } else if (inter.type === 'harm') {
       const res = el('span', ['interact-result']);
-      res.style.color = '#e0883a';
+      res.style.color = 'var(--em, #B87C14)';
       res.textContent = '⚠';
       item.appendChild(res);
     }
@@ -1147,8 +1125,6 @@ async function renderDezDeuses(mapa, dmStemIdx, container) {
 
   sec.appendChild(grid);
 
-  // Gate premium — TEMPORARIAMENTE DESATIVADO para validação de conteúdo
-  // TODO: reativar após validação
 
   container.appendChild(sec);
 }
