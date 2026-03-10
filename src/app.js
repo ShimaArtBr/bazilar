@@ -680,6 +680,12 @@ inT?.addEventListener('input', calcularRSTTempoReal);
 function inicializar() {
   inicializarTema();
   detectarFusoDispositivo();
+  // fallback: re-run após render caso tzHintTxt ainda não esteja no DOM
+  if (!document.getElementById('tzHintTxt')?.textContent.includes('America') &&
+      !document.getElementById('tzHintTxt')?.textContent.includes('+') &&
+      !document.getElementById('tzHintTxt')?.textContent.includes('-')) {
+    setTimeout(detectarFusoDispositivo, 100);
+  }
   registrarServiceWorker();
   console.log('[app] BaZi 八字 inicializado. FLAGS:', FLAGS);
 }
