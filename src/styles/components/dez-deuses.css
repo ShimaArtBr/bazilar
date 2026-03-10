@@ -59,8 +59,8 @@
 
 .dez-deuses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: var(--spacing-md, 1rem);
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm, .5rem);
 }
 
 /* ── Card individual ───────────────────────────────────────────────────────── */
@@ -69,18 +69,35 @@
   background: var(--color-surface-base, var(--bg));
   border: 1px solid var(--color-border-subtle, var(--bdr));
   border-radius: var(--radius-md, .75rem);
-  padding: 1rem 1.1rem 1.1rem;
+  overflow: hidden;
+}
+
+/* Cabeçalho do card — accordion trigger */
+.deus-card__head {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  padding: .85rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 150ms ease;
+}
+.deus-card__head:hover { background: var(--color-gold-bg, rgba(192,154,74,.06)); }
+
+.deus-card__arrow {
+  margin-left: auto;
+  font-size: .6rem;
+  color: var(--color-text-dim, var(--dim));
+  transition: transform 200ms ease;
+}
+
+/* Corpo accordion */
+.deus-card__body {
+  padding: 0 1rem 1rem;
   display: flex;
   flex-direction: column;
   gap: .75rem;
-}
-
-/* Cabeçalho do card */
-.deus-card__head {
-  display: flex;
-  align-items: baseline;
-  gap: .5rem;
-  flex-wrap: wrap;
 }
 
 .deus-card__pilar {

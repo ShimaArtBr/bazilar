@@ -626,7 +626,10 @@ function renderGrandesCiclos(luckPillars, luckRaw, dmStemIdx, container) {
   }
 
   const grid = el('div', ['luck-grid']);
+  const grid1 = el('div', ['luck-row']);
+  const grid2 = el('div', ['luck-row']);
   const isCur = (ciclo) => ANO_ATUAL >= ciclo.startYear && ANO_ATUAL < (ciclo.startYear + 10);
+  let idx = 0;
 
   luckPillars.forEach(ciclo => {
     const tronco = TRONCOS[ciclo.si];
@@ -713,9 +716,12 @@ function renderGrandesCiclos(luckPillars, luckRaw, dmStemIdx, container) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateCiclo(); }
     });
 
-    grid.appendChild(card);
+    (idx < 5 ? grid1 : grid2).appendChild(card);
+    idx++;
   });
 
+  grid.appendChild(grid1);
+  if (grid2.children.length) grid.appendChild(grid2);
   wrap.appendChild(grid);
   container.appendChild(wrap);
 }
@@ -805,7 +811,10 @@ function renderInteracoes(interactions, container) {
 
     const pair = el('span', ['interact-pair'], { lang: 'zh-Hans' });
     const sep = inter.type === 'clash' ? ' ↔ ' : ' + ';
-    pair.textContent = (inter.branches || []).map(b => RAMOS[b]?.zh ?? '').join(sep);
+    pair.textContent = (inter.branches || []).map(b => {
+      const r = RAMOS[b];
+      return r ? `${r.zh} ${r.animal}` : '';
+    }).join(sep);
     item.appendChild(pair);
 
     if (inter.el) {
@@ -999,24 +1008,34 @@ async function renderDezDeuses(mapa, dmStemIdx, container) {
     const card = el('article', ['deus-card']);
     card.setAttribute('lang', 'pt-BR');
 
-    // Cabeçalho do card: pilar + caractere + nome pt
+    // Cabeçalho accordion (sempre visível, clicável)
     const cardHead = el('div', ['deus-card__head']);
+    cardHead.setAttribute('role', 'button');
+    cardHead.setAttribute('tabindex', '0');
+    cardHead.setAttribute('aria-expanded', 'false');
     const pillarLabel = el('span', ['deus-card__pilar']);
     pillarLabel.textContent = `Pilar do ${label}`;
     const charSpan = el('span', ['deus-card__char'], { lang: 'zh-Hans' });
     charSpan.textContent = zhLabel;
     const nomePt = el('span', ['deus-card__nome']);
     nomePt.textContent = deus.nome_pt;
+    const arrow = el('span', ['deus-card__arrow'], { 'aria-hidden': 'true' });
+    arrow.textContent = '▼';
     cardHead.appendChild(pillarLabel);
     cardHead.appendChild(charSpan);
     cardHead.appendChild(nomePt);
+    cardHead.appendChild(arrow);
     card.appendChild(cardHead);
+
+    // Corpo accordion (recolhido por padrão)
+    const body = el('div', ['deus-card__body']);
+    body.hidden = true;
 
     // Arquétipo
     if (deus.definicao?.psicologica) {
       const archetypeEl = el('p', ['deus-card__archetype']);
       archetypeEl.textContent = deus.definicao.psicologica;
-      card.appendChild(archetypeEl);
+      body.appendChild(archetypeEl);
     }
 
     // Expressão positiva / negativa
@@ -1041,7 +1060,7 @@ async function renderDezDeuses(mapa, dmStemIdx, container) {
       neg.appendChild(negText);
       expr.appendChild(neg);
     }
-    if (expr.children.length) card.appendChild(expr);
+    if (expr.children.length) body.appendChild(expr);
 
     // Pergunta central
     if (deus.desenvolvimento_pessoal?.pergunta_central) {
@@ -1052,24 +1071,22 @@ async function renderDezDeuses(mapa, dmStemIdx, container) {
       qText.textContent = deus.desenvolvimento_pessoal.pergunta_central;
       qWrap.appendChild(qIcon);
       qWrap.appendChild(qText);
-      card.appendChild(qWrap);
+      body.appendChild(qWrap);
     }
 
-    // Fonte clássica
-    if (deus.referencia_classica?.obra) {
-      const refEl = el('footer', ['deus-card__ref']);
-      const refText = el('span', ['deus-card__ref-text']);
-      refText.textContent = `Fonte: ${deus.referencia_classica.obra}`;
-      if (deus.referencia_classica.disclaimer) {
-        const refDisclaimer = el('span', ['deus-card__ref-disclaimer']);
-        refDisclaimer.textContent = ` — ${deus.referencia_classica.disclaimer}`;
-        refEl.appendChild(refText);
-        refEl.appendChild(refDisclaimer);
-      } else {
-        refEl.appendChild(refText);
-      }
-      card.appendChild(refEl);
-    }
+    card.appendChild(body);
+
+    // Toggle accordion
+    const toggle = () => {
+      const expanded = cardHead.getAttribute('aria-expanded') === 'true';
+      cardHead.setAttribute('aria-expanded', String(!expanded));
+      body.hidden = expanded;
+      arrow.textContent = expanded ? '▼' : '▲';
+    };
+    cardHead.addEventListener('click', toggle);
+    cardHead.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
 
     grid.appendChild(card);
   }

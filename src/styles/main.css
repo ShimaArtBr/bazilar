@@ -170,7 +170,7 @@ strong, b, h1, h2, h3, h4, h5, h6 { font-weight: 400; }
 }
 
 /* BASE */
-html { font-size: 15px; scroll-behavior: smooth; }
+html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
   font-family: 'Noto Sans', sans-serif; font-weight: 300;
@@ -503,7 +503,8 @@ input.input-err { border-color: rgba(196,74,53,.6)   !important; }
 
 /* Luck Pillars */
 .luck-section { margin-bottom: 22px; }
-.luck-grid { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; }
+.luck-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; }
+.luck-row  { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
 .luck-card {
   min-width: 80px; flex-shrink: 0;
   background: var(--panel); border: 1px solid var(--bg-gold);
@@ -656,12 +657,30 @@ input.input-err { border-color: rgba(196,74,53,.6)   !important; }
   .input-panel { position: static; }
   .empty { display: none; }
   .pillars-grid { grid-template-columns: repeat(2,1fr); }
+
+  /* Tipografia mobile aumentada */
+  html { font-size: 17px; }
+  .field-label { font-size: .75rem; }
+  .p-char { font-size: 2.75rem; }
+  .luck-chars { font-size: 1.5rem; }
+  .sec-label { font-size: .75rem; }
+  .interact-pair { font-size: .9rem; }
+  .elem-name { font-size: .8rem; }
+  .elem-count { font-size: .8rem; }
+  .star-name { font-size: .8rem; }
+  .star-val { font-size: .9rem; }
+  .ic-val { font-size: 1rem; }
+  .luck-age { font-size: .75rem; }
+  .luck-py { font-size: .75rem; }
+  .luck-years { font-size: .75rem; }
+
+  /* Info grid empilhado no mobile */
+  .info-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 540px) {
   .footer-inner { flex-direction: column; text-align: center; }
 }
 @media (max-width: 480px) {
-  .info-grid   { grid-template-columns: 1fr; }
   .stars-grid  { grid-template-columns: 1fr; }
 }
 
