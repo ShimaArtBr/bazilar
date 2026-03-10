@@ -35,8 +35,6 @@ const inCity    = document.getElementById('inCity');
 const sugBox    = document.getElementById('sugBox');
 const geoSpin   = document.getElementById('geoSpin');
 const locPrev   = document.getElementById('locPrev');
-const inLo      = document.getElementById('inLo');
-const inLa      = document.getElementById('inLa');
 const inTZ      = document.getElementById('inTZ');
 const tzHint    = document.getElementById('tzHint');
 const tzHintTxt = document.getElementById('tzHintTxt');
@@ -65,6 +63,24 @@ const state = {
   southernHemisphere: false,
   geoDebounce: null,
   lastNominatimReq: 0,
+  lon: NaN,
+  lat: NaN,
+};
+
+// Mapa offset → zona IANA representativa (para hint legível no hint de fuso)
+const TZ_ZONE_NAMES = {
+  '-12': 'Etc/GMT+12', '-11': 'Pacific/Pago_Pago', '-10': 'Pacific/Honolulu',
+  '-9.5': 'Pacific/Marquesas', '-9': 'America/Anchorage', '-8': 'America/Los_Angeles',
+  '-7': 'America/Denver', '-6': 'America/Chicago', '-5': 'America/New_York',
+  '-4': 'America/Halifax', '-3.5': 'America/St_Johns', '-3': 'America/Sao_Paulo',
+  '-2': 'America/Noronha', '-1': 'Atlantic/Azores', '0': 'Europe/London',
+  '1': 'Europe/Paris', '2': 'Europe/Helsinki', '3': 'Asia/Riyadh',
+  '3.5': 'Asia/Tehran', '4': 'Asia/Dubai', '4.5': 'Asia/Kabul',
+  '5': 'Asia/Karachi', '5.5': 'Asia/Kolkata', '5.75': 'Asia/Kathmandu',
+  '6': 'Asia/Dhaka', '6.5': 'Asia/Yangon', '7': 'Asia/Bangkok',
+  '8': 'Asia/Shanghai', '9': 'Asia/Tokyo', '9.5': 'Australia/Adelaide',
+  '10': 'Australia/Sydney', '10.5': 'Australia/Lord_Howe', '11': 'Pacific/Noumea',
+  '12': 'Pacific/Auckland', '13': 'Pacific/Apia',
 };
 
 // ── Tema dark/light ────────────────────────────────────────────────────────────
@@ -278,17 +294,35 @@ function renderizarSugestoes(resultados) {
   sugBox.style.display = 'block';
 }
 
+// Mapeia offset GMT (h) → nome de fuso representativo
+const TZ_NAMES = {
+  '-12': 'Pacific/Baker', '-11': 'Pacific/Pago_Pago', '-10': 'Pacific/Honolulu',
+  '-9.5': 'Pacific/Marquesas', '-9': 'America/Anchorage', '-8': 'America/Los_Angeles',
+  '-7': 'America/Denver', '-6': 'America/Mexico_City', '-5': 'America/Bogota',
+  '-4': 'America/Manaus', '-3.5': 'America/St_Johns', '-3': 'America/Sao_Paulo',
+  '-2': 'America/Noronha', '-1': 'Atlantic/Azores', '0': 'Europe/London',
+  '1': 'Europe/Paris', '2': 'Europe/Helsinki', '3': 'Europe/Moscow',
+  '3.5': 'Asia/Tehran', '4': 'Asia/Dubai', '4.5': 'Asia/Kabul',
+  '5': 'Asia/Karachi', '5.5': 'Asia/Kolkata', '5.75': 'Asia/Kathmandu',
+  '6': 'Asia/Dhaka', '6.5': 'Asia/Rangoon', '7': 'Asia/Bangkok',
+  '8': 'Asia/Shanghai', '9': 'Asia/Tokyo', '9.5': 'Australia/Darwin',
+  '10': 'Australia/Sydney', '10.5': 'Australia/Lord_Howe', '11': 'Pacific/Noumea',
+  '12': 'Pacific/Auckland', '13': 'Pacific/Apia',
+};
+function offsetParaNomeTZ(offsetH) {
+  return TZ_NAMES[String(offsetH)] || TZ_NAMES[String(Math.round(offsetH))] || `GMT${offsetH >= 0 ? '+' : ''}${offsetH}`;
+}
+
 function selecionarSugestao(resultado, lat, lon, tzEst) {
   const label = formatarLocalidade(resultado);
   if (inCity) inCity.value = label;
-  if (inLo)   inLo.value  = lon.toFixed(4);
-  if (inLa)   inLa.value  = lat.toFixed(4);
+  state.lon = lon;
+  state.lat = lat;
   selecionarFusoMaisProximo(tzEst);
 
-  // Atualizar hint com o fuso estimado pela longitude da cidade
+  // Atualizar hint com nome de zona pelo offset estimado
   if (tzHintTxt) {
-    const sinal = tzEst >= 0 ? '+' : '';
-    tzHintTxt.textContent = `Estimado por coordenada: GMT ${sinal}${tzEst}`;
+    tzHintTxt.textContent = `Estimado: (${offsetParaNomeTZ(tzEst)})`;
   }
   tzHint?.classList.add('tz-hint--set');
 
@@ -320,7 +354,7 @@ function calcularRSTTempoReal() {
   const [hStr, minStr] = (inT?.value?.trim() || ':').split(':');
   const h    = parseInt(hStr,   10);
   const min  = parseInt(minStr, 10) || 0;
-  const lon  = parseFloat(inLo?.value);
+  const lon  = state.lon;
   const tz   = parseFloat(inTZ?.value);
   const dst  = inDST?.checked ? 1 : 0;
 
@@ -353,7 +387,7 @@ function calcularRSTTempoReal() {
 
 // Nota: inT é registrado APÓS os handlers de máscara (abaixo) para que
 // calcularRSTTempoReal leia sempre o valor já mascarado.
-[inD, inM, inY, inLo, inLa].forEach(el =>
+[inD, inM, inY].forEach(el =>
   el?.addEventListener('input', calcularRSTTempoReal)
 );
 inDST?.addEventListener('change', calcularRSTTempoReal);
@@ -426,8 +460,8 @@ function coletarBirthInput() {
     southernHemisphere: state.southernHemisphere,
   };
 
-  const lon = parseFloat(inLo?.value);
-  const lat = parseFloat(inLa?.value);
+  const lon = state.lon;
+  const lat = state.lat;
   const tz  = parseFloat(inTZ?.value);
 
   if (!isNaN(lon)) input.longitude = lon;

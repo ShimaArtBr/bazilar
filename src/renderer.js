@@ -812,35 +812,35 @@ function renderInteracoes(interactions, container) {
     const pair = el('span', ['interact-pair'], { lang: 'zh-Hans' });
     const branches = inter.branches || [];
 
+    // Retorna span com hanzi + animal name, ambos coloridos pelo elemento
     const coloredBranch = (b) => {
       const r = RAMOS[b];
       if (!r) return document.createTextNode('?');
       const c = EL_COLORS[elKey(r.el)]?.mid || '';
       const span = el('span');
+      span.style.color = c;
       const zhSpan = el('span', [], { lang: 'zh-Hans' });
       zhSpan.textContent = r.zh;
-      zhSpan.style.color = c;
       span.appendChild(zhSpan);
       span.appendChild(document.createTextNode(` ${r.animal}`));
       return span;
     };
 
     if (inter.type === 'clash' && branches.length === 2) {
+      // espelhado: Animal0 zh0 ↔ zh1 Animal1 (hanzi no centro)
       const [b0, b1] = branches;
       const r0 = RAMOS[b0], r1 = RAMOS[b1];
       const c0 = EL_COLORS[elKey(r0?.el)]?.mid || '';
       const c1 = EL_COLORS[elKey(r1?.el)]?.mid || '';
-      // espelhado: Animal0 zh0 ↔ zh1 Animal1
-      const s0 = el('span');
+      const s0 = el('span'); s0.style.color = c0;
       s0.appendChild(document.createTextNode(`${r0?.animal ?? ''} `));
-      const z0 = el('span', [], { lang: 'zh-Hans' }); z0.textContent = r0?.zh ?? ''; z0.style.color = c0;
+      const z0 = el('span', [], { lang: 'zh-Hans' }); z0.textContent = r0?.zh ?? '';
       s0.appendChild(z0);
-      const sep = document.createTextNode(' ↔ ');
-      const s1 = el('span');
-      const z1 = el('span', [], { lang: 'zh-Hans' }); z1.textContent = r1?.zh ?? ''; z1.style.color = c1;
+      const s1 = el('span'); s1.style.color = c1;
+      const z1 = el('span', [], { lang: 'zh-Hans' }); z1.textContent = r1?.zh ?? '';
       s1.appendChild(z1);
       s1.appendChild(document.createTextNode(` ${r1?.animal ?? ''}`));
-      pair.appendChild(s0); pair.appendChild(sep); pair.appendChild(s1);
+      pair.appendChild(s0); pair.appendChild(document.createTextNode(' ↔ ')); pair.appendChild(s1);
     } else {
       branches.forEach((b, i) => {
         if (i > 0) pair.appendChild(document.createTextNode(' + '));
