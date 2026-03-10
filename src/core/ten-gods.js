@@ -103,29 +103,137 @@ export function getDayMasterStrength(dmStemIdx, stems, branchIdxs, monthBranchPi
 /**
  * Determina os elementos favoráveis (喜用神 Xǐ Yòng Shén) e desfavoráveis (忌神 Jì Shén).
  *
- * STATUS: STUB — retorna os campos já calculados por getDayMasterStrength().
- *   A lógica completa (análise de Estrutura Especial, Fluxo, inverso) é S4.
+ * Implementação S4 — escola 子平真詮 (ZPZQ).
  *
- * TODO [owner: JS Engineer S2, prazo: S2·W4]:
- *   Implementar análise completa de 喜用神:
- *   1. Verificar Estruturas Especiais (從格, 化格) — podem inverter favorable/unfavorable
- *   2. Considerar fluxo dos Grandes Ciclos (Da Yun) no cálculo de tendência
- *   3. C05 (Yang/Yin 12 Estágios順逆) — RESOLVIDO 2026-03-09.
- *      Escola Yang/Yin diferenciada (子平真詮). Ver data.js LIFE_STAGE_* e pillars.getLifeStage().
- *      帝旺(seq4)/長生(seq0) reforçam força; 絕(seq9)/墓(seq8) enfraquecem — integrar em S2·W4.
+ * ALGORITMO:
+ *   1. 從格 detection (Cóng Gé — Estrutura de Rendição):
+ *      Se score extremamente negativo E balanço mostra elemento único dominante (≥ 70% presença),
+ *      o DM "segue" o elemento dominante — inverter favorable/unfavorable.
+ *   2. Caso padrão (普通格):
+ *      - DM forte (strong=true) + 得令 (deLing): precisa drenar → 食傷, 財, 官殺 favorecem
+ *      - DM forte sem 得令: moderadamente forte → drenar, mas 印 neutro (não bloqueador)
+ *      - DM fraco (!strong): precisa suporte → 比劫, 印 favorecem; resto desfavorável
+ *   3. Limites de score para nuance:
+ *      - score > +3.0: DM excessivamente forte → 官殺 como 用神 principal
+ *      - score < -3.0 sem 從格: DM muito fraco → 印 como 用神 principal
  *
- * @param {{ score: number, strong: boolean, favorable: string[], unfavorable: string[], dmEl: string }} strength
- *   Resultado de getDayMasterStrength()
- * @returns {{ favorable: string[], unfavorable: string[] }}
+ * @param {{ score: number, strong: boolean, favorable: string[], unfavorable: string[],
+ *           dmEl: string, deLing: boolean }} strength
+ *   Resultado de getDayMasterStrength() — inclui deLing (S4).
+ * @param {{ balance?: Object<string,number> }} [context]
+ *   Contexto opcional do mapa. balance = { Wood, Fire, Earth, Metal, Water } de elemBalance().
+ * @returns {{ favorable: string[], unfavorable: string[], yongShen: string|null,
+ *             xiShen: string[], jiShen: string[], congGe: boolean }}
+ *   yongShen: elemento 用神 principal (mais necessário)
+ *   xiShen:   elementos 喜神 (auxiliares favoráveis)
+ *   jiShen:   elementos 忌神 (desfavoráveis)
+ *   congGe:   true se Estrutura de Rendição detectada
  */
-export function getFavorableElements(strength) {
-  // Stub: propaga o que calcDayMasterStrength já computou.
-  // Em S4, esta função adicionará análise de Estrutura Especial e Fluxo.
+export function getFavorableElements(strength, context = {}) {
   if (!strength || typeof strength !== 'object') {
-    return { favorable: [], unfavorable: [] };
+    return { favorable: [], unfavorable: [], yongShen: null, xiShen: [], jiShen: [], congGe: false };
   }
-  return {
-    favorable:   Array.isArray(strength.favorable)   ? strength.favorable   : [],
-    unfavorable: Array.isArray(strength.unfavorable) ? strength.unfavorable : [],
-  };
+
+  const { score = 0, strong = false, dmEl = null, deLing = false } = strength;
+  const { balance = null } = context;
+
+  const ELEMS = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
+
+  /* ── 1. 從格 detection ─────────────────────────────────────────────────────
+     Critério: score < -2.5 (DM sem apoio real) E um elemento domina ≥ 65% do balanço.
+     Fonte: ZPZQ 論從格 — "四柱無比印，從殺從財從兒皆可論從" */
+  let congGe = false;
+  let congEl = null;
+
+  if (score < -2.5 && balance) {
+    const total = Object.values(balance).reduce((s, v) => s + v, 0);
+    if (total > 0) {
+      for (const el of ELEMS) {
+        if (el === dmEl) continue; // DM element doesn't count toward domination
+        const ratio = (balance[el] || 0) / total;
+        if (ratio >= 0.65) { congGe = true; congEl = el; break; }
+      }
+    }
+  }
+
+  /* ── 2. Resultado ─────────────────────────────────────────────────────────── */
+
+  if (congGe && congEl) {
+    /* 從格: seguir o elemento dominante e o que ele gera */
+    const domIdx  = ELEMS.indexOf(congEl);
+    const genIdx  = (domIdx + 4) % 5; // elemento que gera o dominante (印 do dominante)
+    const outIdx  = (domIdx + 1) % 5; // elemento gerado pelo dominante (食傷 do dominante)
+    const favorable   = [congEl, ELEMS[genIdx], ELEMS[outIdx]].filter(Boolean);
+    const unfavorable = ELEMS.filter(e => !favorable.includes(e));
+    return {
+      favorable,
+      unfavorable,
+      yongShen: congEl,
+      xiShen:   [ELEMS[genIdx], ELEMS[outIdx]],
+      jiShen:   unfavorable,
+      congGe:   true,
+    };
+  }
+
+  /* ── Caso padrão 普通格 ──────────────────────────────────────────────────── */
+  const dmIdx = ELEMS.indexOf(dmEl);
+  if (dmIdx === -1) {
+    // dmEl desconhecido — fallback defensivo
+    return {
+      favorable:   Array.isArray(strength.favorable)   ? strength.favorable   : [],
+      unfavorable: Array.isArray(strength.unfavorable) ? strength.unfavorable : [],
+      yongShen: null, xiShen: [], jiShen: [], congGe: false,
+    };
+  }
+
+  // Índices relativos ao DM: 0=比劫, 1=食傷, 2=財, 3=官殺, 4=印
+  const biJie  = ELEMS[dmIdx];                   // 比劫 — mesmo elemento
+  const shiSha = ELEMS[(dmIdx + 1) % 5];         // 食傷 — DM gera
+  const cai    = ELEMS[(dmIdx + 2) % 5];         // 財   — DM controla
+  const guanSha= ELEMS[(dmIdx + 3) % 5];         // 官殺 — controla DM
+  const yin    = ELEMS[(dmIdx + 4) % 5];         // 印   — gera DM
+
+  let yongShen, xiShen, jiShen;
+
+  if (strong && deLing) {
+    /* DM forte com 得令 — precisa drenar fortemente
+       用神: 官殺 (controla excesso) ou 財 (canaliza energia)
+       喜神: 食傷 (drena suavemente)
+       忌神: 比劫 (reforça demais), 印 (alimenta quem já está cheio) */
+    yongShen = score > 3.0 ? guanSha : cai;
+    xiShen   = [shiSha, score > 3.0 ? cai : guanSha];
+    jiShen   = [biJie, yin];
+
+  } else if (strong && !deLing) {
+    /* DM forte mas sem 得令 — moderadamente forte, drenar mas 印 é neutro
+       用神: 財 (canaliza)
+       喜神: 食傷, 官殺
+       忌神: 比劫 (apenas) */
+    yongShen = cai;
+    xiShen   = [shiSha, guanSha];
+    jiShen   = [biJie];
+
+  } else if (!strong && score < -3.0) {
+    /* DM muito fraco — precisa suporte urgente
+       用神: 印 (nutre diretamente)
+       喜神: 比劫 (apoia)
+       忌神: 財 (esgota 印), 官殺 (suprime DM já fraco), 食傷 (drena o pouco que resta) */
+    yongShen = yin;
+    xiShen   = [biJie];
+    jiShen   = [cai, guanSha, shiSha];
+
+  } else {
+    /* DM fraco moderado — precisa suporte
+       用神: 比劫 ou 印 conforme disponibilidade (sem balance, usar 比劫 como padrão)
+       喜神: o outro entre 比劫/印
+       忌神: 食傷, 財, 官殺 */
+    yongShen = yin;
+    xiShen   = [biJie];
+    jiShen   = [shiSha, cai, guanSha];
+  }
+
+  const favorable   = [yongShen, ...xiShen].filter((v, i, a) => v && a.indexOf(v) === i);
+  const unfavorable = jiShen.filter(Boolean);
+
+  return { favorable, unfavorable, yongShen, xiShen, jiShen: unfavorable, congGe: false };
 }

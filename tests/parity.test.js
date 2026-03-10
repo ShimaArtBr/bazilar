@@ -539,9 +539,60 @@ describe('U05 — ten-gods.js', () => {
       const {getFavorableElements}=await import('../src/core/ten-gods.js');
       expect(getFavorableElements({score:1}).favorable).toEqual([]);
     });
-    it('propaga arrays', async () => {
+    it('propaga arrays (dmEl ausente — fallback defensivo)', async () => {
       const {getFavorableElements}=await import('../src/core/ten-gods.js');
       expect(getFavorableElements({favorable:['Metal','Water'],unfavorable:['Fire']}).favorable).toEqual(['Metal','Water']);
+    });
+    // ── S4: lógica 喜用神 ──────────────────────────────────────────────────────
+    it('S4 — DM forte + deLing → 財/官殺 favoráveis, 比劫/印 desfavoráveis', async () => {
+      const {getFavorableElements}=await import('../src/core/ten-gods.js');
+      const r=getFavorableElements({score:2.5,strong:true,dmEl:'Wood',deLing:true,favorable:[],unfavorable:[]});
+      expect(r.favorable).toContain('Earth');   // 財 do Wood
+      expect(r.unfavorable).toContain('Wood');  // 比劫
+      expect(r.unfavorable).toContain('Water'); // 印
+      expect(r.congGe).toBe(false);
+    });
+    it('S4 — DM forte sem deLing → 財 favorável, apenas 比劫 desfavorável', async () => {
+      const {getFavorableElements}=await import('../src/core/ten-gods.js');
+      const r=getFavorableElements({score:1.2,strong:true,dmEl:'Wood',deLing:false,favorable:[],unfavorable:[]});
+      expect(r.yongShen).toBe('Earth');  // 財
+      expect(r.jiShen).toContain('Wood'); // 比劫
+      expect(r.jiShen).not.toContain('Water'); // 印 neutro
+    });
+    it('S4 — DM muito fraco → 印 como yongShen', async () => {
+      const {getFavorableElements}=await import('../src/core/ten-gods.js');
+      const r=getFavorableElements({score:-3.5,strong:false,dmEl:'Wood',deLing:false,favorable:[],unfavorable:[]});
+      expect(r.yongShen).toBe('Water'); // 印 do Wood
+      expect(r.favorable).toContain('Wood');  // 比劫 apoia
+      expect(r.unfavorable).toContain('Earth'); // 財 esgota 印
+    });
+    it('S4 — 從格 detection: score extremo + elemento dominante ≥65%', async () => {
+      const {getFavorableElements}=await import('../src/core/ten-gods.js');
+      const balance={Wood:0.3,Fire:0.0,Earth:5.5,Metal:0.2,Water:0.0};
+      const r=getFavorableElements(
+        {score:-3.0,strong:false,dmEl:'Wood',deLing:false,favorable:[],unfavorable:[]},
+        {balance}
+      );
+      expect(r.congGe).toBe(true);
+      expect(r.yongShen).toBe('Earth');
+      expect(r.favorable).toContain('Earth');
+    });
+    it('S4 — 從格 NÃO detectado se score > -2.5', async () => {
+      const {getFavorableElements}=await import('../src/core/ten-gods.js');
+      const balance={Wood:0.1,Fire:0.0,Earth:5.5,Metal:0.0,Water:0.0};
+      const r=getFavorableElements(
+        {score:-1.0,strong:false,dmEl:'Wood',deLing:false,favorable:[],unfavorable:[]},
+        {balance}
+      );
+      expect(r.congGe).toBe(false);
+    });
+    it('S4 — retorna yongShen, xiShen, jiShen, congGe no shape', async () => {
+      const {getFavorableElements}=await import('../src/core/ten-gods.js');
+      const r=getFavorableElements({score:1,strong:true,dmEl:'Fire',deLing:true,favorable:[],unfavorable:[]});
+      expect(r).toHaveProperty('yongShen');
+      expect(r).toHaveProperty('xiShen');
+      expect(r).toHaveProperty('jiShen');
+      expect(r).toHaveProperty('congGe');
     });
   });
 

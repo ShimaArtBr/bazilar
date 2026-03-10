@@ -469,7 +469,12 @@ function calcularMapa(birth) {
   ];
   const tenGods   = computeTenGods(dmStemIdx, todosTroncos);
   const strength  = getDayMasterStrength(dmStemIdx, todosTroncos, ramos, 1);
-  const favorable = getFavorableElements(strength);
+  // S4: passa balance como contexto para detecção de 從格
+  const _balanceTmp = elemBalance(
+    [fourPillars.hour.si, fourPillars.day.si, fourPillars.month.si, fourPillars.year.si],
+    [fourPillars.hour.bi, fourPillars.day.bi, fourPillars.month.bi, fourPillars.year.bi],
+  );
+  const favorable = getFavorableElements(strength, { balance: _balanceTmp });
 
   if (import.meta.env?.DEV) {
     console.debug('[app] FLAGS:', FLAGS);
