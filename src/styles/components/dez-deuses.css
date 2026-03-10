@@ -144,17 +144,16 @@
 .deus-card__expr-block {
   padding: .6rem .75rem;
   border-radius: var(--radius-sm, .25rem);
-  border-left: 2px solid transparent;
+  border-left: 3px solid transparent;
+  background: rgba(255,255,255,.03);
 }
 
 .deus-card__expr-block--pos {
-  background: color-mix(in srgb, var(--color-wood-light, #A8DBBF) 15%, transparent);
-  border-color: var(--color-wood-mid, #147A48);
+  border-color: #2E7D52;
 }
 
 .deus-card__expr-block--neg {
-  background: color-mix(in srgb, var(--color-fire-light, #F5BBBF) 15%, transparent);
-  border-color: var(--color-fire-mid, #D3232E);
+  border-color: #8C3030;
 }
 
 .deus-card__expr-label {
@@ -275,14 +274,6 @@
 }
 
 /* ── Dark mode overrides ───────────────────────────────────────────────────── */
-
-[data-theme='dark'] .deus-card__expr-block--pos {
-  background: color-mix(in srgb, var(--color-wood-dark, #0B5233) 25%, transparent);
-}
-
-[data-theme='dark'] .deus-card__expr-block--neg {
-  background: color-mix(in srgb, var(--color-fire-dark, #8C0A12) 25%, transparent);
-}
 
 [data-theme='dark'] .deus-card__question {
   background: color-mix(in srgb, var(--color-earth-dark, #7A4C08) 25%, transparent);
