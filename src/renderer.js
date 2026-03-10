@@ -396,7 +396,7 @@ function renderInfoGrid(mapa, container) {
   // Card: Tempo Solar Real
   const cTSR = el('div', ['info-card']);
   const cTSRtitle = el('p', ['ic-title']); cTSRtitle.textContent = 'TEMPO SOLAR REAL · TSR';
-  const cTSRval = el('p', ['ic-val']);
+  const cTSRval = el('p', ['ic-val', 'ic-val--gold']);
   cTSRval.style.fontFamily = "'JetBrains Mono', monospace";
   if (rst) {
     cTSRval.textContent = ft(rst.h, rst.m, rst.s);
@@ -716,7 +716,7 @@ function renderGrandesCiclos(luckPillars, luckRaw, dmStemIdx, container) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateCiclo(); }
     });
 
-    (idx < 5 ? grid1 : grid2).appendChild(card);
+    (idx < 4 ? grid1 : grid2).appendChild(card);
     idx++;
   });
 
@@ -810,11 +810,17 @@ function renderInteracoes(interactions, container) {
     item.appendChild(tipo);
 
     const pair = el('span', ['interact-pair'], { lang: 'zh-Hans' });
-    const sep = inter.type === 'clash' ? ' ↔ ' : ' + ';
-    pair.textContent = (inter.branches || []).map(b => {
-      const r = RAMOS[b];
-      return r ? `${r.zh} ${r.animal}` : '';
-    }).join(sep);
+    const branches = inter.branches || [];
+    if (inter.type === 'clash' && branches.length === 2) {
+      const [b0, b1] = branches;
+      const r0 = RAMOS[b0], r1 = RAMOS[b1];
+      pair.textContent = `${r0?.animal ?? ''} ${r0?.zh ?? ''} ↔ ${r1?.zh ?? ''} ${r1?.animal ?? ''}`;
+    } else {
+      pair.textContent = branches.map(b => {
+        const r = RAMOS[b];
+        return r ? `${r.zh} ${r.animal}` : '';
+      }).join(' + ');
+    }
     item.appendChild(pair);
 
     if (inter.el) {
@@ -1157,35 +1163,34 @@ export function renderBaziChart(mapa, container) {
   // 2. Quatro Pilares (com ten gods e troncos ocultos)
   renderQuatroPilares(fourPillars, tenGods, wrapper);
 
-  // 3. Cards info: DM · TSR · Ano BaZi · Longitude Solar
+  // 3. Botão PDF — logo após o mapa
+  renderBotaoPDF(wrapper);
+
+  // 4. Cards info: DM · TSR · Ano BaZi · Longitude Solar
   renderInfoGrid(mapa, wrapper);
 
-  // 4. Balanço dos 5 Elementos
+  // 5. Balanço dos 5 Elementos
   renderBalance(balance, wrapper);
 
-  // 5. Força do Mestre do Dia
+  // 6. Força do Mestre do Dia
   renderForca(strength, favorable, dmStemIdx, wrapper);
 
-  // 6. Termos Solares do Ano
+  // 7. Termos Solares do Ano
   renderTermosSolares(solarTerms, birth?.year, wrapper);
 
-  // 7. Grandes Ciclos com direção e ten gods
+  // 8. Grandes Ciclos com direção e ten gods
   renderGrandesCiclos(luckPillars, luckRaw, dmStemIdx, wrapper);
 
-  // 8. Estrelas Simbólicas
+  // 9. Estrelas Simbólicas
   renderEstrelasSimbolicas(stars, allBranches, wrapper);
 
-  // 9. Interações entre Ramos
+  // 10. Interações entre Ramos
   renderInteracoes(interactions, wrapper);
 
-  // 10. 10 Deuses — interpretação editorial (REQ-13 · B2)
-  //     async: carrega JSON sob demanda; não bloqueia commit ao DOM
+  // 11. 10 Deuses — interpretação editorial (REQ-13 · B2)
   renderDezDeuses(mapa, dmStemIdx, wrapper).catch(err =>
     console.warn('[renderer] renderDezDeuses:', err)
   );
-
-  // 11. Botão PDF
-  renderBotaoPDF(wrapper);
 
   // ── Commit ao DOM ──
   // innerHTML limpo DEPOIS de construir o fragmento — evita tela em branco em caso de erro
