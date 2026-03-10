@@ -285,6 +285,13 @@ function selecionarSugestao(resultado, lat, lon, tzEst) {
   if (inLa)   inLa.value  = lat.toFixed(4);
   selecionarFusoMaisProximo(tzEst);
 
+  // Atualizar hint com o fuso estimado pela longitude da cidade
+  if (tzHintTxt) {
+    const sinal = tzEst >= 0 ? '+' : '';
+    tzHintTxt.textContent = `Estimado por coordenada: GMT ${sinal}${tzEst}`;
+  }
+  tzHint?.classList.add('tz-hint--set');
+
   if (locPrev) {
     locPrev.textContent = '📍 ' + label;
   }
