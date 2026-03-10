@@ -22,6 +22,8 @@ import { sunLon, termJD, calcRST, fromJD } from './modules/engine.js';
 import { MT } from './modules/data.js';
 import { renderBaziChart } from './renderer.js';
 import { FLAGS } from './config/flags.js';
+import { AuthModal } from './components/auth-modal.js';
+import { auth } from './lib/supabase.js';
 
 // ── Referências DOM ────────────────────────────────────────────────────────────
 
@@ -56,6 +58,25 @@ const calcBtn    = document.getElementById('calcBtn');
 const results    = document.getElementById('results');
 const emptyState = document.getElementById('emptyState');
 const themeBtn   = document.getElementById('themeBtn');
+const authBtn    = document.getElementById('authBtn');
+
+// ── Auth ───────────────────────────────────────────────────────────────────────
+const authModal = new AuthModal();
+authModal.onLogin = (session) => _updateAuthBtn(session?.user);
+
+auth.getSession().then(session => _updateAuthBtn(session?.user));
+auth.onSessionChange(session => _updateAuthBtn(session?.user));
+
+function _updateAuthBtn(user) {
+  if (!authBtn) return;
+  if (user) {
+    authBtn.textContent = user.email?.split('@')[0] || 'Conta';
+    authBtn.onclick = () => { if (confirm('Sair da conta?')) auth.signOut().then(() => _updateAuthBtn(null)); };
+  } else {
+    authBtn.textContent = 'Entrar';
+    authBtn.onclick = () => authModal.open();
+  }
+}
 const themeIcon  = document.getElementById('themeIcon');
 
 // ── Estado da aplicação ────────────────────────────────────────────────────────
