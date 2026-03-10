@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
+    exclude: ['**/node_modules/**', '**/tests/e2e/**'],
     // FLAGS = 0 para modo legacy (paridade pura)
     env: {
       VITE_BAZI_STEMS_V2: '0',
