@@ -294,37 +294,71 @@ function starsHtml(stars, allBranches) {
 }
 
 /* ── INTERAÇÕES ENTRE RAMOS ── */
-function interactionsHtml(ixs) {
+function interactionsHtml(ixs, fp) {
   if (!ixs || !ixs.length) return '';
+
+  var PILAR_ORIGEM = {};
+  if (fp) {
+    PILAR_ORIGEM[fp.year.bi]  = 'ANO';
+    PILAR_ORIGEM[fp.month.bi] = 'M\u00caS';
+    PILAR_ORIGEM[fp.day.bi]   = 'DIA';
+    PILAR_ORIGEM[fp.hour.bi]  = 'HORA';
+  }
+
+  var EL_COL = {
+    'Wood':'#2E6B3E','Fire':'#A82010','Earth':'#7A5010',
+    'Metal':'#4A5060','Water':'#2050A0'
+  };
+  var ANIMALS_PT = ['Rato','Boi','Tigre','Coelho','Drag\u00e3o','Serpente',
+                    'Cavalo','Cabra','Macaco','Galo','C\u00e3o','Porco'];
+
+  function branchCard(b) {
+    var r = EB[b];
+    if (!r) return '';
+    var col = EL_COL[r.el] || '#555';
+    var anPt = ANIMALS_PT[b] || r.an;
+    var lbl = PILAR_ORIGEM[b] || '\u2014';
+    return '<span class="ix-card">'
+      + '<span class="ix-card__pilar">' + esc(lbl) + '</span>'
+      + '<span class="ix-card__body" style="color:' + col + '">'
+        + '<span class="cjk ix-card__zh">' + esc(r.zh) + '</span>'
+        + '<span class="ix-card__name">' + esc(anPt) + '</span>'
+      + '</span>'
+    + '</span>';
+  }
+
   return ixs.map(function (ix) {
-    let ts, ps, nt, cl;
+    var ts, nt, cl, branches, sep;
     switch (ix.type) {
       case 'harmony6':
-        ts = t('harmony6'); ps = EB[ix.a].zh + '+' + EB[ix.b].zh;
-        nt = '\u2192' + te(ix.el); cl = '#165C1E'; break;
+        ts = t('harmony6'); branches = [ix.a, ix.b];
+        nt = '\u2192 ' + te(ix.el); cl = '#165C1E'; sep = '+'; break;
       case 'harmony3':
-        ts = t('harmony3');
-        ps = (ix.branches || []).map(function (b) { return EB[b].zh; }).join('+');
-        nt = ix.zh || ''; cl = '#165C1E'; break;
+        ts = t('harmony3'); branches = ix.branches || [];
+        nt = ix.zh || ''; cl = '#165C1E'; sep = '+'; break;
       case 'clash':
-        ts = t('clash'); ps = EB[ix.a].zh + '\u2194' + EB[ix.b].zh;
-        nt = '\u26a1'; cl = '#A82010'; break;
+        ts = t('clash'); branches = ix.branches || [ix.a, ix.b];
+        nt = '\u26a1'; cl = '#A82010'; sep = '\u2194'; break;
       case 'harm':
-        ts = t('harm'); ps = EB[ix.a].zh + '\u2194' + EB[ix.b].zh;
-        nt = '\u26a0'; cl = '#904010'; break;
+        ts = t('harm'); branches = ix.branches || [ix.a, ix.b];
+        nt = '\u26a0'; cl = '#904010'; sep = '+'; break;
       case 'penalty':
-        ts = t('penalty');
-        ps = (ix.branches || []).map(function (b) { return EB[b].zh; }).join('+');
-        nt = ix.zh || '!'; cl = '#A82010'; break;
+        ts = t('penalty'); branches = ix.branches || [];
+        nt = '\u25c8'; cl = '#A82010'; sep = '+'; break;
       default: return '';
     }
+    var cardsHtml = branches.map(function(b, i) {
+      return (i > 0 ? '<span class="ix-sep">' + sep + '</span>' : '') + branchCard(b);
+    }).join('');
+
     return '<div class="ix-row">'
       + '<span class="mono ix-type" style="color:' + cl + '">' + esc(ts) + '</span>'
-      + '<span class="cjk ix-pair">' + esc(ps) + '</span>'
+      + '<span class="ix-pair">' + cardsHtml + '</span>'
       + '<span class="mono ix-note" style="color:' + cl + '">' + esc(nt) + '</span>'
     + '</div>';
   }).join('');
 }
+
 
 /* ══════════════════════════════════════════════════════════════════
    CSS — SOLLUN DS v2.0 aplicado para impressão
@@ -680,14 +714,16 @@ function buildCSS() {
 
     /* ══ INTERAÇÕES ══ */
     + '.ix-inner { display: flex; flex-direction: column; justify-content: space-evenly; height: 100%; }'
-    + '.ix-row {'
-      + 'display: flex; align-items: center; gap: 1.5mm;'
-      + 'padding: 2mm 2mm;'
-      + 'border-radius: 0.8mm; border: 0.2pt solid rgba(201,168,76,.15);'
-    + '}'
-    + '.ix-type { font-size:7.7pt; min-width: 14mm; }'
-    + '.ix-pair { font-size:13.5pt; flex: 1; color: var(--text); }'
-    + '.ix-note { font-size:9.4pt; }'
+    + '.ix-row { display: flex; align-items: center; gap: 2mm; padding: 1.5mm 2mm; border-radius: 0.8mm; border: 0.2pt solid rgba(201,168,76,.15); }'
+    + '.ix-type { font-size:7pt; min-width: 14mm; flex-shrink:0; }'
+    + '.ix-pair { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5mm; flex: 1; }'
+    + '.ix-sep { font-size:8pt; color: var(--muted); padding: 0 0.5mm; }'
+    + '.ix-note { font-size:9pt; flex-shrink:0; }'
+    + '.ix-card { display: inline-flex; flex-direction: column; align-items: center; background: var(--surface); border: 0.3pt solid rgba(201,168,76,.25); border-radius: 1mm; padding: 1mm 2mm; min-width: 10mm; }'
+    + '.ix-card__pilar { font-family: "JetBrains Mono", monospace; font-size:5.5pt; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }'
+    + '.ix-card__body { display:flex; align-items:baseline; gap:1mm; }'
+    + '.ix-card__zh { font-size:11pt; line-height:1; }'
+    + '.ix-card__name { font-size:7pt; }'
 
     /* ══ RODAPÉ ══ */
     + '.report-ft {'
@@ -857,7 +893,7 @@ function buildPrintHTML(data) {
       + '</div>'
       + '<div class="sub-sec">'
         + secLabel(t('secInteract'))
-        + '<div class="ix-inner">' + interactionsHtml(d.interactions) + '</div>'
+        + '<div class="ix-inner">' + interactionsHtml(d.interactions, d.hP && d.dP && d.mP && d.yP ? {hour:d.hP,day:d.dP,month:d.mP,year:d.yP} : null) + '</div>'
       + '</div>'
     + '</div>\n'
 
