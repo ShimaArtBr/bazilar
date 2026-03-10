@@ -540,11 +540,32 @@ input.input-err { border-color: rgba(196,74,53,.6)   !important; }
 .interact-list { display: flex; flex-direction: column; gap: 6px; }
 .interact-item {
   background: var(--panel); border: 1px solid var(--bg-gold); border-radius: 8px;
-  padding: 9px 13px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 10px; font-size: .8rem;
+  padding: 9px 13px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; font-size: .8rem;
 }
 .interact-type { font-size: .65rem; color: var(--gold); font-family: 'JetBrains Mono', monospace; letter-spacing: .06em; text-transform: uppercase; flex-shrink: 0; }
-.interact-pair { color: var(--text); flex: 1; min-width: 0; word-break: break-word; }
+.interact-pair { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; flex: 1; min-width: 0; }
+.interact-sep { font-size: .85rem; color: var(--muted); padding: 0 2px; align-self: center; }
 .interact-result { font-size: .7rem; color: var(--muted); margin-left: auto; white-space: nowrap; }
+
+/* Mini-card de ramo com origem de pilar */
+.interact-branch-card {
+  display: inline-flex; flex-direction: column; align-items: center;
+  background: var(--bg2, rgba(255,255,255,.04)); border: 1px solid var(--bg-gold);
+  border-radius: 6px; padding: 4px 8px; min-width: 52px; gap: 2px;
+}
+.interact-branch-card__pilar {
+  font-family: 'JetBrains Mono', monospace; font-size: .55rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.interact-branch-card__body {
+  display: flex; align-items: baseline; gap: 4px;
+}
+.interact-branch-card__zh {
+  font-family: 'Noto Serif SC', serif; font-size: 1.1rem; line-height: 1;
+}
+.interact-branch-card__name {
+  font-family: 'Noto Sans', sans-serif; font-size: .72rem;
+}
 
 /* Zi notice */
 .zi-notice {

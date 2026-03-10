@@ -783,13 +783,42 @@ const LABEL_INTERACAO = {
   penalty:  'PENALIDADE (刑)',
 };
 
-function renderInteracoes(interactions, container) {
+function renderInteracoes(interactions, fourPillars, container) {
   if (!interactions?.length) return;
 
   const wrap = el('div', ['interact-section']);
   wrap.appendChild(secLabel('INTERAÇÕES ENTRE RAMOS TERRESTRES'));
 
   const lista = el('div', ['interact-list']);
+
+  // Mapa ramo-índice → label de pilar (ordem app.js: [ano=0, mês=1, dia=2, hora=3])
+  const PILAR_ORIGEM = fourPillars ? {
+    [fourPillars.year.bi]:  'ANO',
+    [fourPillars.month.bi]: 'MÊS',
+    [fourPillars.day.bi]:   'DIA',
+    [fourPillars.hour.bi]:  'HORA',
+  } : {};
+
+  // Mini-card: label de pilar em cima, hanzi + animal em baixo, colorido pelo elemento
+  const branchCard = (b) => {
+    const r = RAMOS[b];
+    if (!r) return document.createTextNode('?');
+    const c = EL_COLORS[elKey(r.el)]?.mid || '';
+    const card = el('span', ['interact-branch-card']);
+    const lbl = el('span', ['interact-branch-card__pilar']);
+    lbl.textContent = PILAR_ORIGEM[b] ?? '—';
+    const body = el('span', ['interact-branch-card__body']);
+    body.style.color = c;
+    const zh = el('span', ['interact-branch-card__zh'], { lang: 'zh-Hans' });
+    zh.textContent = r.zh;
+    const name = el('span', ['interact-branch-card__name']);
+    name.textContent = r.animal;
+    body.appendChild(zh);
+    body.appendChild(name);
+    card.appendChild(lbl);
+    card.appendChild(body);
+    return card;
+  };
 
   interactions.forEach(inter => {
     const item = el('div', ['interact-item']);
@@ -809,44 +838,18 @@ function renderInteracoes(interactions, container) {
     tipo.textContent = LABEL_INTERACAO[inter.type] ?? inter.type.toUpperCase();
     item.appendChild(tipo);
 
-    const pair = el('span', ['interact-pair'], { lang: 'zh-Hans' });
+    const pair = el('div', ['interact-pair']);
     const branches = inter.branches || [];
+    const SEP = { clash: '↔', default: '+' };
 
-    // Retorna span com hanzi + animal name, ambos coloridos pelo elemento
-    const coloredBranch = (b) => {
-      const r = RAMOS[b];
-      if (!r) return document.createTextNode('?');
-      const c = EL_COLORS[elKey(r.el)]?.mid || '';
-      const span = el('span');
-      span.style.color = c;
-      const zhSpan = el('span', [], { lang: 'zh-Hans' });
-      zhSpan.textContent = r.zh;
-      span.appendChild(zhSpan);
-      span.appendChild(document.createTextNode(` ${r.animal}`));
-      return span;
-    };
-
-    if (inter.type === 'clash' && branches.length === 2) {
-      // espelhado: Animal0 zh0 ↔ zh1 Animal1 (hanzi no centro)
-      const [b0, b1] = branches;
-      const r0 = RAMOS[b0], r1 = RAMOS[b1];
-      const c0 = EL_COLORS[elKey(r0?.el)]?.mid || '';
-      const c1 = EL_COLORS[elKey(r1?.el)]?.mid || '';
-      const s0 = el('span'); s0.style.color = c0;
-      s0.appendChild(document.createTextNode(`${r0?.animal ?? ''} `));
-      const z0 = el('span', [], { lang: 'zh-Hans' }); z0.textContent = r0?.zh ?? '';
-      s0.appendChild(z0);
-      const s1 = el('span'); s1.style.color = c1;
-      const z1 = el('span', [], { lang: 'zh-Hans' }); z1.textContent = r1?.zh ?? '';
-      s1.appendChild(z1);
-      s1.appendChild(document.createTextNode(` ${r1?.animal ?? ''}`));
-      pair.appendChild(s0); pair.appendChild(document.createTextNode(' ↔ ')); pair.appendChild(s1);
-    } else {
-      branches.forEach((b, i) => {
-        if (i > 0) pair.appendChild(document.createTextNode(' + '));
-        pair.appendChild(coloredBranch(b));
-      });
-    }
+    branches.forEach((b, i) => {
+      if (i > 0) {
+        const sep = el('span', ['interact-sep']);
+        sep.textContent = inter.type === 'clash' ? '↔' : '+';
+        pair.appendChild(sep);
+      }
+      pair.appendChild(branchCard(b));
+    });
     item.appendChild(pair);
 
     if (inter.el) {
@@ -1046,7 +1049,8 @@ async function renderDezDeuses(mapa, dmStemIdx, container) {
     cardHead.setAttribute('tabindex', '0');
     cardHead.setAttribute('aria-expanded', 'false');
     const pillarLabel = el('span', ['deus-card__pilar']);
-    pillarLabel.textContent = `Pilar do ${label}`;
+    const artigoPilar = { 'Hora': 'da', 'Dia': 'do', 'Mês': 'do', 'Ano': 'do' };
+    pillarLabel.textContent = `Pilar ${artigoPilar[label] ?? 'do'} ${label}`;
     const charSpan = el('span', ['deus-card__char'], { lang: 'zh-Hans' });
     charSpan.textContent = zhLabel;
     const nomePt = el('span', ['deus-card__nome']);
@@ -1209,7 +1213,7 @@ export function renderBaziChart(mapa, container) {
   renderEstrelasSimbolicas(stars, allBranches, wrapper);
 
   // 10. Interações entre Ramos
-  renderInteracoes(interactions, wrapper);
+  renderInteracoes(interactions, fourPillars, wrapper);
 
   // 11. 10 Deuses — interpretação editorial (REQ-13 · B2)
   renderDezDeuses(mapa, dmStemIdx, wrapper).catch(err =>
