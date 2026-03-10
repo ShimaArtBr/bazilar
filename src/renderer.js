@@ -856,10 +856,10 @@ function renderInteracoes(interactions, fourPillars, container) {
       const res = el('span', ['interact-result']);
       res.textContent = `→ ${EL_PT[elKey(inter.el)] || inter.el}`;
       item.appendChild(res);
-    } else if (inter.type === 'penalty' && inter.zh) {
+    } else if (inter.type === 'penalty') {
       const res = el('span', ['interact-result']);
-      if (isClash) res.style.color = 'var(--fm, #D3232E)';
-      res.textContent = inter.zh;
+      res.style.color = 'var(--fm, #D3232E)';
+      res.textContent = inter.zh ? inter.zh : '◈';
       item.appendChild(res);
     } else if (inter.type === 'clash') {
       const res = el('span', ['interact-result']);
