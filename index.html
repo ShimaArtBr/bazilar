@@ -88,45 +88,38 @@
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="inT">Hora (00:00 – 23:59)</label>
-      <input type="text" id="inT" placeholder="HH:MM" maxlength="5">
-    </div>
-
-    <div class="field-group">
-      <label class="field-label" id="coordsLabel">Coordenadas Automáticas</label>
-      <div class="field-row" role="group" aria-labelledby="coordsLabel">
-        <label class="sr-only" for="inLo">Longitude</label>
-        <input type="number" id="inLo" step="0.0001" placeholder="LONGITUDE" aria-label="Longitude">
-        <label class="sr-only" for="inLa">Latitude</label>
-        <input type="number" id="inLa" step="0.0001" placeholder="LATITUDE" aria-label="Latitude">
-      </div>
-    </div>
-
-    <div class="field-group">
-      <label class="field-label" for="inTZ">Fuso Horário (GMT)</label>
-      <div class="tz-wrap">
-      <select id="inTZ" class="tz-select" aria-label="Selecionar fuso horário GMT">
-        <option value="" disabled selected hidden>GMT</option>
-        <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
-        <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
-        <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
-        <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
-        <option value="-5">GMT −5</option><option value="-4">GMT −4</option>
-        <option value="-3.5">GMT −3:30</option><option value="-3">GMT −3</option>
-        <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
-        <option value="0">GMT 0</option><option value="1">GMT +1</option>
-        <option value="2">GMT +2</option><option value="3">GMT +3</option>
-        <option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
-        <option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
-        <option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
-        <option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
-        <option value="7">GMT +7</option><option value="8">GMT +8</option>
-        <option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
-        <option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
-        <option value="11">GMT +11</option><option value="12">GMT +12</option>
-        <option value="13">GMT +13</option>
-      </select>
-      <p class="tz-hint" id="tzHint">↻ <span id="tzHintTxt">Detectando fuso do dispositivo…</span></p>
+      <div class="field-row field-row--hora-fuso" role="group">
+        <div class="field-col">
+          <label class="field-label" for="inT">Hora (24h)</label>
+          <input type="text" id="inT" placeholder="HH:MM" maxlength="5" class="input--centered">
+        </div>
+        <div class="field-col">
+          <label class="field-label" for="inTZ">Fuso (GMT)</label>
+          <div class="tz-wrap">
+          <select id="inTZ" class="tz-select" aria-label="Selecionar fuso horário GMT">
+            <option value="" disabled selected hidden>GMT</option>
+            <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
+            <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
+            <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
+            <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
+            <option value="-5">GMT −5</option><option value="-4">GMT −4</option>
+            <option value="-3.5">GMT −3:30</option><option value="-3">GMT −3</option>
+            <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
+            <option value="0">GMT 0</option><option value="1">GMT +1</option>
+            <option value="2">GMT +2</option><option value="3">GMT +3</option>
+            <option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
+            <option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
+            <option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
+            <option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
+            <option value="7">GMT +7</option><option value="8">GMT +8</option>
+            <option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
+            <option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
+            <option value="11">GMT +11</option><option value="12">GMT +12</option>
+            <option value="13">GMT +13</option>
+          </select>
+          <p class="tz-hint" id="tzHint">↻ <span id="tzHintTxt">Detectando…</span></p>
+          </div>
+        </div>
       </div>
     </div>
 

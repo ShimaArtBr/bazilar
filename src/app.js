@@ -163,7 +163,7 @@ function detectarFusoDispositivo() {
     selecionarFusoMaisProximo(offsetHrs);
     const sinal  = offsetHrs >= 0 ? '+' : '';
     const tzName = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-    if (tzHintTxt) tzHintTxt.textContent = `Fuso detectado: GMT ${sinal}${offsetHrs} ${tzName ? '(' + tzName + ')' : ''}`;
+    if (tzHintTxt) tzHintTxt.textContent = `Detectado: ${tzName ? '(' + tzName + ')' : `GMT ${sinal}${offsetHrs}`}`;
     tzHint?.classList.add('tz-hint--set');
   } catch (_) {
     if (tzHintTxt) tzHintTxt.textContent = 'Não foi possível detectar o fuso.';
