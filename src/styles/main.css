@@ -225,21 +225,6 @@ body::after {
 }
 .topbar-right { display: flex; align-items: center; gap: 9px; }
 
-.auth-topbar-btn {
-  padding: 5px 14px;
-  background: transparent;
-  border: 1px solid var(--gold, #C09A4A);
-  border-radius: 5px;
-  color: var(--gold, #C09A4A);
-  font-family: var(--font-body, 'Noto Sans', sans-serif);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: 0.04em;
-  transition: background 150ms ease, color 150ms ease;
-}
-.auth-topbar-btn:hover { background: var(--gold, #C09A4A); color: #0F0E0A; }
-
 /* Theme */
 .theme-btn {
   display: flex; align-items: center; justify-content: center;

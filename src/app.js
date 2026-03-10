@@ -22,9 +22,6 @@ import { sunLon, termJD, calcRST, fromJD } from './modules/engine.js';
 import { MT } from './modules/data.js';
 import { renderBaziChart } from './renderer.js';
 import { FLAGS } from './config/flags.js';
-import { AuthModal } from './components/auth-modal.js';
-import { PixModal } from './components/pix-modal.js';
-import { auth } from './lib/supabase.js';
 
 // ── Referências DOM ────────────────────────────────────────────────────────────
 
@@ -59,34 +56,6 @@ const calcBtn    = document.getElementById('calcBtn');
 const results    = document.getElementById('results');
 const emptyState = document.getElementById('emptyState');
 const themeBtn   = document.getElementById('themeBtn');
-const authBtn    = document.getElementById('authBtn');
-
-// ── Auth ───────────────────────────────────────────────────────────────────────
-let _currentUser = null;
-const authModal = new AuthModal();
-authModal.onLogin = (session) => { _currentUser = session?.user ?? null; _updateAuthBtn(_currentUser); };
-
-auth.getSession().then(session => { _currentUser = session?.user ?? null; _updateAuthBtn(_currentUser); });
-auth.onSessionChange(session => { _currentUser = session?.user ?? null; _updateAuthBtn(_currentUser); });
-
-function _updateAuthBtn(user) {
-  if (!authBtn) return;
-  if (user) {
-    authBtn.textContent = user.email?.split('@')[0] || 'Conta';
-    authBtn.onclick = () => { if (confirm('Sair da conta?')) auth.signOut().then(() => _updateAuthBtn(null)); };
-  } else {
-    authBtn.textContent = 'Entrar';
-    authBtn.onclick = () => authModal.open();
-  }
-}
-
-// ── Premium (Ver Premium button — event delegation) ────────────────────────────
-document.addEventListener('click', (e) => {
-  if (!e.target.matches('.deus-premium-gate__btn')) return;
-  if (!_currentUser) { authModal.open(); return; }
-  const modal = new PixModal({ email: _currentUser.email, userId: _currentUser.id });
-  modal.open();
-});
 const themeIcon  = document.getElementById('themeIcon');
 
 // ── Estado da aplicação ────────────────────────────────────────────────────────

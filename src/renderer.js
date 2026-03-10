@@ -985,11 +985,7 @@ async function renderDezDeuses(mapa, dmStemIdx, container) {
   const header = el('div', ['dez-deuses-header']);
   const title = el('h2', ['dez-deuses-title'], { id: 'dezDeusesTitle' });
   title.textContent = '10 Deuses · Shí Shén · 十神';
-  const premiumBadge = el('span', ['dez-deuses-premium-badge']);
-  premiumBadge.textContent = 'PREMIUM';
-  premiumBadge.setAttribute('aria-label', 'Conteúdo premium');
   header.appendChild(title);
-  header.appendChild(premiumBadge);
   sec.appendChild(header);
 
   const subhead = el('p', ['dez-deuses-subhead']);
