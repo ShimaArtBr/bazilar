@@ -17,5 +17,11 @@
     }
   ],
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "crons": [
+    {
+      "path": "/api/push-dayun",
+      "schedule": "0 11 * * *"
+    }
+  ]
 }
