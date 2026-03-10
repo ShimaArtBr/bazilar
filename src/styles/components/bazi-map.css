@@ -1,0 +1,583 @@
+/**
+ * @file src/styles/components/bazi-map.css
+ * @description Componente Mapa BaZi — 4 Pilares (Ano | Mês | Dia | Hora)
+ *              DS v2.3 "Quiet Luxury Tupiniquim"
+ *
+ * DEPENDÊNCIA: tokens.css carregado antes deste arquivo.
+ *
+ * BREAKPOINTS (5 pontos):
+ *   320px  — Mobile S   : pilares empilhados verticalmente, 1 coluna
+ *   480px  — Mobile L   : 2 colunas (Ano+Mês / Dia+Hora)
+ *   640px  — Tablet S   : 4 colunas compactas
+ *   768px  — Tablet     : 4 colunas padrão
+ *   1024px — Desktop    : 4 colunas com espaçamento generoso
+ *
+ * ESTADOS:
+ *   default, :hover, :focus-within, .is-active, .is-day-master, .is-loading
+ *
+ * ACESSIBILIDADE:
+ *   • Tab navega entre células (.bazi-pillar[tabindex="0"])
+ *   • Enter abre detalhe (implementado em app.js)
+ *   • Focus ring visível em todos os temas
+ *   • aria-label em cada célula
+ *   • Badges de elemento com role="img" aria-label
+ *
+ * @persona  Isabela Mont — Design System UI/UX
+ * @version  2.3.0
+ * @sprint   S2·W1
+ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTAINER DO MAPA
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-map {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-1);
+  /* Container query context para subcomponentes futuros */
+  container-type: inline-size;
+  container-name: bazi-map;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CÉLULA DE PILAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar {
+  /* Dimensões mínimas conforme spec */
+  min-width:  var(--pillar-min-w);  /* 80px */
+  min-height: var(--pillar-min-h);  /* 120px */
+  padding: var(--space-2);          /* 16px */
+
+  /* Superfície */
+  background:    var(--color-surface);
+  border:        var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+
+  /* Layout interno: coluna centralizada */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+
+  /* Interatividade */
+  cursor: pointer;
+  position: relative;
+  outline: none;
+
+  /* Transição */
+  transition:
+    transform       var(--duration-fast)   var(--ease-decelerate),
+    border-color    var(--duration-fast)   var(--ease-standard),
+    box-shadow      var(--duration-normal) var(--ease-standard),
+    background      var(--duration-fast)   var(--ease-standard);
+
+  /* Animação de entrada (controlada por .bazi-map--revealed) */
+  opacity: 0;
+  transform: translateY(var(--enter-y));
+}
+
+/* Estado revelado — aplicado por JS após cálculo */
+.bazi-map--revealed .bazi-pillar {
+  opacity: 1;
+  transform: translateY(0);
+  animation: pillar-enter var(--duration-normal) var(--ease-decelerate) both;
+}
+
+/* Stagger por posição — 4 pilares × 80ms */
+.bazi-map--revealed .bazi-pillar:nth-child(1) { animation-delay: calc(var(--duration-stagger) * 0); }
+.bazi-map--revealed .bazi-pillar:nth-child(2) { animation-delay: calc(var(--duration-stagger) * 1); }
+.bazi-map--revealed .bazi-pillar:nth-child(3) { animation-delay: calc(var(--duration-stagger) * 2); }
+.bazi-map--revealed .bazi-pillar:nth-child(4) { animation-delay: calc(var(--duration-stagger) * 3); }
+
+/* ── Hover ──────────────────────────────────────────────────────────────── */
+.bazi-pillar:hover {
+  transform: scale(1.05);  /* spec: scale(1.05) */
+  border-color: var(--color-gold-matte);
+  box-shadow: var(--shadow-gold);
+  z-index: 1;  /* sobrepõe os vizinhos durante hover */
+}
+
+/* ── Focus (teclado) ────────────────────────────────────────────────────── */
+.bazi-pillar:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring), var(--shadow-md);
+  border-color: var(--color-gold-matte);
+  transform: scale(1.03);
+}
+
+/* ── Pilar ativo (selecionado / detalhe aberto) ─────────────────────────── */
+.bazi-pillar.is-active {
+  border-color: var(--color-gold-matte);
+  background: var(--color-gold-bg);
+  box-shadow: var(--shadow-gold);
+}
+
+/* ── Pilar do Mestre do Dia (destaque permanente) ────────────────────────── */
+.bazi-pillar.is-day-master {
+  border-color: var(--color-gold-matte);
+  position: relative;
+}
+
+.bazi-pillar.is-day-master::before {
+  content: '日';  /* rótulo CJK — "dia" */
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-family: var(--font-chinese);
+  font-size: var(--text-xs);
+  color: var(--color-gold-matte);
+  opacity: 0.70;
+  letter-spacing: 0;
+}
+
+/* ── Estado de loading / shimmer ────────────────────────────────────────── */
+.bazi-pillar.is-loading {
+  pointer-events: none;
+}
+
+.bazi-pillar.is-loading .bazi-pillar__char,
+.bazi-pillar.is-loading .bazi-pillar__pinyin,
+.bazi-pillar.is-loading .bazi-pillar__label {
+  background: linear-gradient(
+    90deg,
+    var(--color-subtle)   0%,
+    var(--color-border)   40%,
+    var(--color-subtle)   60%,
+    var(--color-subtle)   100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer var(--duration-slow) linear infinite;
+  border-radius: var(--radius-sm);
+  color: transparent;
+  user-select: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CABEÇALHO DO PILAR — rótulo de posição (Ano / Mês / Dia / Hora)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__header {
+  width: 100%;
+  padding-bottom: var(--space-1);
+  border-bottom: var(--border-thin) solid var(--color-border);
+  text-align: center;
+
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  line-height: var(--leading-tight);
+}
+
+/* Header ativo (Mestre do Dia) */
+.bazi-pillar.is-day-master .bazi-pillar__header {
+  color: var(--color-accent);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TRONCO CELESTIAL — secção superior do pilar
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__stem {
+  width: 100%;
+  padding: var(--space-2) var(--space-1);
+  text-align: center;
+  border-bottom: var(--border-thin) solid rgba(var(--color-border), 0.50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RAMO TERRESTRE — secção inferior do pilar
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__branch {
+  width: 100%;
+  padding: var(--space-2) var(--space-1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CARACTERE CJK — 32px Noto Serif SC, centrado (spec)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__char {
+  font-family: var(--font-chinese);
+  font-size: 2rem;           /* ~32px conforme spec */
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  display: block;
+  text-align: center;
+  /* Sem font-weight: inherit — Noto Serif SC 400 é suficientemente presente */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PINYIN — 12px body, cor mist (spec)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__pinyin {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);  /* 12.80px ≈ 12px spec */
+  color: var(--color-mist);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-snug);
+  display: block;
+}
+
+/* Em light mode, mist não atinge 4.5:1 — usar ink-muted para textos funcionais */
+/* pinyin é texto informativo secundário — WCAG permite 3:1 para texto grande decorativo */
+/* mas para conformidade estrita, usar ink-muted no light: */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .bazi-pillar__pinyin {
+    color: var(--color-ink-muted);
+  }
+}
+[data-theme="light"] .bazi-pillar__pinyin {
+  color: var(--color-ink-muted);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TRADUÇÃO PT — 11px italic (spec)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__label {
+  font-family: var(--font-body);
+  font-size: 0.688rem;  /* 11px */
+  font-style: italic;
+  color: var(--color-text-dim);
+  line-height: var(--leading-snug);
+  display: block;
+  text-align: center;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BADGE DE ELEMENTO — Wu Xing com cor semântica
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__element {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  border: var(--border-thin) solid transparent;
+
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-tight);
+
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+/* Variantes por elemento */
+.bazi-pillar__element--wood {
+  color: var(--element-wood-base);
+  background: var(--element-wood-bg);
+  border-color: var(--element-wood-border);
+}
+.bazi-pillar__element--fire {
+  color: var(--element-fire-base);
+  background: var(--element-fire-bg);
+  border-color: var(--element-fire-border);
+}
+.bazi-pillar__element--earth {
+  color: var(--element-earth-base);
+  background: var(--element-earth-bg);
+  border-color: var(--element-earth-border);
+}
+.bazi-pillar__element--metal {
+  color: var(--element-metal-base);
+  background: var(--element-metal-bg);
+  border-color: var(--element-metal-border);
+}
+.bazi-pillar__element--water {
+  color: var(--element-water-base);
+  background: var(--element-water-bg);
+  border-color: var(--element-water-border);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DEZ DEUSES — label abaixo do elemento
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__ten-god {
+  font-family: var(--font-chinese);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  display: block;
+  text-align: center;
+  margin-top: 2px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TRONCOS OCULTOS — secção colapsável abaixo do ramo
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-pillar__hidden-stems {
+  width: 100%;
+  margin-top: var(--space-1);
+  padding-top: var(--space-1);
+  border-top: var(--border-thin) dashed var(--color-border);
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px;
+}
+
+.bazi-pillar__hidden-stem {
+  font-family: var(--font-mono);
+  font-size: 0.580rem;
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  background: var(--color-subtle);
+  color: var(--color-text-dim);
+  line-height: var(--leading-snug);
+}
+
+/* Label de posição (主 中 余) */
+.bazi-pillar__hidden-stem-lbl {
+  font-family: var(--font-chinese);
+  font-size: 0.580rem;
+  color: var(--color-text-dim);
+  opacity: 0.60;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FEEDBACK HÁPTICO — não há CSS necessário; implementado em app.js
+   navigator.vibrate([20]) no evento 'click' / 'touchstart' de .bazi-pillar
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Mobile S — 320px: 1 coluna, pilares empilhados verticalmente */
+/* Mobile S (320px–479px): single-column layout — default, no query needed */
+@media (max-width: 479px) {
+  .bazi-map {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    max-width: 100%;
+  }
+
+  .bazi-pillar {
+    min-height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: var(--space-2);
+  }
+
+  .bazi-pillar__header {
+    width: 100%;
+    border-bottom: var(--border-thin) solid var(--color-border);
+    margin-bottom: var(--space-1);
+  }
+
+  .bazi-pillar__stem,
+  .bazi-pillar__branch {
+    flex: 1;
+    border: none;
+    padding: var(--space-1);
+  }
+
+  .bazi-pillar__char {
+    font-size: var(--text-xl);  /* menor em mobile */
+  }
+
+  /* Hover → tap feedback sem scale */
+  .bazi-pillar:hover {
+    transform: none;
+    border-color: var(--color-gold-matte);
+  }
+}
+
+/* Mobile L — 480–639px: 2 colunas */
+@media (min-width: 480px) and (max-width: 639px) {
+  .bazi-map {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bazi-pillar__char {
+    font-size: var(--text-lg);
+  }
+}
+
+/* Tablet S — 640–767px: 4 colunas compactas */
+@media (min-width: 640px) and (max-width: 767px) {
+  .bazi-map {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-1);
+  }
+
+  .bazi-pillar {
+    padding: var(--space-1);
+  }
+
+  .bazi-pillar__char {
+    font-size: var(--text-xl);
+  }
+}
+
+/* Tablet — 768–1023px: 4 colunas padrão */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bazi-map {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-2);
+  }
+
+  .bazi-pillar__char {
+    font-size: 2rem;
+  }
+}
+
+/* Desktop — 1024px+: espaçamento generoso */
+@media (min-width: 1024px) {
+  .bazi-map {
+    gap: var(--space-3);
+    padding: var(--space-2);
+  }
+
+  .bazi-pillar {
+    padding: var(--space-3);
+  }
+
+  .bazi-pillar__char {
+    font-size: var(--text-2xl);  /* 2.441rem — mais grandioso no desktop */
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TROCA NATAL ↔ DA YUN — fade-out 200ms, pausa 50ms, fade-in 300ms (spec)
+   Controlada via classes .bazi-map--fade-out / .bazi-map--fade-in em app.js
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.bazi-map--fade-out {
+  animation: map-fade-out var(--duration-fast) var(--ease-accelerate) forwards;
+}
+
+.bazi-map--fade-in {
+  animation: map-fade-in var(--duration-normal) var(--ease-decelerate) forwards;
+}
+
+/* keyframes declarados em animations.css */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREFERS-REDUCED-MOTION — desativa translateY e fade, mantém cores (spec)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .bazi-pillar {
+    opacity: 1;
+    transform: none;
+    transition: border-color var(--duration-fast) var(--ease-standard),
+                background  var(--duration-fast) var(--ease-standard),
+                box-shadow  var(--duration-fast) var(--ease-standard);
+  }
+
+  .bazi-map--revealed .bazi-pillar {
+    animation: none;
+  }
+
+  .bazi-pillar:hover {
+    transform: none;
+    border-color: var(--color-gold-matte);
+    box-shadow: var(--shadow-gold);
+    /* Mantém a cor de borda dourada — feedback visual sem movimento */
+  }
+
+  .bazi-pillar.is-loading .bazi-pillar__char,
+  .bazi-pillar.is-loading .bazi-pillar__pinyin,
+  .bazi-pillar.is-loading .bazi-pillar__label {
+    animation: none;
+    opacity: 0.40;
+  }
+
+  .bazi-map--fade-out,
+  .bazi-map--fade-in {
+    animation: none;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TOGGLE NATAL ↔ DA YUN — botão e estado ativo do luck card
+   DS v2.3 §2 — microinteração de troca com fade
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Luck card com ciclo ativo selecionado */
+.luck-card.active-cycle {
+  border-color: var(--color-gold-matte);
+  background: var(--color-gold-bg);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Botão "← Mapa Natal" — aparece acima do mapa quando Da Yun está ativo */
+.btn-voltar-natal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+
+  padding: 6px var(--space-2);
+  background: var(--color-surface);
+  border: var(--border-thin) solid var(--color-gold-matte);
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-accent-text);
+  letter-spacing: var(--tracking-wide);
+  cursor: pointer;
+
+  transition:
+    background     var(--duration-fast) var(--ease-standard),
+    box-shadow     var(--duration-fast) var(--ease-standard),
+    border-color   var(--duration-fast) var(--ease-standard);
+}
+
+.btn-voltar-natal:hover {
+  background: var(--color-gold-bg);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-voltar-natal:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-voltar-natal {
+    transition: none;
+  }
+}

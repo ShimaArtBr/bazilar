@@ -1,0 +1,276 @@
+/**
+ * @file src/styles/components/dez-deuses.css
+ * @description Estilos da seção "10 Deuses" — interpretação editorial.
+ *              Usa tokens do DS v2.3 (--color-*, --text-*, --radius-*, --spacing-*).
+ *              Tier premium: gate visual com overlay.
+ *
+ * @sprint  S3·W1 · REQ-13 · B2
+ */
+
+/* ── Seção wrapper ─────────────────────────────────────────────────────────── */
+
+.dez-deuses-sec {
+  position: relative;
+  margin-block: var(--spacing-xl, 2rem);
+  padding: var(--spacing-lg, 1.5rem);
+  background: var(--color-surface-raised, var(--srf-raised));
+  border: 1px solid var(--color-border-subtle, var(--bdr));
+  border-radius: var(--radius-lg, 1rem);
+  overflow: hidden; /* contém o gate overlay */
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+
+.dez-deuses-header {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: .25rem;
+}
+
+.dez-deuses-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: .9rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-text-primary, var(--txt));
+  margin: 0;
+}
+
+.dez-deuses-premium-badge {
+  display: inline-block;
+  padding: .15em .5em;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  border-radius: var(--radius-sm, .25rem);
+  background: var(--color-gold-mid, var(--gold));
+  color: var(--color-bg-primary, var(--bg));
+}
+
+.dez-deuses-subhead {
+  font-size: .75rem;
+  color: var(--color-text-secondary, var(--dim));
+  margin: 0 0 1.25rem;
+}
+
+/* ── Grid de cards ─────────────────────────────────────────────────────────── */
+
+.dez-deuses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--spacing-md, 1rem);
+}
+
+/* ── Card individual ───────────────────────────────────────────────────────── */
+
+.deus-card {
+  background: var(--color-surface-base, var(--bg));
+  border: 1px solid var(--color-border-subtle, var(--bdr));
+  border-radius: var(--radius-md, .75rem);
+  padding: 1rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+/* Cabeçalho do card */
+.deus-card__head {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.deus-card__pilar {
+  font-size: .6rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary, var(--dim));
+  flex: 0 0 auto;
+}
+
+.deus-card__char {
+  font-family: 'Noto Serif SC', 'Noto Serif', serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-gold-mid, var(--gold));
+  line-height: 1;
+}
+
+.deus-card__nome {
+  font-family: 'Lora', Georgia, serif;
+  font-size: .8rem;
+  color: var(--color-text-primary, var(--txt));
+}
+
+/* Arquétipo */
+.deus-card__archetype {
+  font-size: .78rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary, var(--dim));
+  margin: 0;
+  font-style: italic;
+}
+
+/* Blocos de expressão */
+.deus-card__expr {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.deus-card__expr-block {
+  padding: .6rem .75rem;
+  border-radius: var(--radius-sm, .25rem);
+  border-left: 2px solid transparent;
+}
+
+.deus-card__expr-block--pos {
+  background: color-mix(in srgb, var(--color-wood-light, #A8DBBF) 15%, transparent);
+  border-color: var(--color-wood-mid, #147A48);
+}
+
+.deus-card__expr-block--neg {
+  background: color-mix(in srgb, var(--color-fire-light, #F5BBBF) 15%, transparent);
+  border-color: var(--color-fire-mid, #D3232E);
+}
+
+.deus-card__expr-label {
+  display: block;
+  font-size: .6rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-text-secondary, var(--dim));
+  margin-bottom: .3rem;
+}
+
+.deus-card__expr-text {
+  font-size: .76rem;
+  line-height: 1.55;
+  color: var(--color-text-primary, var(--txt));
+  margin: 0;
+}
+
+/* Pergunta reflexiva */
+.deus-card__question {
+  display: flex;
+  gap: .5rem;
+  align-items: flex-start;
+  padding: .65rem .75rem;
+  background: color-mix(in srgb, var(--color-gold-light, #F0E0A0) 20%, transparent);
+  border-radius: var(--radius-sm, .25rem);
+}
+
+.deus-card__question-icon {
+  font-size: .9rem;
+  color: var(--color-gold-mid, var(--gold));
+  flex: 0 0 auto;
+  margin-top: .05em;
+}
+
+.deus-card__question-text {
+  font-family: 'Lora', Georgia, serif;
+  font-size: .78rem;
+  line-height: 1.55;
+  color: var(--color-text-primary, var(--txt));
+  margin: 0;
+  font-style: italic;
+}
+
+/* Rodapé / fonte clássica */
+.deus-card__ref {
+  margin-top: auto;
+  padding-top: .6rem;
+  border-top: 1px solid var(--color-border-subtle, var(--bdr));
+  font-size: .65rem;
+  color: var(--color-text-tertiary, var(--dim));
+  line-height: 1.4;
+}
+
+.deus-card__ref-disclaimer {
+  font-style: italic;
+  opacity: .8;
+}
+
+/* ── Gate Premium ──────────────────────────────────────────────────────────── */
+
+.deus-premium-gate {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--color-bg-primary, var(--bg)) 60%, transparent) 30%,
+    var(--color-bg-primary, var(--bg)) 70%
+  );
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  padding: 2rem;
+}
+
+.deus-premium-gate__inner {
+  text-align: center;
+  max-width: 320px;
+}
+
+.deus-premium-gate__title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--color-text-primary, var(--txt));
+  margin: 0 0 .5rem;
+}
+
+.deus-premium-gate__text {
+  font-size: .75rem;
+  color: var(--color-text-secondary, var(--dim));
+  line-height: 1.55;
+  margin: 0 0 1rem;
+}
+
+.deus-premium-gate__btn {
+  display: inline-block;
+  padding: .55em 1.5em;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  border-radius: var(--radius-full, 99px);
+  background: var(--color-gold-mid, var(--gold));
+  color: var(--color-bg-primary, var(--bg));
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+
+.deus-premium-gate__btn:hover { opacity: .85; }
+.deus-premium-gate__btn:focus-visible {
+  outline: 2px solid var(--color-gold-mid, var(--gold));
+  outline-offset: 3px;
+}
+
+/* ── Dark mode overrides ───────────────────────────────────────────────────── */
+
+[data-theme='dark'] .deus-card__expr-block--pos {
+  background: color-mix(in srgb, var(--color-wood-dark, #0B5233) 25%, transparent);
+}
+
+[data-theme='dark'] .deus-card__expr-block--neg {
+  background: color-mix(in srgb, var(--color-fire-dark, #8C0A12) 25%, transparent);
+}
+
+[data-theme='dark'] .deus-card__question {
+  background: color-mix(in srgb, var(--color-earth-dark, #7A4C08) 25%, transparent);
+}
+
+/* ── Print ─────────────────────────────────────────────────────────────────── */
+
+@media print {
+  .deu-premium-gate { display: none; }
+  .dez-deuses-premium-badge { display: none; }
+}

@@ -1,0 +1,1405 @@
+{
+  "meta": {
+    "titulo": "Glossário BaZi — 十二長生 Doze Estágios de Ciclo de Vida",
+    "autor": "Mestre Chen Xiao — validação editorial C07",
+    "versao": "1.2.0",
+    "total": 12,
+    "descricao": "Os 12 estágios do ciclo de vida energético (十二長生 Shí Èr Cháng Shēng) com etimologia, radicais, significado histórico e aplicação BaZi.",
+    "schema_version": "1.0",
+    "nota_schema": "Campos: seq, zh, py, pt, radicais, etimologia, significado_shang, significado_bazi, exemplo_pt, referencia_classica, desenvolvimento_pessoal, seo.",
+    "nota_doutrinaria": "C05 (2026-03-09): Escola Yang/Yin diferenciada. Yang stems → 順行 forward. Yin stems → 逆行 reverse. Fonte: 子平真詮 (Zi Ping Zhen Quan), Shen Xiaozhan.",
+    "changelog": [
+      {
+        "versao": "1.2.0",
+        "data": "2026-03-09",
+        "sprint": "Q21-C11",
+        "mudancas": [
+          "C11 — 9 termos conceituais adicionados: 八字, 四柱, 天干, 地支, 五行, 陰陽, 日主, 大運, 節氣.",
+          "C11 — 10 termos pré-existentes com schema completo preservados e catalogados: 流年, 氣, 神, 吉, 凶, 合, 沖, 刑, 害, 破.",
+          "C11 — Limpeza de duplicados: versões incompletas removidas. Total final: 32 termos (12 estágios + 20 conceituais). Supera meta de 22."
+        ]
+      },
+      {
+        "versao": "2.0.0",
+        "data": "2026-03-09",
+        "sprint": "Q21-C11",
+        "mudancas": [
+          "C11 — Validação Nível 2: glossário completo com 30/22 termos.",
+          "C11 — 17 novos termos conceituais adicionados: 八字 天干 地支 五行 陰陽 日主 大運 流年 氣 神 吉 凶 合 沖 刑 害 破.",
+          "C11 — Campos por termo: id, zh, zh_alt, py, py_numerico, pt, en, tipo, radicais, etimologia, significado_shang, significado_bazi, exemplo_pt, referencia_classica, desenvolvimento_pessoal, disclaimer, seo.",
+          "C11 — Referências cruzadas: 子平真詮, 三命通會, 淮南子, 易經, 黃帝內經, 窮通寶鑑, 五行大義."
+        ]
+      },
+      {
+        "versao": "1.1.0",
+        "data": "2026-03-09",
+        "sprint": "Q18-C08",
+        "mudancas": [
+          "C08 — Entrada 藏干 (Hastes Ocultas) criada em termos_conceituais. Inclui tabela completa dos 12 ramos com Principal/Central/Residual, integração técnica com data.js HIDDEN[], hiddenStems.adapter.js e interfaces.d.ts, referências cruzadas 三命通會 + 子平真詮."
+        ]
+      },
+      {
+        "versao": "1.0.0",
+        "data": "2026-03-09",
+        "sprint": "Q17-C07",
+        "mudancas": [
+          "C07 — Criação do arquivo glossario_bazi_app.json com os 12 estágios completos (5 reconstruídos + 7 ausentes adicionados: 沐浴, 冠帶, 臨官, 衰, 病, 死, 養)"
+        ]
+      }
+    ],
+    "total_termos_conceituais": 20,
+    "total_geral": 32,
+    "nota_c11": "C11 — Validação Nível 2: 9 termos C11 adicionados (八字 四柱 天干 地支 五行 陰陽 日主 大運 節氣). 10 termos pré-existentes com schema completo preservados (藏干 流年 氣 神 吉 凶 合 沖 刑 害 破). Total: 32 termos (12 estágios + 20 conceituais). Supera o planejado de 22."
+  },
+  "estagios": [
+    {
+      "seq": 0,
+      "zh": "長生",
+      "py": "Cháng Shēng",
+      "pt": "Nascimento Longo",
+      "status_c07": "reconstruído",
+      "radicais": {
+        "zh_1": "長",
+        "radical_1": "長 (cháng) — crescimento, extensão, primogênito",
+        "zh_2": "生",
+        "radical_2": "生 (shēng) — nascer, brotar, surgir do solo; radical 100"
+      },
+      "etimologia": "長 representa algo que se estende no tempo e no espaço. 生 mostra uma planta emergindo do solo (土). Juntos: 'o que nasce e se estende por longo tempo' — o primeiro impulso vital, o ponto de máxima potencialidade antes da experiência.",
+      "significado_shang": "Nas inscrições em ossos oraculares da Dinastia Shang, 生 (nascer/brotar) aparece em registros de nascimentos reais e colheitas. 長生 como par não é atestado diretamente, mas 生 sozinho indica o momento sagrado de surgimento de vida nova.",
+      "significado_bazi": "O ponto de nascimento de um elemento em relação a um Ramo Terrestre. Energia máxima em potencial, ainda não manifestada em ação. O Tronco está em seu ambiente mais favorável — como uma criança recém-nascida cheia de possibilidades. Contexto geográfico: o elemento 'nasce' no Ramo que corresponde à sua estação de origem.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 亥 (Água, estação de inverno): a Água nutre a Madeira, criando o ambiente de 長生 — energia disponível, fluida, com alto potencial de crescimento.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "長生 representa o pico de receptividade do elemento — não é força demonstrada, mas potencial máximo. Um mapa com o Dia Master em 長生 indica talentos naturais que precisam ser cultivados.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, capítulos sobre os 12 estágios e o Dia Master"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Potencial e começos",
+        "reflexao": "Onde em sua vida você tem energia e talento disponíveis mas ainda não totalmente manifestados?",
+        "orientacao": "O estágio de 長生 convida à exploração sem pressão por resultados imediatos. É o momento de plantar, não colher."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "長生 BaZi",
+          "Chang Sheng significado",
+          "nascimento energético BaZi",
+          "ciclo de vida metafísica chinesa"
+        ]
+      }
+    },
+    {
+      "seq": 1,
+      "zh": "沐浴",
+      "py": "Mù Yù",
+      "pt": "Banho Ritual",
+      "status_c07": "novo — C07",
+      "radicais": {
+        "zh_1": "沐",
+        "radical_1": "沐 (mù) — lavar os cabelos; radical 氵(água) + 木 (madeira/árvore)",
+        "zh_2": "浴",
+        "radical_2": "浴 (yù) — banhar o corpo; radical 氵(água) + 谷 (vale, cavidade)"
+      },
+      "etimologia": "沐 descreve lavar especificamente os cabelos — o ato mais íntimo de purificação ritual na China antiga. 浴 descreve o banho completo do corpo. Juntos formam a imagem de purificação total: o ser recém-nascido sendo lavado, limpo das memórias anteriores para receber a nova identidade.",
+      "significado_shang": "Rituais de banho antes de cerimônias eram centrais na cultura Shang — o banho purificava o participante para o contato com o sagrado. O radical 谷 em 浴 sugere a cavidade protetora onde a transformação ocorre longe do mundo externo.",
+      "significado_bazi": "Logo após 長生, o elemento passa pelo Banho Ritual — uma fase de vulnerabilidade e dissolução da identidade. A energia está presente mas sem estrutura, como uma criança na primeira infância. Em mapa natal, indica tendência a instabilidade emocional e sedução precoce por experiências intensas (por isso também chamado de 敗 pài — 'derrota' em algumas escolas). Pode indicar talentos artísticos excepcionais quando bem suportado.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 子 (Água, inverno profundo): a energia está presente mas completamente dissolvida na fase aquática, sem forma própria ainda — o jovem talentoso que ainda não sabe o que quer ser.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "沐浴 é o estágio mais controverso do ciclo — algumas escolas o chamam de 敗 (derrota). Indica período de experimentação e potencial instabilidade, mas também de abertura criativa incomum.",
+        "fonte": "ctext.org — San Ming Tong Hui, análise dos 12 estágios e suas implicações por pilar"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Purificação e identidade fluida",
+        "reflexao": "Onde você sente que sua identidade ainda está em formação, porosa, aberta a influências — positivas e negativas?",
+        "orientacao": "O estágio de 沐浴 pede discernimento sobre quais influências e ambientes moldam quem você está se tornando. A fluidez é um dom quando há consciência."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "沐浴 BaZi",
+          "Mu Yu significado",
+          "banho ritual BaZi",
+          "identidade vulnerabilidade metafísica"
+        ]
+      }
+    },
+    {
+      "seq": 2,
+      "zh": "冠帶",
+      "py": "Guān Dài",
+      "pt": "Vestir a Coroa",
+      "status_c07": "novo — C07",
+      "radicais": {
+        "zh_1": "冠",
+        "radical_1": "冠 (guān) — coroa, capelo; radical 冖 (cobrir) + 元 (primeiro, cabeça) + 寸 (medida, controle)",
+        "zh_2": "帶",
+        "radical_2": "帶 (dài) — cinto, faixa; radical 巾 (tecido) com forma que representa um cinto usado na cintura"
+      },
+      "etimologia": "冠 é a cerimônia de coroação que marcava a entrada na vida adulta na China clássica — aos 20 anos, o jovem homem recebia um capelo e um nome adulto. 帶 é o cinto que sustenta as vestes formais. Juntos: o momento de assumir formalmente a identidade social e as responsabilidades adultas.",
+      "significado_shang": "A cerimônia 冠禮 (guān lǐ — rito do capelo) é atestada desde o período Zhou como um dos Cinco Ritos fundamentais da civilização clássica. Marca a transição da infância para a responsabilidade social plena.",
+      "significado_bazi": "O elemento está assumindo sua forma e identidade. Após a fluidez de 沐浴, agora há estrutura e direção. A energia está se organizando em torno de um propósito. Em mapa natal, indica capacidade de assumir responsabilidades, construir reputação e habilidade para papéis formais. Adolescência energética: mais forma que na infância, menos poder que na maturidade.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 丑 (Terra, transição inverno-primavera): a Madeira começa a se organizar dentro da Terra, ganhando estrutura antes de emergir completamente — o jovem profissional encontrando sua vocação.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "冠帶 indica que o elemento tem forma suficiente para interagir com o mundo, mas ainda não atingiu sua plena autoridade. É o momento de aprendizado ativo dentro das estruturas sociais.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, análise dos estágios intermediários do ciclo"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Identidade e responsabilidade social",
+        "reflexao": "Em que áreas da sua vida você está assumindo formalmente quem você é — recebendo a 'coroa' de uma identidade ou papel?",
+        "orientacao": "冠帶 convida à formalização consciente da identidade. É o momento de nomear o que você está se tornando e assumir as responsabilidades que vêm com isso."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "冠帶 BaZi",
+          "Guan Dai significado",
+          "identidade responsabilidade BaZi",
+          "maturidade metafísica chinesa"
+        ]
+      }
+    },
+    {
+      "seq": 3,
+      "zh": "臨官",
+      "py": "Lín Guān",
+      "pt": "Assumir o Cargo",
+      "status_c07": "novo — C07",
+      "radicais": {
+        "zh_1": "臨",
+        "radical_1": "臨 (lín) — aproximar-se, supervisionar, presidir; radical 臣 (ministro, servo do estado) com componente de visão de cima",
+        "zh_2": "官",
+        "radical_2": "官 (guān) — oficial, cargo público; radical 宀 (teto, abrigo) + 㠯 — a casa onde se exerce autoridade pública"
+      },
+      "etimologia": "臨 originalmente representa alguém de altura observando de cima — a posição do governante ou inspetor. 官 é o funcionário que vive na 'casa do governo'. Juntos: o momento de assumir efetivamente um cargo de autoridade, com todas as suas demandas e responsabilidades.",
+      "significado_shang": "官 nas inscrições oraculares Shang refere-se a funcionários rituais do rei — os encarregados de comunicar com os ancestrais. A autoridade pública sempre teve, na China clássica, dimensão sagrada.",
+      "significado_bazi": "O elemento está em plena força ativa e expressão social. Também chamado de 祿 (lù — prosperidade, prebenda), indica o pico da capacidade produtiva antes do ápice absoluto. Em mapa natal, aponta para habilidades executivas, capacidade de gestão e liderança por mérito. Altamente favorável em pilares de Ano ou Mês.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 寅 (Madeira, primavera): o elemento está em seu próprio território, assumindo plenamente seu papel — o profissional no auge de sua área de competência.",
+      "referencia_classica": {
+        "obra": "Qiong Tong Bao Jian (窮通寶鑑)",
+        "autor": "Atribuído ao período Song/Ming",
+        "periodo": "Período Song/Ming",
+        "ideia_central": "臨官 combinado com 帝旺 no mapa indica uma estrutura de poder sólida — o Dia Master tem recursos para sustentar ambições elevadas quando estes estágios aparecem em pilares de Mês ou Ano.",
+        "fonte": "ctext.org — Qiong Tong Bao Jian, análise dos estágios de 臨官 e 帝旺 em relação ao elemento sazonal"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Autoridade e serviço",
+        "reflexao": "Onde você está pronto para assumir um cargo de liderança ou responsabilidade que está à sua espera?",
+        "orientacao": "臨官 convida a dar o passo para a liderança ativa. A força está disponível — a questão é para qual serviço ela será direcionada."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "臨官 BaZi",
+          "Lin Guan significado",
+          "liderança prosperidade BaZi",
+          "cargo autoridade metafísica"
+        ]
+      }
+    },
+    {
+      "seq": 4,
+      "zh": "帝旺",
+      "py": "Dì Wàng",
+      "pt": "Pico Imperial",
+      "status_c07": "reconstruído",
+      "radicais": {
+        "zh_1": "帝",
+        "radical_1": "帝 (dì) — imperador; pictograma do soberano no altar, com autoridade máxima sobre céu e terra",
+        "zh_2": "旺",
+        "radical_2": "旺 (wàng) — prosperar, estar no auge; radical 日 (sol) + 王 (rei) — o sol no seu reinado pleno"
+      },
+      "etimologia": "帝 é o título do Imperador Celestial, a máxima autoridade cósmica. 旺 combina o sol (日) com o rei (王) — o momento em que o sol está no zênite do seu poder. Juntos: o pico absoluto de força e manifestação imperial.",
+      "significado_shang": "帝 nas inscrições Shang refere-se ao Deus Supremo (上帝 Shàngdì) — a divindade máxima do panteão Shang, ancestral celestial do rei. O poder de 帝旺 tem, portanto, conotações de máxima expressão sagrada.",
+      "significado_bazi": "O ápice absoluto do ciclo — máxima força, máxima expressão, máxima influência. O elemento está em seu ponto de maior poder. Em mapa natal, indica intensidade excepcional das qualidades do Dia Master. Atenção: excesso de 帝旺 sem controle pode indicar dificuldade em aceitar limites — a força precisa de direção. É o ponto de integração em getLifeStage() (seq 4 reforça força em getFavorableElements).",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 卯 (Madeira, primavera plena): a Madeira está no auge absoluto de sua expressão — o líder no pico de sua influência, capaz de mover montanhas mas também de quebrar sob sua própria força se não houver estrutura.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "帝旺 é um dos três pilares de força do ciclo (com 長生 e 臨官). Em estruturas de carta sólidas, é altamente favorável. Em mapas desequilibrados, a intensidade de 帝旺 pode amplificar tanto virtudes quanto sombras do Dia Master.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, análise da tríade de força 長生-臨官-帝旺"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Plenitude e responsabilidade do poder",
+        "reflexao": "No auge da sua força, o que você escolhe construir — e o que você está disposto a deixar para trás?",
+        "orientacao": "帝旺 é o momento de máxima contribuição. A questão não é se você tem força suficiente — é para qual propósito ela está sendo direcionada."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "帝旺 BaZi",
+          "Di Wang significado",
+          "pico imperial BaZi",
+          "força máxima ciclo de vida"
+        ]
+      }
+    },
+    {
+      "seq": 5,
+      "zh": "衰",
+      "py": "Shuāi",
+      "pt": "Declínio",
+      "status_c07": "novo — C07",
+      "radicais": {
+        "zh_1": "衰",
+        "radical_1": "衰 (shuāi) — declinar, enfraquecer; pictograma de uma veste de luto (衣) amarrada — o traje que sinaliza perda e transição"
+      },
+      "etimologia": "衰 originalmente representava a veste de luto de palha usada nos rituais fúnebres chineses clássicos — amarrada de forma específica para sinalizar o grau de parentesco com o falecido. O caractere carrega a ideia de transição obrigatória, não de colapso. É o início consciente de uma entrega.",
+      "significado_shang": "Nos ritos Shang, o período de luto (衰絰 shuāi dié) era regulamentado com precisão — diferentes vestes marcavam diferentes durações e intensidades do luto. 衰 não era visto como derrota, mas como o cumprimento correto do ciclo de vida e morte.",
+      "significado_bazi": "O primeiro estágio após o pico — a energia começa a se recolher para dentro. Não é fraqueza, mas sabedoria do recolhimento. Em mapa natal, indica pessoas que aprenderam com a experiência e preferem qualidade a quantidade. Pode apontar para introspecção, refinamento e uma elegância quieta que vem de ter 'sido' muito. Importante: 衰 não é negativo — é a transição para profundidade.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 辰 (Terra, transição primavera-verão): a Madeira começa a ceder espaço para o próximo ciclo, mas ainda tem presença e influência — o sábio que escolhe mentoria em vez de protagonismo.",
+      "referencia_classica": {
+        "obra": "Di Tian Sui (滴天髓)",
+        "autor": "Atribuído a Liu Bowen, comentários de Ren Tieqiao",
+        "periodo": "Dinastia Ming / comentários Qing",
+        "ideia_central": "O declínio do elemento não deve ser interpretado como ausência de valor — a força de 衰 está na capacidade de operar com menos e obter mais. Qualidade sobre quantidade é o tema central deste estágio.",
+        "fonte": "Di Tian Sui — análise do ciclo completo dos 12 estágios e sua relação com o caráter do Dia Master"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Elegância do recolhimento",
+        "reflexao": "Em que áreas da sua vida você está sendo convidado a fazer menos com mais qualidade — a trocar expansão por profundidade?",
+        "orientacao": "衰 convida à arte do essencial. Não é hora de iniciar — é hora de refinar, consolidar e transmitir o que foi aprendido."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "衰 BaZi",
+          "Shuai BaZi significado",
+          "declínio refinamento metafísica",
+          "recolhimento sabedoria BaZi"
+        ]
+      }
+    },
+    {
+      "seq": 6,
+      "zh": "病",
+      "py": "Bìng",
+      "pt": "Doença",
+      "status_c07": "novo — C07",
+      "radicais": {
+        "zh_1": "病",
+        "radical_1": "病 (bìng) — doença, enfermidade; radical 疒 (cama de enfermo, pessoa deitada com suor) + 丙 (elemento Fogo Yang — aqui componente fonético)"
+      },
+      "etimologia": "O radical 疒 mostra uma pessoa deitada em uma cama com traços de suor — a imagem visual da doença como estado de repouso forçado. 病 não é morte, mas a fase em que o organismo abandona atividades externas para focar energia na cura interna. A doença clássica chinesa é vista como a sabedoria do corpo que força pausa.",
+      "significado_shang": "Nas inscrições oraculares Shang, consultas sobre doenças do rei eram frequentes — a saúde do soberano era equiparada à saúde do estado. A doença era interpretada como mensagem dos ancestrais exigindo atenção a algo negligenciado.",
+      "significado_bazi": "O elemento está em estado de retirada intensa. A energia exterior está quase ausente, mas há um processo interno de reorganização. Em mapa natal, pode indicar sensibilidade elevada, percepção aguçada dos estados sutis, ou tendência a acumular tensão sem expressar. Pessoas com Dia Master em 病 frequentemente têm profundidade perceptiva incomum — os 'sensores' estão voltados para dentro.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 巳 (Fogo, início do verão): a Madeira está sendo consumida pelo Fogo, perdendo sua forma física enquanto a energia se transforma em calor e luz — o criador que doa tudo ao processo criativo.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "病 em pilares importantes indica necessidade de atenção especial à saúde física e à gestão de energia. Não é determinismo, mas um convite à consciência dos próprios limites e necessidades de recuperação.",
+        "fonte": "ctext.org — San Ming Tong Hui, análise dos estágios 病 e 死 e suas implicações em saúde e energia"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Sensibilidade e repouso regenerativo",
+        "reflexao": "O que em você está pedindo pausa, cuidado e atenção interna — que projeto, relacionamento ou aspecto da saúde precisa de recuperação?",
+        "orientacao": "病 não é fraqueza — é o reconhecimento corajoso dos próprios limites. Quem respeita o estágio de 病 emerge mais forte no próximo ciclo."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "病 BaZi",
+          "Bing BaZi significado",
+          "sensibilidade energia repouso BaZi",
+          "introspecção metafísica chinesa"
+        ]
+      }
+    },
+    {
+      "seq": 7,
+      "zh": "死",
+      "py": "Sǐ",
+      "pt": "Morte",
+      "status_c07": "novo — C07",
+      "radicais": {
+        "zh_1": "死",
+        "radical_1": "死 (sǐ) — morte, cessação; radical 歹 (ossos deteriorados, restos mortais) + 匕 (colher ritual, também associado a transformação) — literalmente: os restos que permanecem após a partida"
+      },
+      "etimologia": "歹 representa ossos expostos ou em decomposição — os restos físicos após a partida da energia vital. Importante: 死 não é o fim do ciclo, é a transição necessária para 墓 e depois para 絕 e 胎 — o renascimento. Na cosmologia chinesa, morte e nascimento são faces do mesmo processo contínuo.",
+      "significado_shang": "A morte nas inscrições Shang era um evento de poder — o ancestral morto tornava-se potencialmente mais poderoso que o vivo, capaz de interceder com os céus. Os rituais funerários Shang eram elaborados precisamente para honrar e direcionar essa energia transformada.",
+      "significado_bazi": "O elemento encerrou sua expressão ativa no plano externo. Tudo foi dado, nada mais a oferecer neste ciclo — mas a essência permanece, preparando-se para a reorganização em 墓. Em mapa natal, pode indicar pessoas que operam em profundidade extrema, com capacidade incomum de lidar com finais, transformações e situações-limite. Frequentemente associado a talentos de cura, aconselhamento e transição.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 午 (Fogo, verão pleno): a Madeira foi completamente consumida pelo Fogo — não resta forma, mas a energia não desapareceu, transformou-se em calor e luz que alimentará o próximo ciclo.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "死 no ciclo dos 12 estágios não é interpretado como calamidade, mas como conclusão necessária. A tradição clássica enfatiza que o Dia Master em 死 pode ter profundidade espiritual excepcional — a capacidade de estar com o que termina sem resistência.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, análise dos estágios de transição 死-墓-絕"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Conclusão e transformação",
+        "reflexao": "O que em sua vida chegou ao seu fim natural — e que resistência em você está dificultando deixar ir com graça?",
+        "orientacao": "死 convida à arte da conclusão consciente. Encerrar bem um ciclo é tão importante quanto começar bem o próximo. O que precisa de um encerramento honroso?"
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "死 BaZi",
+          "Si BaZi significado",
+          "transformação conclusão BaZi",
+          "ciclo morte renascimento metafísica"
+        ]
+      }
+    },
+    {
+      "seq": 8,
+      "zh": "墓",
+      "py": "Mù",
+      "pt": "Túmulo",
+      "status_c07": "reconstruído",
+      "radicais": {
+        "zh_1": "墓",
+        "radical_1": "墓 (mù) — túmulo, sepultura; radical 土 (terra) + 莫 (componente fonético, também: escuridão, ocaso) — literalmente: a terra onde o que foi ativo retorna ao repouso"
+      },
+      "etimologia": "莫 representa o sol afundando entre as árvores — o ocaso, o momento em que a luz se retira para baixo da terra. Sobre 土 (terra): o elemento retorna ao solo, ao repositório. O túmulo na cosmologia chinesa não é abandono, mas armazenamento — a terra guarda a essência para uso futuro.",
+      "significado_shang": "Os túmulos Shang eram câmaras elaboradas de armazenamento — enterravam-se armas, vasos rituais, animais e às vezes servos junto ao nobre, pois a tumba era a 'casa' do ancestral no mundo dos espíritos. Tudo que foi valioso era preservado, não desperdiçado.",
+      "significado_bazi": "O elemento está armazenado, comprimido, guardado. Em mapa natal, 墓 pode indicar tendência a acumular sem liberar — seja emoções, recursos ou relacionamentos. Também pode apontar para capacidade de preservação e memória excepcional, habilidade para trabalhar com arquivos, história ou tradição. Atenção: excesso de 墓 sem abertura pode indicar dificuldade de deixar ir. É o ponto de enfraquecimento em getLifeStage() (seq 8 subtrai força em getFavorableElements).",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 未 (Terra, transição verão-outono): a Madeira está comprimida dentro da Terra seca de verão — o arquivista que guarda tudo com cuidado, às vezes esquecendo de compartilhar o que foi preservado.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "墓 é um dos 'três depósitos' (三墓) do sistema de cinco elementos — cada elemento tem um Ramo de depósito. O elemento armazenado em 墓 não está perdido, mas precisa de condições específicas para ser acessado novamente.",
+        "fonte": "ctext.org — San Ming Tong Hui, análise dos três depósitos elementais e sua função no ciclo"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Preservação e liberação",
+        "reflexao": "O que você está guardando que poderia, com segurança, liberar — emoções antigas, objetos, versões ultrapassadas de si mesmo?",
+        "orientacao": "墓 convida à curadoria consciente: o que vale preservar e o que vale liberar para abrir espaço ao próximo ciclo?"
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "墓 BaZi",
+          "Mu BaZi significado",
+          "túmulo armazenamento BaZi",
+          "preservação acumulação metafísica"
+        ]
+      }
+    },
+    {
+      "seq": 9,
+      "zh": "絕",
+      "py": "Jué",
+      "pt": "Extinção",
+      "status_c07": "reconstruído",
+      "radicais": {
+        "zh_1": "絕",
+        "radical_1": "絕 (jué) — cortar, extinguir, encerrar completamente; radical 糸 (fio, linha de seda) com componente que mostra o fio sendo cortado — a linha que se rompe"
+      },
+      "etimologia": "糸 é o fio de seda — símbolo de continuidade, herança, conexão. 絕 mostra esse fio sendo cortado — não pela violência, mas pela conclusão natural do processo. O elemento não tem mais presença neste plano: a descontinuidade é total, criando espaço vazio absoluto para o novo.",
+      "significado_shang": "絕 nas inscrições clássicas aparece em contextos de extinção de linhagens — o maior dos temores na cultura Shang, onde ancestrais sem descendentes ficavam sem oferendas e sem memória. Mas também em rituais de ruptura intencional com o passado para abrir novos ciclos.",
+      "significado_bazi": "O elemento não tem presença — é o ponto de vazio máximo do ciclo. Paradoxalmente, o vazio é a condição necessária para o renascimento. Em mapa natal, pode indicar pessoas com capacidade incomum de começar do zero, de se reinventar sem apego a versões anteriores de si. Também pode apontar para descontinuidades na vida — mudanças radicais, recomeços. É o segundo ponto de enfraquecimento em getLifeStage() (seq 9 subtrai força em getFavorableElements).",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 申 (Metal, outono): o Metal corta a Madeira completamente — não resta traço do elemento original, apenas o espaço aberto que receberá a próxima semente.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "絕 no ciclo não é tragédia — é liberação. O clássico enfatiza que 絕 no pilar de Ano ou Mês pode indicar capacidade de inovação radical, de criar ex novo sem peso de estruturas anteriores.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, análise da tríade 絕-胎-養 como ciclo de renascimento"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Vazio criativo e reinvenção",
+        "reflexao": "Em que área da sua vida o vazio que você teme pode ser, na verdade, o espaço necessário para algo completamente novo?",
+        "orientacao": "絕 convida a confiar no vazio. O espaço entre o que foi e o que será não precisa ser preenchido imediatamente — é a pausa que torna possível a composição."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "絕 BaZi",
+          "Jue BaZi significado",
+          "extinção vazio reinvenção BaZi",
+          "recomeço radical metafísica"
+        ]
+      }
+    },
+    {
+      "seq": 10,
+      "zh": "胎",
+      "py": "Tāi",
+      "pt": "Gestação",
+      "status_c07": "reconstruído",
+      "radicais": {
+        "zh_1": "胎",
+        "radical_1": "胎 (tāi) — embrião, gestação; radical 月/肉 (carne, corpo) + 台 (componente fonético, também: base, plataforma de sustentação) — o corpo que sustenta a nova vida em formação"
+      },
+      "etimologia": "月 como radical em caracteres anatômicos representa carne/corpo (não a lua). 台 sugere uma base ou plataforma — a estrutura de sustentação. 胎 é o embrião: vida presente mas ainda sem forma independente, completamente dependente do ambiente para sobreviver e crescer.",
+      "significado_shang": "A gestação nos textos clássicos era cercada de ritos de proteção — a mãe grávida recebia cuidados especiais porque carregava a continuidade da linhagem. O embrião era sagrado precisamente por sua vulnerabilidade: máximo potencial, mínima defesa.",
+      "significado_bazi": "O novo ciclo começa a se formar, ainda invisível e protegido. A energia está presente como intenção, como projeto, como possibilidade que ainda não tem forma visível. Em mapa natal, indica pessoas com forte vida interior, com projetos que precisam de longa gestação, com visão de longo prazo que pode ser incompreendida no curto prazo. Paciência é a virtude central deste estágio.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 酉 (Metal, outono pleno): a semente da próxima Madeira está sendo formada dentro do ambiente de Metal — invisível, protegida, aguardando o momento certo para germinar.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "胎 junto com 養 forma o par de preparação do ciclo — o embrião que se nutre antes do nascimento. O clássico não vê estes estágios como fracos, mas como necessários: o fruto que amadurece lentamente tem mais doçura.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, análise da tríade 絕-胎-養"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Invisibilidade produtiva",
+        "reflexao": "Qual projeto, relacionamento ou aspecto de você mesmo está em gestação — presente mas ainda não visível, precisando de proteção antes de ser revelado?",
+        "orientacao": "胎 convida à confiança na invisibilidade produtiva. Nem tudo que está crescendo precisa ser visto agora. A gestação tem seu tempo próprio."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "胎 BaZi",
+          "Tai BaZi significado",
+          "gestação projeto invisível BaZi",
+          "paciência potencial metafísica"
+        ]
+      }
+    },
+    {
+      "seq": 11,
+      "zh": "養",
+      "py": "Yǎng",
+      "pt": "Nutrição",
+      "status_c07": "novo — C07",
+      "radicais": {
+        "zh_1": "養",
+        "radical_1": "養 (yǎng) — nutrir, criar, sustentar; radical 食 (comer, alimentar-se) + 羊 (carneiro — animal de sacrifício e símbolo de bondade suave) — literalmente: alimentar com bondade"
+      },
+      "etimologia": "羊 (carneiro) era o animal de sacrifício por excelência na China clássica — símbolo de bondade, beleza e abundância. 養 combina a alimentação (食) com essa bondade suave (羊): nutrir não apenas o corpo mas o espírito, com paciência e ternura. É o útero que nutre o embrião até o momento do nascimento.",
+      "significado_shang": "Nas inscrições Shang, 養 aparece em contextos de criação de animais para sacrifício — o cuidado com que os animais eram alimentados e preparados para a cerimônia era parte essencial do ritual. Nutrir era um ato sagrado de preparação para o que viria.",
+      "significado_bazi": "O último estágio antes do renascimento em 長生 — o embrião está recebendo a nutrição final, ganhando força para o parto. Em mapa natal, indica pessoas com grande capacidade de cuidar, nutrir e preparar outros para os seus próximos passos. Frequentemente associado a talentos de ensino, cura, mentoria e criação de ambientes seguros. A questão central: quem nutre o nutridor?",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) encontra o Ramo 戌 (Terra, outono tardio): a semente da Madeira está sendo nutrida dentro da Terra de outono, acumulando os últimos recursos antes do inverno que precederá seu próximo nascimento na primavera.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "養 completa a tríade 絕-胎-養 do renascimento. O clássico enfatiza que quem passa por 養 antes de 長生 tem uma base de nutrição sólida — os talentos do próximo ciclo terão raízes mais profundas.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, análise da conclusão do ciclo e preparação para o renascimento"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Nutrição e autocuidado",
+        "reflexao": "Quem ou o que está te nutriindo agora — e você está permitindo receber essa nutrição, ou está tão focado em dar que se esqueceu de receber?",
+        "orientacao": "養 convida ao autocuidado como ato sagrado de preparação. Nutrir-se bem agora é o presente que você dá ao seu próximo ciclo."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "養 BaZi",
+          "Yang BaZi significado",
+          "nutrição cuidado BaZi",
+          "mentoria autocuidado metafísica chinesa"
+        ]
+      }
+    }
+  ],
+  "termos_conceituais": [
+    {
+      "id": "cang_gan",
+      "zh": "藏干",
+      "zh_alt": "藏幹",
+      "py": "Cáng Gān",
+      "py_numerico": "cang2 gan1",
+      "pt": "Hastes Ocultas",
+      "en": "Hidden Stems / Earthly Branch Hidden Stems",
+      "tipo": "conceito_estrutural",
+      "status_c08": "novo — C08",
+      "radicais": {
+        "zh_1": "藏",
+        "radical_1": "藏 (cáng) — esconder, armazenar, guardar; radical 艸 (ervas, crescimento) + 臧 (tesouro guardado) — literalmente: o que o solo guarda dentro de si",
+        "zh_2": "干",
+        "radical_2": "干 (gān) — Tronco Celestial; pictograma de escudo/estandarte — o princípio ativo do céu que ordena a terra"
+      },
+      "etimologia": "藏 combina ervas/plantas (艸) com a ideia de tesouro guardado (臧) — o que está vivo mas invisível, protegido sob a superfície como raízes ou sementes. 干 (Tronco Celestial) representa o princípio ativo e ordenador. Juntos: os Troncos Celestiais que o Ramo Terrestre carrega secretamente em seu interior — a energia ativa oculta dentro da forma passiva.",
+      "significado_shang": "A estrutura binária Tronco-Ramo (天干地支) é atestada desde as inscrições oraculares Shang como sistema de cômputo do tempo e energia. A ideia de que os Ramos 'contêm' Troncos em proporções variáveis é elaboração posterior (Dinastia Han), mas radica na cosmologia Shang de que a Terra (陰 Yin) guarda em si as sementes do Céu (陽 Yang).",
+      "significado_bazi": "Cada um dos 12 Ramos Terrestres carrega internamente de um a três Troncos Celestiais em camadas de intensidade decrescente. Organizados em três papéis: Principal (主氣 Zhǔ Qì — 60-70% da força), Central (中氣 Zhōng Qì — ~20-30%) e Residual (余氣 Yú Qì — ~10%). São fundamentais para: (1) o cálculo real dos Dez Deuses de um Ramo; (2) a análise de força do Dia Master; (3) a avaliação de interações entre Ramos. Em BaZi avançado, o Tronco oculto Principal de um Ramo pode ter mais impacto que o Tronco visível do mesmo pilar.",
+      "tabela_completa": {
+        "nota": "Fonte: San Ming Tong Hui (三命通會). Implementação: data.js HIDDEN[].",
+        "ramos": [
+          {
+            "ramo": "子",
+            "py": "Zǐ",
+            "principal": "癸",
+            "central": null,
+            "residual": null
+          },
+          {
+            "ramo": "丑",
+            "py": "Chǒu",
+            "principal": "己",
+            "central": "癸",
+            "residual": "辛"
+          },
+          {
+            "ramo": "寅",
+            "py": "Yín",
+            "principal": "甲",
+            "central": "丙",
+            "residual": "戊"
+          },
+          {
+            "ramo": "卯",
+            "py": "Mǎo",
+            "principal": "乙",
+            "central": null,
+            "residual": null
+          },
+          {
+            "ramo": "辰",
+            "py": "Chén",
+            "principal": "戊",
+            "central": "乙",
+            "residual": "癸"
+          },
+          {
+            "ramo": "巳",
+            "py": "Sì",
+            "principal": "丙",
+            "central": "庚",
+            "residual": "戊"
+          },
+          {
+            "ramo": "午",
+            "py": "Wǔ",
+            "principal": "丁",
+            "central": "己",
+            "residual": null
+          },
+          {
+            "ramo": "未",
+            "py": "Wèi",
+            "principal": "己",
+            "central": "丁",
+            "residual": "乙"
+          },
+          {
+            "ramo": "申",
+            "py": "Shēn",
+            "principal": "庚",
+            "central": "壬",
+            "residual": "戊"
+          },
+          {
+            "ramo": "酉",
+            "py": "Yǒu",
+            "principal": "辛",
+            "central": null,
+            "residual": null
+          },
+          {
+            "ramo": "戌",
+            "py": "Xū",
+            "principal": "戊",
+            "central": "辛",
+            "residual": "丁"
+          },
+          {
+            "ramo": "亥",
+            "py": "Hài",
+            "principal": "壬",
+            "central": "甲",
+            "residual": null
+          }
+        ]
+      },
+      "exemplo_pt": "O Ramo 寅 (Tiger, Madeira Yang) carrega três Hastes Ocultas: 甲 (principal, ~60%) — reforça Dias Master de Madeira; 丙 (central, ~30%) — traz qualidades criativas e expansivas; 戊 (residual, ~10%) — ancora e estabiliza. Um Dia Master 壬 (Água Yang) com 寅 no Pilar do Mês enfrenta, portanto, 甲 como 食神, 丙 como 七殺 e 戊 como outro controlador — cada um com peso diferente no score de força.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "A distribuição dos Troncos Ocultos por Ramo reflete a sazonalidade dos elementos — cada Ramo é dominado pelo elemento de sua estação, mas carrega traços das estações adjacentes. Esta distribuição em três camadas é a base do cálculo avançado de força do Dia Master.",
+        "fonte": "ctext.org — San Ming Tong Hui, capítulos sobre 藏干 e distribuição dos Troncos por Ramo Terrestre",
+        "fonte_complementar": "ctext.org — Zi Ping Zhen Quan (子平真詮), Shen Xiaozhan — análise do impacto dos troncos ocultos na estrutura do mapa"
+      },
+      "integracao_tecnica": {
+        "nota": "Contrato formal em interfaces.d.ts (HiddenStemEntry, HiddenStemsResult).",
+        "data_js": "HIDDEN[branchIdx] → array de stemIdx [principal, central?, residual?]",
+        "adapter": "hiddenStems.adapter.js → HiddenStems.getTroncosOcultos(ramo) → HiddenStemEntry[]",
+        "pillars_js": "calcDayMasterStrength() usa HIDDEN[] com pesos 1.0/0.5/0.3 (Principal/Central/Residual). Ramo do Mês recebe multiplicador sazonal ×1.5 no Principal."
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Camadas ocultas de identidade",
+        "reflexao": "Quais qualidades em você operam ocultas — presentes mas não imediatamente visíveis, influenciando suas ações sem que você as reconheça conscientemente?",
+        "orientacao": "As Hastes Ocultas convidam à exploração das camadas mais profundas da personalidade. O que está visível no Tronco é só o começo — o Ramo guarda dimensões que só emergem em contextos específicos."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "seo": {
+        "keywords": [
+          "藏干 BaZi",
+          "Hastes Ocultas BaZi",
+          "Cang Gan significado",
+          "troncos ocultos ramos terrestres",
+          "hidden stems BaZi português",
+          "司令 Siling BaZi",
+          "elementos ocultos mapa BaZi"
+        ]
+      }
+    },
+    {
+      "id": "liu_nian",
+      "zh": "流年",
+      "zh_alt": null,
+      "py": "Liú Nián",
+      "py_numerico": "liu2 nian2",
+      "pt": "Ano de Fluxo / Ano em Curso",
+      "en": "Flowing Year / Annual Luck",
+      "tipo": "conceito_estrutural",
+      "radicais": {
+        "zh_1": "流",
+        "radical_1": "流 (liú) — fluir, corrente; radical 氵(água em movimento) + 㐬 (o que emerge continuamente) — literalmente: o que flui emergindo continuamente",
+        "zh_2": "年",
+        "radical_2": "年 (nián) — ano; pictograma de uma pessoa carregando uma planta madura no ombro — a colheita, o ciclo completado"
+      },
+      "etimologia": "流 (fluir) e 年 (ano/colheita). O 流年 é o ano que 'flui' sobre o mapa — não um período fixo como o Da Yun, mas uma corrente anual que traz seu próprio Tronco+Ramo interagindo com o mapa natal e com o Da Yun em curso.",
+      "significado_shang": "年 nas inscrições Shang aparece em contextos de colheita e ciclos agrícolas — o ano como unidade de produção e renovação. A ideia de que cada ano carrega uma energia específica que interage com o mapa natal foi desenvolvida sistematicamente no período Han.",
+      "significado_bazi": "O Tronco+Ramo de cada ano corrente que interage com o mapa natal e com o Da Yun em vigor. Mais transitório que o Da Yun, o Liu Nian traz energias específicas que podem ativar ou neutralizar configurações do mapa. Na análise, sempre interpretado em conjunto com o Da Yun — nunca isoladamente.",
+      "exemplo_pt": "Em 2025 (乙巳 — Madeira Yin + Serpente), uma pessoa com Dia Master 庚 (Metal Yang) enfrenta 乙庚合 no Tronco, enquanto 巳 (Fogo) no Ramo representa a fase de 病 (seq 6) para esse Dia Master. O Liu Nian é um dos instrumentos mais precisos para análise de eventos específicos.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "O Liu Nian deve sempre ser analisado em conjunto com o Da Yun — o Liu Nian ativa, o Da Yun determina a escala. Um Liu Nian adverso em Da Yun favorável tem impacto limitado; o mesmo Liu Nian em Da Yun adverso pode ser um período de desafio significativo.",
+        "fonte": "ctext.org — San Ming Tong Hui, capítulos sobre Liu Nian e sua relação com os Da Yun"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Energia do ano presente",
+        "reflexao": "Que energia o ano atual está trazendo para o seu mapa — e como você pode trabalhar com ela em vez de contra ela?",
+        "orientacao": "流年 convida à consciência do presente. Cada ano tem seu ritmo próprio — reconhecê-lo ajuda a escolher com mais sabedoria quando agir, quando aguardar e quando ceder."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "Liu Nian BaZi",
+          "流年 significado",
+          "Ano de Fluxo BaZi português",
+          "previsão anual BaZi"
+        ]
+      }
+    },
+    {
+      "id": "qi_energia",
+      "zh": "氣",
+      "zh_alt": "气",
+      "py": "Qì",
+      "py_numerico": "qi4",
+      "pt": "Energia Vital / Sopro Vital",
+      "en": "Qi / Life Force",
+      "tipo": "conceito_filosófico",
+      "radicais": {
+        "zh_1": "氣",
+        "radical_1": "氣 (qì) — energia vital, sopro; caractere tradicional: radical 气 (vapor, névoa) + 米 (arroz, grão — o que alimenta) — literalmente: o vapor que nutre, a energia que alimenta a vida"
+      },
+      "etimologia": "O caractere tradicional 氣 mostra vapor (气) sobre arroz (米) — a imagem do vapor que sobe do arroz cozido, metáfora perfeita para a energia invisível que sustenta a vida. O caractere simplificado 气 (só o vapor) perde essa dimensão alimentar.",
+      "significado_shang": "氣 nas inscrições oraculares Shang aparece em contextos climáticos — ventos, nevoeiros, emanações da terra. A dimensão filosófica de 氣 como substrato universal da existência foi desenvolvida principalmente nos textos Zhou e Han.",
+      "significado_bazi": "A força ou fraqueza energética de cada elemento no mapa BaZi. 旺氣 (Qi em pico) quando um elemento está em 帝旺; 死氣 (Qi morto) quando em 死 ou 絕. Os Troncos Ocultos (藏干) nos Ramos também têm seu Qi distribuído em Principal, Central e Residual. A análise do Qi determina quais elementos têm força suficiente para exercer sua função.",
+      "exemplo_pt": "Um Dia Master 壬 (Água Yang) com o Ramo 亥 (onde 壬 está em 帝旺) tem 旺氣 — energia no pico. O mesmo Dia Master com o Ramo 巳 (onde 壬 está em 胎, gestação) tem energia latente, em formação. A diferença de Qi entre esses dois estados é fundamental para a análise.",
+      "referencia_classica": {
+        "obra": "Huang Di Nei Jing (黃帝內經)",
+        "autor": "Compilação Han, atribuída ao Imperador Amarelo",
+        "periodo": "Dinastia Han",
+        "ideia_central": "氣 é a substância fundamental de toda existência — o que circula nos meridianos do corpo, muda com as estações, flui entre o céu e a terra. BaZi é, em sua essência, um sistema de análise da qualidade e quantidade do Qi em um momento específico.",
+        "fonte": "ctext.org — Huang Di Nei Jing, Suwen — capítulos sobre a natureza do Qi e seus movimentos sazonais"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Vitalidade e fluxo de energia",
+        "reflexao": "Em que aspectos da sua vida o Qi flui livremente — e onde ele está bloqueado ou estagnado?",
+        "orientacao": "氣 convida à atenção à vitalidade. O que alimenta seu Qi e o que o drena? Cultivar consciência do próprio Qi é cultivar vitalidade sustentável."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "Qi BaZi significado",
+          "氣 energia vital",
+          "Qi metafísica chinesa português",
+          "força vital BaZi"
+        ]
+      }
+    },
+    {
+      "id": "shen_funcao",
+      "zh": "神",
+      "zh_alt": null,
+      "py": "Shén",
+      "py_numerico": "shen2",
+      "pt": "Deus / Espírito / Função",
+      "en": "God / Spirit / Function",
+      "tipo": "conceito_filosófico",
+      "radicais": {
+        "zh_1": "神",
+        "radical_1": "神 (shén) — divindade, espírito, função; radical 示 (altar de pedra, presença do sagrado) + 申 (relâmpago, o que se manifesta do céu) — literalmente: a manifestação do sagrado que vem do céu sobre o altar"
+      },
+      "etimologia": "示 é um altar de pedra — presença do sagrado no mundo humano. 申 representa o relâmpago descendo do céu — a manifestação súbita e inevitável da força divina. 神 é o ponto de encontro entre o céu e a terra, onde o invisível se torna visível.",
+      "significado_shang": "神 nas inscrições Shang refere-se às divindades dos ventos, rios e montanhas — forças naturais com agência e intenção. O rei Shang consultava regularmente os 神 através dos oráculos para obter orientação.",
+      "significado_bazi": "Em BaZi, 神 é usado em compostos técnicos: 十神 (Dez Deuses/Dez Funções), 用神 (Deus de Uso — o elemento mais benéfico do mapa), 忌神 (Deus Proibido — o mais prejudicial). Cada 神 no mapa tem uma função específica em relação ao Dia Master — não é apenas um elemento, é uma relação funcional.",
+      "exemplo_pt": "O 用神 de um mapa é o elemento que o Dia Master mais precisa para prosperar. Encontrá-lo corretamente é um dos desafios centrais da análise BaZi avançada — ele determina quais ambientes, carreiras e ciclos temporais são mais favoráveis.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "A análise do 用神 é o coração do sistema Ziping — identificar qual 神 (função elemental) é mais necessária ao Dia Master é mais importante que qualquer análise isolada de elementos ou pilares.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, capítulos sobre 用神 e sua determinação"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Função e propósito",
+        "reflexao": "Qual é o seu 用神 pessoal — que tipo de energia, ambiente ou atividade faz você funcionar no seu melhor nível?",
+        "orientacao": "神 como função convida à pergunta: não apenas 'quem sou' mas 'para que sirvo melhor'. Encontrar o seu 用神 é encontrar o contexto onde sua energia se expressa com mais eficácia."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "Shen BaZi significado",
+          "神 deus BaZi",
+          "Yong Shen BaZi português",
+          "dez deuses BaZi função"
+        ]
+      }
+    },
+    {
+      "id": "ji_auspicioso",
+      "zh": "吉",
+      "zh_alt": null,
+      "py": "Jí",
+      "py_numerico": "ji2",
+      "pt": "Auspicioso / Favorável",
+      "en": "Auspicious / Favorable",
+      "tipo": "conceito_interpretativo",
+      "radicais": {
+        "zh_1": "吉",
+        "radical_1": "吉 (jí) — auspicioso, favorável; radical 士 (guerreiro, erudito — o que tem domínio técnico) + 口 (boca — a palavra, o veredito) — literalmente: a palavra do especialista que confirma algo como propício"
+      },
+      "etimologia": "士 (guerreiro/erudito) representa alguém com competência técnica. 口 (boca) é a pronunciação, o veredito. 吉 é, portanto, o veredito favorável do especialista — a avaliação técnica de que uma configuração é benéfica.",
+      "significado_shang": "吉 nas inscrições oraculares Shang é um dos termos mais frequentes — o resultado esperado de toda consulta. O rei perguntava: '吉 ou 凶?' A maioria das inscrições termina com o veredito: 吉 (favorável) ou sua ausência.",
+      "significado_bazi": "Uma configuração é 吉 quando os elementos presentes suportam e fortalecem o Dia Master de forma saudável. Em ciclos temporais, um período 吉 traz elementos que o mapa precisa. Importante: 吉 e 凶 não são julgamentos morais — são avaliações técnicas de funcionalidade elemental.",
+      "exemplo_pt": "Para um Dia Master 甲 (Madeira Yang) fraco, um Da Yun com 壬 ou 癸 (Água, que nutre a Madeira) é 吉 — fortalece o eixo principal do mapa. O mesmo Da Yun de Água pode ser menos favorável para um Dia Master de Metal.",
+      "referencia_classica": {
+        "obra": "Yi Jing (易經)",
+        "autor": "Compilação Zhou/Han",
+        "periodo": "Período Zhou",
+        "ideia_central": "吉 no I Ching não é promessa de alegria fácil — é o resultado de agir em alinhamento com o momento e as circunstâncias. A mesma ação pode ser 吉 em um contexto e 凶 em outro. O sábio não busca o 吉 — cultiva o alinhamento que o produz.",
+        "fonte": "ctext.org — Yi Jing, Xici Zhuan — análise do par 吉凶 como avaliação funcional"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Alinhamento e circunstâncias favoráveis",
+        "reflexao": "Em que contextos da sua vida você percebe que tudo flui — que as energias estão a seu favor? O que esses contextos têm em comum?",
+        "orientacao": "吉 não é sorte aleatória — é alinhamento entre sua energia e o contexto. Reconhecer o que cria 吉 para você é uma habilidade que pode ser desenvolvida conscientemente."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "吉 BaZi significado",
+          "Ji auspicioso BaZi",
+          "favorável BaZi português",
+          "boa sorte metafísica chinesa"
+        ]
+      }
+    },
+    {
+      "id": "xiong_desfavoravel",
+      "zh": "凶",
+      "zh_alt": null,
+      "py": "Xiōng",
+      "py_numerico": "xiong1",
+      "pt": "Inauspicioso / Desfavorável",
+      "en": "Inauspicious / Unfavorable",
+      "tipo": "conceito_interpretativo",
+      "radicais": {
+        "zh_1": "凶",
+        "radical_1": "凶 (xiōng) — inauspicioso, perigo; pictograma de uma cova (凵) com uma marca de perigo no centro (×) — literalmente: a armadilha que não pode ser vista de fora, o perigo oculto no solo"
+      },
+      "etimologia": "凵 é uma cavidade aberta, uma cova. A marca × no centro indica algo marcado como perigoso ou fatal. 凶 não é o mal absoluto — é a armadilha que está no caminho, o perigo que precisa ser reconhecido para ser evitado ou transformado.",
+      "significado_shang": "凶 nas inscrições Shang é o veredito temido — quando a resposta divina indicava 凶, o rei devia mudar seus planos ou fazer oferendas adicionais. Não era fatalismo, mas orientação para agir diferente.",
+      "significado_bazi": "Uma configuração é 凶 quando os elementos presentes prejudicam o Dia Master — excesso do elemento que o controla, ausência de suporte, ou interações destrutivas. Em ciclos temporais, um período 凶 traz desafios que podem, se bem navegados, revelar recursos ocultos. Na tradição clássica, 凶 é informação, não sentença.",
+      "exemplo_pt": "Para um Dia Master 甲 (Madeira Yang) já em excesso, um Da Yun com mais Madeira pode ser 凶 — o elemento dominante fica ainda mais desequilibrado. A análise 凶 orienta: que medidas conscientes podem mitigar o desequilíbrio?",
+      "referencia_classica": {
+        "obra": "Yi Jing (易經)",
+        "autor": "Compilação Zhou/Han",
+        "periodo": "Período Zhou",
+        "ideia_central": "凶 no I Ching não é o fim do caminho — é frequentemente o prenúncio de uma transformação necessária. Muitos hexagramas com 凶 contêm também a indicação de como agir para minimizar o dano e transformar a adversidade.",
+        "fonte": "ctext.org — Yi Jing, análise dos hexagramas com 凶 e as respostas prescritas"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Adversidade como informação",
+        "reflexao": "Em que períodos difíceis da sua vida você depois reconheceu que a adversidade foi necessária para uma transformação importante?",
+        "orientacao": "凶 convida à aceitação sem resignação. Reconhecer um período 凶 não é render-se — é ajustar a estratégia. O que em você precisa mudar para que essa fase traga crescimento em vez de dano?"
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "凶 BaZi significado",
+          "Xiong inauspicioso BaZi",
+          "desfavorável BaZi português",
+          "adversidade metafísica chinesa"
+        ]
+      }
+    },
+    {
+      "id": "he_uniao",
+      "zh": "合",
+      "zh_alt": null,
+      "py": "Hé",
+      "py_numerico": "he2",
+      "pt": "União / Combinação",
+      "en": "Combination / Harmony",
+      "tipo": "interacao_estrutural",
+      "radicais": {
+        "zh_1": "合",
+        "radical_1": "合 (hé) — unir, combinar; radical 亼 (pessoa que se inclina, convergência) + 口 (boca — a palavra que sela) — literalmente: as partes que convergem e se declaram unidas"
+      },
+      "etimologia": "亼 mostra traços convergindo para um ponto central — como pessoas que se encontram num ápice. 口 é o ato de declarar, selar. 合 é a harmonia que resulta de elementos opostos se encontrando — a síntese que cria algo novo.",
+      "significado_shang": "合 nas inscrições Shang aparece em contextos de aliança entre tribos, uniões matrimoniais entre linhagens e acordos rituais. A 'combinação' criava uma nova entidade com propriedades que nenhuma das partes tinha sozinha.",
+      "significado_bazi": "Interações de união entre Troncos (5 pares: 甲己合Terra, 乙庚合Metal, 丙辛合Água, 丁壬合Madeira, 戊癸合Fogo) e entre Ramos (三合局 e 六合). Uma 合 pode fortalecer, neutralizar ou transformar os elementos envolvidos, dependendo do contexto do mapa.",
+      "exemplo_pt": "甲己合 (Madeira Yang + Terra Yin) cria uma união que produz Terra — os dois elementos se transformam em Terra se houver suporte suficiente. Em um mapa que precisa de Terra, essa 合 é muito favorável; se Terra é prejudicial ao Dia Master, a mesma 合 pode ser problemática.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "As combinações (合) devem ser interpretadas no contexto completo do mapa — não é suficiente identificar se há 合; é necessário determinar se a transformação resultante fortalece ou enfraquece a estrutura geral.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, capítulos sobre as combinações de Troncos e Ramos"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Síntese e relacionamentos",
+        "reflexao": "Que uniões ou alianças na sua vida criaram algo maior que a soma das partes — e quais, ao contrário, neutralizaram energias que eram valiosas separadas?",
+        "orientacao": "合 convida à reflexão sobre a qualidade das uniões. Nem toda combinação é benéfica — a questão é se a síntese resultante serve ao propósito maior."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "合 BaZi significado",
+          "He combinação BaZi",
+          "união elementos BaZi português",
+          "combinação troncos ramos BaZi"
+        ]
+      }
+    },
+    {
+      "id": "chong_choque",
+      "zh": "沖",
+      "zh_alt": "冲",
+      "py": "Chōng",
+      "py_numerico": "chong1",
+      "pt": "Choque / Colisão",
+      "en": "Clash / Collision",
+      "tipo": "interacao_estrutural",
+      "radicais": {
+        "zh_1": "沖",
+        "radical_1": "沖 (chōng) — chocar, colidir; radical 氵(água em movimento) + 中 (centro, o ponto exato de impacto) — literalmente: a água que golpeia o centro com força"
+      },
+      "etimologia": "氵(água) representa força em movimento. 中 (centro) é o ponto de impacto direto. 沖 é a colisão que vaza, que esvazia — como água que golpeia uma estrutura no centro, enfraquecendo-a ou transformando-a.",
+      "significado_shang": "沖 nas inscrições Shang aparece em contextos militares — o choque de forças opostas. Não é necessariamente catastrófico: um choque pode dispersar forças inimigas tanto quanto as próprias.",
+      "significado_bazi": "Interação de colisão entre Ramos opostos (6 pares: 子午, 丑未, 寅申, 卯酉, 辰戌, 巳亥). O 沖 ativa e desestabiliza os elementos envolvidos — pode quebrar configurações negativas ou positivas. O Ramo do Pilar do Dia em 沖 com um Da Yun ou Liu Nian é um dos marcadores de mudança mais estudados em BaZi.",
+      "exemplo_pt": "子午沖 (Rato-Cavalo): Água choca Fogo. Se o mapa tem Água como elemento favorável e 午 (Fogo) no Pilar do Dia, um Da Yun com 子 (Rato) pode criar instabilidade mas também liberar energia de Água muito necessária. O mesmo 沖 é interpretado diferente em cada mapa.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "O 沖 do Pilar do Dia é o mais significativo — indica mudanças na identidade central, no lar ou nos relacionamentos íntimos. Nem sempre negativo: um mapa que precisa dispersar bloqueios pode beneficiar-se de um 沖 bem posicionado.",
+        "fonte": "ctext.org — San Ming Tong Hui, capítulos sobre os seis 沖 e suas implicações por pilar"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Choque como catalisador",
+        "reflexao": "Que choques ou colisões da sua vida, em retrospecto, foram necessários para liberar algo que estava bloqueado?",
+        "orientacao": "沖 convida à perspectiva sobre a adversidade. Nem todo choque é dano — alguns são a força necessária para mover o que estava estagnado. A questão é o que o choque está liberando."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "沖 BaZi significado",
+          "Chong choque BaZi",
+          "colisão ramos BaZi português",
+          "clash BaZi"
+        ]
+      }
+    },
+    {
+      "id": "xing_punicao",
+      "zh": "刑",
+      "zh_alt": null,
+      "py": "Xíng",
+      "py_numerico": "xing2",
+      "pt": "Punição / Fricção Estrutural",
+      "en": "Penalty / Punishment",
+      "tipo": "interacao_estrutural",
+      "radicais": {
+        "zh_1": "刑",
+        "radical_1": "刑 (xíng) — punição, pena; radical 井 (poço, estrutura coletiva) + 刂 (faca, corte) — literalmente: o corte que a estrutura impõe, a disciplina que vem de dentro da ordem"
+      },
+      "etimologia": "井 é o poço — uma estrutura coletiva que serve à comunidade. 刂 é o corte da faca. 刑 é a punição que a estrutura social impõe para preservar a ordem — não violência aleatória, mas a lei que opera pelo corte.",
+      "significado_shang": "刑 nas inscrições Shang refere-se a punições rituais e jurídicas impostas pelo rei. A ordem cósmica requeria que transgressões fossem punidas — o 刑 era um mecanismo de restauração do equilíbrio.",
+      "significado_bazi": "Interações de fricção estrutural entre grupos de Ramos: 三刑 (寅巳申 — grande 刑 mútuo), 丑戌未 (刑 de ingratidão), 子卯 (刑 sem etiqueta), e autopenalizações (辰辰, 午午, 酉酉, 亥亥). Diferente do 沖 (colisão direta), o 刑 cria pressão interna — tensão que pode ser destrutiva ou profundamente transformadora.",
+      "exemplo_pt": "寅巳申 (Tigre-Serpente-Macaco) formam o grande 刑 mútuo — três Ramos de elementos diferentes que se punem reciprocamente. Em um mapa com esses três presentes, há tensão estrutural constante que pode manifestar como disciplina autoimposta extrema, conflitos legais ou transformação radical através de crise.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "O 刑 é a interação mais complexa do sistema — seus efeitos dependem fortemente do contexto do mapa, do Da Yun em vigor e da força dos elementos envolvidos. Generalizações sobre 刑 sem análise contextual levam a interpretações imprecisas.",
+        "fonte": "ctext.org — San Ming Tong Hui, capítulos sobre os diferentes tipos de 刑"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Fricção como disciplina",
+        "reflexao": "Que tensões estruturais da sua vida — situações que parecem sempre criar fricção — podem estar te disciplinando para algo importante?",
+        "orientacao": "刑 convida à reflexão sobre padrões de tensão recorrente. O que esse padrão está te ensinando? A fricção persistente frequentemente aponta para um aspecto da identidade que pede integração."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "刑 BaZi significado",
+          "Xing penalidade BaZi",
+          "punição ramos BaZi português",
+          "penalty BaZi"
+        ]
+      }
+    },
+    {
+      "id": "hai_dano",
+      "zh": "害",
+      "zh_alt": null,
+      "py": "Hài",
+      "py_numerico": "hai4",
+      "pt": "Dano / Ação Corrosiva",
+      "en": "Harm / Destruction",
+      "tipo": "interacao_estrutural",
+      "radicais": {
+        "zh_1": "害",
+        "radical_1": "害 (hài) — dano, corrosão; radical 宀 (teto, abrigo) + componentes de fala e abundância — pictograma de fala que corroe o que deveria proteger — literalmente: a palavra que destrói por dentro aquilo que parecia seguro"
+      },
+      "etimologia": "宀 (teto) representa proteção e estrutura. 害 é o dano que vem de dentro do que deveria ser seguro — a corrosão silenciosa, a traição, o prejuízo que opera sob aparência de normalidade.",
+      "significado_shang": "害 nas inscrições Shang aparece em contextos de danos a colheitas, doenças que afetam o gado e ações que prejudicam a linhagem. Sempre há uma dimensão de 'deveria ter sido protegido mas não foi'.",
+      "significado_bazi": "Os seis pares de 害 entre Ramos (子未害, 丑午害, 寅巳害, 卯辰害, 申亥害, 酉戌害) — cada par é formado por Ramos que interferem nas 六合 (uniões harmônicas). O 害 enfraquece sutilmente os Ramos envolvidos, criando drenagem de energia difícil de identificar. Considerado mais insidioso que o 沖 precisamente porque é menos óbvio.",
+      "exemplo_pt": "子未害 (Rato-Cabra): o Rato (Água) e a Cabra (Terra) formam 害 porque 子 normalmente faria 合 com 丑, mas 未 ocupa o mesmo polo que 丑 — a presença da Cabra interfere na possibilidade de harmonia do Rato. O resultado é uma drenagem sutil de energia dos dois elementos.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "O 害 é frequentemente subvalorizado em análises superficiais por sua sutileza. A tradição clássica adverte que o 害 pode ser mais prejudicial que o 沖 precisamente porque opera lentamente e sob aparência de normalidade.",
+        "fonte": "ctext.org — San Ming Tong Hui, capítulos sobre 害 e sua distinção das outras interações"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Drenagem silenciosa",
+        "reflexao": "Há situações ou relacionamentos na sua vida que, sem conflito óbvio, parecem drenar sua energia de forma constante e sutil?",
+        "orientacao": "害 convida à atenção ao que drena silenciosamente. Nem todo dano é barulhento — às vezes o que mais esgota é aquilo que parece inofensivo mas opera constantemente em segundo plano."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "害 BaZi significado",
+          "Hai dano BaZi",
+          "harm BaZi português",
+          "drenagem energia BaZi"
+        ]
+      }
+    },
+    {
+      "id": "po_ruptura",
+      "zh": "破",
+      "zh_alt": null,
+      "py": "Pò",
+      "py_numerico": "po4",
+      "pt": "Ruptura / Fratura",
+      "en": "Break / Destruction",
+      "tipo": "interacao_estrutural",
+      "radicais": {
+        "zh_1": "破",
+        "radical_1": "破 (pò) — quebrar, romper; radical 石 (pedra, rocha) + 皮 (pele, superfície externa) — literalmente: a rocha que rompe a superfície, o que estava oculto se tornando fratura visível"
+      },
+      "etimologia": "石 (pedra) é estrutura dura e duradoura. 皮 (pele) é a superfície, o que reveste. 破 é quando a dureza interna rompe a superfície — a fratura que torna visível o que estava sob pressão. Não é a destruição total, mas o rompimento que revela.",
+      "significado_shang": "破 nas inscrições Shang aparece em contextos de vasos rituais quebrados, territórios tomados e acordos desfeitos. A ruptura sempre implica perda de algo que tinha forma estabelecida.",
+      "significado_bazi": "Os seis pares de 破 entre Ramos (子酉破, 丑辰破, 寅亥破, 卯午破, 巳申破, 未戌破) — o 破 ocorre quando dois Ramos que normalmente fariam 三合 estão presentes sem o terceiro elemento da tríade. A energia de harmonia potencial se torna ruptura por incompletude.",
+      "exemplo_pt": "子酉破 (Rato-Galo): ambos participariam de triângulos diferentes (子 em 申子辰, 酉 em 巳酉丑). Quando se encontram sem seus complementos, a energia potencial de harmonia se fragmenta — o resultado é uma dificuldade de completar o que foi iniciado, de colher o que foi plantado.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "O 破 é frequentemente negligenciado em análises modernas. A tradição clássica o associa à perda de coisas boas que estavam quase completas — não à tragédia do 沖, mas à frustração da incompletude.",
+        "fonte": "ctext.org — San Ming Tong Hui, capítulos sobre 破 e sua distinção do 沖 e 害"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Incompletude e ciclos interrompidos",
+        "reflexao": "Há ciclos em sua vida que parecem nunca chegar à conclusão — projetos quase prontos, relacionamentos que quase funcionaram, objetivos que ficaram 90% completos?",
+        "orientacao": "破 convida à atenção aos padrões de incompletude. O que impede a conclusão? Às vezes o que falta é o terceiro elemento do triângulo — o recurso, a pessoa ou o contexto que completaria a harmonia."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "破 BaZi significado",
+          "Po ruptura BaZi",
+          "break BaZi português",
+          "fratura interação ramos BaZi"
+        ]
+      }
+    },
+    {
+      "id": "ba_zi",
+      "zh": "八字",
+      "py": "Bā Zì",
+      "py_numerico": "ba1 zi4",
+      "pt": "Oito Caracteres",
+      "en": "Eight Characters / BaZi",
+      "tipo": "conceito_estrutural",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "八",
+        "radical_1": "八 (bā) — oito; pictograma de divisão em duas partes iguais — o número da perfeição e da multiplicidade no sistema binário chinês",
+        "zh_2": "字",
+        "radical_2": "字 (zì) — caractere, palavra escrita; radical 宀 (teto) + 子 (filho/semente) — literalmente: a criança que nasce sob proteção e se torna símbolo"
+      },
+      "etimologia": "八 é o número que representa a divisão completa — oito direções do espaço, oito trigramas do I Ching. 字 é o caractere escrito, a unidade de sentido da língua. 八字 são os oito caracteres que codificam o momento do nascimento: quatro pares de Tronco Celestial + Ramo Terrestre, um par para cada pilar (Ano, Mês, Dia, Hora).",
+      "significado_shang": "O sistema de pares Tronco-Ramo (干支) para marcar tempo tem origem Shang — as inscrições oraculares datam eventos com pares de caracteres. O conceito de que o momento do nascimento codifica o destino desenvolve-se ao longo dos períodos Han, Tang e Song.",
+      "significado_bazi": "O sistema completo de leitura do mapa natal pela combinação dos oito caracteres que representam o momento de nascimento: dois caracteres (Tronco + Ramo) para o Ano, dois para o Mês, dois para o Dia e dois para a Hora. O Tronco do Dia (日主 Rì Zhǔ) é o Mestre do Dia — o centro do mapa e a referência para todos os cálculos relacionais.",
+      "exemplo_pt": "Uma pessoa nascida em 4 de fevereiro de 1990 às 14h30 em São Paulo terá seus oito caracteres calculados a partir da data e hora local ajustada ao Tempo Solar — resultando em combinações únicas que revelam a estrutura energética do momento do nascimento.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "O sistema 八字 foi consolidado pelo mestre Xu Ziping (徐子平) na Dinastia Song — daí o nome alternativo 子平 (Zi Ping). Antes de Ziping, o sistema se baseava no pilar do Ano; ele deslocou o centro para o pilar do Dia.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, introdução ao sistema Zi Ping e a centralidade do Dia Master"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "O mapa não é o território",
+        "reflexao": "Os oito caracteres descrevem tendências e potenciais, não determinismos. Como você usa este mapa — como prisão ou como bússola?",
+        "orientacao": "八字 é uma ferramenta de autoconhecimento. O valor não está na precisão da previsão, mas na qualidade das perguntas que o mapa convida a fazer."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "seo": {
+        "keywords": [
+          "八字 significado",
+          "BaZi oito caracteres",
+          "八字 português",
+          "mapa natal BaZi",
+          "Zi Ping sistema"
+        ]
+      }
+    },
+    {
+      "id": "si_zhu",
+      "zh": "四柱",
+      "py": "Sì Zhù",
+      "py_numerico": "si4 zhu4",
+      "pt": "Quatro Pilares",
+      "en": "Four Pillars",
+      "tipo": "conceito_estrutural",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "四",
+        "radical_1": "四 (sì) — quatro; pictograma da divisão em quatro partes — as quatro direções, as quatro estações",
+        "zh_2": "柱",
+        "radical_2": "柱 (zhù) — pilar, coluna; radical 木 (madeira/árvore) + 主 (principal, mestre) — o pilar de madeira que sustenta a estrutura"
+      },
+      "etimologia": "四 representa a completude quaternária — quatro estações, quatro direções cardeais, quatro fases da lua. 柱 é o pilar arquitetônico, a coluna que sustenta. Os Quatro Pilares são as quatro colunas temporais que sustentam a estrutura do mapa natal: cada uma corresponde a uma unidade de tempo diferente.",
+      "significado_shang": "A arquitetura ritual Shang era organizada em torno de quatro pilares nas cerimônias principais. O conceito de quatro direções e quatro estações como estrutura ordenadora do cosmo é central na cosmologia Shang — o rei era o 'quinto ponto' no centro.",
+      "significado_bazi": "Os Quatro Pilares são: (1) Pilar do Ano (年柱 Nián Zhù) — herança ancestral, família de origem; (2) Pilar do Mês (月柱 Yuè Zhù) — carreira, relação com pais, potencial produtivo; (3) Pilar do Dia (日柱 Rì Zhù) — o self, o cônjuge, os parceiros íntimos; (4) Pilar da Hora (時柱 Shí Zhù) — filhos, projetos, segunda metade da vida. Cada pilar tem um Tronco (天干) e um Ramo (地支).",
+      "exemplo_pt": "No Pilar do Mês, o Tronco revela a energia que se expressa no mundo da carreira e dos pais; o Ramo contém as Hastes Ocultas que modulam essa energia. Um Pilar do Mês forte favorece o desenvolvimento profissional precoce.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "A interpretação de cada pilar como domínio específico da vida (família/carreira/self/filhos) é uma das contribuições mais práticas da escola Zi Ping ao sistema original baseado apenas no Ano.",
+        "fonte": "ctext.org — San Ming Tong Hui, análise dos quatro pilares e seus domínios de vida"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Quatro dimensões da experiência",
+        "reflexao": "Qual dos quatro pilares — herança familiar, carreira, relações íntimas ou legado — está recebendo mais atenção em sua vida agora? Qual está sendo negligenciado?",
+        "orientacao": "四柱 convida a ver a vida como uma estrutura com quatro apoios. Quando um pilar está sobrecarregado, a estrutura inteira pende — equilíbrio é uma prática ativa."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "四柱 BaZi",
+          "Quatro Pilares destino",
+          "Si Zhu significado",
+          "pilares BaZi ano mês dia hora"
+        ]
+      }
+    },
+    {
+      "id": "tian_gan",
+      "zh": "天干",
+      "py": "Tiān Gān",
+      "py_numerico": "tian1 gan1",
+      "pt": "Troncos Celestiais",
+      "en": "Heavenly Stems",
+      "tipo": "conceito_estrutural",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "天",
+        "radical_1": "天 (tiān) — céu; pictograma de um homem com a cabeça ampliada — o que está acima de tudo, o princípio mais elevado",
+        "zh_2": "干",
+        "radical_2": "干 (gān) — tronco, haste; pictograma de escudo ou estandarte erguido — o que se eleva e ordena"
+      },
+      "etimologia": "天 (céu) representa o princípio ativo, visível, Yang da realidade. 干 é a haste que se ergue — o tronco da árvore, o eixo vertical. Os Troncos Celestiais são as dez expressões visíveis e ativas da energia cósmica — como os ramos superiores da árvore cósmica que se manifestam no plano do Céu.",
+      "significado_shang": "O sistema decimal dos dez Troncos Celestiais é atestado nas inscrições oraculares Shang como sistema de contagem dos dias dentro do ciclo de dez dias (旬 xún). Os reis Shang tinham nomes póstumos baseados nos Troncos Celestiais.",
+      "significado_bazi": "Os dez Troncos Celestiais (甲乙丙丁戊己庚辛壬癸) são as expressões Yang/Yin dos cinco elementos: Madeira (甲陽/乙陰), Fogo (丙陽/丁陰), Terra (戊陽/己陰), Metal (庚陽/辛陰), Água (壬陽/癸陰). No mapa BaZi, os Troncos são as energias visíveis e expressas — o que o mundo vê e o que a pessoa projeta. O Tronco do Dia é o Mestre do Dia.",
+      "exemplo_pt": "O Tronco 甲 (Madeira Yang) no pilar do Dia indica uma pessoa que projeta liderança, crescimento e direção — qualidades Yang da Madeira. O Tronco 乙 (Madeira Yin) no mesmo pilar indica flexibilidade, adaptabilidade e estética — qualidades Yin da Madeira.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "Os Troncos Celestiais expressam a natureza ativa e visível do elemento — são o que se manifesta no plano do relacionamento com o mundo. A diferença entre troncos Yang e Yin do mesmo elemento é fundamental para o cálculo dos Dez Deuses.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, capítulo sobre a natureza dos Troncos Celestiais e sua polaridade"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "O que você projeta para o mundo",
+        "reflexao": "O Tronco do seu Dia Master representa a energia que você expressa conscientemente. Como essa energia é percebida pelos outros? Você se reconhece nessa descrição?",
+        "orientacao": "天干 é o convite à consciência da sua expressão natural. Reconhecer o seu Tronco não é aceitar um rótulo — é entender o tom natural da sua voz no mundo."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "天干 BaZi",
+          "Troncos Celestiais significado",
+          "Tian Gan dez troncos",
+          "甲乙丙丁戊己庚辛壬癸"
+        ]
+      }
+    },
+    {
+      "id": "di_zhi",
+      "zh": "地支",
+      "py": "Dì Zhī",
+      "py_numerico": "di4 zhi1",
+      "pt": "Ramos Terrestres",
+      "en": "Earthly Branches",
+      "tipo": "conceito_estrutural",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "地",
+        "radical_1": "地 (dì) — terra, solo; radical 土 (terra) + 也 (componente que indica extensão horizontal) — a terra como plano horizontal que se estende",
+        "zh_2": "支",
+        "radical_2": "支 (zhī) — ramo lateral, suporte; pictograma de uma mão segurando um ramo de árvore — o que emerge do tronco para os lados"
+      },
+      "etimologia": "地 é a terra como princípio receptivo — o plano Yin que acolhe e sustenta. 支 são os ramos que emergem do tronco (天干) lateralmente. Os Ramos Terrestres são as doze expressões do ciclo temporal no plano da manifestação concreta — mais complexos que os Troncos porque carregam internamente as Hastes Ocultas (藏干).",
+      "significado_shang": "O sistema duodecimal dos doze Ramos Terrestres compõe, com os dez Troncos, o ciclo sexagesimal (六十甲子) — ciclo de sessenta pares usado nas inscrições Shang para datar eventos. Os doze Ramos também correspondem às doze horas do dia, aos doze meses e aos doze animais do zodíaco.",
+      "significado_bazi": "Os doze Ramos Terrestres (子丑寅卯辰巳午未申酉戌亥) representam as estações, as horas e os animais do zodíaco. Cada Ramo contém um a três Troncos Celestiais ocultos (藏干). No mapa BaZi, os Ramos são as energias subterrâneas e contextuais — o ambiente que molda a expressão do Tronco acima deles.",
+      "exemplo_pt": "O Ramo 寅 (Tiger) no Pilar do Mês carrega os Troncos 甲 (principal), 丙 (central) e 戊 (residual). Um Dia Master 庚 (Metal Yang) com 寅 no Mês enfrenta tanto a Madeira (que o Metal corta) quanto o Fogo (que o Metal produz) — uma dinâmica complexa que só aparece ao analisar as Hastes Ocultas.",
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "Os Ramos Terrestres são mais difíceis de ler que os Troncos precisamente por sua complexidade interna. Um Ramo nunca é apenas um elemento — é sempre um conjunto de energias em proporções variáveis.",
+        "fonte": "ctext.org — San Ming Tong Hui, análise dos doze Ramos e suas interações (合冲刑害)"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "O que opera no seu contexto",
+        "reflexao": "Os Ramos representam o ambiente e o contexto que molda sua expressão. Quais contextos em sua vida revelam dimensões de você que normalmente ficam ocultas?",
+        "orientacao": "地支 convida a prestar atenção no ambiente — não apenas o que você é, mas onde e com quem você está quando diferentes partes de você emergem."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "地支 BaZi",
+          "Ramos Terrestres significado",
+          "Di Zhi doze ramos",
+          "子丑寅卯辰巳午未申酉戌亥"
+        ]
+      }
+    },
+    {
+      "id": "wu_xing",
+      "zh": "五行",
+      "py": "Wǔ Xíng",
+      "py_numerico": "wu3 xing2",
+      "pt": "Cinco Movimentos",
+      "en": "Five Elements / Five Phases",
+      "tipo": "conceito_estrutural",
+      "nota_traducao": "Traduzido como 'Cinco Movimentos' em vez de 'Cinco Elementos' — 行 (xíng) significa movimento/fluxo, não elemento estático. 'Cinco Fases' também aceito.",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "五",
+        "radical_1": "五 (wǔ) — cinco; pictograma de linhas cruzadas entre céu e terra — o número que media os opostos",
+        "zh_2": "行",
+        "radical_2": "行 (xíng) — andar, mover-se, fluir; pictograma de um cruzamento de caminhos — o que está em constante movimento e transição"
+      },
+      "etimologia": "五 é o cinco que media — entre o 1 (início) e o 10 (completude), entre céu e terra. 行 é movimento, não substância — os 五行 são cinco modos de transformação energética em ciclo contínuo, não cinco materiais fixos. A tradução 'Cinco Elementos' é conveniente mas imprecisa.",
+      "significado_shang": "A cosmologia das cinco fases emerge de forma mais elaborada nos períodos Zhou e Han, mas os cinco materiais sagrados (metal, madeira, água, fogo, terra) já aparecem em contextos rituais Shang. O Livro dos Documentos (書經 Shūjīng) — com raízes Shang — lista os 五行 como categorias fundamentais.",
+      "significado_bazi": "Os cinco movimentos (Madeira 木, Fogo 火, Terra 土, Metal 金, Água 水) organizam-se em dois ciclos fundamentais: Ciclo de Produção (相生 Xiāng Shēng: Água nutre Madeira → Madeira alimenta Fogo → Fogo produz Terra → Terra gera Metal → Metal produz Água) e Ciclo de Controle (相克 Xiāng Kè: Água apaga Fogo → Fogo derrete Metal → Metal corta Madeira → Madeira rompe Terra → Terra absorve Água). Toda a estrutura dos Dez Deuses deriva desses dois ciclos.",
+      "exemplo_pt": "Um Dia Master 甲 (Madeira Yang) usa os dois ciclos: Água (壬癸) o nutre = 印星 (Recursos); Fogo (丙丁) é produzido por ele = 食傷 (Output); Metal (庚辛) o controla = 官殺 (Oficiais); Terra (戊己) é controlada por ele = 財星 (Riqueza); outra Madeira (甲乙) é igual a ele = 比劫 (Self).",
+      "referencia_classica": {
+        "obra": "Huang Di Nei Jing (黃帝內經)",
+        "autor": "Atribuído ao Imperador Amarelo",
+        "periodo": "Compilação Han, raízes Zhou",
+        "ideia_central": "A medicina clássica e a metafísica compartilham a mesma base dos 五行. O ciclo de produção e controle não é apenas um esquema — é um modelo dinâmico de como a energia se auto-regula em qualquer sistema complexo.",
+        "fonte": "ctext.org — Huang Di Nei Jing, análise do sistema Wu Xing e suas inter-relações nos planos físico e energético"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Equilíbrio e fluxo",
+        "reflexao": "Qual dos cinco movimentos você sente mais presente em sua vida agora — e qual parece ausente ou bloqueado?",
+        "orientacao": "五行 não é sobre ter 'os elementos certos' — é sobre o fluxo entre eles. Um elemento em excesso sem saída cria estagnação; um elemento ausente cria fragilidade. O objetivo é movimento, não equilíbrio estático."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "五行 BaZi",
+          "Wu Xing cinco elementos",
+          "cinco movimentos metafísica",
+          "madeira fogo terra metal água BaZi"
+        ]
+      }
+    },
+    {
+      "id": "yin_yang",
+      "zh": "陰陽",
+      "py": "Yīn Yáng",
+      "py_numerico": "yin1 yang2",
+      "pt": "Yin e Yang",
+      "en": "Yin and Yang",
+      "tipo": "conceito_estrutural",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "陰",
+        "radical_1": "陰 (yīn) — sombra, receptivo, feminino; radical 阜 (colina, elevação) + 今 + 云 — o lado da colina em sombra, onde o sol não bate diretamente",
+        "zh_2": "陽",
+        "radical_2": "陽 (yáng) — sol, ativo, masculino; radical 阜 (colina) + 昜 (sol nascente com raios) — o lado da colina iluminado pelo sol"
+      },
+      "etimologia": "陰 e 陽 começaram como descrições topográficas: o lado da montanha na sombra (陰) e o lado iluminado (陽). Gradualmente tornaram-se os princípios opostos e complementares que organizam toda a realidade. Não são opostos que se excluem — são faces do mesmo processo contínuo.",
+      "significado_shang": "A oposição entre claro/escuro, dia/noite, sol/sombra é central nas inscrições Shang — os rituais reconheciam forças celestes (Yang) e forças da terra/ancestrais (Yin). O conceito filosófico explícito de Yin-Yang como par complementar desenvolve-se com o I Ching (易經).",
+      "significado_bazi": "Em BaZi, cada um dos dez Troncos Celestiais e doze Ramos Terrestres é classificado como Yang (奇數 — ímpar, ativo) ou Yin (偶數 — par, receptivo). A polaridade determina: (1) qual estágio de vida (順行/逆行 em C05); (2) qual Deus dos Dez é produzido na relação; (3) a qualidade de expressão do elemento (Yang = expressão direta e ativa; Yin = expressão sutil e adaptativa).",
+      "exemplo_pt": "甲 e 乙 são ambos Madeira, mas 甲 (Yang) expressa a Madeira como tronco reto e crescimento vertical — liderança e direção. 乙 (Yin) expressa a Madeira como cipó e flores — flexibilidade, estética e adaptação. A polaridade não é hierarquicamente superior — é qualitativamente diferente.",
+      "referencia_classica": {
+        "obra": "I Ching (易經 — Livro das Mutações)",
+        "autor": "Atribuído ao Rei Wen e Duque de Zhou",
+        "periodo": "Período Zhou (compilação), raízes Shang",
+        "ideia_central": "O I Ching usa a linha inteira (—, Yang) e a linha partida (- -, Yin) como os dois elementos básicos de toda combinação possível. A mensagem central: Yin e Yang não são opostos que se combatem, mas parceiros de um único processo de mudança contínua.",
+        "fonte": "ctext.org — I Ching (Yi Jing), análise dos hexagramas 1 (puro Yang) e 2 (puro Yin) como polaridades complementares"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Complementaridade",
+        "reflexao": "Em qual polaridade você tende a se identificar — ativo/direto (Yang) ou receptivo/sutil (Yin)? Quais situações convidam você para a polaridade menos familiar?",
+        "orientacao": "陰陽 convida a reconhecer que sua força está tanto na polaridade dominante quanto na capacidade de acessar a complementar quando necessário. Rigidez em uma polaridade é desequilíbrio."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "陰陽 BaZi",
+          "Yin Yang metafísica chinesa",
+          "polaridade BaZi",
+          "yin yang cinco elementos"
+        ]
+      }
+    },
+    {
+      "id": "ri_zhu",
+      "zh": "日主",
+      "py": "Rì Zhǔ",
+      "py_numerico": "ri4 zhu3",
+      "pt": "Mestre do Dia",
+      "en": "Day Master",
+      "tipo": "conceito_estrutural",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "日",
+        "radical_1": "日 (rì) — sol, dia; pictograma do sol — o astro que marca o tempo e ilumina",
+        "zh_2": "主",
+        "radical_2": "主 (zhǔ) — mestre, senhor, principal; pictograma de uma chama sobre um candelabro — o que ilumina e domina o espaço"
+      },
+      "etimologia": "日 é o sol e o dia — a unidade de tempo mais imediata e visível. 主 é o mestre, o senhor que ilumina como uma chama. 日主 é o Tronco Celestial do Pilar do Dia — o sol do mapa, o centro a partir do qual tudo é calculado e interpretado.",
+      "significado_shang": "O sol (日) era divindade central no panteão Shang — cada dia pertencia a um ancestral real identificado pelo Tronco Celestial correspondente. A ideia de que o dia do nascimento marca o caráter central da pessoa tem raízes nessa sacralidade do dia solar.",
+      "significado_bazi": "O Mestre do Dia (日主) é o Tronco Celestial do Pilar do Dia — o centro do mapa e o ponto de referência para todos os cálculos dos Dez Deuses. Todos os outros sete caracteres são interpretados em relação ao Dia Master: eles produzem, controlam, são produzidos ou são controlados por ele. A força do Dia Master (旺/弱) determina que tipo de carta é favorável.",
+      "exemplo_pt": "Um Dia Master 壬 (Água Yang): o Metal (庚辛) que o nutre são seus 印星 (Recursos); a Madeira (甲乙) que ele produz são seus 食傷 (Output); o Fogo (丙丁) que ele controla são seus 財星 (Riqueza); a Terra (戊己) que o controla são seus 官殺 (Oficiais); outra Água (壬癸) são seus 比劫 (Self). A identidade de todo o mapa gira em torno deste tronco.",
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "A revolução de Xu Ziping na Dinastia Song foi precisamente esta: deslocar o centro do sistema do pilar do Ano para o Tronco do Dia. Esse único movimento transformou um sistema de previsão calendárico em um sistema de caracterologia individual.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, capítulo sobre a centralidade do Dia Master e a inovação de Xu Ziping"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "O centro de gravidade da sua identidade",
+        "reflexao": "O Dia Master é a energia que você mais naturalmente encarna. Como essa energia se manifesta nas suas escolhas mais autênticas — não nas performadas, mas nas espontâneas?",
+        "orientacao": "日主 convida à autenticidade como prática. Conhecer seu Dia Master não é saber quem você deve ser — é reconhecer quem você já é quando ninguém está olhando."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "日主 BaZi",
+          "Mestre do Dia BaZi",
+          "Day Master significado",
+          "Ri Zhu BaZi português"
+        ]
+      }
+    },
+    {
+      "id": "da_yun",
+      "zh": "大運",
+      "py": "Dà Yùn",
+      "py_numerico": "da4 yun4",
+      "pt": "Grandes Ciclos",
+      "en": "Luck Pillars / Major Cycles",
+      "tipo": "conceito_estrutural",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "大",
+        "radical_1": "大 (dà) — grande, amplo; pictograma de um homem de pé com braços abertos — a escala humana máxima",
+        "zh_2": "運",
+        "radical_2": "運 (yùn) — sorte, destino em movimento, transportar; radical 辶 (movimento) + 軍 (exército em marcha) — a energia que se move com força e direção, carregando tudo consigo"
+      },
+      "etimologia": "大 é o máximo, o que abrange tudo. 運 combina movimento (辶) com um exército em marcha (軍) — uma força que avança carregando toda a carga consigo, inevitável e poderosa. Os Grandes Ciclos são os períodos de dez anos que representam as grandes 'estações' da vida — cada um com seu Tronco e Ramo, modificando o contexto do mapa natal.",
+      "significado_shang": "A ideia de grandes ciclos temporais está presente na cosmologia Shang através dos ciclos de sessenta anos (甲子). O conceito de que a vida humana se organiza em fases com energias próprias é uma extensão natural do pensamento cíclico Shang.",
+      "significado_bazi": "Os Grandes Ciclos (大運) são períodos de aproximadamente dez anos calculados a partir do Pilar do Mês, avançando (Yang) ou regredindo (Yin) pelos Troncos e Ramos. Cada Grande Ciclo adiciona novos Troncos e Ramos ao mapa natal, criando novas relações e modificando a força dos elementos. São o contexto temporal da vida — como as estações modificam o jardim sem mudar as plantas.",
+      "exemplo_pt": "Uma pessoa com Dia Master 甲 (Madeira Yang) que entra em um Grande Ciclo de 庚午 (Metal-Fogo): o Metal (庚) é o 七殺 — pressão e desafio que força crescimento; o Fogo (午) contém a Haste Oculta 丁 (Fogo Yin = 傷官) que a Madeira produz. O ciclo traz ao mesmo tempo pressão externa e expansão criativa.",
+      "referencia_classica": {
+        "obra": "Di Tian Sui (滴天髓)",
+        "autor": "Atribuído a Liu Bowen, comentários de Ren Tieqiao",
+        "periodo": "Dinastia Ming / comentários Qing",
+        "ideia_central": "Os Grandes Ciclos são tão importantes quanto o mapa natal — um mapa fraco com Grandes Ciclos favoráveis pode superar um mapa forte com ciclos adversos. O destino é a interação entre a natureza (mapa natal) e o tempo (grandes ciclos).",
+        "fonte": "Di Tian Sui — análise da interação entre mapa natal e Grandes Ciclos como determinante do destino vivido"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Estações da vida",
+        "reflexao": "Em que fase (Grande Ciclo) você está agora? Quais desafios e oportunidades caracterizam este período — e como eles se relacionam com sua natureza central (Dia Master)?",
+        "orientacao": "大運 convida à consciência do tempo longo. Nem tudo que é difícil agora é permanente — e nem tudo que é favorável durará. Conhecer a estação em que você está permite plantar o que dará fruto no seu tempo."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "大運 BaZi",
+          "Grandes Ciclos BaZi",
+          "Da Yun Lucky Pillars",
+          "ciclos dez anos BaZi português"
+        ]
+      }
+    },
+    {
+      "id": "jie_qi",
+      "zh": "節氣",
+      "py": "Jié Qì",
+      "py_numerico": "jie2 qi4",
+      "pt": "Termos Solares",
+      "en": "Solar Terms / Jieqi",
+      "tipo": "conceito_estrutural",
+      "status_c11": "novo — C11",
+      "radicais": {
+        "zh_1": "節",
+        "radical_1": "節 (jié) — nó, articulação, festival, ponto de junção; radical 竹 (bambu) + 即 — os nós do bambu que marcam divisões naturais do crescimento",
+        "zh_2": "氣",
+        "radical_2": "氣 (qì) — energia, vapor, sopro vital; pictograma de vapor d'água em movimento — a energia invisível que permeia e move tudo"
+      },
+      "etimologia": "節 é o nó do bambu — o ponto onde um segmento termina e outro começa, a articulação natural do crescimento. 氣 é o sopro vital, a energia em movimento. 節氣 são os 24 pontos de articulação do ano solar — os momentos em que a energia cósmica muda de qualidade, marcando as transições entre os meses do calendário BaZi.",
+      "significado_shang": "O calendário agrícola Shang era baseado na observação solar — as posições do sol em relação ao horizonte determinavam quando plantar, colher e celebrar. Os 節氣 são a formalização astronômica desse conhecimento acumulado por séculos de observação.",
+      "significado_bazi": "Os 24 Termos Solares (節氣) são os pontos do ano solar usados para determinar os Pilares do Mês no sistema BaZi — não os meses do calendário lunar. Cada mês BaZi começa em um Jieqi específico, não na lua nova. O Jieqi 立春 (Lì Chūn — Início da Primavera, ~4 de fevereiro) marca o início do ano BaZi — não o Ano Novo Lunar. Esta distinção é uma das fontes mais comuns de erro de cálculo.",
+      "exemplo_pt": "Uma pessoa nascida em 20 de janeiro está no Pilar do Mês de 丑 (Terra Yin, inverno), pois o Jieqi 立春 (Início da Primavera) só ocorre por volta do dia 4 de fevereiro. O calendário lunar poderia colocá-la em um mês diferente — mas BaZi usa o calendário solar Jieqi.",
+      "referencia_classica": {
+        "obra": "Qiong Tong Bao Jian (窮通寶鑑)",
+        "autor": "Atribuído ao período Song/Ming",
+        "periodo": "Período Song/Ming",
+        "ideia_central": "O Qiong Tong Bao Jian organiza todo o sistema de análise do Dia Master em relação aos Jieqi sazonais — cada elemento tem seu ponto de nascimento, pico e declínio determinados pelos termos solares. O Jieqi é a moldura de tempo dentro da qual o mapa ganha sentido sazonal.",
+        "fonte": "ctext.org — Qiong Tong Bao Jian, análise sazonal dos elementos e a importância dos Jieqi para determinar força do Dia Master"
+      },
+      "desenvolvimento_pessoal": {
+        "tema": "Ritmos naturais e transições",
+        "reflexao": "Como você vive as transições sazonais — você as reconhece e se adapta, ou as resiste e se esgota tentando manter o mesmo ritmo o ano todo?",
+        "orientacao": "節氣 convida a honrar os ritmos naturais como inteligência, não como obstáculo. O inverno não é falha do verão — é a condição que torna o verão possível."
+      },
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino.",
+      "seo": {
+        "keywords": [
+          "節氣 BaZi",
+          "Jieqi termos solares",
+          "calendário solar BaZi",
+          "立春 início do ano BaZi",
+          "24 termos solares português"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,1658 @@
+{
+  "meta": {
+    "titulo": "Doze Estágios de Ciclo de Vida — 十二長生",
+    "versao": "1.0.0",
+    "data": "2026-03-09",
+    "sprint": "Q20-C10",
+    "descricao": "Tabela de distribuição dos 12 estágios (十二長生) por Tronco Celestial × Ramo Terrestre. Gerada a partir de LIFE_STAGE_START (C05). Escola: Yang/Yin diferenciada (子平真詮, Shen Xiaozhan).",
+    "escola_doutrinaria": "Yang/Yin diferenciada — C05 (2026-03-09)",
+    "escola_referencia": "Zi Ping Zhen Quan (子平真詮), Shen Xiaozhan, Dinastia Qing",
+    "nota_validacao_c10": "Validação Nível 2 PASS 10/10: 帝旺 (seq=4) ocorre no ramo do mesmo elemento para todos os 10 troncos. Yang stems → 帝旺 no ramo Yin do elemento; Yin stems → 帝旺 no ramo Yang do elemento. Coerente com escola Yang/Yin diferenciada.",
+    "nota_integracao": "getLifeStage(stemIdx, branchIdx) em pillars.js implementa esta tabela. seq 4 (帝旺) e seq 0 (長生) reforçam força; seq 8 (墓) e seq 9 (絕) enfraquecem — integração pendente S2·W4.",
+    "total_troncos": 10,
+    "total_ramos": 12,
+    "total_registros": 120,
+    "changelog": [
+      {
+        "versao": "1.0.0",
+        "data": "2026-03-09",
+        "sprint": "Q20-C10",
+        "mudancas": [
+          "C10 — Criação do arquivo doze_estagios_bazi_app.json com 120 registros (10 troncos × 12 ramos).",
+          "C10 — Validação Nível 2 PASS: 帝旺 coerente com escola Yang/Yin diferenciada para todos os 10 troncos.",
+          "C10 — Campos: stem_idx, stem_zh, stem_py, elemento, polaridade, direcao, changshen/diwang ramos, distribuicao[] com forca_score."
+        ]
+      }
+    ]
+  },
+  "estagios_referencia": [
+    {
+      "seq": 0,
+      "zh": "長生",
+      "py": "Cháng Shēng",
+      "pt": "Nascimento Longo"
+    },
+    {
+      "seq": 1,
+      "zh": "沐浴",
+      "py": "Mù Yù",
+      "pt": "Banho Ritual"
+    },
+    {
+      "seq": 2,
+      "zh": "冠帶",
+      "py": "Guān Dài",
+      "pt": "Vestir a Coroa"
+    },
+    {
+      "seq": 3,
+      "zh": "臨官",
+      "py": "Lín Guān",
+      "pt": "Assumir o Cargo"
+    },
+    {
+      "seq": 4,
+      "zh": "帝旺",
+      "py": "Dì Wàng",
+      "pt": "Pico Imperial"
+    },
+    {
+      "seq": 5,
+      "zh": "衰",
+      "py": "Shuāi",
+      "pt": "Declínio"
+    },
+    {
+      "seq": 6,
+      "zh": "病",
+      "py": "Bìng",
+      "pt": "Doença"
+    },
+    {
+      "seq": 7,
+      "zh": "死",
+      "py": "Sǐ",
+      "pt": "Morte"
+    },
+    {
+      "seq": 8,
+      "zh": "墓",
+      "py": "Mù",
+      "pt": "Túmulo"
+    },
+    {
+      "seq": 9,
+      "zh": "絕",
+      "py": "Jué",
+      "pt": "Extinção"
+    },
+    {
+      "seq": 10,
+      "zh": "胎",
+      "py": "Tāi",
+      "pt": "Gestação"
+    },
+    {
+      "seq": 11,
+      "zh": "養",
+      "py": "Yǎng",
+      "pt": "Nutrição"
+    }
+  ],
+  "forca_referencia": [
+    {
+      "seq": 0,
+      "nivel": "forte",
+      "score": 0.8,
+      "nota": "início de crescimento, potencial alto"
+    },
+    {
+      "seq": 1,
+      "nivel": "fraco",
+      "score": 0.3,
+      "nota": "vulnerabilidade, identidade instável"
+    },
+    {
+      "seq": 2,
+      "nivel": "médio",
+      "score": 0.5,
+      "nota": "forma em desenvolvimento"
+    },
+    {
+      "seq": 3,
+      "nivel": "forte",
+      "score": 0.9,
+      "nota": "expressa e produtiva"
+    },
+    {
+      "seq": 4,
+      "nivel": "máximo",
+      "score": 1.0,
+      "nota": "pico absoluto — reforça força"
+    },
+    {
+      "seq": 5,
+      "nivel": "médio",
+      "score": 0.4,
+      "nota": "recolhimento inicial"
+    },
+    {
+      "seq": 6,
+      "nivel": "fraco",
+      "score": 0.25,
+      "nota": "retirada intensa"
+    },
+    {
+      "seq": 7,
+      "nivel": "fraco",
+      "score": 0.2,
+      "nota": "encerramento ativo"
+    },
+    {
+      "seq": 8,
+      "nivel": "fraco",
+      "score": 0.15,
+      "nota": "armazenado — enfraquece"
+    },
+    {
+      "seq": 9,
+      "nivel": "mínimo",
+      "score": 0.1,
+      "nota": "extinção — enfraquece"
+    },
+    {
+      "seq": 10,
+      "nivel": "latente",
+      "score": 0.2,
+      "nota": "em formação, invisível"
+    },
+    {
+      "seq": 11,
+      "nivel": "latente",
+      "score": 0.3,
+      "nota": "nutrição pré-nascimento"
+    }
+  ],
+  "troncos": [
+    {
+      "stem_idx": 0,
+      "stem_zh": "甲",
+      "stem_py": "Jiǎ",
+      "elemento": "Madeira",
+      "elemento_zh": "木",
+      "polaridade": "Yang",
+      "direcao": "順行",
+      "direcao_pt": "forward",
+      "changshen_ramo_bi": 11,
+      "changshen_ramo_zh": "亥",
+      "diwang_ramo_bi": 3,
+      "diwang_ramo_zh": "卯",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        }
+      ]
+    },
+    {
+      "stem_idx": 1,
+      "stem_zh": "乙",
+      "stem_py": "Yǐ",
+      "elemento": "Madeira",
+      "elemento_zh": "木",
+      "polaridade": "Yin",
+      "direcao": "逆行",
+      "direcao_pt": "reverse",
+      "changshen_ramo_bi": 6,
+      "changshen_ramo_zh": "午",
+      "diwang_ramo_bi": 2,
+      "diwang_ramo_zh": "寅",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        }
+      ]
+    },
+    {
+      "stem_idx": 2,
+      "stem_zh": "丙",
+      "stem_py": "Bǐng",
+      "elemento": "Fogo",
+      "elemento_zh": "火",
+      "polaridade": "Yang",
+      "direcao": "順行",
+      "direcao_pt": "forward",
+      "changshen_ramo_bi": 2,
+      "changshen_ramo_zh": "寅",
+      "diwang_ramo_bi": 6,
+      "diwang_ramo_zh": "午",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        }
+      ]
+    },
+    {
+      "stem_idx": 3,
+      "stem_zh": "丁",
+      "stem_py": "Dīng",
+      "elemento": "Fogo",
+      "elemento_zh": "火",
+      "polaridade": "Yin",
+      "direcao": "逆行",
+      "direcao_pt": "reverse",
+      "changshen_ramo_bi": 9,
+      "changshen_ramo_zh": "酉",
+      "diwang_ramo_bi": 5,
+      "diwang_ramo_zh": "巳",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        }
+      ]
+    },
+    {
+      "stem_idx": 4,
+      "stem_zh": "戊",
+      "stem_py": "Wù",
+      "elemento": "Terra",
+      "elemento_zh": "土",
+      "polaridade": "Yang",
+      "direcao": "順行",
+      "direcao_pt": "forward",
+      "changshen_ramo_bi": 2,
+      "changshen_ramo_zh": "寅",
+      "diwang_ramo_bi": 6,
+      "diwang_ramo_zh": "午",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        }
+      ]
+    },
+    {
+      "stem_idx": 5,
+      "stem_zh": "己",
+      "stem_py": "Jǐ",
+      "elemento": "Terra",
+      "elemento_zh": "土",
+      "polaridade": "Yin",
+      "direcao": "逆行",
+      "direcao_pt": "reverse",
+      "changshen_ramo_bi": 9,
+      "changshen_ramo_zh": "酉",
+      "diwang_ramo_bi": 5,
+      "diwang_ramo_zh": "巳",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        }
+      ]
+    },
+    {
+      "stem_idx": 6,
+      "stem_zh": "庚",
+      "stem_py": "Gēng",
+      "elemento": "Metal",
+      "elemento_zh": "金",
+      "polaridade": "Yang",
+      "direcao": "順行",
+      "direcao_pt": "forward",
+      "changshen_ramo_bi": 5,
+      "changshen_ramo_zh": "巳",
+      "diwang_ramo_bi": 9,
+      "diwang_ramo_zh": "酉",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        }
+      ]
+    },
+    {
+      "stem_idx": 7,
+      "stem_zh": "辛",
+      "stem_py": "Xīn",
+      "elemento": "Metal",
+      "elemento_zh": "金",
+      "polaridade": "Yin",
+      "direcao": "逆行",
+      "direcao_pt": "reverse",
+      "changshen_ramo_bi": 0,
+      "changshen_ramo_zh": "子",
+      "diwang_ramo_bi": 8,
+      "diwang_ramo_zh": "申",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        }
+      ]
+    },
+    {
+      "stem_idx": 8,
+      "stem_zh": "壬",
+      "stem_py": "Rén",
+      "elemento": "Água",
+      "elemento_zh": "水",
+      "polaridade": "Yang",
+      "direcao": "順行",
+      "direcao_pt": "forward",
+      "changshen_ramo_bi": 7,
+      "changshen_ramo_zh": "未",
+      "diwang_ramo_bi": 11,
+      "diwang_ramo_zh": "亥",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        }
+      ]
+    },
+    {
+      "stem_idx": 9,
+      "stem_zh": "癸",
+      "stem_py": "Guǐ",
+      "elemento": "Água",
+      "elemento_zh": "水",
+      "polaridade": "Yin",
+      "direcao": "逆行",
+      "direcao_pt": "reverse",
+      "changshen_ramo_bi": 3,
+      "changshen_ramo_zh": "卯",
+      "diwang_ramo_bi": 11,
+      "diwang_ramo_zh": "亥",
+      "distribuicao": [
+        {
+          "ramo_bi": 0,
+          "ramo_zh": "子",
+          "ramo_py": "Zǐ",
+          "seq": 3,
+          "estagio_zh": "臨官",
+          "estagio_py": "Lín Guān",
+          "estagio_pt": "Assumir o Cargo",
+          "forca_nivel": "forte",
+          "forca_score": 0.9
+        },
+        {
+          "ramo_bi": 1,
+          "ramo_zh": "丑",
+          "ramo_py": "Chǒu",
+          "seq": 2,
+          "estagio_zh": "冠帶",
+          "estagio_py": "Guān Dài",
+          "estagio_pt": "Vestir a Coroa",
+          "forca_nivel": "médio",
+          "forca_score": 0.5
+        },
+        {
+          "ramo_bi": 2,
+          "ramo_zh": "寅",
+          "ramo_py": "Yín",
+          "seq": 1,
+          "estagio_zh": "沐浴",
+          "estagio_py": "Mù Yù",
+          "estagio_pt": "Banho Ritual",
+          "forca_nivel": "fraco",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 3,
+          "ramo_zh": "卯",
+          "ramo_py": "Mǎo",
+          "seq": 0,
+          "estagio_zh": "長生",
+          "estagio_py": "Cháng Shēng",
+          "estagio_pt": "Nascimento Longo",
+          "forca_nivel": "forte",
+          "forca_score": 0.8
+        },
+        {
+          "ramo_bi": 4,
+          "ramo_zh": "辰",
+          "ramo_py": "Chén",
+          "seq": 11,
+          "estagio_zh": "養",
+          "estagio_py": "Yǎng",
+          "estagio_pt": "Nutrição",
+          "forca_nivel": "latente",
+          "forca_score": 0.3
+        },
+        {
+          "ramo_bi": 5,
+          "ramo_zh": "巳",
+          "ramo_py": "Sì",
+          "seq": 10,
+          "estagio_zh": "胎",
+          "estagio_py": "Tāi",
+          "estagio_pt": "Gestação",
+          "forca_nivel": "latente",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 6,
+          "ramo_zh": "午",
+          "ramo_py": "Wǔ",
+          "seq": 9,
+          "estagio_zh": "絕",
+          "estagio_py": "Jué",
+          "estagio_pt": "Extinção",
+          "forca_nivel": "mínimo",
+          "forca_score": 0.1
+        },
+        {
+          "ramo_bi": 7,
+          "ramo_zh": "未",
+          "ramo_py": "Wèi",
+          "seq": 8,
+          "estagio_zh": "墓",
+          "estagio_py": "Mù",
+          "estagio_pt": "Túmulo",
+          "forca_nivel": "fraco",
+          "forca_score": 0.15
+        },
+        {
+          "ramo_bi": 8,
+          "ramo_zh": "申",
+          "ramo_py": "Shēn",
+          "seq": 7,
+          "estagio_zh": "死",
+          "estagio_py": "Sǐ",
+          "estagio_pt": "Morte",
+          "forca_nivel": "fraco",
+          "forca_score": 0.2
+        },
+        {
+          "ramo_bi": 9,
+          "ramo_zh": "酉",
+          "ramo_py": "Yǒu",
+          "seq": 6,
+          "estagio_zh": "病",
+          "estagio_py": "Bìng",
+          "estagio_pt": "Doença",
+          "forca_nivel": "fraco",
+          "forca_score": 0.25
+        },
+        {
+          "ramo_bi": 10,
+          "ramo_zh": "戌",
+          "ramo_py": "Xū",
+          "seq": 5,
+          "estagio_zh": "衰",
+          "estagio_py": "Shuāi",
+          "estagio_pt": "Declínio",
+          "forca_nivel": "médio",
+          "forca_score": 0.4
+        },
+        {
+          "ramo_bi": 11,
+          "ramo_zh": "亥",
+          "ramo_py": "Hài",
+          "seq": 4,
+          "estagio_zh": "帝旺",
+          "estagio_py": "Dì Wàng",
+          "estagio_pt": "Pico Imperial",
+          "forca_nivel": "máximo",
+          "forca_score": 1.0
+        }
+      ]
+    }
+  ]
+}

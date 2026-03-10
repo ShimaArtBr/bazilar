@@ -1,0 +1,817 @@
+{
+  "meta": {
+    "titulo": "Os Dez Deuses do BaZi — 十神 Shí Shén",
+    "autor": "Mestre Chen Xiao",
+    "versao": "1.9.0",
+    "total": 10,
+    "descricao": "Guia completo dos 10 Deuses com psicologia, expressão, referências clássicas e desenvolvimento pessoal.",
+    "schema_version": "2.0",
+    "nota_schema": "v2.0: campos canonicos (character, name_pt, etc.) adicionados como aliases dos campos originais para compatibilidade com protocolo REQ-13.",
+    "changelog": [
+      {
+        "versao": "1.9.0",
+        "data": "2026-03-09",
+        "sprint": "Q22-C12",
+        "mudancas": [
+          "C12 — seo_content.json v1.0.0 criado: 48 páginas SEO (6 estruturais + 10 Dez Deuses + 12 Estágios + 20 Conceituais).",
+          "C12 — Campos por página: slug, url_canonica, title_tag (≤60), meta_description (≤155), h1, keywords_primarias, keywords_lsi, schema_type, schema_partial, conteudo_tier.",
+          "C12 — Schemas: WebApplication, HowTo, FAQPage, DefinedTermSet, DefinedTerm. Validação 48/48 PASS."
+        ]
+      },
+      {
+        "versao": "1.8.0",
+        "data": "2026-03-09",
+        "sprint": "Q21-C11",
+        "mudancas": [
+          "C11 — glossario_bazi_app.json v1.2.0: 9 termos adicionados + 10 pré-existentes catalogados. Total: 32 termos (supera meta 22)."
+        ]
+      },
+      {
+        "versao": "1.8.0",
+        "data": "2026-03-09",
+        "sprint": "Q21-C11",
+        "mudancas": [
+          "C11 — glossario_bazi_app.json v2.0.0: 30 termos totais (12 estágios + 18 conceituais). 17 novos: 八字 天干 地支 五行 陰陽 日主 大運 流年 氣 神 吉 凶 合 沖 刑 害 破. Requisito C11 ≥22 termos: PASS."
+        ]
+      },
+      {
+        "versao": "1.7.0",
+        "data": "2026-03-09",
+        "sprint": "Q20-C10",
+        "mudancas": [
+          "C10 — doze_estagios_bazi_app.json v1.0.0 criado: 10 troncos × 12 ramos = 120 registros. Validação Nível 2 PASS 10/10: 帝旺 coerente com escola Yang/Yin diferenciada (子平真詮)."
+        ]
+      },
+      {
+        "versao": "1.6.0",
+        "data": "2026-03-09",
+        "sprint": "Q19-C09",
+        "mudancas": [
+          "C09 — Tabela canônica pt-BR padronizada. Campos novos em cada deus: nome_pt_alt[], nome_classico_zh, tipo_par.",
+          "C09 — Alterações em nome_pt: 比肩: 'Amigo / Irmão' → 'Irmão' | 劫財: 'Roubar Riqueza' → 'Rival' | 食神: 'Deus da Comida' → 'Deus da Expressão' | 傷官: 'Oficial de Ferimentos' → 'Oficial Ferido' | 七殺: 'Sete Mortes / General' → 'Sete Mortes' | 偏印: 'Recurso Indireto / Seal Oblíquo' → 'Recurso Indireto'"
+        ]
+      },
+      {
+        "versao": "1.5.0",
+        "data": "2026-03-09",
+        "sprint": "Q18-C08",
+        "mudancas": [
+          "C08 — glossario_bazi_app.json v1.1.0: entrada 藏干 (Hastes Ocultas) adicionada em termos_conceituais com tabela 12/12 ramos, integração técnica e referências clássicas."
+        ]
+      },
+      {
+        "versao": "1.4.0",
+        "data": "2026-03-09",
+        "sprint": "Q17-C07",
+        "mudancas": [
+          "C07 — glossario_bazi_app.json criado com 12 estágios completos (7 novos: 沐浴冠帶臨官衰病死養 + 5 reconstruídos: 長生帝旺墓絕胎). Campos: seq, zh, py, pt, radicais, etimologia, significado_shang, significado_bazi, exemplo_pt, referencia_classica, desenvolvimento_pessoal, seo."
+        ]
+      },
+      {
+        "versao": "1.3.0",
+        "data": "2026-03-09",
+        "sprint": "Q16",
+        "mudancas": [
+          "C06 — Contrato tenGod() ↔ JSON formalizado em interfaces.d.ts (TenGodResult, TenGodBinding, LifeStageResult)",
+          "C06 — BUG FIX CRÍTICO: 5 caracteres simplificados em data.js TG{} corrigidos para tradicionais (劫财→劫財, 伤官→傷官, 正财→正財, 偏财→偏財, 七杀→七殺). Binding d.caractere===tenGod().zh estava quebrando silenciosamente para 5 dos 10 deuses."
+        ]
+      },
+      {
+        "versao": "1.2.0",
+        "data": "2026-03-09",
+        "sprint": "Q14-Q15",
+        "mudancas": [
+          "C04 — Validação Nível 2 completa: 10/10 relações elementais confirmadas contra 子平真詮 e 三命通會",
+          "C05 — Decisão doutrinária Yang/Yin 12 Estágios: Escola diferenciada (順行/逆行). Implementado em data.js (LIFE_STAGE_NAMES, LIFE_STAGE_START) e pillars.js (getLifeStage()). Bloqueador ten-gods.js L113 removido."
+        ]
+      },
+      {
+        "versao": "1.1.0",
+        "data": "2026-03-09",
+        "sprint": "REQ-13",
+        "mudancas": [
+          "C02 — bi_jian: pergunta_central corrigida (não era idêntica a jie_cai na versão atual, mas texto inadequado para o arquétipo)",
+          "C03 — shi_shen: disclaimer adicionado à referência 玉照神應真經 (obra não disponível publicamente)"
+        ]
+      }
+    ],
+    "nota_c09": "C09 — Tabela canônica pt-BR dos 10 Deuses padronizada. Campos adicionados: nome_pt_alt, nome_classico_zh, tipo_par."
+  },
+  "deuses": [
+    {
+      "id": "bi_jian",
+      "ordem": 1,
+      "caractere": "比肩",
+      "pinyin": "Bǐ Jiān",
+      "pinyin_numerico": "bi3 jian1",
+      "nome_pt": "Irmão",
+      "nome_en": "Friend / Companion",
+      "tipo": "mesmo_elemento_mesma_polaridade",
+      "relacao_com_dia_master": "Igual ao Tronco do Dia em elemento e polaridade",
+      "definicao": {
+        "psicologica": "O espelho — a força do 'eu' que se reconhece nos outros, que busca pares, aliados e irmãos de jornada.",
+        "analogia_contemporanea": "O colega de trabalho que compartilha exatamente seu perfil profissional: pode ser o melhor parceiro ou o maior concorrente.",
+        "temas": [
+          "identidade",
+          "pares",
+          "lealdade",
+          "competição entre iguais"
+        ]
+      },
+      "expressao": {
+        "positiva": "Segurança emocional, lealdade a valores pessoais, habilidade de construir redes de confiança. Âncora confiável para equipes. Excelente em parcerias de longo prazo e projetos colaborativos.",
+        "negativa": "Teimosia disfuncional, competição predatória com pares, dificuldade de ceder espaço. Pode gerar isolamento por excesso de autossuficiência.",
+        "dominios_positivos": [
+          "parcerias",
+          "cooperativas",
+          "projetos criativos conjuntos",
+          "liderança lateral"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "O Amigo tanto fortalece a identidade pessoal quanto dilui recursos quando em excesso — equilíbrio é a chave.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, capítulos sobre relação entre Mestre do Dia e homólogos elementais"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Observar onde a necessidade de 'ser igual' se torna barreira para aprender com quem é diferente.",
+        "praticas": [
+          "grupos de masterminds",
+          "estudos comparativos de liderança",
+          "práticas de feedback horizontal"
+        ],
+        "pergunta_central": "Sua identidade se fortalece na companhia de iguais, ou depende dela?"
+      },
+      "seo": {
+        "keywords": [
+          "比肩 BaZi",
+          "Amigo no BaZi",
+          "Bǐ Jiān",
+          "arquétipo do par",
+          "autoidentidade BaZi"
+        ]
+      },
+      "fonte": "Zi Ping Zhen Quan (子平真詮) (Shen Xiaozhan). ctext.org — Zi Ping Zhen Quan, capítulos sobre relação entre Mestre do Dia e homólogos elementais",
+      "character": "比肩",
+      "name_pt": "Amigo / Irmão",
+      "archetype": "O espelho — a força do 'eu' que se reconhece nos outros, que busca pares, aliados e irmãos de jornada.",
+      "positive_expression": "Segurança emocional, lealdade a valores pessoais, habilidade de construir redes de confiança. Âncora confiável para equipes. Excelente em parcerias de longo prazo e projetos colaborativos.",
+      "negative_expression": "Teimosia disfuncional, competição predatória com pares, dificuldade de ceder espaço. Pode gerar isolamento por excesso de autossuficiência.",
+      "contemporary_analogy": "O colega de trabalho que compartilha exatamente seu perfil profissional: pode ser o melhor parceiro ou o maior concorrente.",
+      "source": "Zi Ping Zhen Quan (子平真詮) (Shen Xiaozhan). ctext.org — Zi Ping Zhen Quan, capítulos sobre relação entre Mestre do Dia e homólogos elementais",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Amigo",
+        "Par",
+        "Companheiro"
+      ],
+      "nome_classico_zh": null,
+      "tipo_par": "Self"
+    },
+    {
+      "id": "jie_cai",
+      "ordem": 2,
+      "caractere": "劫財",
+      "pinyin": "Jié Cái",
+      "pinyin_numerico": "jie2 cai2",
+      "nome_pt": "Rival",
+      "nome_en": "Rob Wealth",
+      "tipo": "mesmo_elemento_polaridade_oposta",
+      "relacao_com_dia_master": "Mesmo elemento, polaridade oposta ao Tronco do Dia",
+      "definicao": {
+        "psicologica": "O sócio ambicioso que admira você — e ao mesmo tempo cobiça o que você tem.",
+        "analogia_contemporanea": "O cofundador de startup que, na crise, começa a questionar a divisão de equity.",
+        "temas": [
+          "rivalidade",
+          "competição",
+          "disputa por recursos",
+          "ambição"
+        ]
+      },
+      "expressao": {
+        "positiva": "Ambição produtiva, coragem para agir em alta competição, habilidade de navegar disputas sem se perder. Destaque em trading, vendas consultivas, negociações complexas.",
+        "negativa": "Comportamentos destrutivos com finanças, parcerias que terminam em litígio, padrão de sabotagem próximo ao sucesso.",
+        "dominios_positivos": [
+          "empreendedorismo",
+          "trading",
+          "vendas de alto desempenho",
+          "negociação"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "O 劫財 drena os recursos do Mestre do Dia — especialmente nos pilares de Ano ou Mês.",
+        "fonte": "ctext.org — San Ming Tong Hui, seções sobre 劫財 e finanças"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Distinguir ambição saudável de inveja reativa.",
+        "praticas": [
+          "contabilidade financeira consciente",
+          "trabalho com crenças de escassez/abundância",
+          "coaching de negociação"
+        ],
+        "pergunta_central": "O que acontece quando alguém igual a mim compete pelo que é meu?"
+      },
+      "seo": {
+        "keywords": [
+          "劫財 BaZi",
+          "Roubar Riqueza BaZi",
+          "Jié Cái significado",
+          "rival arquétipo metafísica"
+        ]
+      },
+      "fonte": "San Ming Tong Hui (三命通會) (Desconhecido (compilação Ming)). ctext.org — San Ming Tong Hui, seções sobre 劫財 e finanças",
+      "character": "劫財",
+      "name_pt": "Roubar Riqueza",
+      "archetype": "O sócio ambicioso que admira você — e ao mesmo tempo cobiça o que você tem.",
+      "positive_expression": "Ambição produtiva, coragem para agir em alta competição, habilidade de navegar disputas sem se perder. Destaque em trading, vendas consultivas, negociações complexas.",
+      "negative_expression": "Comportamentos destrutivos com finanças, parcerias que terminam em litígio, padrão de sabotagem próximo ao sucesso.",
+      "contemporary_analogy": "O cofundador de startup que, na crise, começa a questionar a divisão de equity.",
+      "source": "San Ming Tong Hui (三命通會) (Desconhecido (compilação Ming)). ctext.org — San Ming Tong Hui, seções sobre 劫財 e finanças",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Roubar Riqueza",
+        "Irmão Rival"
+      ],
+      "nome_classico_zh": null,
+      "tipo_par": "Self"
+    },
+    {
+      "id": "shi_shen",
+      "ordem": 3,
+      "caractere": "食神",
+      "pinyin": "Shí Shén",
+      "pinyin_numerico": "shi2 shen2",
+      "nome_pt": "Deus da Expressão",
+      "nome_en": "Eating God / Output God",
+      "tipo": "elemento_produzido_mesma_polaridade",
+      "relacao_com_dia_master": "Elemento produzido pelo Mestre do Dia, mesma polaridade",
+      "definicao": {
+        "psicologica": "O chef estrelado que cozinha por puro prazer — ao nutrir os outros, também se nutre. Expressão fluida e natural.",
+        "analogia_contemporanea": "Artista, chef, professor inspirado — alguém cuja vida parece vocação, não profissão.",
+        "temas": [
+          "criatividade",
+          "prazer",
+          "generosidade",
+          "talento natural",
+          "expressão fluida"
+        ]
+      },
+      "expressao": {
+        "positiva": "Charme natural, talentos multifacetados, energia convidativa. Facilidade em criar ambientes agradáveis. Generosidade intrínseca.",
+        "negativa": "Indulgência que paralisa, projetos inconclusos, charme que mascara dificuldade com estrutura e disciplina.",
+        "dominios_positivos": [
+          "artes",
+          "gastronomia",
+          "ensino",
+          "criação de conteúdo",
+          "design"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "Yu Zhao Shen Ying Zhen Jing (玉照神應真經)",
+        "autor": "Atribuído ao período Song/Ming",
+        "periodo": "Período Song/Ming",
+        "ideia_central": "O 食神 é um dos Deuses mais benevolentes — especialmente no Pilar do Mês, indicando talentos da juventude.",
+        "fonte": "ctext.org — Yu Zhao Shen Ying Zhen Jing (玉照神應真經), análise dos deuses benevolentes — verificar disponibilidade atual",
+        "disclaimer": "Obra citada em compilações Ming; texto integral não disponível publicamente. Para referência verificável, consultar 子平真詮 (Zi Ping Zhen Quan) de Shen Xiaozhan, disponível em ctext.org.",
+        "fonte_alternativa": "ctext.org — Zi Ping Zhen Quan (子平真詮), Shen Xiaozhan"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Canalizar prazer em produção consistente.",
+        "praticas": [
+          "Kanban para projetos criativos",
+          "técnica Pomodoro aplicada às artes",
+          "comprometimento público de entrega"
+        ],
+        "pergunta_central": "Seu prazer cria valor além de você mesmo?"
+      },
+      "seo": {
+        "keywords": [
+          "食神 BaZi",
+          "Deus da Comida BaZi",
+          "Shí Shén significado",
+          "criatividade prazer metafísica chinesa"
+        ]
+      },
+      "fonte": "Yu Zhao Shen Ying Zhen Jing (玉照神應真經) (Atribuído ao período Song/Ming). ctext.org — Yu Zhao Shen Ying Zhen Jing (玉照神應真經), análise dos deuses benevolentes — verificar disponibilidade atual",
+      "character": "食神",
+      "name_pt": "Deus da Comida",
+      "archetype": "O chef estrelado que cozinha por puro prazer — ao nutrir os outros, também se nutre. Expressão fluida e natural.",
+      "positive_expression": "Charme natural, talentos multifacetados, energia convidativa. Facilidade em criar ambientes agradáveis. Generosidade intrínseca.",
+      "negative_expression": "Indulgência que paralisa, projetos inconclusos, charme que mascara dificuldade com estrutura e disciplina.",
+      "contemporary_analogy": "Artista, chef, professor inspirado — alguém cuja vida parece vocação, não profissão.",
+      "source": "Yu Zhao Shen Ying Zhen Jing (玉照神應真經) (Atribuído ao período Song/Ming). ctext.org — Yu Zhao Shen Ying Zhen Jing (玉照神應真經), análise dos deuses benevolentes — verificar disponibilidade atual",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Deus da Comida",
+        "Talento Natural"
+      ],
+      "nome_classico_zh": null,
+      "tipo_par": "Output"
+    },
+    {
+      "id": "shang_guan",
+      "ordem": 4,
+      "caractere": "傷官",
+      "pinyin": "Shāng Guān",
+      "pinyin_numerico": "shang1 guan1",
+      "nome_pt": "Oficial Ferido",
+      "nome_en": "Hurting Officer",
+      "tipo": "elemento_produzido_polaridade_oposta",
+      "relacao_com_dia_master": "Elemento produzido pelo Mestre do Dia, polaridade oposta",
+      "definicao": {
+        "psicologica": "O filho rebelde do sistema — o gênio que não cabe em nenhuma caixa.",
+        "analogia_contemporanea": "O fundador disruptivo que cria uma categoria nova ignorando as regras do setor.",
+        "temas": [
+          "rebeldia",
+          "inovação",
+          "genialidade",
+          "disrupção",
+          "tensão criativa"
+        ]
+      },
+      "expressao": {
+        "positiva": "Criatividade inigualável, eloquência, inovação, intensidade intelectual que fascina. Excelente em música, escrita, advocacia, empreendedorismo disruptivo.",
+        "negativa": "Arrogância, dificuldade com hierarquias, sabotagem de relações de autoridade, conflitos repetidos com figuras de poder.",
+        "dominios_positivos": [
+          "inovação",
+          "empreendedorismo",
+          "artes de vanguarda",
+          "advocacia",
+          "pesquisa"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "Qiong Tong Bao Jian (窮通寶鑑)",
+        "autor": "Atribuído ao período Song/Ming",
+        "periodo": "Período Song/Ming",
+        "ideia_central": "A força do 傷官 depende criticamente do elemento da estação de nascimento para operar como gênio ou disruptor problemático.",
+        "fonte": "ctext.org — Qiong Tong Bao Jian, análise sazonal dos Deuses"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Encontrar arenas onde a rebeldia é valorizada.",
+        "praticas": [
+          "análise junguiana",
+          "coaching de sombra",
+          "trabalho com autoridade interna"
+        ],
+        "pergunta_central": "Você questiona para crescer, ou para se sentir superior?"
+      },
+      "seo": {
+        "keywords": [
+          "傷官 BaZi",
+          "Oficial de Ferimentos",
+          "Shāng Guān",
+          "rebeldia talento BaZi",
+          "gênio disruptivo"
+        ]
+      },
+      "fonte": "Qiong Tong Bao Jian (窮通寶鑑) (Atribuído ao período Song/Ming). ctext.org — Qiong Tong Bao Jian, análise sazonal dos Deuses",
+      "character": "傷官",
+      "name_pt": "Oficial de Ferimentos",
+      "archetype": "O filho rebelde do sistema — o gênio que não cabe em nenhuma caixa.",
+      "positive_expression": "Criatividade inigualável, eloquência, inovação, intensidade intelectual que fascina. Excelente em música, escrita, advocacia, empreendedorismo disruptivo.",
+      "negative_expression": "Arrogância, dificuldade com hierarquias, sabotagem de relações de autoridade, conflitos repetidos com figuras de poder.",
+      "contemporary_analogy": "O fundador disruptivo que cria uma categoria nova ignorando as regras do setor.",
+      "source": "Qiong Tong Bao Jian (窮通寶鑑) (Atribuído ao período Song/Ming). ctext.org — Qiong Tong Bao Jian, análise sazonal dos Deuses",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Oficial de Ferimentos",
+        "Talento Rebelde"
+      ],
+      "nome_classico_zh": null,
+      "tipo_par": "Output"
+    },
+    {
+      "id": "zheng_cai",
+      "ordem": 5,
+      "caractere": "正財",
+      "pinyin": "Zhèng Cái",
+      "pinyin_numerico": "zheng4 cai2",
+      "nome_pt": "Riqueza Direta",
+      "nome_en": "Direct Wealth",
+      "tipo": "elemento_controlado_polaridade_oposta",
+      "relacao_com_dia_master": "Elemento controlado pelo Mestre do Dia, polaridade oposta",
+      "definicao": {
+        "psicologica": "O CFO disciplinado — gerencia o orçamento com rigor, respeita contratos e constrói patrimônio de forma metódica.",
+        "analogia_contemporanea": "Diretor financeiro que constrói patrimônio consistente, sem atalhos.",
+        "temas": [
+          "disciplina",
+          "responsabilidade financeira",
+          "integridade",
+          "construção metódica"
+        ]
+      },
+      "expressao": {
+        "positiva": "Confiabilidade, organização, excelente gestão de recursos. Capacidade natural de construir patrimônio, relacionamentos e estruturas.",
+        "negativa": "Rigidez, apego ao controle, relações transacionais, microgerenciamento. Em excesso: avareza.",
+        "dominios_positivos": [
+          "finanças",
+          "gestão",
+          "direito contratual",
+          "construção de patrimônio"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "A riqueza estável requer tanto o elemento de controle quanto a base de suporte — criando uma tríade funcional no mapa.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, capítulos sobre riqueza direta e indireta"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Equilibrar controle com confiança.",
+        "praticas": [
+          "delegação consciente",
+          "finanças comportamentais",
+          "trabalho com crenças de escassez"
+        ],
+        "pergunta_central": "Você gerencia recursos para criar liberdade, ou para se sentir seguro?"
+      },
+      "seo": {
+        "keywords": [
+          "正財 BaZi",
+          "Riqueza Direta BaZi",
+          "Zhèng Cái significado",
+          "disciplina financeira metafísica"
+        ]
+      },
+      "fonte": "Zi Ping Zhen Quan (子平真詮) (Shen Xiaozhan). ctext.org — Zi Ping Zhen Quan, capítulos sobre riqueza direta e indireta",
+      "character": "正財",
+      "name_pt": "Riqueza Direta",
+      "archetype": "O CFO disciplinado — gerencia o orçamento com rigor, respeita contratos e constrói patrimônio de forma metódica.",
+      "positive_expression": "Confiabilidade, organização, excelente gestão de recursos. Capacidade natural de construir patrimônio, relacionamentos e estruturas.",
+      "negative_expression": "Rigidez, apego ao controle, relações transacionais, microgerenciamento. Em excesso: avareza.",
+      "contemporary_analogy": "Diretor financeiro que constrói patrimônio consistente, sem atalhos.",
+      "source": "Zi Ping Zhen Quan (子平真詮) (Shen Xiaozhan). ctext.org — Zi Ping Zhen Quan, capítulos sobre riqueza direta e indireta",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Riqueza Estável",
+        "Patrimônio"
+      ],
+      "nome_classico_zh": null,
+      "tipo_par": "Wealth"
+    },
+    {
+      "id": "pian_cai",
+      "ordem": 6,
+      "caractere": "偏財",
+      "pinyin": "Piān Cái",
+      "pinyin_numerico": "pian1 cai2",
+      "nome_pt": "Riqueza Indireta",
+      "nome_en": "Indirect Wealth",
+      "tipo": "elemento_controlado_mesma_polaridade",
+      "relacao_com_dia_master": "Elemento controlado pelo Mestre do Dia, mesma polaridade",
+      "definicao": {
+        "psicologica": "O empreendedor em série — investe em múltiplas apostas sabendo que algumas vão mudar o jogo.",
+        "analogia_contemporanea": "O investidor anjo que converte conexões sociais em valor material.",
+        "temas": [
+          "oportunismo",
+          "charme social",
+          "generosidade estratégica",
+          "múltiplas fontes de renda"
+        ]
+      },
+      "expressao": {
+        "positiva": "Magnetismo social, visão de oportunidades, generosidade genuína que retorna multiplicada. Excelente em vendas de alto valor, RP, venture capital.",
+        "negativa": "Dispersão financeira, relacionamentos que não aprofundam, superestimação do próximo projeto.",
+        "dominios_positivos": [
+          "empreendedorismo",
+          "relações públicas",
+          "venture capital",
+          "liderança carismática"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "O 偏財 indica talentos para comércio, especulação e mobilização de recursos sociais — instável sem suporte adequado.",
+        "fonte": "ctext.org — San Ming Tong Hui, capítulos sobre riqueza direta versus indireta"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Criar sistemas que capturem o valor gerado pelo carisma e oportunismo naturais.",
+        "praticas": [
+          "assessoria financeira",
+          "estruturas de sociedade claras",
+          "práticas de consolidação"
+        ],
+        "pergunta_central": "Sua generosidade constrói legado, ou apenas circulação?"
+      },
+      "seo": {
+        "keywords": [
+          "偏財 BaZi",
+          "Riqueza Indireta BaZi",
+          "Piān Cái significado",
+          "empreendedorismo especulação"
+        ]
+      },
+      "fonte": "San Ming Tong Hui (三命通會) (Desconhecido (compilação Ming)). ctext.org — San Ming Tong Hui, capítulos sobre riqueza direta versus indireta",
+      "character": "偏財",
+      "name_pt": "Riqueza Indireta",
+      "archetype": "O empreendedor em série — investe em múltiplas apostas sabendo que algumas vão mudar o jogo.",
+      "positive_expression": "Magnetismo social, visão de oportunidades, generosidade genuína que retorna multiplicada. Excelente em vendas de alto valor, RP, venture capital.",
+      "negative_expression": "Dispersão financeira, relacionamentos que não aprofundam, superestimação do próximo projeto.",
+      "contemporary_analogy": "O investidor anjo que converte conexões sociais em valor material.",
+      "source": "San Ming Tong Hui (三命通會) (Desconhecido (compilação Ming)). ctext.org — San Ming Tong Hui, capítulos sobre riqueza direta versus indireta",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Riqueza de Oportunidade",
+        "Fortuna"
+      ],
+      "nome_classico_zh": null,
+      "tipo_par": "Wealth"
+    },
+    {
+      "id": "zheng_guan",
+      "ordem": 7,
+      "caractere": "正官",
+      "pinyin": "Zhèng Guān",
+      "pinyin_numerico": "zheng4 guan1",
+      "nome_pt": "Oficial Direto",
+      "nome_en": "Direct Officer",
+      "tipo": "elemento_que_controla_polaridade_oposta",
+      "relacao_com_dia_master": "Elemento que controla o Mestre do Dia, polaridade oposta",
+      "definicao": {
+        "psicologica": "O líder íntegro — juiz equitativo, diretor que equilibra resultados e valores.",
+        "analogia_contemporanea": "O CEO que cresce uma empresa sem comprometer a cultura.",
+        "temas": [
+          "integridade",
+          "responsabilidade",
+          "liderança ética",
+          "consciência cívica"
+        ]
+      },
+      "expressao": {
+        "positiva": "Líderes naturais com alto senso ético, capazes de construir sistemas justos. Autoridade sem criar ressentimento. Excelente em direito, gestão pública, educação.",
+        "negativa": "Dogmatismo, conformismo excessivo, incapacidade de questionar estruturas injustas.",
+        "dominios_positivos": [
+          "direito",
+          "gestão pública",
+          "educação",
+          "liderança organizacional"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "O Deus de mais alto prestígio no sistema clássico — especialmente na estrutura 官印相生, indicando ascensão em posições de autoridade.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, análise detalhada do Oficial Direto"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Distinguir integridade genuína de performance de correção.",
+        "praticas": [
+          "liderança servidora",
+          "ética aplicada",
+          "coaching de paradoxo"
+        ],
+        "pergunta_central": "Você serve a estrutura, ou a estrutura serve sua missão?"
+      },
+      "seo": {
+        "keywords": [
+          "正官 BaZi",
+          "Oficial Direto BaZi",
+          "Zhèng Guān",
+          "liderança ética autoridade metafísica"
+        ]
+      },
+      "fonte": "Zi Ping Zhen Quan (子平真詮) (Shen Xiaozhan). ctext.org — Zi Ping Zhen Quan, análise detalhada do Oficial Direto",
+      "character": "正官",
+      "name_pt": "Oficial Direto",
+      "archetype": "O líder íntegro — juiz equitativo, diretor que equilibra resultados e valores.",
+      "positive_expression": "Líderes naturais com alto senso ético, capazes de construir sistemas justos. Autoridade sem criar ressentimento. Excelente em direito, gestão pública, educação.",
+      "negative_expression": "Dogmatismo, conformismo excessivo, incapacidade de questionar estruturas injustas.",
+      "contemporary_analogy": "O CEO que cresce uma empresa sem comprometer a cultura.",
+      "source": "Zi Ping Zhen Quan (子平真詮) (Shen Xiaozhan). ctext.org — Zi Ping Zhen Quan, análise detalhada do Oficial Direto",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Autoridade Legítima",
+        "Liderança Ética"
+      ],
+      "nome_classico_zh": null,
+      "tipo_par": "Officer"
+    },
+    {
+      "id": "qi_sha",
+      "ordem": 8,
+      "caractere": "七殺",
+      "pinyin": "Qī Shā",
+      "pinyin_numerico": "qi1 sha1",
+      "nome_pt": "Sete Mortes",
+      "nome_en": "Seven Killings",
+      "tipo": "elemento_que_controla_mesma_polaridade",
+      "relacao_com_dia_master": "Elemento que controla o Mestre do Dia, mesma polaridade",
+      "definicao": {
+        "psicologica": "O general de campo — eficaz, decisivo, implacável quando necessário. Força que forja caráter através da pressão.",
+        "analogia_contemporanea": "O líder que aparece nas crises — quando o resto hesita, ele age.",
+        "temas": [
+          "poder",
+          "desafio",
+          "resiliência",
+          "transformação",
+          "comando"
+        ]
+      },
+      "expressao": {
+        "positiva": "Determinação extraordinária, resiliência, carisma de comando. Quando controlado ('domar o Sete Mortes é transformá-lo em General'), é magneticamente poderoso.",
+        "negativa": "Impulsividade destrutiva, conflitos repetidos com poder, riscos físicos. Sem controle, a energia vira agressividade.",
+        "dominios_positivos": [
+          "liderança em crise",
+          "empreendedorismo difícil",
+          "artes marciais",
+          "alto impacto social"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "Qiong Tong Bao Jian (窮通寶鑑)",
+        "autor": "Atribuído ao período Song/Ming",
+        "periodo": "Período Song/Ming",
+        "ideia_central": "O elemento do mês de nascimento determina se o General torna-se aliado ou adversário do Mestre do Dia — o contexto sazonal é absolutamente decisivo.",
+        "fonte": "ctext.org — Qiong Tong Bao Jian, análise do 七殺 e relação com elemento sazonal"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Encontrar arenas legítimas para a força.",
+        "praticas": [
+          "meditação de compaixão",
+          "artes marciais",
+          "disciplinas de força com controle"
+        ],
+        "pergunta_central": "Você usa sua força para proteger, ou para dominar?"
+      },
+      "seo": {
+        "keywords": [
+          "七殺 BaZi",
+          "Sete Mortes BaZi",
+          "Qī Shā significado",
+          "intensidade poder transformação"
+        ]
+      },
+      "fonte": "Qiong Tong Bao Jian (窮通寶鑑) (Atribuído ao período Song/Ming). ctext.org — Qiong Tong Bao Jian, análise do 七殺 e relação com elemento sazonal",
+      "character": "七殺",
+      "name_pt": "Sete Mortes / General",
+      "archetype": "O general de campo — eficaz, decisivo, implacável quando necessário. Força que forja caráter através da pressão.",
+      "positive_expression": "Determinação extraordinária, resiliência, carisma de comando. Quando controlado ('domar o Sete Mortes é transformá-lo em General'), é magneticamente poderoso.",
+      "negative_expression": "Impulsividade destrutiva, conflitos repetidos com poder, riscos físicos. Sem controle, a energia vira agressividade.",
+      "contemporary_analogy": "O líder que aparece nas crises — quando o resto hesita, ele age.",
+      "source": "Qiong Tong Bao Jian (窮通寶鑑) (Atribuído ao período Song/Ming). ctext.org — Qiong Tong Bao Jian, análise do 七殺 e relação com elemento sazonal",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "General",
+        "Guerreiro",
+        "Sete Assassinos"
+      ],
+      "nome_classico_zh": "將星 (Jiāng Xīng — quando domado)",
+      "tipo_par": "Officer"
+    },
+    {
+      "id": "zheng_yin",
+      "ordem": 9,
+      "caractere": "正印",
+      "pinyin": "Zhèng Yìn",
+      "pinyin_numerico": "zheng4 yin4",
+      "nome_pt": "Recurso Direto",
+      "nome_en": "Direct Resource",
+      "tipo": "elemento_que_produz_polaridade_oposta",
+      "relacao_com_dia_master": "Elemento que produz o Mestre do Dia, polaridade oposta",
+      "definicao": {
+        "psicologica": "O mentor que acredita em você antes de você mesmo. A mãe sábia que nutre o potencial.",
+        "analogia_contemporanea": "O professor que vê seu potencial e cria condições para que floresça.",
+        "temas": [
+          "aprendizado",
+          "suporte emocional",
+          "intuição cultivada",
+          "sabedoria experiencial"
+        ]
+      },
+      "expressao": {
+        "positiva": "Inteligência emocional elevada, facilidade de aprendizado, empatia profunda. Presença de 'base segura'. Excelente em psicologia, medicina, filosofia, ensino.",
+        "negativa": "Dependência de validação, passividade disfarçada de reflexão, eterno estudante que nunca aplica.",
+        "dominios_positivos": [
+          "psicologia",
+          "medicina",
+          "filosofia",
+          "ensino",
+          "aconselhamento"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "Zi Ping Zhen Quan (子平真詮)",
+        "autor": "Shen Xiaozhan",
+        "periodo": "Dinastia Qing",
+        "ideia_central": "O 正印 é o suporte fundamental do Mestre do Dia — transforma pressão externa (Oficial, Sete Mortes) em crescimento interno. A estrutura 官印相生 é uma das mais favoráveis.",
+        "fonte": "ctext.org — Zi Ping Zhen Quan, análise do Recurso Direto e estrutura 官印相生"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Transformar conhecimento em ação e suporte em contribuição ativa.",
+        "praticas": [
+          "ensinar para consolidar aprendizado",
+          "mentoria de outros",
+          "comprometimentos públicos de entrega"
+        ],
+        "pergunta_central": "Você aprende para agir, ou aprende para evitar agir?"
+      },
+      "seo": {
+        "keywords": [
+          "正印 BaZi",
+          "Recurso Direto BaZi",
+          "Zhèng Yìn significado",
+          "sabedoria aprendizado suporte"
+        ]
+      },
+      "fonte": "Zi Ping Zhen Quan (子平真詮) (Shen Xiaozhan). ctext.org — Zi Ping Zhen Quan, análise do Recurso Direto e estrutura 官印相生",
+      "character": "正印",
+      "name_pt": "Recurso Direto",
+      "archetype": "O mentor que acredita em você antes de você mesmo. A mãe sábia que nutre o potencial.",
+      "positive_expression": "Inteligência emocional elevada, facilidade de aprendizado, empatia profunda. Presença de 'base segura'. Excelente em psicologia, medicina, filosofia, ensino.",
+      "negative_expression": "Dependência de validação, passividade disfarçada de reflexão, eterno estudante que nunca aplica.",
+      "contemporary_analogy": "O professor que vê seu potencial e cria condições para que floresça.",
+      "source": "Zi Ping Zhen Quan (子平真詮) (Shen Xiaozhan). ctext.org — Zi Ping Zhen Quan, análise do Recurso Direto e estrutura 官印相生",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Selo Direto",
+        "Suporte Materno"
+      ],
+      "nome_classico_zh": null,
+      "tipo_par": "Resource"
+    },
+    {
+      "id": "pian_yin",
+      "ordem": 10,
+      "caractere": "偏印",
+      "pinyin": "Piān Yìn",
+      "pinyin_numerico": "pian1 yin4",
+      "nome_pt": "Recurso Indireto",
+      "nome_en": "Indirect Resource",
+      "nome_alternativo_classico": "梟神 (Xiāo Shén — Deus Coruja)",
+      "tipo": "elemento_que_produz_mesma_polaridade",
+      "relacao_com_dia_master": "Elemento que produz o Mestre do Dia, mesma polaridade",
+      "definicao": {
+        "psicologica": "O xamã, o pesquisador independente. Aprendizado heterodoxo que frequentemente vai mais fundo que o convencional.",
+        "analogia_contemporanea": "O gênio autodidata que viu padrões que a academia levou décadas para reconhecer.",
+        "temas": [
+          "intuição",
+          "heterodoxia",
+          "pensamento não-linear",
+          "espiritualidade",
+          "visão"
+        ]
+      },
+      "expressao": {
+        "positiva": "Originalidade intelectual rara, acesso a insights profundos, habilidade especial com sistemas simbólicos (arte, espiritualidade, estratégia). Fascinante em qualquer sala.",
+        "negativa": "O 偏印 'devora' o 食神 — paralisa expressão criativa e resultados concretos. Pode gerar pensamento obsessivo, isolamento, labirintos mentais.",
+        "dominios_positivos": [
+          "pesquisa",
+          "artes",
+          "metafísica",
+          "estratégia",
+          "pensamento lateral"
+        ]
+      },
+      "referencia_classica": {
+        "obra": "San Ming Tong Hui (三命通會)",
+        "autor": "Desconhecido (compilação Ming)",
+        "periodo": "Dinastia Ming",
+        "ideia_central": "O 偏印/梟神 em excesso consome recursos de saúde e expressão, mas em equilíbrio confere profundidade espiritual e habilidades divinatórias notáveis.",
+        "fonte": "ctext.org — San Ming Tong Hui, seções sobre 偏印 e 梟神"
+      },
+      "desenvolvimento_pessoal": {
+        "desafio": "Encontrar tradução para os mundos interiores ricos.",
+        "praticas": [
+          "escrita como ponte interior-exterior",
+          "criar sistemas e ensiná-los",
+          "práticas de aterramento (corpo, natureza, rotina)"
+        ],
+        "pergunta_central": "Seus mundos interiores enriquecem os outros, ou apenas te isolam?"
+      },
+      "seo": {
+        "keywords": [
+          "偏印 BaZi",
+          "Recurso Indireto BaZi",
+          "Piān Yìn significado",
+          "intuição heterodoxia espiritualidade"
+        ]
+      },
+      "fonte": "San Ming Tong Hui (三命通會) (Desconhecido (compilação Ming)). ctext.org — San Ming Tong Hui, seções sobre 偏印 e 梟神",
+      "character": "偏印",
+      "name_pt": "Recurso Indireto / Seal Oblíquo",
+      "archetype": "O xamã, o pesquisador independente. Aprendizado heterodoxo que frequentemente vai mais fundo que o convencional.",
+      "positive_expression": "Originalidade intelectual rara, acesso a insights profundos, habilidade especial com sistemas simbólicos (arte, espiritualidade, estratégia). Fascinante em qualquer sala.",
+      "negative_expression": "O 偏印 'devora' o 食神 — paralisa expressão criativa e resultados concretos. Pode gerar pensamento obsessivo, isolamento, labirintos mentais.",
+      "contemporary_analogy": "O gênio autodidata que viu padrões que a academia levou décadas para reconhecer.",
+      "source": "San Ming Tong Hui (三命通會) (Desconhecido (compilação Ming)). ctext.org — San Ming Tong Hui, seções sobre 偏印 e 梟神",
+      "disclaimer": "Esta interpretação é uma perspectiva de autoconhecimento e não constitui diagnóstico médico, psicológico ou previsão de destino. BaZi é uma ferramenta de reflexão pessoal.",
+      "nome_pt_alt": [
+        "Selo Oblíquo",
+        "Deus Coruja"
+      ],
+      "nome_classico_zh": "梟神 (Xiāo Shén — Deus Coruja)",
+      "tipo_par": "Resource"
+    }
+  ]
+}

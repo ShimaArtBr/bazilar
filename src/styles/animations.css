@@ -1,0 +1,196 @@
+/**
+ * @file src/styles/animations.css
+ * @description Keyframes DS v2.3 — "Quiet Luxury Tupiniquim"
+ *              Sistema de microinterações para o BaZi PWA.
+ *
+ * PRINCÍPIO FUNDAMENTAL (Isabela Mont):
+ *   Toda animação deve ter propósito informativo.
+ *   "Está bonito" não é critério — "informa o usuário sobre o estado
+ *   do sistema em 200ms" é.
+ *
+ * CATÁLOGO:
+ *   1. pillar-enter    — entrada stagger das células do mapa (80ms entre pilares)
+ *   2. map-fade-out    — saída do mapa antes de troca Natal↔Da Yun (200ms)
+ *   3. map-fade-in     — entrada do mapa após troca Natal↔Da Yun (300ms)
+ *   4. shimmer         — placeholder de loading nos textos das células
+ *   5. pulse-border    — confirmação visual de interação concluída
+ *   6. spin-loader     — indicador de cálculo em andamento
+ *
+ * PREFERS-REDUCED-MOTION:
+ *   Todos os keyframes são anulados via tokens.css quando a preferência
+ *   do usuário desativa movimento (--duration-* = 0ms; --enter-y = 0px).
+ *   As animações de cor (shimmer, pulse-border) mantêm transições de opacidade
+ *   suaves (não de posição), pois são informativas e não causam desconforto.
+ *
+ * DEPENDÊNCIA: tokens.css deve ser carregado antes deste arquivo.
+ *
+ * @persona  Isabela Mont — Design System UI/UX
+ * @version  2.3.0
+ * @sprint   S2·W1
+ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. PILLAR-ENTER
+   Propósito: comunicar que o mapa foi calculado e está sendo revelado.
+              O stagger direcional (esquerda → direita) reforça a leitura
+              cultural BaZi: Ano → Mês → Dia → Hora.
+   Duração:   300ms por célula, delay 80ms entre elas.
+   Trigger:   classe .bazi-map--revealed adicionada por JS após cálculo.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes pillar-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-y, 12px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. MAP-FADE-OUT
+   Propósito: sinalizar que o conteúdo está sendo substituído (Natal→Da Yun).
+              Saída rápida (200ms) evita que o usuário fique esperando.
+   Duração:   200ms — var(--duration-fast)
+   Trigger:   classe .bazi-map--fade-out em JS antes de trocar dados.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes map-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(calc(var(--enter-y-sm, 6px) * -1));  /* sobe levemente ao sair */
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. MAP-FADE-IN
+   Propósito: confirmar que o novo conteúdo (Da Yun ou Natal) chegou.
+              Entrada mais lenta que a saída (300ms) para o olho acompanhar.
+   Duração:   300ms — var(--duration-normal)
+   Pausa:     50ms de delay adicionado em JS entre fade-out e fade-in.
+   Trigger:   classe .bazi-map--fade-in após atualização dos dados.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes map-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-y-sm, 6px));  /* desce levemente ao entrar */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. SHIMMER
+   Propósito: indicar que o conteúdo está sendo carregado/calculado.
+              O gradiente em movimento simula luz passando sobre superfície
+              de papel de arroz — coerente com a estética "Quiet Luxury".
+   Duração:   500ms em loop — var(--duration-slow)
+   Trigger:   classe .is-loading em .bazi-pillar (aplicada em bazi-map.css).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. PULSE-BORDER
+   Propósito: confirmar feedback de interação bem-sucedida (ex: copiar pinyin,
+              favoritar mapa). Pulso dourado que não desloca o elemento.
+   Duração:   600ms, 1 iteração.
+   Trigger:   classe .has-pulse adicionada e removida por JS.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes pulse-border {
+  0%   { box-shadow: 0 0 0 0   rgba(184, 134, 11, 0.50); }
+  50%  { box-shadow: 0 0 0 8px rgba(184, 134, 11, 0.00); }
+  100% { box-shadow: 0 0 0 0   rgba(184, 134, 11, 0.00); }
+}
+
+.bazi-pillar.has-pulse {
+  animation: pulse-border 600ms var(--ease-standard) 1 forwards;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. SPIN-LOADER
+   Propósito: indicador de processamento para cálculos longos (> 300ms).
+              Anel giratório dourado discreto — não bloqueia leitura.
+   Duração:   800ms em loop.
+   Trigger:   elemento .bazi-loader injetado por JS durante cálculo.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes spin-loader {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+.bazi-loader {
+  width:  24px;
+  height: 24px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-gold-matte);
+  border-radius: 50%;
+  animation: spin-loader 800ms linear infinite;
+  margin: var(--space-3) auto;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREFERS-REDUCED-MOTION — garantia global
+   ═══════════════════════════════════════════════════════════════════════════
+   tokens.css já zera as durações via variáveis CSS.
+   Este bloco desativa explicitamente animações como segurança adicional,
+   cobrindo navegadores que não aplicam variáveis em @keyframes.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Desativa translateY e fade */
+  @keyframes pillar-enter {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes map-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+
+  @keyframes map-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Shimmer mantido como opacidade pulsante — sem gradiente em movimento */
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 0.55; }
+  }
+
+  /* Pulse mantido como cor — sem deslocamento */
+  @keyframes pulse-border {
+    0%, 100% { border-color: var(--color-border); }
+    50%      { border-color: var(--color-gold-matte); }
+  }
+
+  /* Loader: estático, sem rotação */
+  .bazi-loader {
+    animation: none;
+    border-top-color: var(--color-gold-matte);
+    opacity: 0.60;
+  }
+}

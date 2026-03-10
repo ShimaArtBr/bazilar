@@ -12,9 +12,24 @@
 <meta property="og:image:alt" content="BAZILAR — sabedoria ancestral">
 <meta property="og:locale" content="pt_BR">
 <title>BAZILAR — Quatro Pilares do Destino</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;1,400&family=Noto+Sans:wght@300;400;500&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/bazilar.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Lora + Noto Sans + JetBrains Mono — UI fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" crossorigin>
+<!-- Noto Serif SC — subsetado: apenas os 107 hanzi usados no app (E13 REQ-11) -->
+<!-- Sem subset = ~23MB; com subset = ~18KB estimado -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&text=%E7%A5%9E%E7%85%9E%E5%A4%A7%E9%81%8B%E6%97%B6%E6%97%A5%E6%9C%88%E5%B9%B4%E7%94%B2%E4%B9%99%E4%B8%99%E4%B8%81%E6%88%8A%E5%B7%B1%E5%BA%9A%E8%BE%9B%E5%A3%AC%E7%99%B8%E5%AD%90%E4%B8%91%E5%AF%85%E5%8D%AF%E8%BE%B0%E5%B7%B3%E5%8D%88%E6%9C%AA%E7%94%B3%E9%85%89%E6%88%8C%E4%BA%A5%E4%B8%BB%E4%B8%AD%E4%BD%99%E6%AF%94%E8%82%A9%E5%8A%AB%E8%B4%A2%E9%A3%9F%E4%BC%A4%E5%AE%98%E6%AD%A3%E5%81%8F%E4%B8%83%E6%9D%80%E5%8D%B0%E6%99%9A%E6%97%B6%E6%97%A9%E5%9B%9B%E6%9F%B1%E5%85%AB%E5%AD%97%E7%AB%8B%E6%98%A5%E4%BA%94%E8%A1%8C%E5%BC%BA%E5%BC%B1%E6%97%BA%E7%94%A8%E5%BF%8C%E5%A4%A9%E6%A1%83%E8%8A%B1%E9%A7%9B%E9%A6%AC%E5%85%AD%E5%90%88%E4%B8%89%E6%B2%96%E5%AE%B3%E5%88%91%E5%91%BD%E9%80%9A%E4%BC%9A%E6%83%8A%E8%9B%B0%E6%B8%85%E6%98%8E%E5%A4%8F%E8%8A%92%E7%A7%8D%E5%B0%8F%E6%9A%91%E7%A7%8B%E7%99%BD%E9%9C%B2%E5%AF%92%E5%86%AC%E9%9B%AA%E8%B4%A2%E4%BC%A4%E6%9D%80%E7%81%AB%E5%B1%80%E9%87%91%E6%B0%B4%E6%9C%A8%E4%B8%80%E7%9B%A4%E5%B9%B3%E7%9C%9F%E8%A9%AE%E5%8C%97%E5%8D%8A%E7%90%83%E5%8D%97&display=swap" rel="stylesheet" crossorigin>
+<!-- DS v2.3 "Quiet Luxury Tupiniquim" — ordem de carregamento obrigatória -->
+<link rel="stylesheet" href="src/styles/tokens.css">
+<link rel="stylesheet" href="src/styles/animations.css">
+<link rel="stylesheet" href="src/styles/components/bazi-map.css">
+<link rel="stylesheet" href="src/styles/components/dez-deuses.css">
+<!-- main.css carregado por último para sobrescrever com especificidade adequada -->
+<link rel="stylesheet" href="src/styles/main.css">
+<!-- Impressão / PDF — carregado apenas quando media=print ativo -->
+<link rel="stylesheet" href="src/styles/print.css" media="print">
 </head>
 <body>
 
@@ -27,58 +42,48 @@
     <span class="topbar-name">BAZILAR</span>
   </a>
   <div class="topbar-right">
-    <div class="lang-wrap" id="langWrap">
-      <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false">
-        <span id="langFlag">🇧🇷</span>
-        <span id="langLabel">PT</span>
-        <span class="lang-arrow" aria-hidden="true">▼</span>
-      </button>
-      <div class="lang-menu" id="langMenu" role="listbox">
-        <button class="lang-opt active" data-lang="pt" role="option">🇧🇷 Português</button>
-        <button class="lang-opt" data-lang="en" role="option">🇺🇸 English</button>
-        <button class="lang-opt" data-lang="es" role="option">🇪🇸 Español</button>
-        <button class="lang-opt" data-lang="zh" role="option">🇨🇳 中文</button>
-      </div>
-    </div>
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"><span id="themeIcon">☀️</span></button>
+    <button class="theme-btn" id="themeBtn" aria-label="Alternar tema"><span id="themeIcon">☀️</span></button>
   </div>
 </div>
 
 <div class="page">
 
   <!-- INPUT PANEL -->
-  <aside class="input-panel">
+  <aside class="input-panel" aria-label="Formulário de nascimento">
     <h2 class="panel-title"><span class="panel-title-zh">命盤</span> <span id="uiTitle">Dados de Nascimento</span></h2>
 
     <div class="field-group">
-      <label class="field-label" for="inName" id="uiName">Nome / Apelido</label>
-      <input type="text" id="inName" placeholder="COMO DESEJA SER CHAMADA(O)" maxlength="60">
+      <label class="field-label" for="inName">Nome / Apelido</label>
+      <input type="text" id="inName" placeholder="COMO DESEJA SER CHAMADO(A)" maxlength="60">
     </div>
 
     <div class="field-group">
-      <label class="field-label" id="uiDate">Data</label>
-      <div class="field-row3">
+      <label class="field-label" id="dateLabel">Data de Nascimento</label>
+      <div class="field-row3" role="group" aria-labelledby="dateLabel">
+        <label class="sr-only" for="inD">Dia</label>
         <input type="text" id="inD" inputmode="numeric" maxlength="2" placeholder="DD" autocomplete="off">
+        <label class="sr-only" for="inM">Mês</label>
         <input type="text" id="inM" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="off">
+        <label class="sr-only" for="inY">Ano</label>
         <input type="text" id="inY" inputmode="numeric" maxlength="4" placeholder="AAAA" autocomplete="off">
       </div>
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="inT" id="uiTime">Hora (00:00 – 23:59)</label>
+      <label class="field-label" for="inT">Hora (00:00 – 23:59)</label>
       <input type="text" id="inT" placeholder="HH:MM" maxlength="5">
     </div>
 
     <div class="field-group">
-      <label class="field-label" id="uiGender">Gênero Biológico</label>
-      <div class="gender-row">
-        <button class="gender-btn" id="gF" data-gender="F" type="button">♀ <span id="uiGF">Feminino</span></button>
-        <button class="gender-btn" id="gM" data-gender="M" type="button">♂ <span id="uiGM">Masculino</span></button>
+      <label class="field-label" id="genderLabel">Gênero Biológico</label>
+      <div class="gender-row" role="group" aria-labelledby="genderLabel">
+        <button class="gender-btn" id="gF" data-gender="F" type="button" aria-pressed="false">♀ Feminino</button>
+        <button class="gender-btn" id="gM" data-gender="M" type="button" aria-pressed="false">♂ Masculino</button>
       </div>
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="inCity" id="uiCity">Local de Nascimento</label>
+      <label class="field-label" for="inCity">Local de Nascimento</label>
       <div class="geo-wrap">
         <input type="text" id="inCity" placeholder="BAIRRO, CIDADE, PAÍS" autocomplete="off">
         <div class="geo-spin" id="geoSpin"></div>
@@ -88,22 +93,26 @@
     </div>
 
     <div class="field-group">
-      <label class="field-label" id="uiCoords">Coordenadas</label>
-      <div class="field-row">
-        <input type="number" id="inLo" step="0.0001" placeholder="LONGITUDE">
-        <input type="number" id="inLa" step="0.0001" placeholder="LATITUDE">
+      <label class="field-label" id="coordsLabel">Coordenadas</label>
+      <div class="field-row" role="group" aria-labelledby="coordsLabel">
+        <label class="sr-only" for="inLo">Longitude</label>
+        <input type="number" id="inLo" step="0.0001" placeholder="LONGITUDE" aria-label="Longitude">
+        <label class="sr-only" for="inLa">Latitude</label>
+        <input type="number" id="inLa" step="0.0001" placeholder="LATITUDE" aria-label="Latitude">
       </div>
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="inTZ" id="uiTZ">Fuso Horário (GMT)</label>
-      <select id="inTZ">
+      <label class="field-label" for="inTZ">Fuso Horário (GMT)</label>
+      <div class="tz-wrap">
+      <select id="inTZ" class="tz-select" aria-label="Selecionar fuso horário GMT">
+        <option value="" disabled selected hidden>GMT</option>
         <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
         <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
         <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
         <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
         <option value="-5">GMT −5</option><option value="-4">GMT −4</option>
-        <option value="-3.5">GMT −3:30</option><option value="-3" selected>GMT −3</option>
+        <option value="-3.5">GMT −3:30</option><option value="-3">GMT −3</option>
         <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
         <option value="0">GMT 0</option><option value="1">GMT +1</option>
         <option value="2">GMT +2</option><option value="3">GMT +3</option>
@@ -117,85 +126,113 @@
         <option value="11">GMT +11</option><option value="12">GMT +12</option>
         <option value="13">GMT +13</option>
       </select>
+      <p class="tz-hint" id="tzHint">↻ <span id="tzHintTxt">Detectando fuso do dispositivo…</span></p>
+      </div>
     </div>
 
     <div class="field-group">
       <div class="chk-row">
         <input type="checkbox" id="inDST">
-        <label for="inDST" id="uiDST">Horário de Verão (DST)</label>
+        <label for="inDST">Horário de Verão (DST)</label>
       </div>
     </div>
 
     <div id="rstBox" class="rst-box" style="display:none" aria-live="polite">
-      <p class="rst-lbl" id="uiRSTLbl">Tempo Solar Real</p>
+      <p class="rst-lbl">Tempo Solar Real</p>
       <p class="rst-val" id="rstV">—</p>
       <p class="rst-det" id="rstD"></p>
     </div>
 
-    <!-- Early / Late Zǐ selector -->
     <div class="zi-selector" id="ziSelector">
-      <div class="zi-toggle-hd" id="ziToggle">
-        <span class="zi-toggle-arrow">▼</span>
-        <span id="uiAdvanced">Opções avançadas</span>
+      <div class="zi-toggle-hd" id="ziToggle" role="button" tabindex="0"
+           aria-expanded="false" aria-controls="ziOpts">
+        <span class="zi-toggle-arrow" aria-hidden="true">▼</span>
+        <span>Opções avançadas</span>
       </div>
-      <div class="zi-opts" id="ziOpts">
-        <div class="zi-opt active" data-zi="early" id="ziEarly">
-          <div class="zi-radio"></div>
+      <div class="zi-opts" id="ziOpts" aria-hidden="true">
+        <div role="radiogroup" aria-label="Método Hora Zǐ">
+        <div class="zi-opt active" data-zi="early" id="ziEarly"
+             role="radio" tabindex="0" aria-checked="true">
+          <div class="zi-radio" aria-hidden="true"></div>
           <div class="zi-label">
             <div class="zi-name">
               <span class="zi-name-zh">早子時</span>
               <span class="zi-name-en">Early Zǐ</span>
-              <span class="zi-badge" id="uiDefault">PADRÃO</span>
+              <span class="zi-badge">PADRÃO</span>
             </div>
-            <div class="zi-desc" id="uiEarlyDesc">23:00–23:59 usa o tronco do dia seguinte. Método clássico (子平真詮).</div>
+            <div class="zi-desc">23:00–23:59 usa o tronco do dia seguinte. Método clássico (子平真詮).</div>
           </div>
         </div>
-        <div class="zi-opt" data-zi="late" id="ziLate">
-          <div class="zi-radio"></div>
+        <div class="zi-opt" data-zi="late" id="ziLate"
+             role="radio" tabindex="-1" aria-checked="false">
+          <div class="zi-radio" aria-hidden="true"></div>
           <div class="zi-label">
             <div class="zi-name">
               <span class="zi-name-zh">晚子時</span>
               <span class="zi-name-en">Late Zǐ</span>
             </div>
-            <div class="zi-desc" id="uiLateDesc">23:00–23:59 é hora 子 do mesmo dia. Método simplificado.</div>
+            <div class="zi-desc">23:00–23:59 é hora 子 do mesmo dia. Método simplificado.</div>
           </div>
+        </div>
+        </div>
+
+        <!-- Hemisphere separator -->
+        <div class="zi-sep" role="separator"></div>
+
+        <div role="radiogroup" aria-label="Hemisfério">
+        <div class="zi-opt active" data-hemi="N" id="hemiN"
+             role="radio" tabindex="0" aria-checked="true">
+          <div class="zi-radio" aria-hidden="true"></div>
+          <div class="zi-label">
+            <div class="zi-name">
+              <span class="zi-name-zh">北半球</span>
+              <span class="zi-name-en">Norte ↑</span>
+              <span class="zi-badge">PADRÃO</span>
+            </div>
+            <div class="zi-desc">BaZi clássico — posições solares universais. Padrão recomendado.</div>
+          </div>
+        </div>
+        <div class="zi-opt" data-hemi="S" id="hemiS"
+             role="radio" tabindex="-1" aria-checked="false">
+          <div class="zi-radio" aria-hidden="true"></div>
+          <div class="zi-label">
+            <div class="zi-name">
+              <span class="zi-name-zh">南半球</span>
+              <span class="zi-name-en">Sul ↓</span>
+            </div>
+            <div class="zi-desc">Inversão sazonal: ramo do mês +6. Para validação no Hemisfério Sul.</div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
 
-    <button class="calc-btn" id="calcBtn" type="button"><span id="uiCalc">Calcular Quatro Pilares</span></button>
+    <button class="calc-btn" id="calcBtn" type="button">Calcular Quatro Pilares</button>
   </aside>
 
   <!-- RESULTS -->
   <main id="results" aria-live="polite">
     <div class="empty" id="emptyState">
       <div class="empty-ico" aria-hidden="true">八字</div>
-      <h2 class="empty-ttl" id="uiEmpTitle">Motor de Cálculo BaZi</h2>
-      <p class="empty-sub" id="uiEmpSub">Preencha os dados e clique em Calcular para gerar os Quatro Pilares com Tempo Solar Real, Troncos Ocultos, Grandes Ciclos, Estrelas Simbólicas e Interações.</p>
+      <h2 class="empty-ttl">Motor de Cálculo BaZi</h2>
+      <p class="empty-sub">Preencha os dados e clique em Calcular para gerar os Quatro Pilares com Tempo Solar Real, Troncos Ocultos, Grandes Ciclos, Estrelas Simbólicas e Interações.</p>
     </div>
   </main>
 
 </div>
 
 <!-- FOOTER -->
-<footer class="app-footer">
+<footer class="app-footer" aria-label="Rodapé — outros apps SOLLUN">
   <div class="footer-inner">
-    <a class="footer-brand" href="https://sollun.app">SOLLUN</a>
+    <a class="footer-brand" href="https://sollun.app" aria-label="SOLLUN — página principal">SOLLUN</a>
     <div class="footer-links">
-      <a href="https://64hex.app">64HEX</a>
-      <a href="https://um23.app">UM23</a>
+      <a href="https://64hex.app" aria-label="64HEX — I Ching hexagramas">64HEX</a>
+      <a href="https://um23.app" aria-label="UM23 — numerologia">UM23</a>
     </div>
     <span class="footer-tagline">feito com tempo</span>
   </div>
 </footer>
 
-<!-- JS — ordem obrigatória: data → engine → pillars → i18n → geo → render → ui -->
-<script src="js/data.js"></script>
-<script src="js/engine.js"></script>
-<script src="js/pillars.js"></script>
-<script src="js/i18n.js"></script>
-<script src="js/geo.js"></script>
-<script src="js/render.js"></script>
-<script src="js/ui.js"></script>
+<script type="module" src="./src/app.js"></script>
 </body>
 </html>

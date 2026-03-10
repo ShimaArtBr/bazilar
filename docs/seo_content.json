@@ -1,0 +1,1832 @@
+{
+  "meta": {
+    "titulo": "SEO Content — BaZiLar PWA",
+    "versao": "1.0.0",
+    "data": "2026-03-09",
+    "sprint": "Q22-C12",
+    "descricao": "Fonte única de verdade para todos os metadados SEO do BaZiLar. Extraído de dez_deuses_bazi_app.json, glossario_bazi_app.json e doze_estagios_bazi_app.json em C12.",
+    "nota_uso": "Este arquivo alimenta: <title>, <meta name='description'>, <link rel='canonical'>, JSON-LD schema, sitemap.xml e keywords para análise editorial. Nunca duplicar esses campos nos JSONs de conteúdo — atualizar apenas aqui.",
+    "total_paginas": 48,
+    "changelog": [
+      {
+        "versao": "1.0.0",
+        "data": "2026-03-09",
+        "sprint": "Q22-C12",
+        "mudancas": [
+          "C12 — Criação do arquivo seo_content.json. 10 páginas de Dez Deuses, 12 de Doze Estágios, 20 de Termos Conceituais, 6 estruturais. Total: 48 páginas.",
+          "C12 — Campos por página: slug, url_canonica, title_tag (≤60 chars verificado), meta_description (≤155 chars verificado), h1, keywords_primarias, keywords_lsi, schema_type, schema_partial, fonte_json, conteudo_tier.",
+          "C12 — Schema markup: WebApplication (home), HowTo (como-calcular), FAQPage (faq), DefinedTermSet (índices), DefinedTerm (termos individuais)."
+        ]
+      }
+    ]
+  },
+  "paginas_estruturais": [
+    {
+      "id": "home",
+      "slug": "",
+      "url_canonica": "/",
+      "title_tag": "BaZi em Português — Calculadora de Oito Caracteres | BaZiLar",
+      "meta_description": "Calcule seu mapa BaZi (八字) em português. Quatro Pilares, Dez Deuses, Grandes Ciclos e interpretação editorial baseada em fontes clássicas. Gratuito.",
+      "h1": "BaZi em Português — Seus Oito Caracteres",
+      "keywords_primarias": [
+        "BaZi português",
+        "八字 calculadora online",
+        "quatro pilares BaZi grátis"
+      ],
+      "keywords_lsi": [
+        "metafísica chinesa português",
+        "astrologia chinesa BaZi",
+        "oito caracteres calculadora"
+      ],
+      "schema_type": "WebApplication",
+      "schema_partial": {
+        "@type": "WebApplication",
+        "name": "BaZiLar",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        "inLanguage": "pt-BR",
+        "description": "Calculadora de BaZi (八字) em português com interpretação editorial baseada em fontes clássicas chinesas."
+      },
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "como-calcular",
+      "slug": "como-calcular",
+      "url_canonica": "/como-calcular",
+      "title_tag": "Como Calcular seu BaZi em Português — Guia Completo",
+      "meta_description": "Aprenda a calcular seu mapa BaZi passo a passo: data, hora e local de nascimento. Quatro pilares, oito caracteres e interpretação. Guia gratuito.",
+      "h1": "Como Calcular seu BaZi — Guia Completo em Português",
+      "keywords_primarias": [
+        "como calcular BaZi",
+        "calculadora BaZi passo a passo",
+        "quatro pilares como calcular"
+      ],
+      "keywords_lsi": [
+        "BaZi data nascimento",
+        "pilar do dia BaZi",
+        "tronco ramo BaZi"
+      ],
+      "schema_type": "HowTo",
+      "schema_partial": {
+        "@type": "HowTo",
+        "name": "Como Calcular seu BaZi",
+        "description": "Guia passo a passo para calcular o mapa BaZi (八字) usando data, hora e local de nascimento.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Insira sua data de nascimento",
+            "text": "Informe dia, mês e ano no formato DD/MM/AAAA."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Informe a hora de nascimento",
+            "text": "Hora local no fuso horário do local de nascimento."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Selecione o local de nascimento",
+            "text": "Cidade para cálculo correto do Tempo Solar Real."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Interprete os oito caracteres",
+            "text": "Explore os quatro pilares, os elementos e as relações do seu mapa."
+          }
+        ]
+      },
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "dez-deuses",
+      "slug": "dez-deuses",
+      "url_canonica": "/glossario/dez-deuses",
+      "title_tag": "Dez Deuses do BaZi (十神) — Guia Completo em Português",
+      "meta_description": "Aprenda os 10 Deuses do BaZi: Irmão, Rival, Deus da Expressão, Oficial Ferido, Riqueza Direta e mais. Interpretações com fontes clássicas em português.",
+      "h1": "Os Dez Deuses do BaZi · 十神 · Shí Shén",
+      "keywords_primarias": [
+        "dez deuses BaZi",
+        "10 deuses BaZi português",
+        "十神 significado"
+      ],
+      "keywords_lsi": [
+        "Shí Shén BaZi",
+        "deuses BaZi interpretação",
+        "relações elementais BaZi"
+      ],
+      "schema_type": "DefinedTermSet",
+      "schema_partial": {
+        "@type": "DefinedTermSet",
+        "name": "Dez Deuses do BaZi · 十神",
+        "description": "Os dez arquétipos relacionais do BaZi, derivados da relação elemental entre o Dia Master e cada um dos outros Troncos Celestiais."
+      },
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "doze-estagios",
+      "slug": "doze-estagios",
+      "url_canonica": "/glossario/doze-estagios",
+      "title_tag": "Doze Estágios BaZi (十二長生) — Guia Completo em Português",
+      "meta_description": "Os 12 estágios do ciclo de vida energético no BaZi: de 長生 (Nascimento) a 養 (Nutrição). Significado, etimologia e aplicação prática em português.",
+      "h1": "Os Doze Estágios de Ciclo de Vida · 十二長生 · Shí Èr Cháng Shēng",
+      "keywords_primarias": [
+        "doze estágios BaZi",
+        "十二長生 significado",
+        "ciclo de vida BaZi português"
+      ],
+      "keywords_lsi": [
+        "Chang Sheng BaZi",
+        "Di Wang BaZi",
+        "estágios energia BaZi"
+      ],
+      "schema_type": "DefinedTermSet",
+      "schema_partial": {
+        "@type": "DefinedTermSet",
+        "name": "Doze Estágios de Ciclo de Vida · 十二長生",
+        "description": "Os doze estágios do ciclo energético no BaZi, representando as fases de nascimento, crescimento, declínio e renascimento de cada elemento."
+      },
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "glossario",
+      "slug": "glossario",
+      "url_canonica": "/glossario",
+      "title_tag": "Glossário BaZi em Português — 30 Termos Essenciais",
+      "meta_description": "Glossário completo de BaZi em português: 30 termos essenciais com etimologia, inscrições oraculares Shang e aplicação prática. Da origem à interpretação.",
+      "h1": "Glossário BaZi em Português · 八字術語",
+      "keywords_primarias": [
+        "glossário BaZi português",
+        "termos BaZi significado",
+        "vocabulário metafísica chinesa"
+      ],
+      "keywords_lsi": [
+        "八字 terminologia",
+        "BaZi conceitos básicos",
+        "glossário astrologia chinesa"
+      ],
+      "schema_type": "DefinedTermSet",
+      "schema_partial": {
+        "@type": "DefinedTermSet",
+        "name": "Glossário BaZi · 八字術語",
+        "description": "Glossário completo dos termos essenciais do BaZi com etimologia, significado histórico e aplicação prática.",
+        "hasDefinedTerm": [
+          {
+            "@type": "DefinedTerm",
+            "name": "Hastes Ocultas",
+            "alternateName": "藏干"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Ano de Fluxo",
+            "alternateName": "流年"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Energia Vital",
+            "alternateName": "氣"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Deus",
+            "alternateName": "神"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Auspicioso",
+            "alternateName": "吉"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Inauspicioso",
+            "alternateName": "凶"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "União",
+            "alternateName": "合"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Choque",
+            "alternateName": "沖"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Punição",
+            "alternateName": "刑"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Dano",
+            "alternateName": "害"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Ruptura",
+            "alternateName": "破"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Oito Caracteres",
+            "alternateName": "八字"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Quatro Pilares",
+            "alternateName": "四柱"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Troncos Celestiais",
+            "alternateName": "天干"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Ramos Terrestres",
+            "alternateName": "地支"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Cinco Movimentos",
+            "alternateName": "五行"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Yin e Yang",
+            "alternateName": "陰陽"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Mestre do Dia",
+            "alternateName": "日主"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Grandes Ciclos",
+            "alternateName": "大運"
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Termos Solares",
+            "alternateName": "節氣"
+          }
+        ]
+      },
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "faq",
+      "slug": "faq",
+      "url_canonica": "/faq",
+      "title_tag": "Perguntas Frequentes sobre BaZi — FAQ em Português",
+      "meta_description": "Tire suas dúvidas sobre BaZi: o que é, como calcular, diferença para horóscopo chinês, fontes clássicas e mais. FAQ completo em português.",
+      "h1": "Perguntas Frequentes · BaZi em Português",
+      "keywords_primarias": [
+        "BaZi o que é",
+        "BaZi como funciona",
+        "BaZi perguntas frequentes"
+      ],
+      "keywords_lsi": [
+        "BaZi vs horóscopo chinês",
+        "BaZi confiável",
+        "metafísica chinesa explicada"
+      ],
+      "schema_type": "FAQPage",
+      "schema_partial": {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "O que é BaZi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "BaZi (八字 — Oito Caracteres) é um sistema de metafísica chinesa que analisa a configuração de energia do momento do nascimento através de quatro pilares (Ano, Mês, Dia e Hora), cada um composto por um Tronco Celestial e um Ramo Terrestre."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "BaZi é o mesmo que horóscopo chinês?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Não. O horóscopo chinês usa apenas o Ramo Terrestre do Ano de nascimento (o signo animal). BaZi é muito mais complexo: usa oito caracteres (quatro Troncos + quatro Ramos) calculados com precisão astronômica a partir da data, hora e local de nascimento."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Preciso saber a hora exata do nascimento?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A hora de nascimento é importante para o Pilar da Hora e para o cálculo preciso dos Grandes Ciclos. Sem ela, é possível analisar os outros três pilares, mas a leitura será menos completa."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "BaZi determina o destino?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "BaZi descreve tendências e configurações de energia — não predetermina eventos. É uma ferramenta de autoconhecimento que ajuda a entender padrões e potenciais, não uma profecia."
+            }
+          }
+        ]
+      },
+      "conteudo_tier": "free"
+    }
+  ],
+  "dez_deuses": [
+    {
+      "id": "bi_jian",
+      "zh": "比肩",
+      "py": "Bǐ Jiān",
+      "nome_pt": "Irmão",
+      "slug": "dez-deuses/irmao",
+      "url_canonica": "/glossario/dez-deuses/irmao",
+      "title_tag": "Irmão (比肩) — Bǐ Jiān · BaZi em Português",
+      "meta_description": "Aprenda o significado de Irmão (比肩 · Bǐ Jiān) no BaZi: O espelho — a força do 'eu' que se reconhece nos outros, que busca pares, aliado. Referências clássi",
+      "h1": "Irmão · 比肩 · Bǐ Jiān",
+      "keywords_primarias": [
+        "Irmão BaZi",
+        "比肩 BaZi",
+        "Amigo no BaZi"
+      ],
+      "keywords_lsi": [
+        "Bǐ Jiān",
+        "arquétipo do par",
+        "autoidentidade BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Irmão",
+        "alternateName": [
+          "比肩",
+          "Bǐ Jiān"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O espelho — a força do 'eu' que se reconhece nos outros, que busca pares, aliados e irmãos de jornada."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "jie_cai",
+      "zh": "劫財",
+      "py": "Jié Cái",
+      "nome_pt": "Rival",
+      "slug": "dez-deuses/rival",
+      "url_canonica": "/glossario/dez-deuses/rival",
+      "title_tag": "Rival (劫財) — Jié Cái · BaZi em Português",
+      "meta_description": "Aprenda o significado de Rival (劫財 · Jié Cái) no BaZi: O sócio ambicioso que admira você — e ao mesmo tempo cobiça o que você tem.. Referências clássicas e",
+      "h1": "Rival · 劫財 · Jié Cái",
+      "keywords_primarias": [
+        "Rival BaZi",
+        "劫財 BaZi",
+        "Roubar Riqueza BaZi"
+      ],
+      "keywords_lsi": [
+        "Jié Cái significado",
+        "rival arquétipo metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Rival",
+        "alternateName": [
+          "劫財",
+          "Jié Cái"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O sócio ambicioso que admira você — e ao mesmo tempo cobiça o que você tem."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "shi_shen",
+      "zh": "食神",
+      "py": "Shí Shén",
+      "nome_pt": "Deus da Expressão",
+      "slug": "dez-deuses/deus-da-expressao",
+      "url_canonica": "/glossario/dez-deuses/deus-da-expressao",
+      "title_tag": "Deus da Expressão (食神) — Shí Shén · BaZi em Português",
+      "meta_description": "Aprenda o significado de Deus da Expressão (食神 · Shí Shén) no BaZi: O chef estrelado que cozinha por puro prazer — ao nutrir os outros, também se nu. Refer",
+      "h1": "Deus da Expressão · 食神 · Shí Shén",
+      "keywords_primarias": [
+        "Deus da Expressão BaZi",
+        "食神 BaZi",
+        "Deus da Comida BaZi"
+      ],
+      "keywords_lsi": [
+        "Shí Shén significado",
+        "criatividade prazer metafísica chinesa"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Deus da Expressão",
+        "alternateName": [
+          "食神",
+          "Shí Shén"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O chef estrelado que cozinha por puro prazer — ao nutrir os outros, também se nutre. Expressão fluida e natural."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "shang_guan",
+      "zh": "傷官",
+      "py": "Shāng Guān",
+      "nome_pt": "Oficial Ferido",
+      "slug": "dez-deuses/oficial-ferido",
+      "url_canonica": "/glossario/dez-deuses/oficial-ferido",
+      "title_tag": "Oficial Ferido (傷官) — Shāng Guān · BaZi em Português",
+      "meta_description": "Aprenda o significado de Oficial Ferido (傷官 · Shāng Guān) no BaZi: O filho rebelde do sistema — o gênio que não cabe em nenhuma caixa.. Referências clássic",
+      "h1": "Oficial Ferido · 傷官 · Shāng Guān",
+      "keywords_primarias": [
+        "Oficial Ferido BaZi",
+        "傷官 BaZi",
+        "Oficial de Ferimentos"
+      ],
+      "keywords_lsi": [
+        "Shāng Guān",
+        "rebeldia talento BaZi",
+        "gênio disruptivo"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Oficial Ferido",
+        "alternateName": [
+          "傷官",
+          "Shāng Guān"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O filho rebelde do sistema — o gênio que não cabe em nenhuma caixa."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "zheng_cai",
+      "zh": "正財",
+      "py": "Zhèng Cái",
+      "nome_pt": "Riqueza Direta",
+      "slug": "dez-deuses/riqueza-direta",
+      "url_canonica": "/glossario/dez-deuses/riqueza-direta",
+      "title_tag": "Riqueza Direta (正財) — Zhèng Cái · BaZi em Português",
+      "meta_description": "Aprenda o significado de Riqueza Direta (正財 · Zhèng Cái) no BaZi: O CFO disciplinado — gerencia o orçamento com rigor, respeita contratos e constr. Referên",
+      "h1": "Riqueza Direta · 正財 · Zhèng Cái",
+      "keywords_primarias": [
+        "Riqueza Direta BaZi",
+        "正財 BaZi",
+        "Riqueza Direta BaZi"
+      ],
+      "keywords_lsi": [
+        "Zhèng Cái significado",
+        "disciplina financeira metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Riqueza Direta",
+        "alternateName": [
+          "正財",
+          "Zhèng Cái"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O CFO disciplinado — gerencia o orçamento com rigor, respeita contratos e constrói patrimônio de forma metódica."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "pian_cai",
+      "zh": "偏財",
+      "py": "Piān Cái",
+      "nome_pt": "Riqueza Indireta",
+      "slug": "dez-deuses/riqueza-indireta",
+      "url_canonica": "/glossario/dez-deuses/riqueza-indireta",
+      "title_tag": "Riqueza Indireta (偏財) — Piān Cái · BaZi em Português",
+      "meta_description": "Aprenda o significado de Riqueza Indireta (偏財 · Piān Cái) no BaZi: O empreendedor em série — investe em múltiplas apostas sabendo que algumas vão m. Referê",
+      "h1": "Riqueza Indireta · 偏財 · Piān Cái",
+      "keywords_primarias": [
+        "Riqueza Indireta BaZi",
+        "偏財 BaZi",
+        "Riqueza Indireta BaZi"
+      ],
+      "keywords_lsi": [
+        "Piān Cái significado",
+        "empreendedorismo especulação"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Riqueza Indireta",
+        "alternateName": [
+          "偏財",
+          "Piān Cái"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O empreendedor em série — investe em múltiplas apostas sabendo que algumas vão mudar o jogo."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "zheng_guan",
+      "zh": "正官",
+      "py": "Zhèng Guān",
+      "nome_pt": "Oficial Direto",
+      "slug": "dez-deuses/oficial-direto",
+      "url_canonica": "/glossario/dez-deuses/oficial-direto",
+      "title_tag": "Oficial Direto (正官) — Zhèng Guān · BaZi em Português",
+      "meta_description": "Aprenda o significado de Oficial Direto (正官 · Zhèng Guān) no BaZi: O líder íntegro — juiz equitativo, diretor que equilibra resultados e valores.. Referênc",
+      "h1": "Oficial Direto · 正官 · Zhèng Guān",
+      "keywords_primarias": [
+        "Oficial Direto BaZi",
+        "正官 BaZi",
+        "Oficial Direto BaZi"
+      ],
+      "keywords_lsi": [
+        "Zhèng Guān",
+        "liderança ética autoridade metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Oficial Direto",
+        "alternateName": [
+          "正官",
+          "Zhèng Guān"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O líder íntegro — juiz equitativo, diretor que equilibra resultados e valores."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "qi_sha",
+      "zh": "七殺",
+      "py": "Qī Shā",
+      "nome_pt": "Sete Mortes",
+      "slug": "dez-deuses/sete-mortes",
+      "url_canonica": "/glossario/dez-deuses/sete-mortes",
+      "title_tag": "Sete Mortes (七殺) — Qī Shā · BaZi em Português",
+      "meta_description": "Aprenda o significado de Sete Mortes (七殺 · Qī Shā) no BaZi: O general de campo — eficaz, decisivo, implacável quando necessário. Força que f. Referências c",
+      "h1": "Sete Mortes · 七殺 · Qī Shā",
+      "keywords_primarias": [
+        "Sete Mortes BaZi",
+        "七殺 BaZi",
+        "Sete Mortes BaZi"
+      ],
+      "keywords_lsi": [
+        "Qī Shā significado",
+        "intensidade poder transformação"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Sete Mortes",
+        "alternateName": [
+          "七殺",
+          "Qī Shā"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O general de campo — eficaz, decisivo, implacável quando necessário. Força que forja caráter através da pressão."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "zheng_yin",
+      "zh": "正印",
+      "py": "Zhèng Yìn",
+      "nome_pt": "Recurso Direto",
+      "slug": "dez-deuses/recurso-direto",
+      "url_canonica": "/glossario/dez-deuses/recurso-direto",
+      "title_tag": "Recurso Direto (正印) — Zhèng Yìn · BaZi em Português",
+      "meta_description": "Aprenda o significado de Recurso Direto (正印 · Zhèng Yìn) no BaZi: O mentor que acredita em você antes de você mesmo. A mãe sábia que nutre o poten. Referên",
+      "h1": "Recurso Direto · 正印 · Zhèng Yìn",
+      "keywords_primarias": [
+        "Recurso Direto BaZi",
+        "正印 BaZi",
+        "Recurso Direto BaZi"
+      ],
+      "keywords_lsi": [
+        "Zhèng Yìn significado",
+        "sabedoria aprendizado suporte"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Recurso Direto",
+        "alternateName": [
+          "正印",
+          "Zhèng Yìn"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O mentor que acredita em você antes de você mesmo. A mãe sábia que nutre o potencial."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "pian_yin",
+      "zh": "偏印",
+      "py": "Piān Yìn",
+      "nome_pt": "Recurso Indireto",
+      "slug": "dez-deuses/recurso-indireto",
+      "url_canonica": "/glossario/dez-deuses/recurso-indireto",
+      "title_tag": "Recurso Indireto (偏印) — Piān Yìn · BaZi em Português",
+      "meta_description": "Aprenda o significado de Recurso Indireto (偏印 · Piān Yìn) no BaZi: O xamã, o pesquisador independente. Aprendizado heterodoxo que frequentemente va. Referê",
+      "h1": "Recurso Indireto · 偏印 · Piān Yìn",
+      "keywords_primarias": [
+        "Recurso Indireto BaZi",
+        "偏印 BaZi",
+        "Recurso Indireto BaZi"
+      ],
+      "keywords_lsi": [
+        "Piān Yìn significado",
+        "intuição heterodoxia espiritualidade"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Recurso Indireto",
+        "alternateName": [
+          "偏印",
+          "Piān Yìn"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Dez Deuses · 十神"
+        },
+        "description": "O xamã, o pesquisador independente. Aprendizado heterodoxo que frequentemente vai mais fundo que o convencional."
+      },
+      "fonte_json": "dez_deuses_bazi_app.json",
+      "conteudo_tier": "premium"
+    }
+  ],
+  "doze_estagios": [
+    {
+      "id": "estagio_00",
+      "seq": 0,
+      "zh": "長生",
+      "py": "Cháng Shēng",
+      "pt": "Nascimento Longo",
+      "slug": "doze-estagios/nascimento-longo",
+      "url_canonica": "/glossario/doze-estagios/nascimento-longo",
+      "title_tag": "Nascimento Longo (長生) — Cháng Shēng · BaZi em Português",
+      "meta_description": "Nascimento Longo (長生 · Cháng Shēng): o estágio 1 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Nascimento Longo · 長生 · Cháng Shēng",
+      "keywords_primarias": [
+        "長生 BaZi",
+        "Chang Sheng significado"
+      ],
+      "keywords_lsi": [
+        "nascimento energético BaZi",
+        "ciclo de vida metafísica chinesa"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Nascimento Longo",
+        "alternateName": [
+          "長生",
+          "Cháng Shēng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_01",
+      "seq": 1,
+      "zh": "沐浴",
+      "py": "Mù Yù",
+      "pt": "Banho Ritual",
+      "slug": "doze-estagios/banho-ritual",
+      "url_canonica": "/glossario/doze-estagios/banho-ritual",
+      "title_tag": "Banho Ritual (沐浴) — Mù Yù · BaZi em Português",
+      "meta_description": "Banho Ritual (沐浴 · Mù Yù): o estágio 2 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Banho Ritual · 沐浴 · Mù Yù",
+      "keywords_primarias": [
+        "沐浴 BaZi",
+        "Mu Yu significado"
+      ],
+      "keywords_lsi": [
+        "banho ritual BaZi",
+        "identidade vulnerabilidade metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Banho Ritual",
+        "alternateName": [
+          "沐浴",
+          "Mù Yù"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_02",
+      "seq": 2,
+      "zh": "冠帶",
+      "py": "Guān Dài",
+      "pt": "Vestir a Coroa",
+      "slug": "doze-estagios/vestir-a-coroa",
+      "url_canonica": "/glossario/doze-estagios/vestir-a-coroa",
+      "title_tag": "Vestir a Coroa (冠帶) — Guān Dài · BaZi em Português",
+      "meta_description": "Vestir a Coroa (冠帶 · Guān Dài): o estágio 3 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Vestir a Coroa · 冠帶 · Guān Dài",
+      "keywords_primarias": [
+        "冠帶 BaZi",
+        "Guan Dai significado"
+      ],
+      "keywords_lsi": [
+        "identidade responsabilidade BaZi",
+        "maturidade metafísica chinesa"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Vestir a Coroa",
+        "alternateName": [
+          "冠帶",
+          "Guān Dài"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_03",
+      "seq": 3,
+      "zh": "臨官",
+      "py": "Lín Guān",
+      "pt": "Assumir o Cargo",
+      "slug": "doze-estagios/assumir-o-cargo",
+      "url_canonica": "/glossario/doze-estagios/assumir-o-cargo",
+      "title_tag": "Assumir o Cargo (臨官) — Lín Guān · BaZi em Português",
+      "meta_description": "Assumir o Cargo (臨官 · Lín Guān): o estágio 4 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Assumir o Cargo · 臨官 · Lín Guān",
+      "keywords_primarias": [
+        "臨官 BaZi",
+        "Lin Guan significado"
+      ],
+      "keywords_lsi": [
+        "liderança prosperidade BaZi",
+        "cargo autoridade metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Assumir o Cargo",
+        "alternateName": [
+          "臨官",
+          "Lín Guān"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_04",
+      "seq": 4,
+      "zh": "帝旺",
+      "py": "Dì Wàng",
+      "pt": "Pico Imperial",
+      "slug": "doze-estagios/pico-imperial",
+      "url_canonica": "/glossario/doze-estagios/pico-imperial",
+      "title_tag": "Pico Imperial (帝旺) — Dì Wàng · BaZi em Português",
+      "meta_description": "Pico Imperial (帝旺 · Dì Wàng): o estágio 5 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Pico Imperial · 帝旺 · Dì Wàng",
+      "keywords_primarias": [
+        "帝旺 BaZi",
+        "Di Wang significado"
+      ],
+      "keywords_lsi": [
+        "pico imperial BaZi",
+        "força máxima ciclo de vida"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Pico Imperial",
+        "alternateName": [
+          "帝旺",
+          "Dì Wàng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_05",
+      "seq": 5,
+      "zh": "衰",
+      "py": "Shuāi",
+      "pt": "Declínio",
+      "slug": "doze-estagios/declinio",
+      "url_canonica": "/glossario/doze-estagios/declinio",
+      "title_tag": "Declínio (衰) — Shuāi · BaZi em Português",
+      "meta_description": "Declínio (衰 · Shuāi): o estágio 6 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Declínio · 衰 · Shuāi",
+      "keywords_primarias": [
+        "衰 BaZi",
+        "Shuai BaZi significado"
+      ],
+      "keywords_lsi": [
+        "declínio refinamento metafísica",
+        "recolhimento sabedoria BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Declínio",
+        "alternateName": [
+          "衰",
+          "Shuāi"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_06",
+      "seq": 6,
+      "zh": "病",
+      "py": "Bìng",
+      "pt": "Doença",
+      "slug": "doze-estagios/doenca",
+      "url_canonica": "/glossario/doze-estagios/doenca",
+      "title_tag": "Doença (病) — Bìng · BaZi em Português",
+      "meta_description": "Doença (病 · Bìng): o estágio 7 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Doença · 病 · Bìng",
+      "keywords_primarias": [
+        "病 BaZi",
+        "Bing BaZi significado"
+      ],
+      "keywords_lsi": [
+        "sensibilidade energia repouso BaZi",
+        "introspecção metafísica chinesa"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Doença",
+        "alternateName": [
+          "病",
+          "Bìng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_07",
+      "seq": 7,
+      "zh": "死",
+      "py": "Sǐ",
+      "pt": "Morte",
+      "slug": "doze-estagios/morte",
+      "url_canonica": "/glossario/doze-estagios/morte",
+      "title_tag": "Morte (死) — Sǐ · BaZi em Português",
+      "meta_description": "Morte (死 · Sǐ): o estágio 8 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Morte · 死 · Sǐ",
+      "keywords_primarias": [
+        "死 BaZi",
+        "Si BaZi significado"
+      ],
+      "keywords_lsi": [
+        "transformação conclusão BaZi",
+        "ciclo morte renascimento metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Morte",
+        "alternateName": [
+          "死",
+          "Sǐ"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_08",
+      "seq": 8,
+      "zh": "墓",
+      "py": "Mù",
+      "pt": "Túmulo",
+      "slug": "doze-estagios/tumulo",
+      "url_canonica": "/glossario/doze-estagios/tumulo",
+      "title_tag": "Túmulo (墓) — Mù · BaZi em Português",
+      "meta_description": "Túmulo (墓 · Mù): o estágio 9 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Túmulo · 墓 · Mù",
+      "keywords_primarias": [
+        "墓 BaZi",
+        "Mu BaZi significado"
+      ],
+      "keywords_lsi": [
+        "túmulo armazenamento BaZi",
+        "preservação acumulação metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Túmulo",
+        "alternateName": [
+          "墓",
+          "Mù"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_09",
+      "seq": 9,
+      "zh": "絕",
+      "py": "Jué",
+      "pt": "Extinção",
+      "slug": "doze-estagios/extincao",
+      "url_canonica": "/glossario/doze-estagios/extincao",
+      "title_tag": "Extinção (絕) — Jué · BaZi em Português",
+      "meta_description": "Extinção (絕 · Jué): o estágio 10 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Extinção · 絕 · Jué",
+      "keywords_primarias": [
+        "絕 BaZi",
+        "Jue BaZi significado"
+      ],
+      "keywords_lsi": [
+        "extinção vazio reinvenção BaZi",
+        "recomeço radical metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Extinção",
+        "alternateName": [
+          "絕",
+          "Jué"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_10",
+      "seq": 10,
+      "zh": "胎",
+      "py": "Tāi",
+      "pt": "Gestação",
+      "slug": "doze-estagios/gestacao",
+      "url_canonica": "/glossario/doze-estagios/gestacao",
+      "title_tag": "Gestação (胎) — Tāi · BaZi em Português",
+      "meta_description": "Gestação (胎 · Tāi): o estágio 11 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Gestação · 胎 · Tāi",
+      "keywords_primarias": [
+        "胎 BaZi",
+        "Tai BaZi significado"
+      ],
+      "keywords_lsi": [
+        "gestação projeto invisível BaZi",
+        "paciência potencial metafísica"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Gestação",
+        "alternateName": [
+          "胎",
+          "Tāi"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "estagio_11",
+      "seq": 11,
+      "zh": "養",
+      "py": "Yǎng",
+      "pt": "Nutrição",
+      "slug": "doze-estagios/nutricao",
+      "url_canonica": "/glossario/doze-estagios/nutricao",
+      "title_tag": "Nutrição (養) — Yǎng · BaZi em Português",
+      "meta_description": "Nutrição (養 · Yǎng): o estágio 12 do ciclo dos 十二長生 no BaZi. Significado, etimologia e aplicação prática.",
+      "h1": "Nutrição · 養 · Yǎng",
+      "keywords_primarias": [
+        "養 BaZi",
+        "Yang BaZi significado"
+      ],
+      "keywords_lsi": [
+        "nutrição cuidado BaZi",
+        "mentoria autocuidado metafísica chinesa"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Nutrição",
+        "alternateName": [
+          "養",
+          "Yǎng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Doze Estágios · 十二長生"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#estagios",
+      "conteudo_tier": "premium"
+    }
+  ],
+  "termos_conceituais": [
+    {
+      "id": "cang_gan",
+      "zh": "藏干",
+      "py": "Cáng Gān",
+      "pt": "Hastes Ocultas",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/hastes-ocultas",
+      "url_canonica": "/glossario/hastes-ocultas",
+      "title_tag": "Hastes Ocultas (藏干) — Cáng Gān · BaZi em Português",
+      "meta_description": "Significado de Hastes Ocultas (藏干 · Cáng Gān) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Hastes Ocultas · 藏干 · Cáng Gān",
+      "keywords_primarias": [
+        "藏干 BaZi",
+        "Hastes Ocultas BaZi"
+      ],
+      "keywords_lsi": [
+        "Cang Gan significado",
+        "troncos ocultos ramos terrestres",
+        "hidden stems BaZi português",
+        "司令 Siling BaZi",
+        "elementos ocultos mapa BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Hastes Ocultas",
+        "alternateName": [
+          "藏干",
+          "Cáng Gān"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "liu_nian",
+      "zh": "流年",
+      "py": "Liú Nián",
+      "pt": "Ano de Fluxo / Ano em Curso",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/ano-de-fluxo",
+      "url_canonica": "/glossario/ano-de-fluxo",
+      "title_tag": "Ano de Fluxo (流年) — Liú Nián · BaZi em Português",
+      "meta_description": "Significado de Ano de Fluxo (流年 · Liú Nián) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Ano de Fluxo · 流年 · Liú Nián",
+      "keywords_primarias": [
+        "Liu Nian BaZi",
+        "流年 significado"
+      ],
+      "keywords_lsi": [
+        "Ano de Fluxo BaZi português",
+        "previsão anual BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Ano de Fluxo",
+        "alternateName": [
+          "流年",
+          "Liú Nián"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "qi_energia",
+      "zh": "氣",
+      "py": "Qì",
+      "pt": "Energia Vital / Sopro Vital",
+      "tipo": "conceito_filosófico",
+      "slug": "glossario/energia-vital",
+      "url_canonica": "/glossario/energia-vital",
+      "title_tag": "Energia Vital (氣) — Qì · BaZi em Português",
+      "meta_description": "Significado de Energia Vital (氣 · Qì) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Energia Vital · 氣 · Qì",
+      "keywords_primarias": [
+        "Qi BaZi significado",
+        "氣 energia vital"
+      ],
+      "keywords_lsi": [
+        "Qi metafísica chinesa português",
+        "força vital BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Energia Vital",
+        "alternateName": [
+          "氣",
+          "Qì"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "shen_funcao",
+      "zh": "神",
+      "py": "Shén",
+      "pt": "Deus / Espírito / Função",
+      "tipo": "conceito_filosófico",
+      "slug": "glossario/deus",
+      "url_canonica": "/glossario/deus",
+      "title_tag": "Deus (神) — Shén · BaZi em Português",
+      "meta_description": "Significado de Deus (神 · Shén) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Deus · 神 · Shén",
+      "keywords_primarias": [
+        "Shen BaZi significado",
+        "神 deus BaZi"
+      ],
+      "keywords_lsi": [
+        "Yong Shen BaZi português",
+        "dez deuses BaZi função"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Deus",
+        "alternateName": [
+          "神",
+          "Shén"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "ji_auspicioso",
+      "zh": "吉",
+      "py": "Jí",
+      "pt": "Auspicioso / Favorável",
+      "tipo": "conceito_interpretativo",
+      "slug": "glossario/auspicioso",
+      "url_canonica": "/glossario/auspicioso",
+      "title_tag": "Auspicioso (吉) — Jí · BaZi em Português",
+      "meta_description": "Significado de Auspicioso (吉 · Jí) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Auspicioso · 吉 · Jí",
+      "keywords_primarias": [
+        "吉 BaZi significado",
+        "Ji auspicioso BaZi"
+      ],
+      "keywords_lsi": [
+        "favorável BaZi português",
+        "boa sorte metafísica chinesa"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Auspicioso",
+        "alternateName": [
+          "吉",
+          "Jí"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "xiong_desfavoravel",
+      "zh": "凶",
+      "py": "Xiōng",
+      "pt": "Inauspicioso / Desfavorável",
+      "tipo": "conceito_interpretativo",
+      "slug": "glossario/inauspicioso",
+      "url_canonica": "/glossario/inauspicioso",
+      "title_tag": "Inauspicioso (凶) — Xiōng · BaZi em Português",
+      "meta_description": "Significado de Inauspicioso (凶 · Xiōng) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Inauspicioso · 凶 · Xiōng",
+      "keywords_primarias": [
+        "凶 BaZi significado",
+        "Xiong inauspicioso BaZi"
+      ],
+      "keywords_lsi": [
+        "desfavorável BaZi português",
+        "adversidade metafísica chinesa"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Inauspicioso",
+        "alternateName": [
+          "凶",
+          "Xiōng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "he_uniao",
+      "zh": "合",
+      "py": "Hé",
+      "pt": "União / Combinação",
+      "tipo": "interacao_estrutural",
+      "slug": "glossario/uniao",
+      "url_canonica": "/glossario/uniao",
+      "title_tag": "União (合) — Hé · BaZi em Português",
+      "meta_description": "Significado de União (合 · Hé) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "União · 合 · Hé",
+      "keywords_primarias": [
+        "合 BaZi significado",
+        "He combinação BaZi"
+      ],
+      "keywords_lsi": [
+        "união elementos BaZi português",
+        "combinação troncos ramos BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "União",
+        "alternateName": [
+          "合",
+          "Hé"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "chong_choque",
+      "zh": "沖",
+      "py": "Chōng",
+      "pt": "Choque / Colisão",
+      "tipo": "interacao_estrutural",
+      "slug": "glossario/choque",
+      "url_canonica": "/glossario/choque",
+      "title_tag": "Choque (沖) — Chōng · BaZi em Português",
+      "meta_description": "Significado de Choque (沖 · Chōng) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Choque · 沖 · Chōng",
+      "keywords_primarias": [
+        "沖 BaZi significado",
+        "Chong choque BaZi"
+      ],
+      "keywords_lsi": [
+        "colisão ramos BaZi português",
+        "clash BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Choque",
+        "alternateName": [
+          "沖",
+          "Chōng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "xing_punicao",
+      "zh": "刑",
+      "py": "Xíng",
+      "pt": "Punição / Fricção Estrutural",
+      "tipo": "interacao_estrutural",
+      "slug": "glossario/punicao",
+      "url_canonica": "/glossario/punicao",
+      "title_tag": "Punição (刑) — Xíng · BaZi em Português",
+      "meta_description": "Significado de Punição (刑 · Xíng) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Punição · 刑 · Xíng",
+      "keywords_primarias": [
+        "刑 BaZi significado",
+        "Xing penalidade BaZi"
+      ],
+      "keywords_lsi": [
+        "punição ramos BaZi português",
+        "penalty BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Punição",
+        "alternateName": [
+          "刑",
+          "Xíng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "hai_dano",
+      "zh": "害",
+      "py": "Hài",
+      "pt": "Dano / Ação Corrosiva",
+      "tipo": "interacao_estrutural",
+      "slug": "glossario/dano",
+      "url_canonica": "/glossario/dano",
+      "title_tag": "Dano (害) — Hài · BaZi em Português",
+      "meta_description": "Significado de Dano (害 · Hài) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Dano · 害 · Hài",
+      "keywords_primarias": [
+        "害 BaZi significado",
+        "Hai dano BaZi"
+      ],
+      "keywords_lsi": [
+        "harm BaZi português",
+        "drenagem energia BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Dano",
+        "alternateName": [
+          "害",
+          "Hài"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "po_ruptura",
+      "zh": "破",
+      "py": "Pò",
+      "pt": "Ruptura / Fratura",
+      "tipo": "interacao_estrutural",
+      "slug": "glossario/ruptura",
+      "url_canonica": "/glossario/ruptura",
+      "title_tag": "Ruptura (破) — Pò · BaZi em Português",
+      "meta_description": "Significado de Ruptura (破 · Pò) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Ruptura · 破 · Pò",
+      "keywords_primarias": [
+        "破 BaZi significado",
+        "Po ruptura BaZi"
+      ],
+      "keywords_lsi": [
+        "break BaZi português",
+        "fratura interação ramos BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Ruptura",
+        "alternateName": [
+          "破",
+          "Pò"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "premium"
+    },
+    {
+      "id": "ba_zi",
+      "zh": "八字",
+      "py": "Bā Zì",
+      "pt": "Oito Caracteres",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/oito-caracteres",
+      "url_canonica": "/glossario/oito-caracteres",
+      "title_tag": "Oito Caracteres (八字) — Bā Zì · BaZi em Português",
+      "meta_description": "Significado de Oito Caracteres (八字 · Bā Zì) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Oito Caracteres · 八字 · Bā Zì",
+      "keywords_primarias": [
+        "八字 significado",
+        "BaZi oito caracteres"
+      ],
+      "keywords_lsi": [
+        "八字 português",
+        "mapa natal BaZi",
+        "Zi Ping sistema"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Oito Caracteres",
+        "alternateName": [
+          "八字",
+          "Bā Zì"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "si_zhu",
+      "zh": "四柱",
+      "py": "Sì Zhù",
+      "pt": "Quatro Pilares",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/quatro-pilares",
+      "url_canonica": "/glossario/quatro-pilares",
+      "title_tag": "Quatro Pilares (四柱) — Sì Zhù · BaZi em Português",
+      "meta_description": "Significado de Quatro Pilares (四柱 · Sì Zhù) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Quatro Pilares · 四柱 · Sì Zhù",
+      "keywords_primarias": [
+        "四柱 BaZi",
+        "Quatro Pilares destino"
+      ],
+      "keywords_lsi": [
+        "Si Zhu significado",
+        "pilares BaZi ano mês dia hora"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Quatro Pilares",
+        "alternateName": [
+          "四柱",
+          "Sì Zhù"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "tian_gan",
+      "zh": "天干",
+      "py": "Tiān Gān",
+      "pt": "Troncos Celestiais",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/troncos-celestiais",
+      "url_canonica": "/glossario/troncos-celestiais",
+      "title_tag": "Troncos Celestiais (天干) — Tiān Gān · BaZi em Português",
+      "meta_description": "Significado de Troncos Celestiais (天干 · Tiān Gān) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Troncos Celestiais · 天干 · Tiān Gān",
+      "keywords_primarias": [
+        "天干 BaZi",
+        "Troncos Celestiais significado"
+      ],
+      "keywords_lsi": [
+        "Tian Gan dez troncos",
+        "甲乙丙丁戊己庚辛壬癸"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Troncos Celestiais",
+        "alternateName": [
+          "天干",
+          "Tiān Gān"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "di_zhi",
+      "zh": "地支",
+      "py": "Dì Zhī",
+      "pt": "Ramos Terrestres",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/ramos-terrestres",
+      "url_canonica": "/glossario/ramos-terrestres",
+      "title_tag": "Ramos Terrestres (地支) — Dì Zhī · BaZi em Português",
+      "meta_description": "Significado de Ramos Terrestres (地支 · Dì Zhī) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Ramos Terrestres · 地支 · Dì Zhī",
+      "keywords_primarias": [
+        "地支 BaZi",
+        "Ramos Terrestres significado"
+      ],
+      "keywords_lsi": [
+        "Di Zhi doze ramos",
+        "子丑寅卯辰巳午未申酉戌亥"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Ramos Terrestres",
+        "alternateName": [
+          "地支",
+          "Dì Zhī"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "wu_xing",
+      "zh": "五行",
+      "py": "Wǔ Xíng",
+      "pt": "Cinco Movimentos",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/cinco-movimentos",
+      "url_canonica": "/glossario/cinco-movimentos",
+      "title_tag": "Cinco Movimentos (五行) — Wǔ Xíng · BaZi em Português",
+      "meta_description": "Significado de Cinco Movimentos (五行 · Wǔ Xíng) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Cinco Movimentos · 五行 · Wǔ Xíng",
+      "keywords_primarias": [
+        "五行 BaZi",
+        "Wu Xing cinco elementos"
+      ],
+      "keywords_lsi": [
+        "cinco movimentos metafísica",
+        "madeira fogo terra metal água BaZi"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Cinco Movimentos",
+        "alternateName": [
+          "五行",
+          "Wǔ Xíng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "yin_yang",
+      "zh": "陰陽",
+      "py": "Yīn Yáng",
+      "pt": "Yin e Yang",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/yin-e-yang",
+      "url_canonica": "/glossario/yin-e-yang",
+      "title_tag": "Yin e Yang (陰陽) — Yīn Yáng · BaZi em Português",
+      "meta_description": "Significado de Yin e Yang (陰陽 · Yīn Yáng) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Yin e Yang · 陰陽 · Yīn Yáng",
+      "keywords_primarias": [
+        "陰陽 BaZi",
+        "Yin Yang metafísica chinesa"
+      ],
+      "keywords_lsi": [
+        "polaridade BaZi",
+        "yin yang cinco elementos"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Yin e Yang",
+        "alternateName": [
+          "陰陽",
+          "Yīn Yáng"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "ri_zhu",
+      "zh": "日主",
+      "py": "Rì Zhǔ",
+      "pt": "Mestre do Dia",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/mestre-do-dia",
+      "url_canonica": "/glossario/mestre-do-dia",
+      "title_tag": "Mestre do Dia (日主) — Rì Zhǔ · BaZi em Português",
+      "meta_description": "Significado de Mestre do Dia (日主 · Rì Zhǔ) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Mestre do Dia · 日主 · Rì Zhǔ",
+      "keywords_primarias": [
+        "日主 BaZi",
+        "Mestre do Dia BaZi"
+      ],
+      "keywords_lsi": [
+        "Mestre do Dia significado",
+        "Ri Zhu BaZi português"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Mestre do Dia",
+        "alternateName": [
+          "日主",
+          "Rì Zhǔ"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "da_yun",
+      "zh": "大運",
+      "py": "Dà Yùn",
+      "pt": "Grandes Ciclos",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/grandes-ciclos",
+      "url_canonica": "/glossario/grandes-ciclos",
+      "title_tag": "Grandes Ciclos (大運) — Dà Yùn · BaZi em Português",
+      "meta_description": "Significado de Grandes Ciclos (大運 · Dà Yùn) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Grandes Ciclos · 大運 · Dà Yùn",
+      "keywords_primarias": [
+        "大運 BaZi",
+        "Grandes Ciclos BaZi"
+      ],
+      "keywords_lsi": [
+        "Da Yun Lucky Pillars",
+        "ciclos dez anos BaZi português"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Grandes Ciclos",
+        "alternateName": [
+          "大運",
+          "Dà Yùn"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    },
+    {
+      "id": "jie_qi",
+      "zh": "節氣",
+      "py": "Jié Qì",
+      "pt": "Termos Solares",
+      "tipo": "conceito_estrutural",
+      "slug": "glossario/termos-solares",
+      "url_canonica": "/glossario/termos-solares",
+      "title_tag": "Termos Solares (節氣) — Jié Qì · BaZi em Português",
+      "meta_description": "Significado de Termos Solares (節氣 · Jié Qì) no BaZi: etimologia, inscrições Shang e aplicação prática. Glossário BaZi em português.",
+      "h1": "Termos Solares · 節氣 · Jié Qì",
+      "keywords_primarias": [
+        "節氣 BaZi",
+        "Jieqi termos solares"
+      ],
+      "keywords_lsi": [
+        "calendário solar BaZi",
+        "立春 início do ano BaZi",
+        "24 termos solares português"
+      ],
+      "schema_type": "DefinedTerm",
+      "schema_partial": {
+        "@type": "DefinedTerm",
+        "name": "Termos Solares",
+        "alternateName": [
+          "節氣",
+          "Jié Qì"
+        ],
+        "inDefinedTermSet": {
+          "@type": "DefinedTermSet",
+          "name": "BaZi · Glossário · 八字術語"
+        }
+      },
+      "fonte_json": "glossario_bazi_app.json#termos_conceituais",
+      "conteudo_tier": "free"
+    }
+  ]
+}
