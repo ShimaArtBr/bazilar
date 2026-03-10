@@ -23,6 +23,7 @@ import { MT } from './modules/data.js';
 import { renderBaziChart } from './renderer.js';
 import { FLAGS } from './config/flags.js';
 import { AuthModal } from './components/auth-modal.js';
+import { PixModal } from './components/pix-modal.js';
 import { auth } from './lib/supabase.js';
 
 // ── Referências DOM ────────────────────────────────────────────────────────────
@@ -61,11 +62,12 @@ const themeBtn   = document.getElementById('themeBtn');
 const authBtn    = document.getElementById('authBtn');
 
 // ── Auth ───────────────────────────────────────────────────────────────────────
+let _currentUser = null;
 const authModal = new AuthModal();
-authModal.onLogin = (session) => _updateAuthBtn(session?.user);
+authModal.onLogin = (session) => { _currentUser = session?.user ?? null; _updateAuthBtn(_currentUser); };
 
-auth.getSession().then(session => _updateAuthBtn(session?.user));
-auth.onSessionChange(session => _updateAuthBtn(session?.user));
+auth.getSession().then(session => { _currentUser = session?.user ?? null; _updateAuthBtn(_currentUser); });
+auth.onSessionChange(session => { _currentUser = session?.user ?? null; _updateAuthBtn(_currentUser); });
 
 function _updateAuthBtn(user) {
   if (!authBtn) return;
@@ -77,6 +79,14 @@ function _updateAuthBtn(user) {
     authBtn.onclick = () => authModal.open();
   }
 }
+
+// ── Premium (Ver Premium button — event delegation) ────────────────────────────
+document.addEventListener('click', (e) => {
+  if (!e.target.matches('.deus-premium-gate__btn')) return;
+  if (!_currentUser) { authModal.open(); return; }
+  const modal = new PixModal({ email: _currentUser.email, userId: _currentUser.id });
+  modal.open();
+});
 const themeIcon  = document.getElementById('themeIcon');
 
 // ── Estado da aplicação ────────────────────────────────────────────────────────
