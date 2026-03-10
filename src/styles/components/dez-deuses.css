@@ -27,15 +27,18 @@
   align-items: center;
   gap: .5rem;
   margin-bottom: .25rem;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--bg-gold, rgba(201,168,76,.12));
 }
 
 .dez-deuses-title {
-  font-family: 'Lora', Georgia, serif;
-  font-size: .9rem;
-  font-weight: 500;
-  letter-spacing: .08em;
+  /* Segue .sec-label do DS — JetBrains Mono uppercase, não Lora */
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .6rem;
+  font-weight: 400;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--color-text-primary, var(--txt));
+  color: var(--color-text-secondary, var(--muted));
   margin: 0;
 }
 
@@ -51,9 +54,9 @@
 }
 
 .dez-deuses-subhead {
-  font-size: .75rem;
+  font-size: .7rem;
   color: var(--color-text-secondary, var(--dim));
-  margin: 0 0 1.25rem;
+  margin: .5rem 0 1.25rem;
 }
 
 /* ── Grid de cards ─────────────────────────────────────────────────────────── */
@@ -104,10 +107,11 @@
 .deus-card__body[hidden] { display: none !important; }
 
 .deus-card__pilar {
-  font-size: .6rem;
+  font-size: .65rem;
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--color-text-secondary, var(--dim));
+  font-family: 'JetBrains Mono', monospace;
   flex: 0 0 auto;
 }
 
@@ -120,18 +124,20 @@
 }
 
 .deus-card__nome {
-  font-family: 'Lora', Georgia, serif;
-  font-size: .8rem;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: .85rem;
+  font-weight: 400;
   color: var(--color-text-primary, var(--txt));
 }
 
 /* Arquétipo */
 .deus-card__archetype {
-  font-size: .78rem;
-  line-height: 1.55;
+  font-size: .8rem;
+  line-height: 1.6;
   color: var(--color-text-secondary, var(--dim));
   margin: 0;
   font-style: italic;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 /* Blocos de expressão */
@@ -167,10 +173,11 @@
 }
 
 .deus-card__expr-text {
-  font-size: .76rem;
-  line-height: 1.55;
+  font-size: .8rem;
+  line-height: 1.6;
   color: var(--color-text-primary, var(--txt));
   margin: 0;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 /* Pergunta reflexiva */
@@ -191,9 +198,9 @@
 }
 
 .deus-card__question-text {
-  font-family: 'Lora', Georgia, serif;
-  font-size: .78rem;
-  line-height: 1.55;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: .8rem;
+  line-height: 1.6;
   color: var(--color-text-primary, var(--txt));
   margin: 0;
   font-style: italic;

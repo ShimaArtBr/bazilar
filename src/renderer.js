@@ -388,7 +388,20 @@ function renderInfoGrid(mapa, container) {
   const cDM = el('div', ['info-card']);
   const cDMtitle = el('p', ['ic-title']); cDMtitle.textContent = 'MESTRE DO DIA · 日主';
   const cDMval = el('p', ['ic-val']);
-  cDMval.textContent = dmTronco ? `${dmTronco.zh} ${dmTronco.py} — ${EL_PT[elKey(dmTronco.el)] || dmTronco.el} ${dmTronco.yin ? 'Yin' : 'Yang'}` : '—';
+  if (dmTronco) {
+    const dmColor = EL_COLORS[elKey(dmTronco.el)]?.mid || '';
+    // hanzi colorido
+    const dmZh = el('span');
+    dmZh.textContent = `${dmTronco.zh} `;
+    dmZh.style.color = dmColor;
+    dmZh.setAttribute('lang', 'zh-Hans');
+    // resto normal
+    const dmRest = document.createTextNode(`${dmTronco.py} — ${EL_PT[elKey(dmTronco.el)] || dmTronco.el} ${dmTronco.yin ? 'Yin' : 'Yang'}`);
+    cDMval.appendChild(dmZh);
+    cDMval.appendChild(dmRest);
+  } else {
+    cDMval.textContent = '—';
+  }
   const cDMsub = el('p', ['ic-sub']); cDMsub.textContent = 'Pilar central do mapa';
   cDM.appendChild(cDMtitle); cDM.appendChild(cDMval); cDM.appendChild(cDMsub);
   grid.appendChild(cDM);
@@ -416,8 +429,17 @@ function renderInfoGrid(mapa, container) {
   const cYr = el('div', ['info-card']);
   const cYrtitle = el('p', ['ic-title']); cYrtitle.textContent = 'ANO BAZI · 八字年';
   const cYrval = el('p', ['ic-val']);
-  cYrval.setAttribute('lang', 'zh-Hans');
-  cYrval.textContent = yTronco && yRamo ? `${yTronco.zh}${yRamo.zh} · ${yP.by}` : String(birth.year);
+  if (yTronco && yRamo) {
+    const yrColor = EL_COLORS[elKey(yTronco.el)]?.mid || '';
+    const yrZh = el('span', [], { lang: 'zh-Hans' });
+    yrZh.textContent = `${yTronco.zh}${yRamo.zh}`;
+    yrZh.style.color = yrColor;
+    cYrval.appendChild(yrZh);
+    cYrval.appendChild(document.createTextNode(` · ${yP.by}`));
+  } else {
+    cYrval.setAttribute('lang', 'zh-Hans');
+    cYrval.textContent = String(birth.year);
+  }
   const cYrsub = el('p', ['ic-sub']); cYrsub.textContent = 'Muda em 立春 (~4 Fev)';
   cYr.appendChild(cYrtitle); cYr.appendChild(cYrval); cYr.appendChild(cYrsub);
   grid.appendChild(cYr);
@@ -811,15 +833,41 @@ function renderInteracoes(interactions, container) {
 
     const pair = el('span', ['interact-pair'], { lang: 'zh-Hans' });
     const branches = inter.branches || [];
+
+    const coloredBranch = (b) => {
+      const r = RAMOS[b];
+      if (!r) return document.createTextNode('?');
+      const c = EL_COLORS[elKey(r.el)]?.mid || '';
+      const span = el('span');
+      const zhSpan = el('span', [], { lang: 'zh-Hans' });
+      zhSpan.textContent = r.zh;
+      zhSpan.style.color = c;
+      span.appendChild(zhSpan);
+      span.appendChild(document.createTextNode(` ${r.animal}`));
+      return span;
+    };
+
     if (inter.type === 'clash' && branches.length === 2) {
       const [b0, b1] = branches;
       const r0 = RAMOS[b0], r1 = RAMOS[b1];
-      pair.textContent = `${r0?.animal ?? ''} ${r0?.zh ?? ''} ↔ ${r1?.zh ?? ''} ${r1?.animal ?? ''}`;
+      const c0 = EL_COLORS[elKey(r0?.el)]?.mid || '';
+      const c1 = EL_COLORS[elKey(r1?.el)]?.mid || '';
+      // espelhado: Animal0 zh0 ↔ zh1 Animal1
+      const s0 = el('span');
+      s0.appendChild(document.createTextNode(`${r0?.animal ?? ''} `));
+      const z0 = el('span', [], { lang: 'zh-Hans' }); z0.textContent = r0?.zh ?? ''; z0.style.color = c0;
+      s0.appendChild(z0);
+      const sep = document.createTextNode(' ↔ ');
+      const s1 = el('span');
+      const z1 = el('span', [], { lang: 'zh-Hans' }); z1.textContent = r1?.zh ?? ''; z1.style.color = c1;
+      s1.appendChild(z1);
+      s1.appendChild(document.createTextNode(` ${r1?.animal ?? ''}`));
+      pair.appendChild(s0); pair.appendChild(sep); pair.appendChild(s1);
     } else {
-      pair.textContent = branches.map(b => {
-        const r = RAMOS[b];
-        return r ? `${r.zh} ${r.animal}` : '';
-      }).join(' + ');
+      branches.forEach((b, i) => {
+        if (i > 0) pair.appendChild(document.createTextNode(' + '));
+        pair.appendChild(coloredBranch(b));
+      });
     }
     item.appendChild(pair);
 
