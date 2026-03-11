@@ -395,10 +395,7 @@ function buildCSS() {
     + '}'
 
     /* ── @page: A4 com 1 polegada ── */
-    + '@page {'
-      + 'size: 210mm 297mm portrait;'  /* A4 portrait forçado */
-      + 'margin: 17.5mm 17.5mm 1.75mm;'    /* topo/lados 17.5mm · inferior 1.75mm */
-    + '}'
+    + '@page { size: 210mm 297mm portrait; margin: 17mm; }'
     + '@media print {'
       + 'body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }'
       + '.no-print { display: none !important; }'
@@ -414,72 +411,37 @@ function buildCSS() {
        Área útil A4: 159,2 mm × 246,2 mm
        Grid: 2fr (≈103mm) | 4mm gap | 1fr (≈52mm)
        ZERO position:fixed/absolute                    ══ */
-    + '.page-wrap {'
-      + 'display: grid;'
-      + 'grid-template-columns: 2fr 1fr;'
-      + 'gap: 0 4mm;'
-      + 'height: 277mm;'           /* 297 - 17.5 - 1.75 = 277.75mm */
-      + 'overflow: hidden;'
-    + '}'
+    + '.page-wrap { display: grid; grid-template-columns: 2fr 1fr; gap: 0 4mm; align-items: start; }'
 
     /* ── Coluna de conteúdo
        flex column, gap 3mm, altura exata para preencher a página ── */
-    + '.content-col {'
-      + 'height: 277mm;'
-      + 'display: flex;'
-      + 'flex-direction: column;'
-      + 'gap: 5mm;'
-      + 'padding: 3mm;'
-      + 'min-width: 0;'
-      + 'overflow: hidden;'
-    + '}'
+    + '.content-col { min-width: 0; }'
 
     /* Seções fixas */
-    + '.report-hd { flex: none; height: 15mm; }'
-    + '.report-ft { flex: none; height: 5mm; }'
-
-    /* Seções variáveis — flex weights somam 205 (= mm disponíveis)
-       → cada unidade = 1mm exato                               */
-    + '.sec-pillars    { flex: 62; min-height: 0; overflow: hidden; }'
-    + '.info-grid-sec  { flex: 26; min-height: 0; overflow: hidden; }'
-    + '.balance-dm-row { flex: 25; min-height: 0; overflow: hidden; }'
-    + '.sec-terms      { flex: 20; min-height: 0; overflow: hidden; }'
-    + '.sec-luck       { flex: 22; min-height: 0; overflow: hidden; }'
-    + '.stars-ix-row   { flex: 50; min-height: 0; overflow: hidden; }'
+    + '.report-hd { margin-bottom: 5mm; padding-bottom: 3mm; border-bottom: 0.4pt solid rgba(201,168,76,.3); break-inside: avoid; }'
+    + '.report-ft { margin-top: 5mm; }'
+    + '.sec-pillars    { margin-bottom: 4mm; break-inside: avoid; }'
+    + '.info-grid-sec  { margin-bottom: 4mm; break-inside: avoid; }'
+    + '.balance-dm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-bottom: 4mm; break-inside: avoid; }'
+    + '.sec-terms      { margin-bottom: 4mm; break-inside: avoid; }'
+    + '.sec-luck       { margin-bottom: 4mm; break-inside: avoid; }'
+    + '.stars-ix-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-bottom: 4mm; }'
 
     /* Seções com label + conteúdo preenchem a altura */
-    + '.sec-pillars, .info-grid-sec, .sec-terms, .sec-luck {'
-      + 'display: flex; flex-direction: column;'
-    + '}'
-    + '.sec-pillars .sec-label,'
-    + '.info-grid-sec .sec-label,'
-    + '.sec-terms .sec-label,'
-    + '.sec-luck .sec-label { flex: none; }'
-    + '.sec-luck .ssub { flex: none; }'
-    + '.sec-pillars .pillars-grid  { flex: 1; min-height: 0; }'
-    + '.info-grid-sec .info-grid   { flex: 1; min-height: 0; }'
-    + '.sec-terms .terms-grid      { flex: 1; min-height: 0; }'
-    + '.sec-luck .lp-grid          { flex: 1; min-height: 0; }'
+    + '.sec-pillars, .info-grid-sec, .sec-terms, .sec-luck { display: block; }'
 
     /* Linhas de 2 colunas (balanço+força, estrelas+IX) */
     + '.balance-dm-row, .stars-ix-row {'
       + 'display: grid; grid-template-columns: 1fr 1fr; gap: 3mm;'
     + '}'
-    + '.balance-dm-row .sub-sec,'
-    + '.stars-ix-row .sub-sec {'
-      + 'display: flex; flex-direction: column; min-height: 0; overflow: hidden;'
-    + '}'
+    + '.balance-dm-row .sub-sec, .stars-ix-row .sub-sec { display: flex; flex-direction: column; }'
     + '.balance-dm-row .sub-sec .sec-label,'
     + '.stars-ix-row .sub-sec .sec-label { flex: none; }'
-    + '.balance-dm-row .sub-sec > :last-child,'
-    + '.stars-ix-row .sub-sec > :last-child {'
-      + 'flex: 1; min-height: 0; overflow: hidden;'
-    + '}'
+    + '.balance-dm-row .sub-sec > :last-child, .stars-ix-row .sub-sec > :last-child { flex: 1; }'
 
     /* ══ COLUNA DE ANOTAÇÕES
        Elemento de grid normal (NUNCA position:fixed) ══ */
     + '.notes-col {'
-      + 'height: 277mm;'
       + 'align-self: stretch;'
       + 'border-left: 0.4pt solid var(--bd-gold);'
       + 'background-color: var(--surface);'
@@ -655,7 +617,7 @@ function buildCSS() {
     + '.ic-sub { font-size:6.8pt; color: var(--muted); margin-top: 0.4mm; line-height: 1.4; }'
 
     /* ══ BALANÇO DOS ELEMENTOS ══ */
-    + '.eb-wrap { display: flex; flex-direction: column; justify-content: space-evenly; height: 100%; }'
+    + '.eb-wrap { display: flex; flex-direction: column; gap: 1.5mm; padding: 1mm 0; }'
     + '.eb-row  { display: flex; align-items: center; gap: 1.2mm; }'
     + '.eb-name { font-size:7.7pt; color: var(--muted); min-width: 12mm; }'
     + '.eb-track { flex: 1; height: 1.6mm; background: var(--panel2); border-radius: 1mm; overflow: hidden; }'
@@ -663,7 +625,7 @@ function buildCSS() {
     + '.eb-val   { font-size:7.7pt; color: var(--dim); min-width: 5mm; text-align: right; }'
 
     /* ══ FORÇA DO MESTRE DO DIA ══ */
-    + '.dms-inner { display: flex; flex-direction: column; justify-content: space-evenly; height: 100%; padding: 2mm; border: 0.25pt solid var(--bd-gold); border-radius: 1.5mm; background: var(--surface); }'
+    + '.dms-inner { display: flex; flex-direction: column; gap: 1.5mm; padding: 2mm; border: 0.25pt solid var(--bd-gold); border-radius: 1.5mm; background: var(--surface); }'
     + '.dms-hd    { display: flex; justify-content: space-between; align-items: baseline; }'
     + '.dms-verdict { font-size:11.1pt; color: var(--text); }'
     + '.dms-score   { font-size:7.7pt; color: var(--dim); }'
@@ -673,7 +635,7 @@ function buildCSS() {
     + '.dms-lbl     { font-size:6.8pt; color: var(--dim); min-width: 24mm; }'
 
     /* ══ TERMOS SOLARES ══ */
-    + '.terms-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 0.8mm; align-content: space-evenly; height: 100%; }'
+    + '.terms-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 0.8mm; }'
     + '.term-dot   { text-align: center; padding: 1.8mm 0.8mm; border-radius: 0.8mm; background: var(--surface); }'
     + '.term-zh    { display: block; font-size:10.1pt; color: var(--text); }'
     + '.term-dt    { display: block; font-size:6.4pt; color: var(--dim); }'
@@ -699,7 +661,7 @@ function buildCSS() {
     + '.lyrs  { font-size:5.9pt; color: var(--dim); }'
 
     /* ══ ESTRELAS ══ */
-    + '.stars-inner { display: flex; flex-direction: column; justify-content: space-evenly; height: 100%; }'
+    + '.stars-inner { display: flex; flex-direction: column; gap: 1mm; }'
     + '.star-row {'
       + 'display: flex; align-items: center; gap: 1.2mm;'
       + 'font-size:8.5pt; padding: 1.8mm 2mm;'
@@ -713,7 +675,7 @@ function buildCSS() {
     + '.star-src   { font-size:6.4pt; color: var(--dim); }'
 
     /* ══ INTERAÇÕES ══ */
-    + '.ix-inner { display: flex; flex-direction: column; justify-content: space-evenly; height: 100%; }'
+    + '.ix-inner { display: flex; flex-direction: column; gap: 1mm; }'
     + '.ix-row { display: flex; align-items: center; gap: 2mm; padding: 1.5mm 2mm; border-radius: 0.8mm; border: 0.2pt solid rgba(201,168,76,.15); }'
     + '.ix-type { font-size:7pt; min-width: 14mm; flex-shrink:0; }'
     + '.ix-pair { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5mm; flex: 1; }'
