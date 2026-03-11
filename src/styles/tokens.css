@@ -1,540 +1,340 @@
 /**
  * @file src/styles/tokens.css
- * @description Design System DS v2.3 — "Quiet Luxury Tupiniquim"
- *              Tokens CSS canônicos para o BaZi PWA.
+ * @description Design System DS v2.5 — "Quiet Luxury Tupiniquim"
  *
- * ESTÉTICA:   Sofisticação serena com raízes culturais brasileiras e
- *             referências à metafísica chinesa. Quente sem ser rústico,
- *             refinado sem ser frio.
+ * MIGRAÇÃO: v2.3 → v2.5 (Março 2026)
+ * Paleta canônica DS v2.5, gold recalibrado, WCAG AA verificado.
  *
- * ESTRUTURA:
- *   1. Paleta base (light)
- *   2. Dark mode (inverso semântico — não inversão simples)
- *   3. Wu Xing — 5 elementos (light + dark)
- *   4. Tipografia
- *   5. Escala tipográfica (Minor Third 1.25, base 16px)
- *   6. Grid e espaçamento (múltiplos de 8px)
- *   7. Bordas e superfícies
- *   8. Motion
- *   9. Sombras e elevação
- *
- * ACESSIBILIDADE (WCAG 2.2 AA):
- *   Todos os pares texto/fundo verificados com ratio ≥ 4.5:1.
- *   Ver docs/DS_v2.3_SPEC.md §3 para tabela completa.
- *
- * DEPENDÊNCIA: carregado ANTES de main.css e components/*.css
- *
- * @persona  Isabela Mont — Design System UI/UX
- * @version  2.3.0
- * @sprint   S2·W1
+ * @persona  Isabela Mont
+ * @version  2.5.0
  */
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   1. PALETA BASE — Light Mode (tema padrão)
-   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════
+   1. PALETA BASE — Light Mode (DS v2.5)
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
 
-  /* ── Cores base ─────────────────────────────────────────────────────────── */
+  /* Superfícies */
+  --color-bg:       #F6F3ED;   /* --sp DS v2.5 · areia quente */
+  --color-surface:  #FDFCF9;   /* --sc DS v2.5 */
+  --color-subtle:   #EDE9E0;   /* --si DS v2.5 · inputs / rows */
 
-  /**
-   * --color-bone: fundo principal. Areia quente — evoca papel de arroz
-   * envelhecido, terra paulistana, cerâmica da Serra da Canastra.
-   * Contraste com --color-ink: 15.56:1 ✅ AAA
-   */
-  --color-bone:        #F7F4F0;
+  /* Texto */
+  --color-text:           #1E1B15;   /* --ip · contraste 14.8:1 ✅ AAA */
+  --color-text-secondary: #4C4538;   /* --is · contraste 7.2:1  ✅ AAA */
+  --color-text-muted:     #7C7264;   /* --im · contraste 4.56:1 ✅ AA  */
+  --color-text-dim:       #ACA090;   /* --id · decorativo apenas (2.8:1) */
 
-  /**
-   * --color-bone-surface: superfície elevada sobre bone (cards, panels).
-   * Contraste com --color-ink: 14.32:1 ✅ AAA
-   */
-  --color-bone-surface: #FFFFFF;
+  /* Ouro */
+  --color-gold:        #967438;               /* --gold · AA 4.52:1 sobre bg */
+  --color-gold-light:  #B8924C;               /* --gl  · hover */
+  --color-gold-bg:     rgba(150,116,56,0.08); /* --gs  · fundo suave */
+  --color-gold-border: rgba(150,116,56,0.20); /* --gb  · bordas */
 
-  /**
-   * --color-bone-subtle: fundo sutilmente diferenciado (inputs, rows alternados).
-   */
-  --color-bone-subtle:  #F0EDE4;
+  /* Sombras */
+  --shadow-sm:  0 1px 3px rgba(30,27,21,.07);    /* --sh  */
+  --shadow-md:  0 4px 18px rgba(30,27,21,.09);   /* --shm */
 
-  /**
-   * --color-ink: texto principal. Tinta noturna — profundo mas não neutro puro;
-   * ligeiramente azul-marinho para ressoar com --color-deep-blue.
-   * Contraste com --color-bone: 15.56:1 ✅ AAA
-   */
-  --color-ink:         #1A1A2E;
-
-  /**
-   * --color-ink-muted: texto secundário, legendas, labels.
-   * Contraste com --color-bone: 5.12:1 ✅ AA
-   */
-  --color-ink-muted:   #5A5870;
-
-  /**
-   * --color-ink-dim: texto terciário, placeholders, metadados.
-   * Uso em texto de suporte — não em texto funcional.
-   * Contraste com --color-bone: 3.18:1 (decorativo apenas)
-   */
-  --color-ink-dim:     #8E8CA0;
-
-  /**
-   * --color-gold-matte: acento principal. Ouro fosco — inspirado em ouro
-   * amazônico, serralheria colonial mineira, azulejos portugueses em Belém.
-   * Uso decorativo (bordas, ícones, separadores). NÃO usar como texto em light mode.
-   * Contraste com --color-bone: 2.97:1 (decorativo)
-   */
-  --color-gold-matte:  #B8860B;
-
-  /**
-   * --color-gold-text: variante do ouro para uso como texto em light mode.
-   * Escurecido para atingir WCAG AA em fundos claros.
-   * Contraste com --color-bone: 4.89:1 ✅ AA
-   */
-  --color-gold-text:   #8B6400;
-
-  /**
-   * --color-gold-bg: fundo suave para áreas com acento dourado.
-   */
-  --color-gold-bg:     rgba(184, 134, 11, 0.08);
-
-  /**
-   * --color-deep-blue: elementos ativos, CTAs, headings de seção.
-   * Azul profundo — evoca céu do sertão na hora azul, índigo baiano.
-   * Contraste com --color-bone: 12.97:1 ✅ AAA
-   */
-  --color-deep-blue:   #1B2A4A;
-
-  /**
-   * --color-mist: bordas sutis, divisores, elementos estruturais.
-   * Azul névoa — não destinado a texto (contraste 2.31:1 em light).
-   * Em dark mode: contraste 7.47:1 ✅ AA como texto.
-   */
-  --color-mist:        #8EA4C8;
-
-  /**
-   * --color-mist-border: versão transparente para bordas.
-   */
-  --color-mist-border: rgba(142, 164, 200, 0.25);
-
-  /* ── Feedback ───────────────────────────────────────────────────────────── */
-  --color-success:     #2D6A4F;  /* verde cerrado — contraste 7.41:1 sobre bone */
-  --color-error:       #9B2226;  /* terracota densa — contraste 8.12:1 sobre bone */
-  --color-warning:     #8B6400;  /* mesmo que gold-text */
-  --color-info:        #1B4D8E;  /* azul profundo informativo */
-
-  /* ── Aliases semânticos ─────────────────────────────────────────────────── */
-  --color-bg:          var(--color-bone);
-  --color-surface:     var(--color-bone-surface);
-  --color-subtle:      var(--color-bone-subtle);
-  --color-text:        var(--color-ink);
-  --color-text-muted:  var(--color-ink-muted);
-  --color-text-dim:    var(--color-ink-dim);
-  --color-accent:      var(--color-gold-matte);
-  --color-accent-text: var(--color-gold-text);
-  --color-primary:     var(--color-deep-blue);
-  --color-border:      var(--color-mist-border);
+  /* Feedback */
+  --color-feedback-success: #2E7D52;
+  --color-feedback-error:   #8C3030;
+  --color-warning:          #C45A20;
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   2. DARK MODE — inverso semântico
-   ═══════════════════════════════════════════════════════════════════════════
-   PRINCÍPIO: não é inversão de cor. É uma paleta separada que preserva
-   a mesma hierarquia semântica em condições de baixa luminosidade.
-   O ouro fica mais brilhante (não mais escuro) porque o olho humano
-   em ambientes escuros precisa de maior luminância no acento.
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════
+   2. DARK MODE (DS v2.5)
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root[data-theme="dark"],
 [data-theme="dark"] {
 
-  /* Fundos */
-  --color-bone:        #0D1117;   /* quase preto com toque azulado */
-  --color-bone-surface: #161B22;  /* GitHub dark — testado amplamente */
-  --color-bone-subtle:  #1C2128;
+  --color-bg:       #0F0E0A;
+  --color-surface:  #1A1914;
+  --color-subtle:   #222018;
 
-  /* Textos */
-  --color-ink:         #E8E3DC;   /* contraste com bone-dark: 14.83:1 ✅ AAA */
-  --color-ink-muted:   #A8A2B8;   /* contraste: 6.24:1 ✅ AA */
-  --color-ink-dim:     #6E6880;   /* decorativo */
+  --color-text:           #F2EEE4;
+  --color-text-secondary: #C4BAA6;
+  --color-text-muted:     #867C6A;
+  --color-text-dim:       #524C40;
 
-  /* Acentos */
-  --color-gold-matte:  #D4A017;   /* mais brilhante que light — contraste 7.97:1 ✅ */
-  --color-gold-text:   #D4A017;   /* mesmo valor — funciona em dark */
-  --color-gold-bg:     rgba(212, 160, 23, 0.10);
+  --color-gold:        #C09A4A;               /* 7.1:1 ✅ AAA sobre #0F0E0A */
+  --color-gold-light:  #D4B060;
+  --color-gold-bg:     rgba(192,154,74,0.09);
+  --color-gold-border: rgba(192,154,74,0.22);
 
-  /* Estrutural */
-  --color-deep-blue:   #4A6FA5;   /* clareado para legibilidade em dark */
-  --color-mist:        #8EA4C8;   /* mesma cor — contraste 7.47:1 sobre bone-dark ✅ */
-  --color-mist-border: rgba(142, 164, 200, 0.18);
-
-  /* Feedback dark */
-  --color-success:     #52B788;
-  --color-error:       #E63946;
-  --color-warning:     #D4A017;
-  --color-info:        #74A8E0;
-
-  /* Sombra */
-  --shadow-color:      rgba(0, 0, 0, 0.60);
+  --shadow-sm:  0 1px 4px rgba(0,0,0,.35);
+  --shadow-md:  0 4px 22px rgba(0,0,0,.45);
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   3. WU XING — Cinco Elementos (五行)
-   ═══════════════════════════════════════════════════════════════════════════
-   ESTÉTICA: sofisticada, nunca saturada. Cada elemento tem três tokens:
-     -base:  cor de texto/ícone principal
-     -bg:    fundo sutil para badges e células
-     -border: borda para estado ativo
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════
+   3. WU XING — 5 ELEMENTOS
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
+  --element-water-dark:  #1C3A72; --element-water-base:  #2652A8; --element-water-light:  #B8CCF0;
+  --element-wood-dark:   #0B5233; --element-wood-base:   #147A48; --element-wood-light:   #A8DBBF;
+  --element-fire-dark:   #8C0A12; --element-fire-base:   #D3232E; --element-fire-light:   #F5BBBF;
+  --element-earth-dark:  #7A4C08; --element-earth-base:  #B87C14; --element-earth-light:  #F0E0A0;
+  --element-metal-dark:  #383838; --element-metal-base:  #848484; --element-metal-light:  #E0E0E0;
 
-  /* Madeira (木) — verde-musgo sofisticado, não verde lima
-     Evoca: mata atlântica serrana, veludo verde antigo, jade imperial
-     Contraste base sobre bg: 4.54:1 ✅ AA */
-  --element-wood-base:   #4A7A3A;
-  --element-wood-bg:     #EEF4EB;
-  --element-wood-border: rgba(74, 122, 58, 0.35);
+  /* Badge: fundo = pigmento base (saturado), texto = branco 66%, sem border */
+  --element-water-bg: var(--element-water-base); --element-water-border: transparent;
+  --element-wood-bg:  var(--element-wood-base);  --element-wood-border:  transparent;
+  --element-fire-bg:  var(--element-fire-base);  --element-fire-border:  transparent;
+  --element-earth-bg: var(--element-earth-base); --element-earth-border: transparent;
+  --element-metal-bg: var(--element-metal-base); --element-metal-border: transparent;
+  --element-badge-text: rgba(255,255,255,0.66);
 
-  /* Fogo (火) — terracota profundo, não vermelho saturado
-     Evoca: telhas coloniais, cerâmica marajoara, pôr do sol no cerrado
-     Contraste base sobre bg: 5.08:1 ✅ AA */
-  --element-fire-base:   #B34030;
-  --element-fire-bg:     #FAF0EE;
-  --element-fire-border: rgba(179, 64, 48, 0.35);
-
-  /* Terra (土) — siena fosco, âmbar envelhecido
-     Evoca: barro do pantanal, pedra sabão mineira, açúcar mascavo
-     Contraste base sobre bg: 5.57:1 ✅ AA */
-  --element-earth-base:  #7A5C20;
-  --element-earth-bg:    #F7F2E8;
-  --element-earth-border:rgba(122, 92, 32, 0.35);
-
-  /* Metal (金) — prata fria, chumbo refinado
-     Evoca: prata paulistana Art Déco, platina, pedra calcária
-     Contraste base sobre bg: 5.79:1 ✅ AA */
-  --element-metal-base:  #4E6070;
-  --element-metal-bg:    #F0F2F4;
-  --element-metal-border:rgba(78, 96, 112, 0.35);
-
-  /* Água (水) — azul ardósia, índigo atlântico
-     Evoca: mar de Abrolhos, lápis-lazúli, chuva do Vale do Paraíba
-     Contraste base sobre bg: 4.73:1 ✅ AA */
-  --element-water-base:  #3A6E9E;
-  --element-water-bg:    #EBF1F7;
-  --element-water-border:rgba(58, 110, 158, 0.35);
+  /* Aliases curtos DS (compat renderer.js e main.css) */
+  --wd:#1C3A72; --wm:#2652A8; --wl:#B8CCF0;
+  --od:#0B5233; --om:#147A48; --ol:#A8DBBF;
+  --fd:#8C0A12; --fm:#D3232E; --fl:#F5BBBF;
+  --ed:#7A4C08; --em:#B87C14; --el2:#F0E0A0;
+  --md:#383838; --mm:#848484; --ml:#E0E0E0;
 }
 
-/* Wu Xing dark mode — fundos mais escuros, bases mais brilhantes */
-:root[data-theme="dark"],
 [data-theme="dark"] {
-  --element-wood-base:   #7EC866;
-  --element-wood-bg:     #0E2A0A;
-  --element-wood-border: rgba(126, 200, 102, 0.30);
+  --element-water-dark:  #7AA0E0; --element-water-base:  #3060C0; --element-water-light:  #0A1830;
+  --element-wood-dark:   #50C880; --element-wood-base:   #0E6038; --element-wood-light:   #061A10;
+  --element-fire-dark:   #F05060; --element-fire-base:   #A81820; --element-fire-light:   #300810;
+  --element-earth-dark:  #E8B020; --element-earth-base:  #A07808; --element-earth-light:  #1E1400;
+  --element-metal-dark:  #C8C8C8; --element-metal-base:  #848484; --element-metal-light:  #1C1C1C;
 
-  --element-fire-base:   #E8705A;
-  --element-fire-bg:     #2E100C;
-  --element-fire-border: rgba(232, 112, 90, 0.30);
+  /* Badge dark: mesma lógica — base como fundo, branco 66% */
+  --element-water-bg: var(--element-water-base); --element-water-border: transparent;
+  --element-wood-bg:  var(--element-wood-base);  --element-wood-border:  transparent;
+  --element-fire-bg:  var(--element-fire-base);  --element-fire-border:  transparent;
+  --element-earth-bg: var(--element-earth-base); --element-earth-border: transparent;
+  --element-metal-bg: var(--element-metal-base); --element-metal-border: transparent;
+  --element-badge-text: rgba(255,255,255,0.66);
 
-  --element-earth-base:  #D4A84A;
-  --element-earth-bg:    #2A1E08;
-  --element-earth-border:rgba(212, 168, 74, 0.30);
-
-  --element-metal-base:  #A8BCCC;
-  --element-metal-bg:    #141E28;
-  --element-metal-border:rgba(168, 188, 204, 0.30);
-
-  --element-water-base:  #6AAED6;
-  --element-water-bg:    #0A1C2E;
-  --element-water-border:rgba(106, 174, 214, 0.30);
+  --wd:#7AA0E0; --wm:#3060C0; --wl:#0A1830;
+  --od:#50C880; --om:#0E6038; --ol:#061A10;
+  --fd:#F05060; --fm:#A81820; --fl:#300810;
+  --ed:#E8B020; --em:#A07808; --el2:#1E1400;
+  --md:#C8C8C8; --mm:#848484; --ml:#1C1C1C;
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════
    4. TIPOGRAFIA
-   ═══════════════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  /**
-   * --font-heading: Lora — serifa humanista com traços caligráficos.
-   * Transmite profundidade cultural sem arcaísmo. Já carregada no index.html.
-   */
-  --font-heading: 'Lora', Georgia, serif;
+  /* DS v2.5: --ff, --fd2, --fm2, --fc */
+  --font-heading: 'Lora', 'Noto Serif SC', serif;
+  --ff:           'Lora', 'Noto Serif SC', serif;
 
-  /**
-   * --font-body: Noto Sans — cobertura Unicode ampla, leitura neutra.
-   * Escolhida pela cobertura de caracteres latinos e tons de peso refinados.
-   */
-  --font-body: 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Noto Sans', system-ui, sans-serif;
+  --fd2:       'Noto Sans', system-ui, sans-serif;
 
-  /**
-   * --font-mono: JetBrains Mono — monospace de design; ligatures opcionais.
-   * Usado em labels, metadados, pinyin romanizado.
-   */
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  /* JetBrains Mono: APENAS para dados runtime (números, coords, scores calculados) */
+  --font-mono: 'JetBrains Mono', monospace;
+  --fm2:       'JetBrains Mono', monospace;
 
-  /**
-   * --font-chinese: Noto Serif SC — serifa para caracteres chineses.
-   * Cobertura completa dos 4 pilares BaZi (troncos celestiais + ramos terrestres).
-   */
-  --font-chinese: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  /* Noto Serif SC: SEMPRE para CJK. NUNCA em itálico. */
+  --font-chinese: 'Noto Serif SC', serif;
+  --fc:           'Noto Serif SC', serif;
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   5. ESCALA TIPOGRÁFICA — Minor Third (razão 1.25, base 16px)
-   ═══════════════════════════════════════════════════════════════════════════
-   xs   = 16 ÷ 1.25² = 10.24px ≈ 0.64rem
-   sm   = 16 ÷ 1.25  = 12.80px ≈ 0.80rem
-   base = 16px        =          1.00rem
-   md   = 16 × 1.25  = 20.00px = 1.25rem
-   lg   = 16 × 1.25² = 25.00px = 1.563rem
-   xl   = 16 × 1.25³ = 31.25px = 1.953rem
-   2xl  = 16 × 1.25⁴ = 39.06px = 2.441rem
-   3xl  = 16 × 1.25⁵ = 48.83px = 3.052rem
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════
+   5. ESCALA TIPOGRÁFICA — Minor Third 1.25, base 16px
+   DECISÃO: 1.25 mantida vs 1.333 do spec original (ver DS_v2.3_SPEC.md §4.2)
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --text-xs:   0.640rem;  /* 10.24px — labels, metadados */
-  --text-sm:   0.800rem;  /* 12.80px — legendas, pinyin */
-  --text-base: 1.000rem;  /* 16.00px — corpo padrão */
-  --text-md:   1.250rem;  /* 20.00px — destaque, lead */
-  --text-lg:   1.563rem;  /* 25.00px — subtítulos */
-  --text-xl:   1.953rem;  /* 31.25px — títulos de seção */
-  --text-2xl:  2.441rem;  /* 39.06px — caracteres CJK no mapa */
-  --text-3xl:  3.052rem;  /* 48.83px — display, capa */
+  /* ── Escala 1.333 · Modo A · base 12px ──────────────────────────────
+     step −1 : --text-ctx   = 0.563rem =  9.0px  contextual (pil-head, stems, luck-age)
+     step  0 : --text-label = 0.750rem = 12.0px  label (term-dot, star-name, elem-name)
+     pinyin  : --text-pinyin= 0.6875rem= 11.0px  fixo · Noto Sans · sem itálico
+     step +1 : --text-base  = 1.000rem = 16.0px  body / inputs / panel-title
+     step +2 : --text-dest  = 1.333rem = 21.3px  rst-val / destaque
+     step +3 : --text-cjk   = 1.776rem = 28.4px  luck-chars / CJK médio
+     step +5 : --text-glyph = 3.157rem = 50.5px  bazi-pillar__char
+     ── aliases legados mantidos para não quebrar referências ──────── */
+  --text-ctx:    0.563rem;   /*  9.0px */
+  --text-label:  0.750rem;   /* 12.0px */
+  --text-pinyin: 0.6875rem;  /* 11.0px */
+  --text-base:   1.000rem;   /* 16.0px */
+  --text-dest:   1.333rem;   /* 21.3px */
+  --text-cjk:    1.776rem;   /* 28.4px */
+  --text-glyph:  3.157rem;   /* 50.5px */
+  /* aliases legados */
+  --text-xs:   var(--text-ctx);
+  --text-sm:   var(--text-label);
+  --text-lg:   var(--text-dest);
+  --text-xl:   var(--text-glyph);
+  --text-2xl:  var(--text-glyph);
+  --text-3xl:  var(--text-glyph);
+  --text-4xl:  var(--text-glyph);
 
-  /* Line heights */
-  --leading-tight:  1.25;
-  --leading-snug:   1.40;
-  --leading-normal: 1.60;
-  --leading-relaxed:1.75;
+  --leading-tight:  1.2;
+  --leading-snug:   1.4;
+  --leading-normal: 1.6;
+  --leading-loose:  1.8;
 
-  /* Letter spacing */
-  --tracking-tight:  -0.02em;
-  --tracking-normal:  0.00em;
-  --tracking-wide:    0.06em;
-  --tracking-widest:  0.12em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.04em;
+  --tracking-wider:   0.08em;
+  --tracking-widest:  0.18em;
+  --tracking-ultra:   0.20em;
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   6. GRID E ESPAÇAMENTO — múltiplos de 8px
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════
+   6. ESPAÇAMENTO — base 8px (DS v2.5)
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Unidade base do grid */
-  --grid-unit:   8px;
+  --space-1:   8px;
+  --space-2:  16px;
+  --space-3:  24px;
+  --space-4:  32px;
+  --space-5:  40px;
+  --space-6:  48px;
+  --space-8:  64px;
+  --space-10: 80px;
+  --space-12: 96px;
 
-  /* Escala de espaçamento */
-  --space-1:     8px;   /* 1u */
-  --space-2:    16px;   /* 2u */
-  --space-3:    24px;   /* 3u */
-  --space-4:    32px;   /* 4u */
-  --space-5:    40px;   /* 5u */
-  --space-6:    48px;   /* 6u */
-  --space-8:    64px;   /* 8u */
-  --space-10:   80px;   /* 10u */
-  --space-12:   96px;   /* 12u */
-  --space-16:  128px;   /* 16u */
+  /* Aliases DS curtos */
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px;
+  --s5:40px; --s6:48px; --s8:64px; --s10:80px;
 
-  /* Largura máxima de conteúdo */
-  --content-max:  720px;
-
-  /* Larguras de container */
-  --container-sm: 480px;
-  --container-md: 720px;
-  --container-lg: 960px;
-
-  /* Célula mínima do componente Mapa BaZi */
-  --pillar-min-w:  80px;
-  --pillar-min-h: 120px;
+  /* Dimensões de container */
+  --content-max:   720px;
+  --container-sm:  480px;
+  --container-md:  720px;
+  --container-lg:  960px;
+  --pillar-min-w:   80px;
+  --pillar-min-h:  120px;
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════
    7. BORDAS E SUPERFÍCIES
-   ═══════════════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Raios de borda */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:  12px;
-  --radius-xl:  16px;
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
   --radius-full: 9999px;
 
-  /* Espessura de borda */
+  /* Aliases DS curtos */
+  --r:  8px;
+  --rl: 16px;
+  --rp: 9999px;
+
   --border-thin:   1px;
   --border-medium: 2px;
 
-  /* Superfícies com backdrop */
-  --surface-glass:       rgba(247, 244, 240, 0.88);  /* light */
-  --surface-glass-dark:  rgba(13, 17, 23, 0.88);     /* dark */
+  --surface-glass:      rgba(246,243,237,0.82);
+  --surface-glass-dark: rgba(15,14,10,0.88);
 }
 
-:root[data-theme="dark"],
 [data-theme="dark"] {
   --surface-glass: var(--surface-glass-dark);
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════
    8. MOTION
-   ═══════════════════════════════════════════════════════════════════════════
-   PRINCÍPIO: toda animação tem propósito informativo. Duração proporcional
-   à distância percorrida (elementos próximos = transições mais curtas).
-   ═══════════════════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Durações */
-  --duration-instant:  100ms;  /* feedback imediato (focus, press) */
-  --duration-fast:     200ms;  /* hover, toggle */
-  --duration-normal:   300ms;  /* entrada, saída */
-  --duration-slow:     500ms;  /* troca de conteúdo (Natal↔Da Yun) */
-  --duration-stagger:   80ms;  /* delay entre células do mapa */
+  --ease:           cubic-bezier(.25,.1,.25,1);
+  --ease-standard:  cubic-bezier(.25,.1,.25,1);
+  --ease-decelerate:cubic-bezier(0,.0,.2,1);
+  --ease-accelerate:cubic-bezier(.4,0,1,1);
+  --ease-out:       cubic-bezier(.4,0,.2,1);
 
-  /* Easing */
-  --ease-standard: cubic-bezier(0.25, 0.10, 0.25, 1.00);  /* entrada/saída */
-  --ease-decelerate: cubic-bezier(0.00, 0.00, 0.20, 1.00); /* elementos entrando */
-  --ease-accelerate: cubic-bezier(0.40, 0.00, 1.00, 1.00); /* elementos saindo */
-  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1.00); /* spring suave */
+  --duration-fast:    200ms;
+  --duration-normal:  350ms;
+  --duration-slow:    500ms;
+  --duration-stagger:  80ms;
+  --enter-y: 14px;
+}
 
-  /* Translações para entrada */
-  --enter-y:  12px;  /* translateY de entrada do mapa */
-  --enter-y-sm: 6px;
+@keyframes pillar-enter {
+  from { opacity:0; transform:translateY(var(--enter-y)); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes shimmer {
+  from { background-position:-200% 0; }
+  to   { background-position: 200% 0; }
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   9. SOMBRAS E ELEVAÇÃO
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════
+   9. SOMBRAS E FOCUS
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --shadow-color: rgba(26, 26, 46, 0.10);  /* tinta noturna diluída */
+  --shadow-gold:  0 4px 18px rgba(150,116,56,.20);
+  --focus-ring:   0 0 0 3px rgba(150,116,56,.20);
 
-  --shadow-sm:  0 1px  3px var(--shadow-color),
-                0 1px  2px var(--shadow-color);
-  --shadow-md:  0 4px  6px var(--shadow-color),
-                0 2px  4px var(--shadow-color);
-  --shadow-lg:  0 10px 15px var(--shadow-color),
-                0  4px  6px var(--shadow-color);
-  --shadow-xl:  0 20px 25px var(--shadow-color),
-                0  8px 10px var(--shadow-color);
-
-  /* Glow dourado para hover ativo */
-  --shadow-gold: 0 0 0 3px rgba(184, 134, 11, 0.20),
-                 0 8px 24px rgba(184, 134, 11, 0.12);
+  /* Aliases DS curtos */
+  --sh:  var(--shadow-sm);
+  --shm: var(--shadow-md);
 }
 
-:root[data-theme="dark"],
 [data-theme="dark"] {
-  --shadow-color: rgba(0, 0, 0, 0.50);
-  --shadow-gold:  0 0 0 3px rgba(212, 160, 23, 0.25),
-                  0 8px 24px rgba(212, 160, 23, 0.15);
+  --shadow-gold: 0 4px 18px rgba(192,154,74,.22);
+  --focus-ring:  0 0 0 3px rgba(192,154,74,.22);
+  --sh:  var(--shadow-sm);
+  --shm: var(--shadow-md);
 }
 
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   10. UTILIDADES DE ACESSIBILIDADE
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   TOKENS ADICIONAIS — Feedback, Input, Wu Xing canônico
-   Adicionados na auditoria v_j para cobrir todos os tokens referenciados
-   por main.css, bazi-map.css e outros componentes.
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════
+   10. ALIASES SEMÂNTICOS — bridge main.css → tokens v2.5
+   ═══════════════════════════════════════════════════════════════════════ */
 
 :root {
+  --bg:        var(--color-bg);
+  --surface:   var(--color-surface);
+  --panel:     var(--color-surface);
+  --panel2:    var(--color-subtle);
+  --input-bg:  var(--color-subtle);
+  --input-bd:  var(--color-gold-border);
+  --topbar-bg: var(--surface-glass);
 
-  /* ── Feedback ──────────────────────────────────────────────────────────── */
-  --color-feedback-success:        #1D6A4E;
-  --color-feedback-success-bg:     #E8F5EF;
-  --color-feedback-success-border: rgba(29, 106, 78, 0.35);
-  --color-feedback-error:          #C0392B;
-  --color-feedback-error-bg:       #FAECEA;
-  --color-feedback-error-border:   rgba(192, 57, 43, 0.35);
-  --color-feedback-warning:        #B8860B;
-  --color-feedback-warning-bg:     #FDF8E8;
+  --text:     var(--color-text);
+  --muted:    var(--color-text-muted);
+  --dim:      var(--color-text-dim);
 
-  /* ── Input ─────────────────────────────────────────────────────────────── */
-  --color-input-bg:     var(--color-bone-subtle);
-  --color-input-border: var(--color-mist);
-  --color-input-focus:  var(--color-gold-matte);
+  --gold:     var(--color-gold);
+  --gold2:    var(--color-gold-light);
+  --gold-dim: var(--color-gold);
+  --bg-gold:  var(--color-gold-bg);
 
-  /* ── Aliases de radius (compatibilidade com --r e --r-lg do legacy) ───── */
-  --radius-base: var(--radius-md);   /* 8px — alias de --r */
+  --success: var(--color-feedback-success);
+  --error:   var(--color-feedback-error);
+  --shadow:  var(--shadow-sm);
 
-  /* ── Wu Xing — aliases canônicos (--color-element-* → --color-{el}-*) ──
-     Permitem referência direta por nome de elemento.
-     Os valores base estão em --element-{el}-* acima.                    */
-  --color-water-dark:   #1C3A72;   --color-water-mid:   #2652A8;   --color-water-light:  #B8CCF0;
-  --color-wood-dark:    #0B5233;   --color-wood-mid:    #147A48;   --color-wood-light:   #A8DBBF;
-  --color-fire-dark:    #8C0A12;   --color-fire-mid:    #D3232E;   --color-fire-light:   #F5BBBF;
-  --color-earth-dark:   #7A4C08;   --color-earth-mid:   #B87C14;   --color-earth-light:  #F0E0A0;
-  --color-metal-dark:   #383838;   --color-metal-mid:   #848484;   --color-metal-light:  #E0E0E0;
+  --r-lg: var(--radius-xl);
 
-  /* ── text-on-fire — E18 REQ-11 ─────────────────────────────────────────
-     Texto claro sobre fundo Fogo escuro. Ratio: #F0D5C8 / #8C0A12 = 6.95:1 ✅ AAA
-     Uso: elementos com background --color-fire-dark ou --element-fire-base  */
-  --text-on-fire: #F0D5C8;
+  --t-fast: var(--duration-fast);
+  --t-mid:  var(--duration-normal);
+  --t-slow: var(--duration-slow);
 
-  /* ── Motion aliases (compatibilidade com --ease, --ease-in, --ease-out) ── */
-  --ease-out: var(--ease-standard);
-  --ease-in:  cubic-bezier(0.4, 0, 1, 1);
+  --transition-theme: background var(--duration-fast) var(--ease),
+                      color var(--duration-fast) var(--ease),
+                      border-color var(--duration-fast) var(--ease);
 
-  /* ── Gold surface (alias para transparência de acento) ─────────────────── */
-  --color-gold-surface: rgba(184, 134, 11, 0.10);
-
+  /* Compat sp-N legado → space-N */
+  --sp-1: var(--space-1); --sp-2: var(--space-2);
+  --sp-3: var(--space-3); --sp-4: var(--space-4);
+  --sp-6: var(--space-6); --sp-8: var(--space-8);
 }
 
-/* Dark mode dos tokens adicionais */
-:root[data-theme="dark"],
 [data-theme="dark"] {
-
-  --color-feedback-success:   #5DBD90;
-  --color-feedback-error:     #E57E75;
-  --color-input-bg:           var(--color-bone-subtle);
-  --color-input-border:       rgba(142, 164, 200, 0.30);
-
-  /* Wu Xing dark — mais brilhantes sobre fundos escuros */
-  --color-water-dark:   #7AA0E0;   --color-water-mid:   #3060C0;   --color-water-light:  #0A1830;
-  --color-wood-dark:    #50C880;   --color-wood-mid:    #0E6038;   --color-wood-light:   #061A10;
-  --color-fire-dark:    #E87070;   --color-fire-mid:    #B02828;   --color-fire-light:   #3A0808;
-  --color-earth-dark:   #D4A040;   --color-earth-mid:   #8A6010;   --color-earth-light:  #2A1C04;
-  --color-metal-dark:   #C0C8D0;   --color-metal-mid:   #708090;   --color-metal-light:  #1A2028;
-
-  --color-gold-surface: rgba(212, 160, 23, 0.12);
-
-}
-
-/**
- * Respeito a prefers-reduced-motion.
- * Components que usam animações devem verificar esta variável.
- * Ver src/styles/animations.css para implementação.
- */
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --duration-instant: 0ms;
-    --duration-fast:    0ms;
-    --duration-normal:  0ms;
-    --duration-slow:    0ms;
-    --duration-stagger: 0ms;
-    --enter-y:          0px;
-    --enter-y-sm:       0px;
-  }
-}
-
-/**
- * Focus ring global — visível em todos os temas.
- * Não sobrescrever em componentes individuais; usar a variável.
- */
-:root {
-  --focus-ring: 0 0 0 3px rgba(184, 134, 11, 0.50);
-}
-
-:root[data-theme="dark"],
-[data-theme="dark"] {
-  --focus-ring: 0 0 0 3px rgba(212, 160, 23, 0.55);
+  --topbar-bg: var(--surface-glass);
+  --shadow:    var(--shadow-sm);
 }

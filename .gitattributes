@@ -1,5 +1,2 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-
-# Marca legacy/ como vendor: excluído de diffs do GitHub e estatísticas de linguagem
-legacy/**  linguist-vendored

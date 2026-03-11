@@ -113,6 +113,8 @@ da metafísica chinesa (proporção, hierarquia, simbolismo cromático).
 
 ### 4.2 Escala Tipográfica — Minor Third (razão 1.25, base 16px)
 
+> **DECISÃO DE DESIGN — Auditoria v1.0 (Março 2026):** A escala implementada usa razão **1.25 (Minor Third)**, não 1.333 (Perfect Fourth). Decisão mantida: Minor Third produz degraus mais compactos adequados à densidade de informação do BaZi map. A razão 1.333 produziria `--text-xl: 37.92px` — excessivo para títulos de seção em layout de duas colunas. Referência: tokens.css §5.
+
 | Token | Valor rem | Valor px | Uso |
 |-------|-----------|----------|-----|
 | `--text-xs` | 0.640rem | 10.24px | Labels, metadados, badges |

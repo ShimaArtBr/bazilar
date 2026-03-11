@@ -53,11 +53,11 @@
   /* Dimensões mínimas conforme spec */
   min-width:  var(--pillar-min-w);  /* 80px */
   min-height: var(--pillar-min-h);  /* 120px */
-  padding: var(--space-2);          /* 16px */
+  padding: 0;                       /* metades coloridas preenchem até a borda */
 
   /* Superfície */
   background:    var(--color-surface);
-  border:        var(--border-thin) solid var(--color-border);
+  border:        var(--border-thin) solid rgba(255,255,255,0.10);
   border-radius: var(--radius-lg);
   overflow: hidden;
 
@@ -65,7 +65,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-1);
+  gap: 0;
 
   /* Interatividade */
   cursor: pointer;
@@ -97,45 +97,30 @@
 .bazi-map--revealed .bazi-pillar:nth-child(3) { animation-delay: calc(var(--duration-stagger) * 2); }
 .bazi-map--revealed .bazi-pillar:nth-child(4) { animation-delay: calc(var(--duration-stagger) * 3); }
 
-/* ── Hover ──────────────────────────────────────────────────────────────── */
+/* ── Hover — quiet luxury: só outline dourado, nada mais ──────────────────── */
 .bazi-pillar:hover {
-  transform: scale(1.05);  /* spec: scale(1.05) */
-  border-color: var(--color-gold-matte);
-  box-shadow: var(--shadow-gold);
-  z-index: 1;  /* sobrepõe os vizinhos durante hover */
+  border-color: var(--gold);
 }
 
 /* ── Focus (teclado) ────────────────────────────────────────────────────── */
 .bazi-pillar:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring), var(--shadow-md);
-  border-color: var(--color-gold-matte);
+  border-color: var(--gold);
   transform: scale(1.03);
 }
 
 /* ── Pilar ativo (selecionado / detalhe aberto) ─────────────────────────── */
 .bazi-pillar.is-active {
-  border-color: var(--color-gold-matte);
+  border-color: var(--gold);
   background: var(--color-gold-bg);
   box-shadow: var(--shadow-gold);
 }
 
 /* ── Pilar do Mestre do Dia (destaque permanente) ────────────────────────── */
 .bazi-pillar.is-day-master {
-  border-color: var(--color-gold-matte);
+  border-color: var(--gold);
   position: relative;
-}
-
-.bazi-pillar.is-day-master::before {
-  content: '日';  /* rótulo CJK — "dia" */
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  font-family: var(--font-chinese);
-  font-size: var(--text-xs);
-  color: var(--color-gold-matte);
-  opacity: 0.70;
-  letter-spacing: 0;
 }
 
 /* ── Estado de loading / shimmer ────────────────────────────────────────── */
@@ -167,16 +152,19 @@
 
 .bazi-pillar__header {
   width: 100%;
-  padding-bottom: var(--space-1);
-  border-bottom: var(--border-thin) solid var(--color-border);
+  padding: 5px var(--space-2);
+  border-top:    none;
+  border-bottom: none;
+  background: var(--color-surface);
   text-align: center;
 
-  font-family: var(--font-mono);
+  font-family: var(--font-body);  /* AUDITORIA: legenda estática → Noto Sans */
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
   line-height: var(--leading-tight);
+  flex-shrink: 0;
 }
 
 /* Header ativo (Mestre do Dia) */
@@ -191,9 +179,10 @@
 
 .bazi-pillar__stem {
   width: 100%;
+  flex: 1;
   padding: var(--space-2) var(--space-1);
   text-align: center;
-  border-bottom: var(--border-thin) solid rgba(var(--color-border), 0.50);
+  border-bottom: none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,6 +196,7 @@
 
 .bazi-pillar__branch {
   width: 100%;
+  flex: 1;
   padding: var(--space-2) var(--space-1);
   text-align: center;
   display: flex;
@@ -222,12 +212,11 @@
 
 .bazi-pillar__char {
   font-family: var(--font-chinese);
-  font-size: 2rem;           /* ~32px conforme spec */
+  font-size: var(--text-glyph);  /* 3.157rem · 50px · step +5 */
   line-height: var(--leading-tight);
   color: var(--color-text);
   display: block;
   text-align: center;
-  /* Sem font-weight: inherit — Noto Serif SC 400 é suficientemente presente */
 }
 
 
@@ -236,35 +225,27 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .bazi-pillar__pinyin {
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);  /* 12.80px ≈ 12px spec */
-  color: var(--color-mist);
-  letter-spacing: var(--tracking-normal);
+  font-family: var(--font-body);   /* Noto Sans — sem itálico */
+  font-style: normal;
+  font-size: var(--text-pinyin);   /* 0.6875rem · 11px */
+  color: var(--color-text-muted);
+  letter-spacing: .02em;
   line-height: var(--leading-snug);
   display: block;
+  text-align: center;
 }
 
-/* Em light mode, mist não atinge 4.5:1 — usar ink-muted para textos funcionais */
-/* pinyin é texto informativo secundário — WCAG permite 3:1 para texto grande decorativo */
-/* mas para conformidade estrita, usar ink-muted no light: */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .bazi-pillar__pinyin {
-    color: var(--color-ink-muted);
-  }
-}
-[data-theme="light"] .bazi-pillar__pinyin {
-  color: var(--color-ink-muted);
-}
+
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   TRADUÇÃO PT — 11px italic (spec)
+   TRADUÇÃO PT — 11px sem itálico
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .bazi-pillar__label {
   font-family: var(--font-body);
   font-size: 0.688rem;  /* 11px */
-  font-style: italic;
+  font-style: normal;
   color: var(--color-text-dim);
   line-height: var(--leading-snug);
   display: block;
@@ -279,41 +260,44 @@
 .bazi-pillar__element {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  border: var(--border-thin) solid transparent;
+  justify-content: center;
+  padding: 0 10px;
+  height: 20px;
+  min-height: 20px;
+  max-height: 20px;
+  box-sizing: border-box;
+  border-radius: var(--radius-sm);
+  border: none;
 
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-family: var(--font-body);
+  font-size: var(--text-ctx);   /* 0.563rem · 9px · contextual */
+  font-weight: 600;
   letter-spacing: var(--tracking-wide);
-  line-height: var(--leading-tight);
+  line-height: 20px;
+  white-space: nowrap;
+  color: var(--element-badge-text);  /* rgba(255,255,255,0.66) */
 
   transition: background var(--duration-fast) var(--ease-standard);
 }
 
-/* Variantes por elemento */
+/* Variantes por elemento — cor do texto herdada de .bazi-pillar__element → --element-badge-text */
 .bazi-pillar__element--wood {
-  color: var(--element-wood-base);
   background: var(--element-wood-bg);
   border-color: var(--element-wood-border);
 }
 .bazi-pillar__element--fire {
-  color: var(--element-fire-base);
   background: var(--element-fire-bg);
   border-color: var(--element-fire-border);
 }
 .bazi-pillar__element--earth {
-  color: var(--element-earth-base);
   background: var(--element-earth-bg);
   border-color: var(--element-earth-border);
 }
 .bazi-pillar__element--metal {
-  color: var(--element-metal-base);
   background: var(--element-metal-bg);
   border-color: var(--element-metal-border);
 }
 .bazi-pillar__element--water {
-  color: var(--element-water-base);
   background: var(--element-water-bg);
   border-color: var(--element-water-border);
 }
@@ -350,13 +334,15 @@
 }
 
 .bazi-pillar__hidden-stem {
-  font-family: var(--font-mono);
-  font-size: 0.580rem;
-  padding: 1px 5px;
+  font-family: var(--font-chinese), var(--font-body);
+  font-size: var(--text-ctx);   /* 0.563rem · 9px */
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
   border-radius: var(--radius-sm);
-  background: var(--color-subtle);
-  color: var(--color-text-dim);
-  line-height: var(--leading-snug);
+  line-height: 20px;
+  box-sizing: border-box;
 }
 
 /* Label de posição (主 中 余) */
@@ -393,13 +379,14 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    padding: var(--space-2);
+    padding: 0;
   }
 
   .bazi-pillar__header {
     width: 100%;
     border-bottom: var(--border-thin) solid var(--color-border);
-    margin-bottom: var(--space-1);
+    margin-bottom: 0;
+    order: -1;
   }
 
   .bazi-pillar__stem,
@@ -410,13 +397,12 @@
   }
 
   .bazi-pillar__char {
-    font-size: var(--text-xl);  /* menor em mobile */
+    font-size: 1.776rem;  /* step +3 · mobile S */
   }
 
-  /* Hover → tap feedback sem scale */
+  /* Hover → só outline dourado */
   .bazi-pillar:hover {
-    transform: none;
-    border-color: var(--color-gold-matte);
+    border-color: var(--gold);
   }
 }
 
@@ -427,7 +413,7 @@
   }
 
   .bazi-pillar__char {
-    font-size: var(--text-lg);
+    font-size: 2.368rem;  /* step +4 · mobile L */
   }
 }
 
@@ -438,12 +424,8 @@
     gap: var(--space-1);
   }
 
-  .bazi-pillar {
-    padding: var(--space-1);
-  }
-
   .bazi-pillar__char {
-    font-size: var(--text-xl);
+    font-size: 2.368rem;  /* step +4 · tablet S */
   }
 }
 
@@ -455,7 +437,7 @@
   }
 
   .bazi-pillar__char {
-    font-size: 2rem;
+    font-size: var(--text-glyph);  /* step +5 */
   }
 }
 
@@ -466,12 +448,8 @@
     padding: var(--space-2);
   }
 
-  .bazi-pillar {
-    padding: var(--space-3);
-  }
-
   .bazi-pillar__char {
-    font-size: var(--text-2xl);  /* 2.441rem — mais grandioso no desktop */
+    font-size: var(--text-glyph);  /* step +5 · 3.157rem */
   }
 }
 
@@ -510,10 +488,7 @@
   }
 
   .bazi-pillar:hover {
-    transform: none;
-    border-color: var(--color-gold-matte);
-    box-shadow: var(--shadow-gold);
-    /* Mantém a cor de borda dourada — feedback visual sem movimento */
+    border-color: var(--gold);
   }
 
   .bazi-pillar.is-loading .bazi-pillar__char,
@@ -537,7 +512,7 @@
 
 /* Luck card com ciclo ativo selecionado */
 .luck-card.active-cycle {
-  border-color: var(--color-gold-matte);
+  border-color: var(--gold);
   background: var(--color-gold-bg);
   box-shadow: var(--shadow-gold);
 }
@@ -551,10 +526,10 @@
 
   padding: 6px var(--space-2);
   background: var(--color-surface);
-  border: var(--border-thin) solid var(--color-gold-matte);
+  border: var(--border-thin) solid var(--gold);
   border-radius: var(--radius-full);
 
-  font-family: var(--font-mono);
+  font-family: var(--font-body);  /* AUDITORIA: botão de UI estático → Noto Sans */
   font-size: var(--text-xs);
   color: var(--color-accent-text);
   letter-spacing: var(--tracking-wide);

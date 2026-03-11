@@ -119,20 +119,20 @@ const HIDDEN = [[9],[5,9,7],[0,2,4],[1],[4,1,9],[2,6,4],[3,5],[5,3,1],[6,8,4],[7
 const HIDDEN_ROLE = ['主', '中', '余'];
 
 
-// Cores Wu Xing — DS v2.5: bg=mid, hanzi=white (igual wx-card no DS)
+// Cores Wu Xing — DS v2.5 var C: bg=dark, fg=vibrante (hex diretos por tema)
 const EL_COLORS_DARK = {
-  wood:  { bg: '#0E6038', fg: 'rgba(255,255,255,.88)', mid: '#0E6038' },
-  fire:  { bg: '#A81820', fg: 'rgba(255,255,255,.88)', mid: '#A81820' },
-  earth: { bg: '#A07808', fg: 'rgba(255,255,255,.88)', mid: '#A07808' },
-  metal: { bg: '#848484', fg: 'rgba(255,255,255,.88)', mid: '#848484' },
-  water: { bg: '#3060C0', fg: 'rgba(255,255,255,.88)', mid: '#3060C0' },
+  wood:  { bg: '#061A10', fg: '#50C880', mid: '#0E6038' },
+  fire:  { bg: '#300810', fg: '#F05060', mid: '#A81820' },
+  earth: { bg: '#1E1400', fg: '#E8B020', mid: '#A07808' },
+  metal: { bg: '#1C1C1C', fg: '#C8C8C8', mid: '#848484' },
+  water: { bg: '#0A1830', fg: '#7AA0E0', mid: '#3060C0' },
 };
 const EL_COLORS_LIGHT = {
-  wood:  { bg: '#147A48', fg: 'rgba(255,255,255,.88)', mid: '#147A48' },
-  fire:  { bg: '#D3232E', fg: 'rgba(255,255,255,.88)', mid: '#D3232E' },
-  earth: { bg: '#B87C14', fg: 'rgba(255,255,255,.88)', mid: '#B87C14' },
-  metal: { bg: '#848484', fg: 'rgba(255,255,255,.88)', mid: '#848484' },
-  water: { bg: '#2652A8', fg: 'rgba(255,255,255,.88)', mid: '#2652A8' },
+  wood:  { bg: '#A8DBBF', fg: '#0B5233', mid: '#147A48' },
+  fire:  { bg: '#F5BBBF', fg: '#8C0A12', mid: '#D3232E' },
+  earth: { bg: '#F0E0A0', fg: '#7A4C08', mid: '#B87C14' },
+  metal: { bg: '#E0E0E0', fg: '#383838', mid: '#848484' },
+  water: { bg: '#B8CCF0', fg: '#1C3A72', mid: '#2652A8' },
 };
 const EL_COLORS = () => {
   const dark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -290,7 +290,7 @@ function renderQuatroPilares(fourPillars, tenGods, container) {
 
     if (tg) {
       const god = el('span', ['bazi-pillar__ten-god'], { lang: 'zh-Hans' });
-      god.textContent = tg.zh;
+      god.textContent = `${tg.zh} ${tg.py}`;
       god.style.color = 'rgba(255,255,255,0.85)';
       stemWrap.appendChild(god);
     }

@@ -13,11 +13,6 @@
   position: relative;
   margin-top: 32px;
   margin-bottom: 32px;
-  padding: var(--spacing-lg, 1.5rem);
-  background: var(--color-surface-raised, var(--srf-raised));
-  border: 1px solid var(--color-border-subtle, var(--bdr));
-  border-radius: var(--radius-lg, 1rem);
-  overflow: hidden; /* contém o gate overlay */
 }
 
 /* ── Header ────────────────────────────────────────────────────────────────── */
@@ -72,7 +67,7 @@
 .deus-card {
   background: var(--color-surface-base, var(--panel));
   border: 1px solid var(--color-border-subtle, var(--bdr));
-  border-left: 3px solid var(--gold-dim, rgba(192,154,74,.5));
+
   border-radius: var(--radius-md, .75rem);
   overflow: hidden;
 }
