@@ -440,13 +440,29 @@ function renderInfoGrid(mapa, container) {
     yrZh.style.color = yrColor;
     cYrval.appendChild(yrZh);
     cYrval.appendChild(document.createTextNode(` · ${yP.by}`));
+    // Animal + elemento do ramo (ex: "Cavalo de Terra")
+    if (yRamo.animal) {
+      const elRamoKey = elKey(yRamo.el);
+      const elRamoPt  = EL_PT[elRamoKey] || yRamo.el;
+      const cYranimal = el('p', ['ic-sub']);
+      cYranimal.textContent = `${yRamo.animal} de ${elRamoPt} · ${yRamo.py}`;
+      cYr.appendChild(cYrtitle); cYr.appendChild(cYrval); cYr.appendChild(cYranimal);
+      const cYrsub2 = el('p', ['ic-sub']); cYrsub2.textContent = 'Muda em 立春 (~4 Fev)';
+      cYr.appendChild(cYrsub2);
+      grid.appendChild(cYr);
+      // Skip default append below
+      // (flag via sentinel)
+      cYr._appended = true;
+    }
   } else {
     cYrval.setAttribute('lang', 'zh-Hans');
     cYrval.textContent = String(birth.year);
   }
   const cYrsub = el('p', ['ic-sub']); cYrsub.textContent = 'Muda em 立春 (~4 Fev)';
-  cYr.appendChild(cYrtitle); cYr.appendChild(cYrval); cYr.appendChild(cYrsub);
-  grid.appendChild(cYr);
+  if (!cYr._appended) {
+    cYr.appendChild(cYrtitle); cYr.appendChild(cYrval); cYr.appendChild(cYrsub);
+    grid.appendChild(cYr);
+  }
 
   // Card: Longitude Solar
   const cSun = el('div', ['info-card']);
@@ -560,7 +576,7 @@ function renderForca(strength, favorable, dmStemIdx, container) {
     row.appendChild(lbl);
     const els = el('span', ['str-els']);
     const badge = elBadge(favorable.yongShen);
-    badge.style.outline = '2px solid var(--gold)';
+    badge.style.outline = '1.5px solid color-mix(in srgb, var(--gold) 55%, transparent)';
     badge.style.outlineOffset = '2px';
     els.appendChild(badge);
     row.appendChild(els);
