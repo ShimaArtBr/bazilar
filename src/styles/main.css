@@ -131,17 +131,8 @@ body::after {
 }
 /* AUDITORIA v1.0 P-C02: topbar gold light mode → via tokens.css --color-gold */
 .topbar-right { display: flex; align-items: center; gap: 9px; }
-.topbar-link {
-  font-family: var(--fd2, 'Noto Sans', sans-serif);
-  font-size: .72rem;
-  font-weight: 500;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: var(--muted, var(--color-text-muted));
-  text-decoration: none;
-  transition: color 120ms ease;
-}
-.topbar-link:hover { color: var(--gold, var(--color-gold)); text-decoration: none; }
+.bsm { padding: 7px 24px; font-size: .563rem; }
+
 
 /* Theme */
 .theme-btn {
