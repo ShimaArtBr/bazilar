@@ -1,28 +1,64 @@
 /**
  * @file src/styles/print.css
  * @description Estilos de impressão para o BaZi PWA — @media print completo.
- *              Alinhado à spec docs/PDF_SPEC.md e ao DS v2.3 "Quiet Luxury Tupiniquim".
+ *              Alinhado à spec docs/PDF_SPEC.md e ao DS v2.5 "Quiet Luxury Tupiniquim".
  *
- * OBJETIVO:
- *   Quando o usuário acionar window.print() (ou Ctrl+P), a página de resultados
- *   deve renderizar como um relatório de consultoria premium — sem elementos de UI,
- *   sem cores saturadas, tipografia Lora + Noto Sans + Noto Serif SC.
+ * MIGRAÇÃO v1.0 → v1.1 (Março 2026):
+ *   Paleta v2.3 removida. Todos os valores hex migrados para DS v2.5:
+ *   - bg:    #F7F4F0 (v2.3) → #F6F3ED  (var(--color-bg))
+ *   - ink:   #1A1A2E (v2.3) → #1E1B15  (var(--color-text))
+ *   - gold:  #B8860B (v2.3) → #967438  (var(--color-gold))
+ *   - muted: #718096 (v2.3) → #7C7264  (var(--color-text-muted))
+ *   - dim:   #5A5870 (v2.3) → #4C4538  (var(--color-text-secondary))
+ *   Wu Xing migrado para valores v2.5 canônicos (--element-*-base).
  *
- * ESCOPO:
- *   Este arquivo governa a impressão da SPA (app.js + renderer.js).
- *   O PDF export via janela separada (pdf.js) tem seu próprio buildCSS() interno —
- *   ver docs/PDF_SPEC.md §8 para as alterações necessárias em pdf.js.
- *
- * USO:
- *   Incluir em index.html APÓS main.css:
- *   <link rel="stylesheet" href="src/styles/print.css" media="print">
- *
- * DEPENDÊNCIA: tokens.css carregado antes (custom properties usadas aqui)
+ * NOTA: @media print não herda custom properties em todos os UA —
+ *   os valores são declarados como fallback literal inline, mas
+ *   precedidos por var() para consistência com tokens.css.
+ *   DEPENDÊNCIA: tokens.css carregado antes deste arquivo.
  *
  * @persona  Isabela Mont + Maya Chen — REQ-08
- * @version  1.0.0
- * @sprint   S2·W2
+ * @version  1.1.0  (DS v2.5)
+ * @sprint   S3·W1
  */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VARIÁVEIS LOCAIS DE PRINT — espelham tokens.css v2.5 como valores fixos.
+   Garantia para UAs que não propagam custom properties em @media print.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media print {
+  :root {
+    /* Superfícies v2.5 */
+    --pdf-bg:          #F6F3ED;   /* --color-bg   */
+    --pdf-surface:     #FDFCF9;   /* --color-surface */
+    --pdf-subtle:      #EDE9E0;   /* --color-subtle */
+
+    /* Texto v2.5 */
+    --pdf-ink:         #1E1B15;   /* --color-text */
+    --pdf-ink-sec:     #4C4538;   /* --color-text-secondary */
+    --pdf-ink-muted:   #7C7264;   /* --color-text-muted */
+    --pdf-ink-dim:     #ACA090;   /* --color-text-dim */
+
+    /* Ouro v2.5 */
+    --pdf-gold:        #967438;   /* --color-gold */
+    --pdf-gold-border: rgba(150,116,56,0.20); /* --color-gold-border */
+    --pdf-gold-bg:     rgba(150,116,56,0.06); /* --color-gold-bg ×0.75 */
+    --pdf-gold-rule:   rgba(150,116,56,0.25); /* divisores */
+
+    /* Wu Xing v2.5 — valores base canônicos */
+    --pdf-water:  #2652A8;   /* --element-water-base */
+    --pdf-wood:   #147A48;   /* --element-wood-base  */
+    --pdf-fire:   #D3232E;   /* --element-fire-base  */
+    --pdf-earth:  #B87C14;   /* --element-earth-base */
+    --pdf-metal:  #848484;   /* --element-metal-base */
+
+    /* Feedback v2.5 */
+    --pdf-success: #2E7D52;  /* --color-feedback-success */
+    --pdf-error:   #8C3030;  /* --color-feedback-error   */
+  }
+}
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -30,12 +66,11 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @page {
-  size: 210mm 297mm portrait;   /* A4 portrait — forçado */
-  margin: 20mm;                  /* 2cm todas as bordas — spec §2 */
+  size: 210mm 297mm portrait;   /* A4 portrait */
+  margin: 20mm;
 }
 
 @page :first {
-  /* Capa sem cabeçalho/rodapé correntes */
   margin: 20mm;
 }
 
@@ -46,7 +81,7 @@
 
 @media print {
 
-  /* ── Preservação de cor — crítico para Wu Xing badges e bordas ── */
+  /* Preservação de cor — crítico para Wu Xing badges */
   *,
   *::before,
   *::after {
@@ -54,7 +89,7 @@
     print-color-adjust: exact !important;
   }
 
-  /* ── Reset de animações — nenhum movimento em impressão ── */
+  /* Reset de animações */
   *,
   *::before,
   *::after {
@@ -62,11 +97,11 @@
     transition: none !important;
   }
 
-  /* ── Base de página ── */
+  /* Base de página — v2.5 */
   html,
   body {
-    background: #F7F4F0 !important;   /* --pdf-bg: bone DS v2.3 */
-    color: #1A1A2E !important;         /* --pdf-ink */
+    background: var(--pdf-bg, #F6F3ED) !important;
+    color: var(--pdf-ink, #1E1B15) !important;
     font-family: 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
     font-size: 10pt;
     line-height: 1.6;
@@ -75,17 +110,17 @@
     padding: 0;
   }
 
-  /* ── Tipografia de impressão ── */
+  /* Tipografia de impressão — sem bold (regra cardinal DS v2.5) */
   h1, h2, h3, h4, h5, h6,
   .sec-label,
   .pdf-section-title {
     font-family: 'Lora', Georgia, serif;
     font-size: 18pt;
-    font-weight: 400;               /* sem bold — regra cardinal DS v2.3 */
-    color: #1A1A2E;
+    font-weight: 400;
+    color: var(--pdf-ink, #1E1B15);
     margin-bottom: 4mm;
     padding-bottom: 2mm;
-    border-bottom: 1px solid rgba(184, 134, 11, 0.25);
+    border-bottom: 1px solid var(--pdf-gold-rule, rgba(150,116,56,0.25));
     page-break-after: avoid;
   }
 
@@ -94,6 +129,7 @@
   .p-char {
     font-family: 'Noto Serif SC', 'SimSun', serif;
     font-size: 14pt;
+    font-style: normal;   /* CJK nunca em itálico — DS v2.5 */
   }
 
   .mono,
@@ -104,13 +140,14 @@
   .ic-title {
     font-family: 'JetBrains Mono', 'Courier New', monospace;
     font-size: 8pt;
+    font-style: normal;   /* Mono nunca em itálico — DS v2.5 */
   }
 
   .pdf-legend,
   .print-legend {
     font-size: 8pt;
     font-style: italic;
-    color: #718096;
+    color: var(--pdf-ink-muted, #7C7264);
   }
 
 
@@ -118,66 +155,29 @@
      OCULTAR — Elementos de UI não relevantes para impressão
      ═══════════════════════════════════════════════════════════════════════ */
 
-  /* Navegação e estrutura do app */
-  header,
-  nav,
-  .topbar,
-  .topbar-inner,
+  header, nav, .topbar, .topbar-inner,
   footer:not(.pdf-footer),
-
-  /* Formulário de cálculo */
-  #calcForm,
-  .form-section,
-  .form-row,
-  .btn,
-  .calcBtn,
-  #calcBtn,
-
-  /* Botões de ação */
-  .pdf-export-btn,
-  #pdfExportBtn,
-  .btn-voltar-natal,
-  #_btnVoltarNatal,
+  #calcForm, .form-section, .form-row,
+  .btn, .calcBtn, #calcBtn,
+  .pdf-export-btn, #pdfExportBtn,
+  .btn-voltar-natal, #_btnVoltarNatal,
   button:not(.print-only),
-
-  /* Banners e overlays do PWA */
-  .sw-update-bar,
-  #_errBanner,
-  .err,
-  .print-bar,
-  .print-btn,
-  .print-hint,
-
-  /* Estado vazio */
-  #emptyState,
-  .empty-state,
-
-  /* Shimmer de loading */
-  #_shimmerWrap,
-  .is-loading,
-
-  /* Seletor de Zi Shi */
-  .zi-panel,
-  .zi-toggle-hd,
-
-  /* Toast e notificações */
-  .toast,
-  .notification,
+  .sw-update-bar, #_errBanner, .err,
+  .print-bar, .print-btn, .print-hint,
+  #emptyState, .empty-state,
+  #_shimmerWrap, .is-loading,
+  .zi-panel, .zi-toggle-hd,
+  .toast, .notification,
   [role="alert"]:not(.pdf-alert),
-
-  /* Scroll e decoração de tela */
-  .scroll-hint,
-  .chart-tab,
-  .tabs {
+  .scroll-hint, .chart-tab, .tabs {
     display: none !important;
   }
 
 
   /* ═══════════════════════════════════════════════════════════════════════
-     EXIBIR — Apenas o conteúdo do relatório
+     EXIBIR — Conteúdo do relatório
      ═══════════════════════════════════════════════════════════════════════ */
 
-  /* Container principal de resultados */
   #results,
   .bazi-chart {
     display: block !important;
@@ -189,10 +189,7 @@
 
 
   /* ═══════════════════════════════════════════════════════════════════════
-     CABEÇALHO CORRENTE — aparece em páginas 2–4
-     ═══════════════════════════════════════════════════════════════════════
-     Implementado via .pdf-running-header injetado por pdf.js (REQ-08 §L03).
-     Este CSS prepara o estilo; o elemento é criado em buildPage2/3/4().
+     CABEÇALHO CORRENTE — páginas 2–4
      ═══════════════════════════════════════════════════════════════════════ */
 
   .pdf-running-header {
@@ -200,7 +197,7 @@
     justify-content: space-between;
     align-items: baseline;
     height: 12mm;
-    border-bottom: 1px solid rgba(184, 134, 11, 0.35);
+    border-bottom: 1px solid var(--pdf-gold-rule, rgba(150,116,56,0.25));
     margin-bottom: 4mm;
     padding-bottom: 2mm;
   }
@@ -208,7 +205,7 @@
   .pdf-running-header__brand {
     font-family: 'Lora', Georgia, serif;
     font-size: 11pt;
-    color: #B8860B;
+    color: var(--pdf-gold, #967438);
     display: flex;
     align-items: baseline;
     gap: 6px;
@@ -217,18 +214,19 @@
   .pdf-running-header__brand-zh {
     font-family: 'Noto Serif SC', serif;
     font-size: 14pt;
-    color: #B8860B;
+    color: var(--pdf-gold, #967438);
+    font-style: normal;
   }
 
   .pdf-running-header__meta {
     font-family: 'JetBrains Mono', monospace;
     font-size: 8pt;
-    color: #718096;
+    color: var(--pdf-ink-muted, #7C7264);
   }
 
 
   /* ═══════════════════════════════════════════════════════════════════════
-     RODAPÉ CORRENTE — aparece em todas as páginas com conteúdo
+     RODAPÉ CORRENTE
      ═══════════════════════════════════════════════════════════════════════ */
 
   .pdf-running-footer {
@@ -237,8 +235,8 @@
     font-family: 'Noto Sans', Arial, sans-serif;
     font-size: 8pt;
     font-style: italic;
-    color: #718096;
-    border-top: 1px solid rgba(184, 134, 11, 0.20);
+    color: var(--pdf-ink-muted, #7C7264);
+    border-top: 1px solid var(--pdf-gold-rule, rgba(150,116,56,0.20));
     padding-top: 2mm;
     margin-top: 4mm;
     height: 10mm;
@@ -249,39 +247,29 @@
      QUEBRAS DE PÁGINA
      ═══════════════════════════════════════════════════════════════════════ */
 
-  /* Forçar nova página */
   .pdf-page-break {
     page-break-before: always;
     break-before: page;
   }
 
-  /* Seções que nunca devem ser cortadas */
-  .bazi-pillar,
-  .pillar-card,
-  .bazi-pillar__stem,
-  .bazi-pillar__branch,
-  .info-card,
-  .luck-card,
-  .star-card,
-  .pdf-table,
-  .pdf-pillar-card {
+  .bazi-pillar, .pillar-card,
+  .bazi-pillar__stem, .bazi-pillar__branch,
+  .info-card, .luck-card, .star-card,
+  .pdf-table, .pdf-pillar-card {
     page-break-inside: avoid;
     break-inside: avoid;
   }
 
-  /* Títulos de seção nunca ficam no final da página sem conteúdo */
-  .sec-label,
-  h2, h3, h4 {
+  .sec-label, h2, h3, h4 {
     page-break-after: avoid;
     break-after: avoid;
   }
 
 
   /* ═══════════════════════════════════════════════════════════════════════
-     MAPA BAZI — Quatro Pilares (adaptação para impressão)
+     MAPA BAZI — Quatro Pilares
      ═══════════════════════════════════════════════════════════════════════ */
 
-  /* Grid de pilares — largura total sem gaps excessivos */
   .bazi-map,
   .pillars-grid {
     display: grid !important;
@@ -291,33 +279,30 @@
     margin-bottom: 6mm;
   }
 
-  /* Célula de pilar — borda superior colorida por elemento, sem sombra */
   .bazi-pillar,
   .pillar-card {
-    background: #FFFFFF !important;
-    border: 1px solid rgba(184, 134, 11, 0.20) !important;
+    background: var(--pdf-surface, #FDFCF9) !important;
+    border: 1px solid var(--pdf-gold-border, rgba(150,116,56,0.20)) !important;
     border-radius: 2mm !important;
     box-shadow: none !important;
     padding: 4mm !important;
     min-height: auto !important;
-
-    /* Estado de hover/active: resetar para impressão */
     transform: none !important;
   }
 
-  /* Cor de borda superior por elemento (Wu Xing — apenas borda, sem fundo) */
+  /* Wu Xing — bordas superiores v2.5 */
   .bazi-pillar[data-element="wood"],
-  .pillar-card[data-element="wood"]  { border-top: 3px solid #4A7A3A !important; }
+  .pillar-card[data-element="wood"]  { border-top: 3px solid var(--pdf-wood,  #147A48) !important; }
   .bazi-pillar[data-element="fire"],
-  .pillar-card[data-element="fire"]  { border-top: 3px solid #B34030 !important; }
+  .pillar-card[data-element="fire"]  { border-top: 3px solid var(--pdf-fire,  #D3232E) !important; }
   .bazi-pillar[data-element="earth"],
-  .pillar-card[data-element="earth"] { border-top: 3px solid #7A5C20 !important; }
+  .pillar-card[data-element="earth"] { border-top: 3px solid var(--pdf-earth, #B87C14) !important; }
   .bazi-pillar[data-element="metal"],
-  .pillar-card[data-element="metal"] { border-top: 3px solid #4E6070 !important; }
+  .pillar-card[data-element="metal"] { border-top: 3px solid var(--pdf-metal, #848484) !important; }
   .bazi-pillar[data-element="water"],
-  .pillar-card[data-element="water"] { border-top: 3px solid #3A6E9E !important; }
+  .pillar-card[data-element="water"] { border-top: 3px solid var(--pdf-water, #2652A8) !important; }
 
-  /* Badge de elemento — borda sem fundo para impressão */
+  /* Badge de elemento — borda sem fundo */
   .bazi-pillar__element,
   .p-elem {
     background: transparent !important;
@@ -330,21 +315,21 @@
   .bazi-pillar__ten-god,
   .p-god {
     font-size: 8pt;
-    color: #5A5870;
+    color: var(--pdf-ink-sec, #4C4538);
   }
 
   /* Troncos ocultos */
   .bazi-pillar__hidden-stems,
   .p-hidden {
-    border-top: 1px dashed rgba(184, 134, 11, 0.25) !important;
+    border-top: 1px dashed var(--pdf-gold-rule, rgba(150,116,56,0.25)) !important;
     font-size: 7pt;
-    color: #718096;
+    color: var(--pdf-ink-muted, #7C7264);
   }
 
   .bazi-pillar__hidden-stem {
     background: transparent !important;
-    border: 1px solid rgba(90, 88, 112, 0.30) !important;
-    color: #5A5870 !important;
+    border: 1px solid rgba(76, 69, 56, 0.30) !important;   /* --color-text-secondary a 30% */
+    color: var(--pdf-ink-sec, #4C4538) !important;
   }
 
 
@@ -359,26 +344,26 @@
   }
 
   .info-card {
-    background: #FFFFFF !important;
-    border: 1px solid rgba(184, 134, 11, 0.20) !important;
+    background: var(--pdf-surface, #FDFCF9) !important;
+    border: 1px solid var(--pdf-gold-border, rgba(150,116,56,0.20)) !important;
     box-shadow: none !important;
     padding: 3mm !important;
   }
 
   .ic-val {
     font-size: 10pt;
-    color: #1A1A2E;
+    color: var(--pdf-ink, #1E1B15);
   }
 
   .ic-sub {
     font-size: 8pt;
-    color: #718096;
+    color: var(--pdf-ink-muted, #7C7264);
     font-style: italic;
   }
 
 
   /* ═══════════════════════════════════════════════════════════════════════
-     GRANDES CICLOS — Grid compacto para impressão
+     GRANDES CICLOS
      ═══════════════════════════════════════════════════════════════════════ */
 
   .luck-grid,
@@ -389,29 +374,29 @@
   }
 
   .luck-card {
-    background: #FFFFFF !important;
-    border: 1px solid rgba(184, 134, 11, 0.20) !important;
+    background: var(--pdf-surface, #FDFCF9) !important;
+    border: 1px solid var(--pdf-gold-border, rgba(150,116,56,0.20)) !important;
     box-shadow: none !important;
     padding: 2mm !important;
     text-align: center;
   }
 
-  /* Ciclo atual — destaque sutil */
   .luck-card.current {
-    border-color: #B8860B !important;
-    background: rgba(184, 134, 11, 0.05) !important;
+    border-color: var(--pdf-gold, #967438) !important;
+    background: var(--pdf-gold-bg, rgba(150,116,56,0.06)) !important;
   }
 
   .luck-chars {
     font-family: 'Noto Serif SC', serif;
     font-size: 12pt;
+    font-style: normal;
   }
 
   .luck-age,
   .luck-years,
   .luck-py {
     font-size: 7pt;
-    color: #718096;
+    color: var(--pdf-ink-muted, #7C7264);
   }
 
 
@@ -420,14 +405,13 @@
      ═══════════════════════════════════════════════════════════════════════ */
 
   .elem-fill {
-    /* Garante que a barra de progresso seja impressa */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
   .elem-track {
-    background: rgba(184, 134, 11, 0.06) !important;
-    border: 1px solid rgba(184, 134, 11, 0.15) !important;
+    background: var(--pdf-gold-bg, rgba(150,116,56,0.06)) !important;
+    border: 1px solid var(--pdf-gold-rule, rgba(150,116,56,0.15)) !important;
   }
 
 
@@ -443,7 +427,7 @@
 
   .star-card {
     background: transparent !important;
-    border: 1px solid rgba(184, 134, 11, 0.15) !important;
+    border: 1px solid var(--pdf-gold-rule, rgba(150,116,56,0.15)) !important;
     box-shadow: none !important;
     padding: 2mm !important;
     font-size: 9pt;
@@ -454,12 +438,10 @@
      INTERAÇÕES ENTRE RAMOS
      ═══════════════════════════════════════════════════════════════════════ */
 
-  .interact-list {
-    font-size: 9pt;
-  }
+  .interact-list { font-size: 9pt; }
 
   .interact-item {
-    border-bottom: 1px solid rgba(184, 134, 11, 0.10) !important;
+    border-bottom: 1px solid var(--pdf-gold-bg, rgba(150,116,56,0.10)) !important;
     padding: 1mm 0 !important;
   }
 
@@ -475,14 +457,14 @@
   }
 
   .pdf-notes-area__line {
-    border-bottom: 1px solid rgba(184, 134, 11, 0.20);
-    height: 8mm;   /* line-height equivalente a 10pt × 1.6 */
+    border-bottom: 1px solid var(--pdf-gold-border, rgba(150,116,56,0.20));
+    height: 8mm;
     display: block;
   }
 
 
   /* ═══════════════════════════════════════════════════════════════════════
-     CAPA — Página 1 (classe .pdf-cover adicionada por buildCoverPage())
+     CAPA — Página 1
      ═══════════════════════════════════════════════════════════════════════ */
 
   .pdf-cover {
@@ -490,7 +472,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 257mm;   /* área útil com margens de 2cm */
+    min-height: 257mm;
     text-align: center;
     page-break-after: always;
     break-after: page;
@@ -499,15 +481,16 @@
   .pdf-cover__zh {
     font-family: 'Noto Serif SC', serif;
     font-size: 72pt;
-    color: #B8860B;
+    color: var(--pdf-gold, #967438);
     line-height: 1;
     margin-bottom: 8mm;
+    font-style: normal;
   }
 
   .pdf-cover__title {
     font-family: 'Lora', Georgia, serif;
     font-size: 18pt;
-    color: #1A1A2E;
+    color: var(--pdf-ink, #1E1B15);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     margin-bottom: 12mm;
@@ -516,34 +499,34 @@
   .pdf-cover__rule {
     width: 60mm;
     border: none;
-    border-top: 1px solid rgba(184, 134, 11, 0.40);
+    border-top: 1px solid var(--pdf-gold-rule, rgba(150,116,56,0.40));
     margin: 6mm auto;
   }
 
   .pdf-cover__name {
     font-family: 'Lora', Georgia, serif;
     font-size: 24pt;
-    color: #1A1A2E;
+    color: var(--pdf-ink, #1E1B15);
     margin-bottom: 4mm;
   }
 
   .pdf-cover__meta {
     font-family: 'Noto Sans', Arial, sans-serif;
     font-size: 10pt;
-    color: #718096;
+    color: var(--pdf-ink-muted, #7C7264);
     line-height: 1.8;
   }
 
   .pdf-cover__gen {
     font-family: 'JetBrains Mono', monospace;
     font-size: 8pt;
-    color: #5A5870;
+    color: var(--pdf-ink-sec, #4C4538);
     margin-top: 12mm;
   }
 
 
   /* ═══════════════════════════════════════════════════════════════════════
-     LINKS — remover underline e cor em impressão
+     LINKS
      ═══════════════════════════════════════════════════════════════════════ */
 
   a,
@@ -552,14 +535,12 @@
     text-decoration: none !important;
   }
 
-  /* Mostrar URL de links externos após o texto */
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 7pt;
-    color: #718096;
+    color: var(--pdf-ink-muted, #7C7264);
   }
 
-  /* Não mostrar URL para links internos ou de ação */
   a[href^="#"]::after,
   a[href^="javascript"]::after,
   button::after {
@@ -574,16 +555,15 @@
   [data-theme="dark"],
   [data-theme="dark"] * {
     background-color: transparent !important;
-    color: #1A1A2E !important;
+    color: var(--pdf-ink, #1E1B15) !important;
   }
 
-  /* Exceções: elementos que precisam de fundo branco */
   [data-theme="dark"] .bazi-pillar,
   [data-theme="dark"] .pillar-card,
   [data-theme="dark"] .info-card,
   [data-theme="dark"] .luck-card,
   [data-theme="dark"] .star-card {
-    background: #FFFFFF !important;
+    background: var(--pdf-surface, #FDFCF9) !important;
   }
 
 }
