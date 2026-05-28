@@ -114,8 +114,10 @@ function _monthPilJieqiV2(jd, year, month, southernHemisphere) {
   // Se o nascimento é ANTES do Jié deste mês → pertence ao mês anterior
   if (jd < termoAtual.jd) {
     mes0 = (mes0 - 1 + 12) % 12;
-    // Se recuamos de janeiro para dezembro, o ano do termo recua também
-    if (mes0 === 10) anoTermo = anoTermo - 1; // DaXue é dezembro do ano anterior
+    // anoTermo NÃO recua aqui: getTermoSolar(ano, mes) usa o ano passado
+    // diretamente como âncora astronômica para todos os meses, incluindo
+    // DaXue (mes=12). O recuo de janeiro (month===1 → anoTermo=year-1)
+    // já foi feito na inicialização — decrementar novamente produziria year-2.
     termoAtual = getTermoSolar(anoTermo, mes0);
 
     if (!termoAtual || termoAtual.erro) {
