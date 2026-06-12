@@ -31,6 +31,8 @@ import { defineConfig } from 'vite';
 import { VitePWA }      from 'vite-plugin-pwa';
 import { createHash }   from 'crypto';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 /**
  * Gera um hash de build determinístico de 8 caracteres.
  * Usado para CACHE_VERSION no sw.js — garante que activate limpe caches antigos.
@@ -59,72 +61,69 @@ export default defineConfig(() => {
       '__BUILD_HASH__': JSON.stringify(buildHash),
     },
 
-    plugins: [
-      VitePWA({
-        /**
-         * injectManifest: preserva public/sw.js como arquivo-fonte.
-         * O plugin injeta self.__WB_MANIFEST no sw.js compilado.
-         * Alternativa (generateSW) seria gerado automaticamente — não usada
-         * pois o sw.js atual tem lógica personalizada (UNP, sync, push, postMessage).
-         */
-        strategies:     'injectManifest',
-        srcDir:         'public',
-        filename:       'sw.js',
+    plugins: [VitePWA({
+      /**
+       * injectManifest: preserva public/sw.js como arquivo-fonte.
+       * O plugin injeta self.__WB_MANIFEST no sw.js compilado.
+       * Alternativa (generateSW) seria gerado automaticamente — não usada
+       * pois o sw.js atual tem lógica personalizada (UNP, sync, push, postMessage).
+       */
+      strategies:     'injectManifest',
+      srcDir:         'public',
+      filename:       'sw.js',
 
-        /**
-         * injectRegister: false — NÃO gerar script de registro automático.
-         * src/app.js já registra o SW manualmente com Update Notification Pattern.
-         * Registro automático conflitaria com a lógica UNP existente.
-         */
-        injectRegister: false,
+      /**
+       * injectRegister: false — NÃO gerar script de registro automático.
+       * src/app.js já registra o SW manualmente com Update Notification Pattern.
+       * Registro automático conflitaria com a lógica UNP existente.
+       */
+      injectRegister: false,
 
-        /**
-         * manifest: espelha public/manifest.json.
-         * O plugin usa este objeto para validação e para injetar o link
-         * <link rel="manifest"> no index.html durante o build.
-         * MANTER sincronizado com public/manifest.json.
-         */
-        manifest: {
-          name:             'BaZi 八字 — Quatro Pilares',
-          short_name:       'BaZi',
-          description:      'Calcule seu Mapa BaZi com precisão astronômica.',
-          start_url:        '/',
-          display:          'standalone',
-          background_color: '#0F0E0A',
-          theme_color:      '#0F0E0A',
-          icons: [
-            {
-              src:   '/icons/icon-192.png',
-              sizes: '192x192',
-              type:  'image/png',
-            },
-            {
-              src:   '/icons/icon-512.png',
-              sizes: '512x512',
-              type:  'image/png',
-            },
-          ],
-        },
+      /**
+       * manifest: espelha public/manifest.json.
+       * O plugin usa este objeto para validação e para injetar o link
+       * <link rel="manifest"> no index.html durante o build.
+       * MANTER sincronizado com public/manifest.json.
+       */
+      manifest: {
+        name:             'BaZi 八字 — Quatro Pilares',
+        short_name:       'BaZi',
+        description:      'Calcule seu Mapa BaZi com precisão astronômica.',
+        start_url:        '/',
+        display:          'standalone',
+        background_color: '#0F0E0A',
+        theme_color:      '#0F0E0A',
+        icons: [
+          {
+            src:   '/icons/icon-192.png',
+            sizes: '192x192',
+            type:  'image/png',
+          },
+          {
+            src:   '/icons/icon-512.png',
+            sizes: '512x512',
+            type:  'image/png',
+          },
+        ],
+      },
 
-        /**
-         * injectManifestConfig: configuração do Workbox para injeção do manifesto.
-         * globPatterns define quais assets do build são incluídos em __WB_MANIFEST.
-         * Padrão cobre: HTML, JS, CSS e assets comuns (imagens, fontes, SVG, JSON).
-         */
-        injectManifestConfig: {
-          globPatterns: ['**/*.{html,js,css,png,svg,ico,json,woff2}'],
-        },
+      /**
+       * injectManifestConfig: configuração do Workbox para injeção do manifesto.
+       * globPatterns define quais assets do build são incluídos em __WB_MANIFEST.
+       * Padrão cobre: HTML, JS, CSS e assets comuns (imagens, fontes, SVG, JSON).
+       */
+      injectManifestConfig: {
+        globPatterns: ['**/*.{html,js,css,png,svg,ico,json,woff2}'],
+      },
 
-        /**
-         * devOptions: ativa o SW em modo dev para facilitar testes locais.
-         * O SW em dev é um stub — não afeta HMR.
-         */
-        devOptions: {
-          enabled: true,
-          type:    'module',
-        },
-      }),
-    ],
+      /**
+       * devOptions: ativa o SW em modo dev para facilitar testes locais.
+       * O SW em dev é um stub — não afeta HMR.
+       */
+      devOptions: {
+        enabled: true,
+        type:    'module',
+      },
+    }), cloudflare()],
   };
 });
-
