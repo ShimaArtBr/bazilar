@@ -36,194 +36,196 @@
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <a class="topbar-brand" href="#">
-    <div class="topbar-sym" lang="zh">八</div>
-    <span class="topbar-name">BAZILAR</span>
-  </a>
-  <div class="topbar-right">
-    <a class="btn bs bsm" href="https://trilha.bazilar.app" target="_blank" rel="noopener" aria-label="Aprenda BaZi — Trilha didática">Aprenda BaZi</a>
-    <button class="theme-btn" id="themeBtn" aria-label="Alternar tema"><span id="themeIcon">☀️</span></button>
-  </div>
+<a class="topbar-brand" href="#">
+<div class="topbar-sym" lang="zh">八</div>
+<span class="topbar-name">BAZILAR</span>
+</a>
+<div class="topbar-right">
+<a class="btn bs bsm" href="https://trilha.bazilar.app" target="_blank" rel="noopener" aria-label="Aprenda BaZi — Trilha didática">Aprenda BaZi</a>
+<a class="btn bs bsm" href="/apoie" aria-label="Apoie o BaZiLar">Apoie</a>
+<button class="theme-btn" id="themeBtn" aria-label="Alternar tema"><span id="themeIcon">☀️</span></button>
+</div>
 </div>
 
 <div class="page">
 
-  <!-- INPUT PANEL -->
-  <aside class="input-panel" aria-label="Formulário de nascimento">
-    <h2 class="panel-title"><span class="panel-title-zh" lang="zh">命盤</span> <span id="uiTitle">Dados de Nascimento</span></h2>
+<!-- INPUT PANEL -->
+<aside class="input-panel" aria-label="Formulário de nascimento">
+<h2 class="panel-title"><span class="panel-title-zh" lang="zh">命盤</span> <span id="uiTitle">Dados de Nascimento</span></h2>
 
-    <div class="field-group">
-      <label class="field-label" for="inName">Nome / Apelido</label>
-      <input type="text" id="inName" placeholder="Qual é o seu nome?" maxlength="60" style="text-transform:uppercase">
-    </div>
+<div class="field-group">
+<label class="field-label" for="inName">Nome / Apelido</label>
+<input type="text" id="inName" placeholder="Qual é o seu nome?" maxlength="60" style="text-transform:uppercase">
+</div>
 
-    <div class="field-group">
-      <label class="field-label" id="genderLabel">Gênero Biológico</label>
-      <div class="gender-row" role="group" aria-labelledby="genderLabel">
-        <button class="gender-btn" id="gF" data-gender="F" type="button" aria-pressed="false">♀ Feminino</button>
-        <button class="gender-btn" id="gM" data-gender="M" type="button" aria-pressed="false">♂ Masculino</button>
-      </div>
-    </div>
+<div class="field-group">
+<label class="field-label" id="genderLabel">Gênero Biológico</label>
+<div class="gender-row" role="group" aria-labelledby="genderLabel">
+<button class="gender-btn" id="gF" data-gender="F" type="button" aria-pressed="false">♀ Feminino</button>
+<button class="gender-btn" id="gM" data-gender="M" type="button" aria-pressed="false">♂ Masculino</button>
+</div>
+</div>
 
-    <div class="field-group">
-      <label class="field-label" for="inCity">Local de Nascimento</label>
-      <div class="geo-wrap">
-        <input type="text" id="inCity" placeholder="BAIRRO, CIDADE, PAÍS" autocomplete="off">
-        <div class="geo-spin" id="geoSpin"></div>
-        <div class="sug-box" id="sugBox" role="listbox"></div>
-      </div>
-      <div class="loc-prev" id="locPrev"></div>
-    </div>
+<div class="field-group">
+<label class="field-label" for="inCity">Local de Nascimento</label>
+<div class="geo-wrap">
+<input type="text" id="inCity" placeholder="BAIRRO, CIDADE, PAÍS" autocomplete="off">
+<div class="geo-spin" id="geoSpin"></div>
+<div class="sug-box" id="sugBox" role="listbox"></div>
+</div>
+<div class="loc-prev" id="locPrev"></div>
+</div>
 
-    <div class="field-group">
-      <label class="field-label" id="dateLabel">Data de Nascimento</label>
-      <div class="field-row3" role="group" aria-labelledby="dateLabel">
-        <label class="sr-only" for="inD">Dia</label>
-        <input type="text" id="inD" inputmode="numeric" maxlength="2" placeholder="DD" autocomplete="off">
-        <label class="sr-only" for="inM">Mês</label>
-        <input type="text" id="inM" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="off">
-        <label class="sr-only" for="inY">Ano</label>
-        <input type="text" id="inY" inputmode="numeric" maxlength="4" placeholder="AAAA" autocomplete="off">
-      </div>
-    </div>
+<div class="field-group">
+<label class="field-label" id="dateLabel">Data de Nascimento</label>
+<div class="field-row3" role="group" aria-labelledby="dateLabel">
+<label class="sr-only" for="inD">Dia</label>
+<input type="text" id="inD" inputmode="numeric" maxlength="2" placeholder="DD" autocomplete="off">
+<label class="sr-only" for="inM">Mês</label>
+<input type="text" id="inM" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="off">
+<label class="sr-only" for="inY">Ano</label>
+<input type="text" id="inY" inputmode="numeric" maxlength="4" placeholder="AAAA" autocomplete="off">
+</div>
+</div>
 
-    <div class="field-group">
-      <div class="field-row field-row--hora-fuso" role="group">
-        <div class="field-col">
-          <label class="field-label" for="inT">Hora (24h)</label>
-          <input type="text" id="inT" placeholder="HH:MM" maxlength="5" inputmode="numeric" class="input--centered">
-        </div>
-        <div class="field-col">
-          <label class="field-label" for="inTZ">Fuso (GMT)</label>
-          <div class="tz-wrap">
-          <select id="inTZ" class="tz-select" aria-label="Selecionar fuso horário GMT">
-            <option value="" disabled selected hidden>GMT</option>
-            <option value="-12">GMT −12</option><option value="-11">GMT −11</option>
-            <option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
-            <option value="-9">GMT −9</option><option value="-8">GMT −8</option>
-            <option value="-7">GMT −7</option><option value="-6">GMT −6</option>
-            <option value="-5">GMT −5</option><option value="-4">GMT −4</option>
-            <option value="-3.5">GMT −3:30</option><option value="-3">GMT −3</option>
-            <option value="-2">GMT −2</option><option value="-1">GMT −1</option>
-            <option value="0">GMT 0</option><option value="1">GMT +1</option>
-            <option value="2">GMT +2</option><option value="3">GMT +3</option>
-            <option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
-            <option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
-            <option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
-            <option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
-            <option value="7">GMT +7</option><option value="8">GMT +8</option>
-            <option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
-            <option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
-            <option value="11">GMT +11</option><option value="12">GMT +12</option>
-            <option value="13">GMT +13</option>
-          </select>
-          </div>
-        </div>
-      </div>
-      <p class="tz-hint" id="tzHint">↻ <span id="tzHintTxt">Detectando…</span></p>
-    </div>
+<div class="field-group">
+<div class="field-row field-row--hora-fuso" role="group">
+<div class="field-col">
+<label class="field-label" for="inT">Hora (24h)</label>
+<input type="text" id="inT" placeholder="HH:MM" maxlength="5" inputmode="numeric" class="input--centered">
+</div>
+<div class="field-col">
+<label class="field-label" for="inTZ">Fuso (GMT)</label>
+<div class="tz-wrap">
+<select id="inTZ" class="tz-select" aria-label="Selecionar fuso horário GMT">
+<option value="" disabled selected hidden>GMT</option>
+<option value="-12">GMT −12</option><option value="-11">GMT −11</option>
+<option value="-10">GMT −10</option><option value="-9.5">GMT −9:30</option>
+<option value="-9">GMT −9</option><option value="-8">GMT −8</option>
+<option value="-7">GMT −7</option><option value="-6">GMT −6</option>
+<option value="-5">GMT −5</option><option value="-4">GMT −4</option>
+<option value="-3.5">GMT −3:30</option><option value="-3">GMT −3</option>
+<option value="-2">GMT −2</option><option value="-1">GMT −1</option>
+<option value="0">GMT 0</option><option value="1">GMT +1</option>
+<option value="2">GMT +2</option><option value="3">GMT +3</option>
+<option value="3.5">GMT +3:30</option><option value="4">GMT +4</option>
+<option value="4.5">GMT +4:30</option><option value="5">GMT +5</option>
+<option value="5.5">GMT +5:30</option><option value="5.75">GMT +5:45</option>
+<option value="6">GMT +6</option><option value="6.5">GMT +6:30</option>
+<option value="7">GMT +7</option><option value="8">GMT +8</option>
+<option value="9">GMT +9</option><option value="9.5">GMT +9:30</option>
+<option value="10">GMT +10</option><option value="10.5">GMT +10:30</option>
+<option value="11">GMT +11</option><option value="12">GMT +12</option>
+<option value="13">GMT +13</option>
+</select>
+</div>
+</div>
+</div>
+<p class="tz-hint" id="tzHint">↻ <span id="tzHintTxt">Detectando…</span></p>
+</div>
 
-    <div class="field-group">
-      <div class="chk-row">
-        <input type="checkbox" id="inDST">
-        <label for="inDST">Horário de Verão (DST)</label>
-      </div>
-    </div>
+<div class="field-group">
+<div class="chk-row">
+<input type="checkbox" id="inDST">
+<label for="inDST">Horário de Verão (DST)</label>
+</div>
+</div>
 
-    <div id="rstBox" class="rst-box" style="display:none" aria-live="polite">
-      <p class="rst-lbl">Tempo Solar Real</p>
-      <p class="rst-val" id="rstV">—</p>
-      <p class="rst-det" id="rstD"></p>
-    </div>
+<div id="rstBox" class="rst-box" style="display:none" aria-live="polite">
+<p class="rst-lbl">Tempo Solar Real</p>
+<p class="rst-val" id="rstV">—</p>
+<p class="rst-det" id="rstD"></p>
+</div>
 
-    <div class="zi-selector" id="ziSelector">
-      <div class="zi-toggle-hd" id="ziToggle" role="button" tabindex="0"
-           aria-expanded="false" aria-controls="ziOpts">
-        <span class="zi-toggle-arrow" aria-hidden="true">▼</span>
-        <span>Opções avançadas</span>
-      </div>
-      <div class="zi-opts" id="ziOpts" aria-hidden="true">
-        <div role="radiogroup" aria-label="Método Hora Zǐ">
-        <div class="zi-opt active" data-zi="early" id="ziEarly"
-             role="radio" tabindex="0" aria-checked="true">
-          <div class="zi-radio" aria-hidden="true"></div>
-          <div class="zi-label">
-            <div class="zi-name">
-              <span class="zi-name-zh" lang="zh">早子時</span>
-              <span class="zi-name-en">Early Zǐ</span>
-              <span class="zi-badge">PADRÃO</span>
-            </div>
-            <div class="zi-desc">23:00–23:59 usa o tronco do dia seguinte. Método clássico (子平真詮).</div>
-          </div>
-        </div>
-        <div class="zi-opt" data-zi="late" id="ziLate"
-             role="radio" tabindex="-1" aria-checked="false">
-          <div class="zi-radio" aria-hidden="true"></div>
-          <div class="zi-label">
-            <div class="zi-name">
-              <span class="zi-name-zh" lang="zh">晚子時</span>
-              <span class="zi-name-en">Late Zǐ</span>
-            </div>
-            <div class="zi-desc">23:00–23:59 é hora 子 do mesmo dia. Método simplificado.</div>
-          </div>
-        </div>
-        </div>
+<div class="zi-selector" id="ziSelector">
+<div class="zi-toggle-hd" id="ziToggle" role="button" tabindex="0"
+aria-expanded="false" aria-controls="ziOpts">
+<span class="zi-toggle-arrow" aria-hidden="true">▼</span>
+<span>Opções avançadas</span>
+</div>
+<div class="zi-opts" id="ziOpts" aria-hidden="true">
+<div role="radiogroup" aria-label="Método Hora Zǐ">
+<div class="zi-opt active" data-zi="early" id="ziEarly"
+role="radio" tabindex="0" aria-checked="true">
+<div class="zi-radio" aria-hidden="true"></div>
+<div class="zi-label">
+<div class="zi-name">
+<span class="zi-name-zh" lang="zh">早子時</span>
+<span class="zi-name-en">Early Zǐ</span>
+<span class="zi-badge">PADRÃO</span>
+</div>
+<div class="zi-desc">23:00–23:59 usa o tronco do dia seguinte. Método clássico (子平真詮).</div>
+</div>
+</div>
+<div class="zi-opt" data-zi="late" id="ziLate"
+role="radio" tabindex="-1" aria-checked="false">
+<div class="zi-radio" aria-hidden="true"></div>
+<div class="zi-label">
+<div class="zi-name">
+<span class="zi-name-zh" lang="zh">晚子時</span>
+<span class="zi-name-en">Late Zǐ</span>
+</div>
+<div class="zi-desc">23:00–23:59 é hora 子 do mesmo dia. Método simplificado.</div>
+</div>
+</div>
+</div>
 
-        <!-- Hemisphere separator -->
-        <div class="zi-sep" role="separator"></div>
+<!-- Hemisphere separator -->
+<div class="zi-sep" role="separator"></div>
 
-        <div role="radiogroup" aria-label="Hemisfério">
-        <div class="zi-opt active" data-hemi="N" id="hemiN"
-             role="radio" tabindex="0" aria-checked="true">
-          <div class="zi-radio" aria-hidden="true"></div>
-          <div class="zi-label">
-            <div class="zi-name">
-              <span class="zi-name-zh" lang="zh">北半球</span>
-              <span class="zi-name-en">Norte ↑</span>
-              <span class="zi-badge">PADRÃO</span>
-            </div>
-            <div class="zi-desc">BaZi clássico — posições solares universais. Padrão recomendado.</div>
-          </div>
-        </div>
-        <div class="zi-opt" data-hemi="S" id="hemiS"
-             role="radio" tabindex="-1" aria-checked="false">
-          <div class="zi-radio" aria-hidden="true"></div>
-          <div class="zi-label">
-            <div class="zi-name">
-              <span class="zi-name-zh" lang="zh">南半球</span>
-              <span class="zi-name-en">Sul ↓</span>
-            </div>
-            <div class="zi-desc">Inversão sazonal: ramo do mês +6. Para validação no Hemisfério Sul.</div>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
+<div role="radiogroup" aria-label="Hemisfério">
+<div class="zi-opt active" data-hemi="N" id="hemiN"
+role="radio" tabindex="0" aria-checked="true">
+<div class="zi-radio" aria-hidden="true"></div>
+<div class="zi-label">
+<div class="zi-name">
+<span class="zi-name-zh" lang="zh">北半球</span>
+<span class="zi-name-en">Norte ↑</span>
+<span class="zi-badge">PADRÃO</span>
+</div>
+<div class="zi-desc">BaZi clássico — posições solares universais. Padrão recomendado.</div>
+</div>
+</div>
+<div class="zi-opt" data-hemi="S" id="hemiS"
+role="radio" tabindex="-1" aria-checked="false">
+<div class="zi-radio" aria-hidden="true"></div>
+<div class="zi-label">
+<div class="zi-name">
+<span class="zi-name-zh" lang="zh">南半球</span>
+<span class="zi-name-en">Sul ↓</span>
+</div>
+<div class="zi-desc">Inversão sazonal: ramo do mês +6. Para validação no Hemisfério Sul.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-    <button class="calc-btn" id="calcBtn" type="button">Calcular Quatro Pilares</button>
-  </aside>
+<button class="calc-btn" id="calcBtn" type="button">Calcular Quatro Pilares</button>
+</aside>
 
-  <!-- RESULTS -->
-  <main id="results" aria-live="polite">
-    <div class="empty" id="emptyState" aria-hidden="true">
-      <div class="empty-ico" aria-hidden="true" lang="zh">八字</div>
-      <h2 class="empty-ttl">Motor de Cálculo BaZi</h2>
-      <p class="empty-sub">Preencha os dados e clique em Calcular para gerar os Quatro Pilares com Tempo Solar Real, Troncos Ocultos, Grandes Ciclos, Estrelas Simbólicas e Interações.</p>
-    </div>
-  </main>
+<!-- RESULTS -->
+<main id="results" aria-live="polite">
+<div class="empty" id="emptyState" aria-hidden="true">
+<div class="empty-ico" aria-hidden="true" lang="zh">八字</div>
+<h2 class="empty-ttl">Motor de Cálculo BaZi</h2>
+<p class="empty-sub">Preencha os dados e clique em Calcular para gerar os Quatro Pilares com Tempo Solar Real, Troncos Ocultos, Grandes Ciclos, Estrelas Simbólicas e Interações.</p>
+</div>
+</main>
 
 </div>
 
 <!-- FOOTER -->
 <footer class="app-footer" aria-label="Rodapé — outros apps SOLLUN">
-  <div class="footer-inner">
-    <a class="footer-brand" href="https://sollun.app" aria-label="SOLLUN — página principal">SOLLUN</a>
-    <div class="footer-links">
-      <a href="https://64hex.app" aria-label="64HEX — I Ching hexagramas">64HEX</a>
-      <a href="https://um23.app" aria-label="UM23 — numerologia">UM23</a>
-    </div>
-    <span class="footer-tagline">feito com tempo</span>
-  </div>
+<div class="footer-inner">
+<a class="footer-brand" href="https://sollun.app" aria-label="SOLLUN — página principal">SOLLUN</a>
+<div class="footer-links">
+<a href="https://64hex.app" aria-label="64HEX — I Ching hexagramas">64HEX</a>
+<a href="https://um23.app" aria-label="UM23 — numerologia">UM23</a>
+<a href="/apoie" aria-label="Apoie o BaZiLar">Apoie</a>
+</div>
+<span class="footer-tagline">feito com tempo</span>
+</div>
 </footer>
 
 <script type="module" src="./src/app.js"></script>

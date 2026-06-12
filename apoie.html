@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Apoie o BaZiLar · leituras de BaZi em português, sem anúncios, sem paywall." />
+  <meta name="theme-color" content="#0b0a0a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Apoie · BaZiLar" />
+  <meta property="og:description" content="Apoie o BaZiLar, um portal de leituras de BaZi em português, livre e sem anúncios." />
+  <meta property="og:image" content="/og-image.png" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:url" content="https://bazilar.app/apoie" />
+  <title>Apoie · BaZiLar</title>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&text=%E5%9B%9B%E6%9F%B1%E5%85%AB%E5%AD%97%E4%BA%94%E8%A1%8C%E5%A4%A9%E8%A1%8C%E5%81%A5%E5%90%9B%E5%AD%90%E8%87%AA%E5%BC%BA%E4%B8%8D%E6%81%AF&display=swap" rel="stylesheet" crossorigin />
+
+  <!-- DS v2.5 "Quiet Luxury Tupiniquim" — mesma ordem do index.html -->
+  <link rel="stylesheet" href="/src/styles/tokens.css" />
+  <link rel="stylesheet" href="/src/styles/animations.css" />
+  <link rel="stylesheet" href="/src/styles/main.css" />
+
+  <style>
+    /* ── APOIE PAGE — estilos específicos desta página ── */
+
+    .apoie-wrap {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 56px 22px 80px;
+    }
+
+    /* HEAD */
+    .page-head {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+    .page-glyph {
+      display: block;
+      font-family: var(--fc);
+      font-size: 2.25rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    .page-title {
+      font-family: var(--ff);
+      font-size: clamp(1.5rem, 4vw, 1.875rem);
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+    .page-sub {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      max-width: 44ch;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* INTRO */
+    .intro {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    /* SHARE LINE */
+    .share-line {
+      font-size: 0.8125rem;
+      color: var(--dim);
+      margin-bottom: 24px;
+    }
+
+    /* TRUST BAR */
+    .trust-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--dim);
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .trust-bar .sep { opacity: 0.4; }
+
+    /* GIVE GRID */
+    .give-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* GIVE CARD */
+    .give-card {
+      background: var(--panel);
+      border: 1px solid var(--bg-gold);
+      border-radius: var(--r-lg);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color var(--t-fast) var(--ease);
+    }
+    .give-card:hover { border-color: var(--gold); }
+
+    .give-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .give-icon {
+      font-size: 1.375rem;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .give-titles { display: flex; flex-direction: column; gap: 3px; }
+    .give-name {
+      font-family: var(--ff);
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .give-tag {
+      font-size: 0.6875rem;
+      color: var(--dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--fd2);
+    }
+
+    .give-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* PIX BLOCK */
+    .pix-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .pix-qr-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .pix-qr {
+      width: 160px;
+      height: 160px;
+      border-radius: var(--r);
+      border: 1px solid var(--bg-gold);
+      object-fit: cover;
+    }
+    .pix-copy-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-bd);
+      border-radius: var(--r);
+      padding: 10px 14px;
+    }
+    .pix-copy-label {
+      flex: 1;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      font-family: var(--fd2);
+    }
+    .pix-copy-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      color: var(--gold);
+      font-family: var(--fd2);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: background var(--t-fast) var(--ease);
+      white-space: nowrap;
+    }
+    .pix-copy-btn:hover { background: var(--bg-gold); }
+    .pix-copy-btn.copiado { color: var(--color-feedback-success, #52B788); border-color: var(--color-feedback-success, #52B788); }
+    .pix-receiver {
+      font-size: 0.75rem;
+      color: var(--dim);
+      text-align: center;
+      font-family: var(--fd2);
+    }
+
+    /* GIVE BUTTON */
+    .give-btn {
+      display: block;
+      width: 100%;
+      padding: 12px 20px;
+      text-align: center;
+      border: 1px solid var(--gold);
+      border-radius: var(--r);
+      color: var(--gold);
+      font-family: var(--fd2);
+      font-size: 0.8125rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+    }
+    .give-btn:hover { background: var(--bg-gold); text-decoration: none; }
+    .give-btn.secondary {
+      border-color: var(--bg-gold);
+      color: var(--muted);
+    }
+    .give-btn.secondary:hover {
+      background: var(--color-gold-bg);
+      color: var(--text);
+    }
+
+    /* FOOT NOTE */
+    .foot-note {
+      margin-top: 52px;
+      text-align: center;
+      font-family: var(--fc);
+      font-size: 0.9375rem;
+      color: var(--dim);
+      line-height: 2;
+    }
+    .foot-note em {
+      display: block;
+      font-family: var(--fd2);
+      font-style: normal;
+      font-size: 0.8125rem;
+      margin-top: 8px;
+      color: var(--dim);
+      line-height: 1.75;
+    }
+
+    /* TOPBAR APOIE — link ativo */
+    .topbar-nav-apoie {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .topbar-apoie-link {
+      font-family: var(--fd2);
+      font-size: var(--text-label);
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 1px solid var(--bg-gold);
+      border-radius: var(--r);
+      transition: border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+    }
+    .topbar-apoie-link:hover {
+      border-color: var(--gold);
+      background: var(--bg-gold);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .apoie-wrap { padding: 36px 16px 64px; }
+      .give-card { padding: 20px 18px; }
+      .page-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#give-grid">Ir para formas de apoio</a>
+
+  <!-- TOPBAR — mesmo do index.html -->
+  <div class="topbar">
+    <a class="topbar-brand" href="/" aria-label="BaZiLar — página principal">
+      <div class="topbar-sym" lang="zh">八</div>
+      <span class="topbar-name">BAZILAR</span>
+    </a>
+    <div class="topbar-right">
+      <a class="btn bs bsm" href="https://trilha.bazilar.app" target="_blank" rel="noopener" aria-label="Aprenda BaZi — Trilha didática">Aprenda BaZi</a>
+      <a class="topbar-apoie-link" href="/apoie" aria-current="page">Apoie</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Alternar tema"><span id="themeIcon">☀️</span></button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="apoie-wrap">
+
+    <!-- HEAD -->
+    <div class="page-head">
+      <span class="page-glyph" aria-hidden="true">八字</span>
+      <h1 class="page-title">Apoie o BaZiLar</h1>
+      <p class="page-sub">Um sistema milenar de leitura, em português, livre para qualquer pessoa. Sem anúncios, sem login, sem paywall.</p>
+    </div>
+
+    <!-- INTRO -->
+    <div class="intro">
+      <p>Se um pilar já nomeou algo que você sentia mas não conseguia dizer, se este espaço trouxe um instante de clareza sobre o tempo em que você está, sua contribuição é o que permite que o projeto continue, para você e para quem ainda vai chegar. Você escolhe o valor e qualquer apoio já faz diferença.</p>
+      <p>Sou <strong>Shima</strong>, artista brasileiro de raiz okinawana. Meu trabalho em performance e arte da experiência sempre girou em torno do ritual, da impermanência e do gesto cotidiano que carrega sentido. O BaZiLar nasceu dessa mesma busca: um espaço para ler o tempo com método. Os Quatro Pilares (四柱 Sì Zhù) que aparecem aqui são calculados com cuidado, acompanhados dos Cinco Movimentos (五行 Wǔ Xíng) e dos Termos Solares (節氣 Jié Qì) que os contextualizam. Mantenho o portal de maneira independente, sem patrocínio ou anúncios ruidosos. Isso tem um ônus invisível: o servidor que o entrega, o domínio que o mantém no ar, as horas de estudo que sustentam o conteúdo.</p>
+    </div>
+
+    <p class="share-line">Compartilhe o BaZiLar e ajude a ampliar o alcance do projeto.</p>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar" aria-label="Informações de segurança">
+      🔒 Pagamento direto e seguro
+      <span class="sep" aria-hidden="true">·</span>
+      Você escolhe o valor
+      <span class="sep" aria-hidden="true">·</span>
+      Nenhum dado é guardado pelo site
+    </div>
+
+    <!-- GIVE GRID -->
+    <div class="give-grid" id="give-grid">
+
+      <!-- PIX -->
+      <div class="give-card">
+        <div class="give-head">
+          <div class="give-icon" aria-hidden="true">⚡</div>
+          <div class="give-titles">
+            <div class="give-name">Pix</div>
+            <div class="give-tag">Brasil · sem taxas · instantâneo</div>
+          </div>
+        </div>
+        <div class="give-desc">A forma mais direta de apoiar, sem taxas. Escaneie o QR code ou copie o código Pix e cole no app do seu banco.</div>
+        <div class="pix-block">
+          <div class="pix-qr-wrap">
+            <img class="pix-qr" src="/pix-qr.png" alt="QR code Pix para doação ao BaZiLar" width="160" height="160" />
+          </div>
+          <div class="pix-copy-row">
+            <span class="pix-copy-label">Código Pix Copia e Cola</span>
+            <button class="pix-copy-btn" id="pixCopyBtn" type="button" aria-label="Copiar código Pix">Copiar</button>
+          </div>
+          <p class="pix-receiver">Shima Shima · Mercado Pago</p>
+        </div>
+      </div>
+
+      <!-- MERCADO PAGO -->
+      <div class="give-card">
+        <div class="give-head">
+          <div class="give-icon" aria-hidden="true">◈</div>
+          <div class="give-titles">
+            <div class="give-name">Mercado Pago</div>
+            <div class="give-tag">Cartão · Pix · valor livre</div>
+          </div>
+        </div>
+        <div class="give-desc">Apoie com cartão de crédito ou Pix, escolhendo o valor que quiser. Aceita cartões internacionais.</div>
+        <a class="give-btn" href="https://link.mercadopago.com.br/bazilar" target="_blank" rel="noopener noreferrer">
+          Apoiar via Mercado Pago →
+        </a>
+      </div>
+
+      <!-- PAYPAL -->
+      <div class="give-card">
+        <div class="give-head">
+          <div class="give-icon" aria-hidden="true">◉</div>
+          <div class="give-titles">
+            <div class="give-name">PayPal</div>
+            <div class="give-tag">Internacional · cartão · valor livre</div>
+          </div>
+        </div>
+        <div class="give-desc">Ideal para quem está fora do Brasil. Pagamento por cartão ou saldo PayPal.</div>
+        <a class="give-btn secondary" href="https://www.paypal.com/ncp/payment/BAZILAR" target="_blank" rel="noopener noreferrer">
+          Apoiar via PayPal →
+        </a>
+      </div>
+
+    </div>
+
+    <!-- FOOT NOTE -->
+    <p class="foot-note" lang="zh">
+      天行健，君子以自強不息
+      <em lang="pt">O movimento do céu é incessante.<br>Gratidão por caminhar junto.</em>
+    </p>
+
+  </main>
+
+  <!-- FOOTER — idêntico ao index.html -->
+  <footer class="app-footer" aria-label="Rodapé — outros apps SOLLUN">
+    <div class="footer-inner">
+      <a class="footer-brand" href="https://sollun.app" aria-label="SOLLUN — página principal">SOLLUN</a>
+      <div class="footer-links">
+        <a href="https://64hex.app" aria-label="64HEX — I Ching hexagramas">64HEX</a>
+        <a href="https://um23.app" aria-label="UM23 — numerologia">UM23</a>
+      </div>
+      <span class="footer-tagline">feito com tempo</span>
+    </div>
+  </footer>
+
+  <script type="module">
+    // ── TEMA — espelha lógica do app.js ──────────────────────────────────────
+    const root = document.documentElement;
+    const btn  = document.getElementById('themeBtn');
+    const icon = document.getElementById('themeIcon');
+
+    const saved = localStorage.getItem('bazilar-theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    icon.textContent = saved === 'dark' ? '☀️' : '🌙';
+
+    btn?.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('bazilar-theme', next);
+      icon.textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+
+    // ── PIX COPIA E COLA ──────────────────────────────────────────────────────
+    // Substitua pelo valor real da chave Pix copia e cola do Mercado Pago
+    const PIX_COPIA_COLA = 'COLE_AQUI_A_CHAVE_PIX_COPIA_E_COLA';
+
+    const pixBtn = document.getElementById('pixCopyBtn');
+    pixBtn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(PIX_COPIA_COLA);
+        pixBtn.textContent = 'Copiado!';
+        pixBtn.classList.add('copiado');
+        setTimeout(() => {
+          pixBtn.textContent = 'Copiar';
+          pixBtn.classList.remove('copiado');
+        }, 2500);
+      } catch {
+        pixBtn.textContent = 'Erro';
+      }
+    });
+  </script>
+
+</body>
+</html>
