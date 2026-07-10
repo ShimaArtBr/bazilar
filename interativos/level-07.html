@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 7 · Os Doze Ramos Terrestres — BAZILAR Didático</title>
+<meta name="description" content="Dì Zhī (地支): as doze câmaras da Terra. Quais são as qualidades da Terra? Sétimo nível da Trilha BaZi.">
+<meta name="level" content="7">
+<meta name="prereq" content="Nível 6">
+<meta name="tempo_leitura" content="6 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* Tabela de Ramos com hover para Troncos Ocultos — zero JS */
+.branch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s1);margin:var(--s5) 0}
+.branch-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s2);text-align:center;position:relative;transition:border-color .2s,box-shadow .2s}
+.branch-card:hover,.branch-card:focus-within{border-color:var(--gold);box-shadow:var(--shm)}
+.branch-hanzi{font-family:var(--fc);font-size:1.8rem;color:var(--ip);display:block;font-style:normal;line-height:1}
+.branch-animal{font-size:1.2rem;display:block;margin:4px 0}
+.branch-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--gold);display:block}
+.branch-elem{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--im);display:block;margin-top:2px}
+/* Troncos Ocultos — revelados no hover via CSS (zero JS) */
+.branch-hidden{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:var(--s1);opacity:0;transition:opacity .3s;min-height:24px}
+.branch-card:hover .branch-hidden,
+.branch-card:focus-within .branch-hidden{opacity:1}
+.hidden-stem{font-family:var(--fc);font-size:.75rem;padding:2px 6px;border-radius:3px;background:var(--gs);color:var(--gold);font-style:normal}
+.hidden-label{font-family:var(--fm2);font-size:.5rem;color:var(--id);letter-spacing:.08em;width:100%;text-align:center;display:block;margin-bottom:2px}
+@media(max-width:600px){.branch-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:400px){.branch-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="../index.html" aria-label="Voltar à trilha completa">
+    <span class="nsym" aria-hidden="true">八</span>BAZILAR
+  </a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="../index.html">Trilha</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">支</span>
+  <div class="ha">
+    <p class="he">Nível 07 · Os Galhos · 6 min · Interativo</p>
+    <h1 class="ht" id="level-title">Os Doze Ramos<br><em>Terrestres</em></h1>
+    <blockquote class="hero-question">
+      O que você vê num iceberg? A ponta. Mas 90% da massa está sob a água — invisível,
+      mas determinando a direção em que ele se move. Os Ramos Terrestres são o iceberg do BaZi:
+      contêm energias escondidas que muitas vezes determinam mais a vida do que o que está à superfície.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Dì Zhī <span style="font-family:var(--fc);color:var(--gold)">地支</span>: As Doze Câmaras da Terra
+  </h2>
+
+  <p>Os <strong>Doze Ramos Terrestres</strong> (<span style="font-family:var(--fc)">地支</span>, Dì Zhī) são os doze signos que ficam na fila inferior de cada Pilar. Representam as forças da Terra — o substrato, o fundamento. Aparecem nas inscrições oraculares Shang para nomear os meses do ano. Os animais do zodíaco foram associados mais tarde, durante a Dinastia Han (206 a.C.–220 d.C.).</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Os Doze Ramos — Passe o cursor para ver os Troncos Ocultos</h3>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Hover ou toque em cada card · Os Troncos Ocultos aparecem abaixo do animal</p>
+
+  <div class="branch-grid" role="list" aria-label="Os doze ramos terrestres com seus troncos ocultos">
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Zǐ — Rato, Yang Água, Tronco Oculto: Rén">
+      <span class="branch-hanzi">子</span>
+      <span class="branch-animal" aria-hidden="true">🐭</span>
+      <span class="branch-pinyin">Zǐ</span>
+      <span class="branch-elem" style="color:var(--wm)">Yang Água</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yang Água">壬</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Chǒu — Boi, Yin Terra, Troncos Ocultos: Jǐ, Guǐ, Xīn">
+      <span class="branch-hanzi">丑</span>
+      <span class="branch-animal" aria-hidden="true">🐂</span>
+      <span class="branch-pinyin">Chǒu</span>
+      <span class="branch-elem" style="color:var(--em)">Yin Terra</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yin Terra">己</span>
+        <span class="hidden-stem" title="Yin Água">癸</span>
+        <span class="hidden-stem" title="Yin Metal">辛</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Yín — Tigre, Yang Madeira, Troncos Ocultos: Jiǎ, Bǐng, Wù">
+      <span class="branch-hanzi">寅</span>
+      <span class="branch-animal" aria-hidden="true">🐯</span>
+      <span class="branch-pinyin">Yín</span>
+      <span class="branch-elem" style="color:var(--om)">Yang Madeira</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yang Madeira">甲</span>
+        <span class="hidden-stem" title="Yang Fogo">丙</span>
+        <span class="hidden-stem" title="Yang Terra">戊</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Mǎo — Coelho, Yin Madeira, Tronco Oculto: Yǐ">
+      <span class="branch-hanzi">卯</span>
+      <span class="branch-animal" aria-hidden="true">🐇</span>
+      <span class="branch-pinyin">Mǎo</span>
+      <span class="branch-elem" style="color:var(--om)">Yin Madeira</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yin Madeira">乙</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Chén — Dragão, Yang Terra, Troncos Ocultos: Wù, Yǐ, Guǐ">
+      <span class="branch-hanzi">辰</span>
+      <span class="branch-animal" aria-hidden="true">🐉</span>
+      <span class="branch-pinyin">Chén</span>
+      <span class="branch-elem" style="color:var(--em)">Yang Terra</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yang Terra">戊</span>
+        <span class="hidden-stem" title="Yin Madeira">乙</span>
+        <span class="hidden-stem" title="Yin Água">癸</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Sì — Serpente, Yang Fogo, Troncos Ocultos: Bǐng, Wù, Gēng">
+      <span class="branch-hanzi">巳</span>
+      <span class="branch-animal" aria-hidden="true">🐍</span>
+      <span class="branch-pinyin">Sì</span>
+      <span class="branch-elem" style="color:var(--fm)">Yang Fogo</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yang Fogo">丙</span>
+        <span class="hidden-stem" title="Yang Terra">戊</span>
+        <span class="hidden-stem" title="Yang Metal">庚</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Wǔ — Cavalo, Yang Fogo, Troncos Ocultos: Dīng, Jǐ">
+      <span class="branch-hanzi">午</span>
+      <span class="branch-animal" aria-hidden="true">🐴</span>
+      <span class="branch-pinyin">Wǔ</span>
+      <span class="branch-elem" style="color:var(--fm)">Yang Fogo</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yin Fogo">丁</span>
+        <span class="hidden-stem" title="Yin Terra">己</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Wèi — Cabra, Yin Terra, Troncos Ocultos: Jǐ, Dīng, Yǐ">
+      <span class="branch-hanzi">未</span>
+      <span class="branch-animal" aria-hidden="true">🐑</span>
+      <span class="branch-pinyin">Wèi</span>
+      <span class="branch-elem" style="color:var(--em)">Yin Terra</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yin Terra">己</span>
+        <span class="hidden-stem" title="Yin Fogo">丁</span>
+        <span class="hidden-stem" title="Yin Madeira">乙</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Shēn — Macaco, Yang Metal, Troncos Ocultos: Gēng, Rén, Wù">
+      <span class="branch-hanzi">申</span>
+      <span class="branch-animal" aria-hidden="true">🐒</span>
+      <span class="branch-pinyin">Shēn</span>
+      <span class="branch-elem" style="color:var(--mm)">Yang Metal</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yang Metal">庚</span>
+        <span class="hidden-stem" title="Yang Água">壬</span>
+        <span class="hidden-stem" title="Yang Terra">戊</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Yǒu — Galo, Yin Metal, Tronco Oculto: Xīn">
+      <span class="branch-hanzi">酉</span>
+      <span class="branch-animal" aria-hidden="true">🐓</span>
+      <span class="branch-pinyin">Yǒu</span>
+      <span class="branch-elem" style="color:var(--mm)">Yin Metal</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yin Metal">辛</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Xū — Cão, Yang Terra, Troncos Ocultos: Wù, Xīn, Dīng">
+      <span class="branch-hanzi">戌</span>
+      <span class="branch-animal" aria-hidden="true">🐕</span>
+      <span class="branch-pinyin">Xū</span>
+      <span class="branch-elem" style="color:var(--em)">Yang Terra</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yang Terra">戊</span>
+        <span class="hidden-stem" title="Yin Metal">辛</span>
+        <span class="hidden-stem" title="Yin Fogo">丁</span>
+      </div>
+    </div>
+
+    <div class="branch-card" role="listitem" tabindex="0" aria-label="Hài — Porco, Água Yin, Troncos Ocultos: Rén, Jiǎ">
+      <span class="branch-hanzi">亥</span>
+      <span class="branch-animal" aria-hidden="true">🐖</span>
+      <span class="branch-pinyin">Hài</span>
+      <span class="branch-elem" style="color:var(--wm)">Yin Água</span>
+      <div class="branch-hidden" aria-label="Troncos ocultos">
+        <span class="hidden-label">Troncos Ocultos</span>
+        <span class="hidden-stem" title="Yang Água">壬</span>
+        <span class="hidden-stem" title="Yang Madeira">甲</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>O Comandante do Mês</h3>
+  <p>O Ramo do Pilar do Mês é o fator mais poderoso de todo o mapa. Ele estabelece qual energia está "em estação" no seu nascimento — e portanto qual elemento tende a estar naturalmente mais forte no seu mapa.</p>
+
+  <h3>As Interações entre Ramos</h3>
+  <p><strong>Três Harmonias</strong> (<span style="font-family:var(--fc)">三合</span>): três Ramos formam um elemento puro. Ex: Tigre + Cavalo + Cão = Fogo intenso. <strong>Seis Harmonias</strong> (<span style="font-family:var(--fc)">六合</span>): pares se unem suavemente. <strong>Seis Colisões</strong> (<span style="font-family:var(--fc)">六沖</span>): pares opostos se chocam, gerando mudança abrupta. <strong>Punições</strong> (<span style="font-family:var(--fc)">刑</span>): grupos que geram atrito e pressão recíproca.</p>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">O Ramo do Pilar do Dia revela o que está dentro de você — os potenciais latentes que nem sempre aparecem na superfície. O Tronco Oculto principal desse Ramo pode ser mais revelador do que o Tronco visível.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>地支</td><td>Dì Zhī</td><td>"Ramos Terrestres" — os galhos do tempo na Terra.</td></tr>
+          <tr><td>支</td><td>Zhī</td><td>"Ramo", "membro" — o galho que sai do tronco, sustentado pela mão.</td></tr>
+          <tr><td>藏干</td><td>Zàng Gān</td><td>"Troncos Ocultos" — literalmente "troncos escondidos/guardados": coberto pela vegetação, preservado.</td></tr>
+          <tr><td>月令</td><td>Yuè Lìng</td><td>"Comandante do Mês" — 令 = decreto de autoridade que não se discute.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-7">
+    <p class="concepts-title" id="concepts-title-7">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">地支</span>
+      <span class="concept-text"><strong>Dì Zhī</strong> (地支) = Ramos Terrestres. 支 = galho sustentado pela mão — ramificação do tronco.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">藏干</span>
+      <span class="concept-text"><strong>Zàng Gān</strong> (藏干) = Troncos Ocultos. 藏 = coberto pela vegetação, preservado.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">月令</span>
+      <span class="concept-text"><strong>Yuè Lìng</strong> (月令) = Comandante do Mês. 令 = decreto de autoridade.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="../level-06.html" aria-label="Nível 6 — Os Dez Troncos">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">地支</div>
+    Nível 7 de 12
+  </div>
+  <a class="btn bp" href="../level-08.html" aria-label="Nível 8 — O Ciclo de 60">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <p class="ft">BAZILAR · Trilha Didática · Nível 7 de 12 · DS v2.5</p>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 7, total: 12 });
+</script>
+</body>
+</html>

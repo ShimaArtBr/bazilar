@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 6 · Os Dez Troncos Celestiais — BAZILAR Didático</title>
+<meta name="description" content="Tiān Gān (天干): as dez faces do Céu. Quais são as qualidades do Céu? Sexto nível da Trilha BaZi.">
+<meta name="level" content="6">
+<meta name="prereq" content="Nível 5">
+<meta name="tempo_leitura" content="6 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* Grid 5x2 — Yang em cima, Yin embaixo, ordem: Água Madeira Fogo Terra Metal */
+.trunk-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s2);margin:var(--s5) 0}
+.trunk-card{cursor:pointer;height:120px;border-radius:var(--rl);border:1px solid var(--gb);background:var(--sc);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--s2);text-align:center;transition:all .2s;user-select:none;position:relative}
+.trunk-card:hover{border-color:var(--gold);box-shadow:0 4px 12px rgba(192,154,74,.15)}
+.trunk-card:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(192,154,74,.2)}
+
+@media(max-width:768px){.trunk-grid{grid-template-columns:repeat(3,1fr)}.trunk-card{height:100px}}
+.trunk-hanzi{font-family:var(--fc);font-size:2.369rem;color:var(--ip);font-style:normal;line-height:1;margin-bottom:4px}
+.trunk-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--gold);display:block}
+.trunk-elem-badge{font-family:var(--fd2);font-size:.5rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;display:block}
+/* MODAL */
+.trunk-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:var(--s3)}
+.trunk-modal.active{display:flex}
+.trunk-modal-content{background:var(--sc);border-radius:var(--rl);border:1px solid var(--gb);max-width:min(90vw,600px);max-height:90vh;overflow-y:auto;padding:var(--s4);position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.trunk-modal-close{position:absolute;top:var(--s2);right:var(--s2);width:32px;height:32px;background:transparent;border:1px solid var(--gb);border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--im);font-size:1.4rem;transition:all .2s}
+.trunk-modal-close:hover{background:var(--gs);border-color:var(--gold);color:var(--gold)}
+.trunk-modal-close:focus{outline:none;box-shadow:0 0 0 2px var(--gold)}
+.trunk-modal-title{font-family:var(--fc);font-size:2.369rem;color:var(--ip);font-style:normal;margin-bottom:var(--s1);line-height:1}
+.trunk-modal-subtitle{font-family:var(--fm2);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--s2)}
+.trunk-modal-desc{font-family:var(--fd2);font-size:1rem;font-weight:300;color:var(--is);line-height:1.7;margin-bottom:var(--s3)}
+@media(max-width:768px){.trunk-grid{grid-template-columns:repeat(2,1fr)}.trunk-card{height:100px}}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="index.html" aria-label="Voltar à trilha completa">
+    <span class="nsym" aria-hidden="true">八</span>BAZILAR
+  </a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="index.html" aria-label="Ver todos os níveis">Trilha</a>
+    <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">干</span>
+  <div class="ha">
+    <p class="he">Nível 06 · Os Galhos · 6 min · Interativo</p>
+    <h1 class="ht" id="level-title">Os Dez Troncos<br><em>Celestiais</em></h1>
+    <blockquote class="hero-question">
+      Você conhece pessoas que parecem nascidas para liderar — que entram numa sala e naturalmente
+      organizam tudo? E outras com o mesmo magnetismo, mas exercido de forma completamente diferente?
+      Yin e Yang do mesmo elemento produzem caracteres radicalmente distintos.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Tiān Gān <span style="font-family:var(--fc);color:var(--gold)">天干</span>: As Dez Faces do Céu
+  </h2>
+
+  <p>Os <strong>Dez Troncos Celestiais</strong> (<span style="font-family:var(--fc)">天干</span>, Tiān Gān) são os dez signos que compõem a fila superior de cada Pilar no mapa BaZi — a "face do Céu" de cada período. Surgem nas inscrições oraculares Shang (c. 1600–1046 a.C.), usados para nomear os dez dias da semana do calendário Shang. Antes de serem metafísica, foram simplesmente <em>calendário</em>.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Os Dez Troncos — Toque para explorar</h3>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Clique em qualquer card para ver a descrição completa</p>
+
+  <div class="trunk-grid" role="list" aria-label="Os dez troncos celestiais — clique para expandir">
+
+    <!-- Linha Yang: Água · Madeira · Fogo · Terra · Metal -->
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yang" onclick="openTrunkModal(0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(0)}" aria-label="壬 Rén — Yang Água, clique para expandir">
+      <span class="trunk-hanzi">壬</span>
+      <span class="trunk-pinyin">Rén</span>
+      <span class="trunk-elem-badge" style="color:var(--wm)">Yang Água</span>
+    </div>
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yang" onclick="openTrunkModal(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(1)}" aria-label="甲 Jiǎ — Yang Madeira, clique para expandir">
+      <span class="trunk-hanzi">甲</span>
+      <span class="trunk-pinyin">Jiǎ</span>
+      <span class="trunk-elem-badge" style="color:var(--om)">Yang Madeira</span>
+    </div>
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yang" onclick="openTrunkModal(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(2)}" aria-label="丙 Bǐng — Yang Fogo, clique para expandir">
+      <span class="trunk-hanzi">丙</span>
+      <span class="trunk-pinyin">Bǐng</span>
+      <span class="trunk-elem-badge" style="color:var(--fm)">Yang Fogo</span>
+    </div>
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yang" onclick="openTrunkModal(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(3)}" aria-label="戊 Wù — Yang Terra, clique para expandir">
+      <span class="trunk-hanzi">戊</span>
+      <span class="trunk-pinyin">Wù</span>
+      <span class="trunk-elem-badge" style="color:var(--em)">Yang Terra</span>
+    </div>
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yang" onclick="openTrunkModal(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(4)}" aria-label="庚 Gēng — Yang Metal, clique para expandir">
+      <span class="trunk-hanzi">庚</span>
+      <span class="trunk-pinyin">Gēng</span>
+      <span class="trunk-elem-badge" style="color:var(--mm)">Yang Metal</span>
+    </div>
+
+    <!-- Linha Yin: Água · Madeira · Fogo · Terra · Metal -->
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yin" onclick="openTrunkModal(5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(5)}" aria-label="癸 Guǐ — Yin Água, clique para expandir">
+      <span class="trunk-hanzi">癸</span>
+      <span class="trunk-pinyin">Guǐ</span>
+      <span class="trunk-elem-badge" style="color:var(--wm)">Yin Água</span>
+    </div>
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yin" onclick="openTrunkModal(6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(6)}" aria-label="乙 Yǐ — Yin Madeira, clique para expandir">
+      <span class="trunk-hanzi">乙</span>
+      <span class="trunk-pinyin">Yǐ</span>
+      <span class="trunk-elem-badge" style="color:var(--om)">Yin Madeira</span>
+    </div>
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yin" onclick="openTrunkModal(7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(7)}" aria-label="丁 Dīng — Yin Fogo, clique para expandir">
+      <span class="trunk-hanzi">丁</span>
+      <span class="trunk-pinyin">Dīng</span>
+      <span class="trunk-elem-badge" style="color:var(--fm)">Yin Fogo</span>
+    </div>
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yin" onclick="openTrunkModal(8)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(8)}" aria-label="己 Jǐ — Yin Terra, clique para expandir">
+      <span class="trunk-hanzi">己</span>
+      <span class="trunk-pinyin">Jǐ</span>
+      <span class="trunk-elem-badge" style="color:var(--em)">Yin Terra</span>
+    </div>
+    <div class="trunk-card" role="button" tabindex="0" data-pol="Yin" onclick="openTrunkModal(9)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrunkModal(9)}" aria-label="辛 Xīn — Yin Metal, clique para expandir">
+      <span class="trunk-hanzi">辛</span>
+      <span class="trunk-pinyin">Xīn</span>
+      <span class="trunk-elem-badge" style="color:var(--mm)">Yin Metal</span>
+    </div>
+
+  </div>
+
+  <!-- MODAL DOS TRONCOS -->
+  <div id="trunk-modal" class="trunk-modal" aria-labelledby="modal-title" aria-modal="true">
+    <div class="trunk-modal-content">
+      <button class="trunk-modal-close" onclick="closeTrunkModal()" aria-label="Fechar modal">✕</button>
+      <span class="trunk-modal-title" lang="zh" id="modal-title"></span>
+      <span class="trunk-modal-subtitle"></span>
+      <p class="trunk-modal-desc"></p>
+    </div>
+  </div>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Retratos dos Dez Troncos</h3>
+
+  <p><strong>甲 Jiǎ — Yang Madeira.</strong> A grande árvore: o carvalho, o bambuzal adulto. Impulso direto, crescimento vertical, liderança natural. Pioneiro, independente, determinado. <em>Analogia:</em> o empreendedor que abre caminho na mata virgem, confiante de que a direção é certa.</p>
+  <p><strong>乙 Yǐ — Yin Madeira.</strong> A trepadeira, a grama nas frestas do concreto. Mesma vitalidade, mas por flexibilidade e adaptação. <em>Analogia:</em> o jeitinho inteligente — a solução criativa para o que parece intransponível.</p>
+  <p><strong>丙 Bǐng — Yang Fogo.</strong> O sol — irradiação total, presença avassaladora. Carismático, generoso, otimista. <em>Analogia:</em> o animador que ilumina o ambiente e faz todo mundo se sentir bem-vindo.</p>
+  <p><strong>丁 Dīng — Yin Fogo.</strong> A chama da vela, o fogo da lareira. Iluminação íntima, focada. <em>Analogia:</em> a avó que deixa a luz acesa esperando os netos chegarem.</p>
+  <p><strong>戊 Wù — Yang Terra.</strong> A montanha, o deserto, a grande muralha. Estabilidade, amplitude, solidez. <em>Analogia:</em> o sertanejo — resistente ao sol, generoso na sombra, inabalável.</p>
+  <p><strong>己 Jǐ — Yin Terra.</strong> O jardim cultivado, a terra fértil do quintal. Nutrição detalhada, cuidado íntimo. <em>Analogia:</em> o hortelão que conhece cada planta pelo nome.</p>
+  <p><strong>庚 Gēng — Yang Metal.</strong> O machado, a espada, a lâmina. Decisão, corte do desnecessário. <em>Analogia:</em> o cirurgião que corta para curar — sem crueldade, mas sem hesitação.</p>
+  <p><strong>辛 Xīn — Yin Metal.</strong> A joia polida, o cristal, o bisturi. Refinamento máximo, sensibilidade estética. <em>Analogia:</em> o artesão que aplica dez camadas de acabamento quando três seriam suficientes.</p>
+  <p><strong>壬 Rén — Yang Água.</strong> O oceano, o rio largo. Inteligência fluida, visão estratégica. <em>Analogia:</em> o rio São Francisco — que atravessa sertões, alimenta milhões.</p>
+  <p><strong>癸 Guǐ — Yin Água.</strong> A chuva fina, a névoa, o orvalho. Intuição profunda, mistério. <em>Analogia:</em> a benzedeira — que percebe o que não está visível.</p>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">O Tronco do Mestre do Dia é uma semente de identidade — o ponto de partida. A mesma Madeira Yang pode ser uma árvore centenária ou um toco queimado, dependendo do solo (Ramos) e do clima (Grandes Ciclos) em que cresce.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>天干</td><td>Tiān Gān</td><td>"Troncos Celestiais" — os eixos do tempo no Céu.</td></tr>
+          <tr><td>甲</td><td>Jiǎ</td><td>"Casca", "armadura" — a semente que rompe e emerge.</td></tr>
+          <tr><td>乙</td><td>Yǐ</td><td>"Curvar", "brotar em ziguezague" — o broto que contorna obstáculos.</td></tr>
+          <tr><td>丙</td><td>Bǐng</td><td>"Mesa elevada", "brilhante" — o que se ergue para ser visto.</td></tr>
+          <tr><td>丁</td><td>Dīng</td><td>"Prego", "adulto" — o que finca e penetra em profundidade.</td></tr>
+          <tr><td>戊</td><td>Wù</td><td>"Machado ornamental" — poder e proteção imponentes.</td></tr>
+          <tr><td>己</td><td>Jǐ</td><td>"A si mesmo", "enrolar" — a energia que se volta para dentro.</td></tr>
+          <tr><td>庚</td><td>Gēng</td><td>"Renovar", "colher" — a força aplicada na virada do ciclo.</td></tr>
+          <tr><td>辛</td><td>Xīn</td><td>"Picante", "precisão cortante" — refinamento que purifica.</td></tr>
+          <tr><td>壬</td><td>Rén</td><td>"Carregar", "grávido" — capacidade de conter e transportar.</td></tr>
+          <tr><td>癸</td><td>Guǐ</td><td>"Medir", "régua" — a chuva que sabe onde penetrar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-6">
+    <p class="concepts-title" id="concepts-title-6">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">天干</span>
+      <span class="concept-text"><strong>Tiān Gān</strong> (天干) = Troncos Celestiais. 干 = eixo que sustenta e resiste.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">甲…癸</span>
+      <span class="concept-text">Dez Troncos = Cinco Elementos × 2 polaridades (Yang e Yin).</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="level-05.html" aria-label="Nível 5 — As Cinco Fases">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">天干</div>
+    Nível 6 de 12
+  </div>
+  <a class="btn bp" href="level-07.html" aria-label="Nível 7 — Os Doze Ramos">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 6, total: 12 });
+
+  // Dados dos 10 troncos — ordem: Yang(Água Madeira Fogo Terra Metal) + Yin(Água Madeira Fogo Terra Metal)
+  const TRUNKS = [
+    { hanzi: '壬', pinyin: 'Rén', pol: 'Yang', elem: 'Água',    title: 'O Grande Rio',      desc: 'Fluxo imparável, poder, abundância. O viajante que carrega recursos a todos.' },
+    { hanzi: '甲', pinyin: 'Jiǎ', pol: 'Yang', elem: 'Madeira', title: 'A Grande Árvore',   desc: 'Impulso direto, liderança natural, pioneiro. O empreendedor que abre caminho na mata virgem.' },
+    { hanzi: '丙', pinyin: 'Bǐng', pol: 'Yang', elem: 'Fogo',   title: 'O Sol',             desc: 'Irradiação total, carisma, generosidade. O animador que faz todo mundo se sentir bem-vindo.' },
+    { hanzi: '戊', pinyin: 'Wù',  pol: 'Yang', elem: 'Terra',   title: 'A Grande Montanha', desc: 'Estabilidade inabalável, confiança, proteção. O guardião que mantém a fortaleza.' },
+    { hanzi: '庚', pinyin: 'Gēng', pol: 'Yang', elem: 'Metal',  title: 'A Espada',          desc: 'Corte limpo, precisão, justiça. O juiz que vê a verdade sem rodeios.' },
+    { hanzi: '癸', pinyin: 'Guǐ', pol: 'Yin',  elem: 'Água',    title: 'A Chuva Morna',     desc: 'Germinação silenciosa, potencial oculto. O segredo que precisa apenas de tempo.' },
+    { hanzi: '乙', pinyin: 'Yǐ',  pol: 'Yin',  elem: 'Madeira', title: 'A Trepadeira',      desc: 'Flexibilidade, adaptação, persistência criativa. O jeitinho inteligente — a solução que contorna o intransponível.' },
+    { hanzi: '丁', pinyin: 'Dīng', pol: 'Yin', elem: 'Fogo',    title: 'A Chama da Vela',   desc: 'Iluminação íntima, intuição, perspicácia. A avó que deixa a luz acesa esperando os netos.' },
+    { hanzi: '己', pinyin: 'Jǐ',  pol: 'Yin',  elem: 'Terra',   title: 'O Solo Fértil',     desc: 'Nutrição profunda, cultivo, paciência. A mãe-terra que alimenta silenciosamente.' },
+    { hanzi: '辛', pinyin: 'Xīn', pol: 'Yin',  elem: 'Metal',   title: 'A Joia Polida',     desc: 'Refinamento perseverante, beleza interior. O artesão que transforma bruto em precioso.' },
+  ];
+
+  const modal = document.getElementById('trunk-modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalSubtitle = document.querySelector('.trunk-modal-subtitle');
+  const modalDesc = document.querySelector('.trunk-modal-desc');
+
+  window.openTrunkModal = function(idx) {
+    const t = TRUNKS[idx];
+    modalTitle.textContent = t.hanzi;
+    modalSubtitle.textContent = `${t.title}`;
+    modalDesc.textContent = t.desc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeTrunkModal = function() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  // Fechar ao clicar fora do content
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeTrunkModal();
+  });
+
+  // Fechar com Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) closeTrunkModal();
+  });
+</script>
+</body>
+</html>

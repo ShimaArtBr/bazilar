@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 10 · O Mestre do Dia e os Dez Deuses — BAZILAR Didático</title>
+<meta name="description" content="Rì Zhǔ e Shí Shén (日主·十神): o Eu e seus parceiros. Décimo nível da Trilha BaZi.">
+<meta name="level" content="10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* ── SELECTOR DE MESTRE DO DIA ── */
+.god-wrap{margin:var(--s5) 0;user-select:none}
+
+/* Selector de Mestre */
+.master-selector{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:var(--s4)}
+.master-btn{font-family:var(--fc);font-size:1.1rem;line-height:1;padding:10px 14px;background:var(--sc);border:1px solid var(--gb);border-radius:var(--r);cursor:pointer;color:var(--ip);transition:all .2s;font-style:normal;position:relative}
+.master-btn::after{content:attr(data-name);font-family:var(--fd2);font-size:.4rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:2px}
+.master-btn:hover{border-color:var(--gb);background:var(--si)}
+.master-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.master-btn.active{border-color:var(--gold);background:var(--gs)}
+/* cores por elemento */
+.master-btn[data-elem="wood"].active{border-color:var(--om);color:var(--om);background:color-mix(in srgb,var(--od) 20%,var(--sc))}
+.master-btn[data-elem="fire"].active{border-color:var(--fm);color:var(--fm);background:color-mix(in srgb,var(--fd) 20%,var(--sc))}
+.master-btn[data-elem="earth"].active{border-color:var(--em);color:var(--em);background:color-mix(in srgb,var(--ed) 20%,var(--sc))}
+.master-btn[data-elem="metal"].active{border-color:var(--mm);color:var(--mm);background:color-mix(in srgb,var(--md) 20%,var(--sc))}
+.master-btn[data-elem="water"].active{border-color:var(--wm);color:var(--wm);background:color-mix(in srgb,var(--wd) 20%,var(--sc))}
+
+/* Grid dos 10 Deuses */
+.god-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2);margin-bottom:var(--s3)}
+.god-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s3);display:flex;flex-direction:column;gap:4px;transition:border-color .2s,opacity .3s}
+.god-card.highlight{border-color:var(--gold)}
+.god-card.muted{opacity:.35}
+.god-card-header{display:flex;align-items:baseline;gap:8px}
+.god-hanzi{font-family:var(--fc);font-size:1rem;color:var(--ip);font-style:normal}
+.god-name{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.god-rel{font-family:var(--fm2);font-size:.5rem;color:var(--id);letter-spacing:.06em;margin-left:auto;white-space:nowrap}
+.god-desc{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--is);line-height:1.55}
+.god-info{font-family:var(--fm2);font-size:.563rem;color:var(--id);letter-spacing:.04em;margin-top:2px}
+
+/* Elemento calculado exibido */
+.god-elem-tag{display:inline-block;font-family:var(--fm2);font-size:.45rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1px 5px;border-radius:3px;margin-left:4px}
+
+/* Legenda acima do grid */
+.god-legend{font-family:var(--fm2);font-size:.563rem;color:var(--id);letter-spacing:.06em;margin-bottom:var(--s2)}
+.god-legend strong{color:var(--gold)}
+
+@media(max-width:480px){.god-grid{grid-template-columns:1fr}}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="../index.html"><span class="nsym" aria-hidden="true">八</span>BAZILAR</a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="../index.html">Trilha</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">神</span>
+  <div class="ha">
+    <p class="he">Nível 10 · Os Deuses · 7 min · Interativo</p>
+    <h1 class="ht" id="level-title">O Mestre do Dia<br>e os <em>Dez Deuses</em></h1>
+    <blockquote class="hero-question">
+      Como a sua relação com o seu chefe é completamente diferente da sua relação com o seu melhor amigo — mesmo que ambos sejam pessoas igualmente boas?
+      Os Dez Deuses mapeiam exatamente isso: não o que os outros são, mas como eles se relacionam com você.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Rì Zhǔ · Shí Shén <span style="font-family:var(--fc);color:var(--gold)">日主·十神</span>
+  </h2>
+
+  <p>O <strong>Mestre do Dia</strong> (<span style="font-family:var(--fc)">日主</span>, Rì Zhǔ) é o Tronco do Pilar do Dia — o "eu" central do mapa. Os <strong>Dez Deuses</strong> (<span style="font-family:var(--fc)">十神</span>, Shí Shén) são os dez arquétipos que descrevem as relações entre o Mestre do Dia e cada outro elemento.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <!-- INTERATIVO: Selector + Grid -->
+  <div class="god-wrap" role="region" aria-label="Calculadora dos Dez Deuses">
+
+    <p style="font-family:var(--fd2);font-size:.875rem;color:var(--is);margin-bottom:var(--s2)">Selecione o seu <strong>Mestre do Dia</strong> para ver como os Dez Deuses se formam:</p>
+
+    <div class="master-selector" role="group" aria-label="Selecionar Mestre do Dia">
+      <button class="master-btn" data-elem="wood"  data-name="Jiǎ" data-pol="yang" aria-pressed="false">甲</button>
+      <button class="master-btn" data-elem="wood"  data-name="Yǐ"  data-pol="yin"  aria-pressed="false">乙</button>
+      <button class="master-btn" data-elem="fire"  data-name="Bǐng" data-pol="yang" aria-pressed="false">丙</button>
+      <button class="master-btn" data-elem="fire"  data-name="Dīng" data-pol="yin"  aria-pressed="false">丁</button>
+      <button class="master-btn" data-elem="earth" data-name="Wù"  data-pol="yang" aria-pressed="false">戊</button>
+      <button class="master-btn" data-elem="earth" data-name="Jǐ"  data-pol="yin"  aria-pressed="false">己</button>
+      <button class="master-btn" data-elem="metal" data-name="Gēng" data-pol="yang" aria-pressed="false">庚</button>
+      <button class="master-btn" data-elem="metal" data-name="Xīn" data-pol="yin"  aria-pressed="false">辛</button>
+      <button class="master-btn" data-elem="water" data-name="Rén" data-pol="yang" aria-pressed="false">壬</button>
+      <button class="master-btn" data-elem="water" data-name="Guǐ" data-pol="yin"  aria-pressed="false">癸</button>
+    </div>
+
+    <p class="god-legend" id="god-legend" aria-live="polite" aria-atomic="true">Selecione um Mestre do Dia acima · Os Dez Deuses aparecerão abaixo</p>
+
+    <!-- Os 10 cards — preenchidos por JS -->
+    <div class="god-grid" id="god-grid" role="list" aria-live="polite" aria-atomic="true" aria-label="Os dez deuses em relação ao Mestre selecionado">
+      <!-- gerado por JS -->
+    </div>
+
+  </div><!-- .god-wrap -->
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Como os Dez Deuses se formam</h3>
+  <p>Cinco relações × duas polaridades (mesmo que o Mestre ou oposta) = dez arquétipos:</p>
+
+  <div style="background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);overflow:hidden;margin:var(--s4) 0">
+    <table style="width:100%;border-collapse:collapse">
+      <thead>
+        <tr style="border-bottom:1px solid var(--gb)">
+          <th style="font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--im);padding:var(--s2) var(--s3);text-align:left">Relação com o Mestre</th>
+          <th style="font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--om);padding:var(--s2) var(--s3);text-align:center">Mesma polaridade</th>
+          <th style="font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--wm);padding:var(--s2) var(--s3);text-align:center">Polaridade oposta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)">
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Mesmo elemento</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">比肩</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">劫財</td>
+        </tr>
+        <tr style="border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)">
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Mestre gera</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">食神</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">傷官</td>
+        </tr>
+        <tr style="border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)">
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Mestre controla</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">偏財</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">正財</td>
+        </tr>
+        <tr style="border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)">
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Controla o Mestre</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">七殺</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">正官</td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Gera o Mestre</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">偏印</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">正印</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">Os Dez Deuses não são rótulos fixos. São padrões que se manifestam de formas diferentes dependendo da força do Mestre do Dia e do Grande Ciclo em que você se encontra.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th>Caractere</th><th>Pinyin</th><th>Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>日主</td><td>Rì Zhǔ</td><td>"Mestre do Dia" — 主 = chama principal que ilumina o centro.</td></tr>
+          <tr><td>十神</td><td>Shí Shén</td><td>"Dez Espíritos/Qualidades" — não deuses, mas padrões essenciais. 神 = manifestação do sagrado sobre o altar.</td></tr>
+          <tr><td>比肩</td><td>Bǐ Jiān</td><td>"Ombro a ombro" — o par que caminha lado a lado.</td></tr>
+          <tr><td>食神</td><td>Shí Shén</td><td>"Deus da Comida" — a expressão criativa que flui naturalmente.</td></tr>
+          <tr><td>傷官</td><td>Shāng Guān</td><td>"Ferir o Oficial" — o talento que desafia a autoridade.</td></tr>
+          <tr><td>七殺</td><td>Qī Shā</td><td>"Sete Mortes" — pressão extrema que transforma ou destrói.</td></tr>
+          <tr><td>正印</td><td>Zhèng Yìn</td><td>"Recurso Direto" — 印 = selo, credencial: o que autentica.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-10">
+    <p class="concepts-title" id="concepts-title-10">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">日主</span>
+      <span class="concept-text"><strong>Rì Zhǔ</strong> (日主) = Mestre do Dia. 主 = chama central que ilumina.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">十神</span>
+      <span class="concept-text"><strong>Shí Shén</strong> (十神) = Dez Deuses/Qualidades. 神 = manifestação do sagrado sobre o altar.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="../level-09.html">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">十神</div>
+    Nível 10 de 12
+  </div>
+  <a class="btn bp" href="../level-11.html">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <p class="ft">BAZILAR · Trilha Didática · Nível 10 de 12 · DS v2.5</p>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 10, total: 12 });
+
+  // ── Dados dos Dez Deuses ───────────────────────────────────────────
+  // ordem: [mesmo_elem_same_pol, mesmo_elem_opp_pol, gera_same, gera_opp, controla_same, controla_opp, ctrl_master_same, ctrl_master_opp, gera_master_same, gera_master_opp]
+  const GODS = [
+    { hanzi:'比肩', pinyin:'Bǐ Jiān',   name:'Irmão',              rel:'mesmo elemento · mesma pol.', desc:'O par, o sócio. Melhor aliado ou rival pelos mesmos recursos. Representa irmãos, amigos próximos, concorrentes.', elem:'self_same' },
+    { hanzi:'劫財', pinyin:'Jié Cái',   name:'Roubar Riqueza',     rel:'mesmo elemento · pol. oposta', desc:'Competição mais intensa por recursos. O rival que empurra a crescer — ou que drena.', elem:'self_opp' },
+    { hanzi:'食神', pinyin:'Shí Shén',  name:'Deus da Comida',     rel:'Mestre gera · mesma pol.', desc:'Expressão natural, fluxo criativo, prazer de existir. Criatividade, carisma, generosidade. Uma das energias mais auspiciosas.', elem:'gives_same' },
+    { hanzi:'傷官', pinyin:'Shāng Guān',name:'Ferir o Oficial',    rel:'Mestre gera · pol. oposta', desc:'Brilhante e inquieto. Questiona autoridade, inova, desafia o convencional. Artistas, reformadores, gênios excêntricos.', elem:'gives_opp' },
+    { hanzi:'偏財', pinyin:'Piān Cái',  name:'Riqueza Indireta',   rel:'Mestre controla · mesma pol.', desc:'Prosperidade de fontes inesperadas: charme, rede social, oportunidades. Na tradição clássica, também representa o pai.', elem:'ctrl_same' },
+    { hanzi:'正財', pinyin:'Zhèng Cái', name:'Riqueza Direta',     rel:'Mestre controla · pol. oposta', desc:'Riqueza conquistada com trabalho e disciplina. Finanças estáveis, responsabilidade financeira.', elem:'ctrl_opp' },
+    { hanzi:'七殺', pinyin:'Qī Shā',    name:'Sete Mortes',        rel:'controla Mestre · mesma pol.', desc:'Pressão que transforma ou destrói. Poder marcial, desafio extremo, capacidade de superar o impossível.', elem:'master_ctrl_same' },
+    { hanzi:'正官', pinyin:'Zhèng Guān',name:'Oficial Direto',     rel:'controla Mestre · pol. oposta', desc:'Autoridade legítima, lei, disciplina, reputação, carreira formal. Estrutura e reconhecimento institucional.', elem:'master_ctrl_opp' },
+    { hanzi:'偏印', pinyin:'Piān Yìn',  name:'Recurso Indireto',   rel:'gera Mestre · mesma pol.', desc:'Intuição, talentos ocultos, sabedoria não convencional. Em excesso: isolamento e dificuldade de concluir.', elem:'gives_master_same' },
+    { hanzi:'正印', pinyin:'Zhèng Yìn', name:'Recurso Direto',     rel:'gera Mestre · pol. oposta', desc:'Suporte materno, professor, proteção institucional, espiritualidade, conhecimento acadêmico.', elem:'gives_master_opp' },
+  ];
+
+  // Ciclo de geração: wood→fire→earth→metal→water→wood
+  const GEN_ORDER = ['wood','fire','earth','metal','water'];
+  const NEXT = e => GEN_ORDER[(GEN_ORDER.indexOf(e)+1)%5];  // gera
+  const PREV = e => GEN_ORDER[(GEN_ORDER.indexOf(e)+4)%5];  // gerado por
+  const CTRL = e => GEN_ORDER[(GEN_ORDER.indexOf(e)+3)%5];  // controla
+  const CTRD = e => GEN_ORDER[(GEN_ORDER.indexOf(e)+2)%5];  // controlado por
+
+  // cores
+  const ELEM_COLOR = { wood:'var(--om)', fire:'var(--fm)', earth:'var(--em)', metal:'var(--mm)', water:'var(--wm)' };
+  const ELEM_BG    = { wood:'var(--od)', fire:'var(--fd)', earth:'var(--ed)', metal:'var(--md)', water:'var(--wd)' };
+
+  const grid   = document.getElementById('god-grid');
+  const legend = document.getElementById('god-legend');
+
+  function renderGods(masterElem, masterPol) {
+    const opp = masterPol === 'yang' ? 'yin' : 'yang';
+
+    // Mapeamento: para cada deus, qual elemento resulta e qual polaridade
+    const GOD_ELEM = {
+      self_same:         { elem: masterElem,      pol: masterPol, idx:0 },
+      self_opp:          { elem: masterElem,      pol: opp,       idx:1 },
+      gives_same:        { elem: NEXT(masterElem),pol: masterPol, idx:2 },
+      gives_opp:         { elem: NEXT(masterElem),pol: opp,       idx:3 },
+      ctrl_same:         { elem: CTRL(masterElem),pol: masterPol, idx:4 },
+      ctrl_opp:          { elem: CTRL(masterElem),pol: opp,       idx:5 },
+      master_ctrl_same:  { elem: CTRD(masterElem),pol: masterPol, idx:6 },
+      master_ctrl_opp:   { elem: CTRD(masterElem),pol: opp,       idx:7 },
+      gives_master_same: { elem: PREV(masterElem),pol: masterPol, idx:8 },
+      gives_master_opp:  { elem: PREV(masterElem),pol: opp,       idx:9 },
+    };
+
+    grid.innerHTML = GODS.map(g => {
+      const info = GOD_ELEM[g.elem];
+      const color = ELEM_COLOR[info.elem];
+      const polLabel = info.pol === 'yang' ? 'Yang' : 'Yin';
+      return `
+        <div class="god-card" role="listitem" data-elem="${info.elem}">
+          <div class="god-card-header">
+            <span class="god-hanzi" style="color:${color}">${g.hanzi}</span>
+            <span class="god-name" style="color:${color}">${g.name}</span>
+            <span class="god-rel">${g.rel}</span>
+          </div>
+          <span class="god-info" style="color:${color}">${polLabel} ${info.elem.charAt(0).toUpperCase()+info.elem.slice(1)} · ${g.pinyin}</span>
+          <span class="god-desc">${g.desc}</span>
+        </div>`;
+    }).join('');
+  }
+
+  document.querySelectorAll('.master-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.master-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed','false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+      const elem = btn.dataset.elem;
+      const pol  = btn.dataset.pol;
+      legend.innerHTML = `Mestre do Dia: <strong>${btn.textContent.trim()} ${btn.dataset.name}</strong> · ${pol==='yang'?'Yang':'Yin'} ${elem.charAt(0).toUpperCase()+elem.slice(1)}`;
+      renderGods(elem, pol);
+    });
+  });
+</script>
+</body>
+</html>

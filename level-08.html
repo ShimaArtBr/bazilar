@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 8 · O Ciclo de Sessenta — BAZILAR Didático</title>
+<meta name="description" content="Jiǎzǐ (甲子): o relógio de 60 posições. Como Céu e Terra se combinam? Oitavo nível da Trilha BaZi.">
+<meta name="level" content="8">
+<meta name="prereq" content="Nível 7">
+<meta name="tempo_leitura" content="5 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* Grid dos 60 pares — cards com flip */
+.jiazi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:var(--s4) 0}
+@media(max-width:600px){.jiazi-grid{grid-template-columns:repeat(4,1fr)}}
+
+.jz-scene{perspective:600px;}
+.jz-card{
+  position:relative;width:100%;aspect-ratio:1/1.55;
+  cursor:pointer;transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+}
+.jz-card.flipped{transform:rotateY(180deg)}
+.jz-face{
+  position:absolute;inset:0;border-radius:var(--r);
+  display:flex;flex-direction:column;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border:1px solid var(--gb);overflow:hidden;
+}
+.jz-front{background:var(--sc)}
+.jz-back{background:var(--si);transform:rotateY(180deg)}
+.jz-card.is-current .jz-face{border-color:var(--gold)}
+.jz-scene:hover .jz-face{border-color:var(--gold)}
+
+.jz-top,.jz-bot{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;}
+.jz-sep{flex:0 0 auto;display:flex;align-items:center;gap:5px;padding:0 10%}
+.jz-line{flex:1;height:1px;background:rgba(255,255,255,.12)}
+.jz-num{font-family:var(--fm2);font-size:.75rem;color:var(--id);letter-spacing:.06em;line-height:1}
+.jz-pinyin{font-family:var(--fd2);font-size:.75rem;font-weight:300;letter-spacing:.04em;line-height:1;opacity:.85}
+.jz-h{font-family:var(--fc);font-size:1.777rem;line-height:1;font-weight:400}
+.jz-pt-main{font-family:var(--fd2);font-size:.75rem;font-weight:600;letter-spacing:.05em;text-align:center;line-height:1.3;text-transform:uppercase;min-height:1.777rem;display:flex;align-items:center;justify-content:center}
+.jz-pt-sub{font-family:var(--fd2);font-size:.75rem;font-weight:300;letter-spacing:.04em;text-align:center;line-height:1}
+
+.c-woodY{color:#50C880}.c-woodN{color:#0E6038}
+.c-fireY{color:#F05060}.c-fireN{color:#A81820}
+.c-earthY{color:#E8B020}.c-earthN{color:#A07808}
+.c-metalY{color:#C8C8C8}.c-metalN{color:#848484}
+.c-waterY{color:#7AA0E0}.c-waterN{color:#3060C0}
+
+/* anos destaque */
+.year-row{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) 0;border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)}
+.year-row:last-child{border-bottom:none}
+.year-hanzi{font-family:var(--fc);font-size:1.333rem;color:var(--ip);min-width:48px;font-style:normal}
+.year-info{font-family:var(--fd2);font-size:.875rem;color:var(--is)}
+.year-num{font-family:var(--fm2);font-size:.75rem;color:var(--gold);margin-left:auto;white-space:nowrap}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="index.html" aria-label="Voltar à trilha completa">
+    <span class="nsym" aria-hidden="true">八</span>BAZILAR
+  </a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="index.html" aria-label="Ver todos os níveis">Trilha</a>
+    <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">甲</span>
+  <div class="ha">
+    <p class="he">Nível 08 · Os Galhos · 5 min de leitura</p>
+    <h1 class="ht" id="level-title">O Ciclo<br>de <em>Sessenta</em></h1>
+    <blockquote class="hero-question">
+      Um relógio normal tem 12 posições. Imagine um com 60, onde cada posição tem um nome único
+      combinando uma qualidade do Céu com uma qualidade da Terra. Quando você nasce, quatro ponteiros
+      desse relógio estão em posições específicas. A combinação das quatro é o seu BaZi.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Jiǎzǐ <span style="font-family:var(--fc);color:var(--gold)">甲子</span>: O Relógio de 60 Posições
+  </h2>
+
+  <p>Os 10 Troncos e os 12 Ramos combinam-se respeitando a paridade (Yang com Yang, Yin com Yin), gerando exatamente <strong>60 pares únicos</strong> — o ciclo <strong>Jiǎzǐ</strong> (<span style="font-family:var(--fc)">甲子</span>), batizado pelo seu primeiro par: 甲 (Yang Madeira) + 子 (Rato).</p>
+
+  <p>Por que 60? É o mínimo múltiplo comum de 10 e 12. Após 60 anos, o ciclo recomeça exatamente do mesmo ponto. Por isso, completar 60 anos na cultura chinesa é um marco extraordinário — você completou um ciclo completo do cosmos.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Os 60 Pares do Ciclo</h3>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Combinações Yang+Yang e Yin+Yin · toque para revelar a tradução</p>
+
+  <div class="jiazi-grid" id="jiazi-grid" role="list" aria-label="Os 60 pares do ciclo Jiǎzǐ"></div>
+
+  <script>
+  (function(){
+    const STEMS=[
+      {h:'甲',py:'Jiǎ', yang:true, e:'wood', pt:'Madeira Yang'},
+      {h:'乙',py:'Yǐ',  yang:false,e:'wood', pt:'Madeira Yin'},
+      {h:'丙',py:'Bǐng',yang:true, e:'fire', pt:'Fogo Yang'},
+      {h:'丁',py:'Dīng',yang:false,e:'fire', pt:'Fogo Yin'},
+      {h:'戊',py:'Wù',  yang:true, e:'earth',pt:'Terra Yang'},
+      {h:'己',py:'Jǐ',  yang:false,e:'earth',pt:'Terra Yin'},
+      {h:'庚',py:'Gēng',yang:true, e:'metal',pt:'Metal Yang'},
+      {h:'辛',py:'Xīn', yang:false,e:'metal',pt:'Metal Yin'},
+      {h:'壬',py:'Rén', yang:true, e:'water',pt:'Água Yang'},
+      {h:'癸',py:'Guǐ', yang:false,e:'water',pt:'Água Yin'},
+    ];
+    const BRANCHES=[
+      {h:'子',a:'鼠',apyBr:'Shǔ', ptA:'Rato',    yang:true, e:'water',energy:'Água Yang'},
+      {h:'丑',a:'牛',apyBr:'Niú', ptA:'Boi',     yang:false,e:'earth',energy:'Terra Yin'},
+      {h:'寅',a:'虎',apyBr:'Hǔ',  ptA:'Tigre',   yang:true, e:'wood', energy:'Madeira Yang'},
+      {h:'卯',a:'兔',apyBr:'Tù',  ptA:'Coelho',  yang:false,e:'wood', energy:'Madeira Yin'},
+      {h:'辰',a:'龍',apyBr:'Lóng',ptA:'Dragão',  yang:true, e:'earth',energy:'Terra Yang'},
+      {h:'巳',a:'蛇',apyBr:'Shé', ptA:'Serpente',yang:false,e:'fire', energy:'Fogo Yin'},
+      {h:'午',a:'馬',apyBr:'Mǎ',  ptA:'Cavalo',  yang:true, e:'fire', energy:'Fogo Yang'},
+      {h:'未',a:'羊',apyBr:'Yáng',ptA:'Cabra',   yang:false,e:'earth',energy:'Terra Yin'},
+      {h:'申',a:'猴',apyBr:'Hóu', ptA:'Macaco',  yang:true, e:'metal',energy:'Metal Yang'},
+      {h:'酉',a:'雞',apyBr:'Jī',  ptA:'Galo',    yang:false,e:'metal',energy:'Metal Yin'},
+      {h:'戌',a:'犬',apyBr:'Quǎn',ptA:'Cão',     yang:true, e:'earth',energy:'Terra Yang'},
+      {h:'亥',a:'豬',apyBr:'Zhū', ptA:'Porco',   yang:false,e:'water',energy:'Água Yin'},
+    ];
+    const CURRENT=42;
+    const grid=document.getElementById('jiazi-grid');
+    const cls=(yang,e)=>'c-'+e+(yang?'Y':'N');
+
+    for(let i=0;i<60;i++){
+      const s=STEMS[i%10], b=BRANCHES[i%12];
+      const num=String(i+1).padStart(2,'0');
+      const sc=cls(s.yang,s.e);
+      const bc=cls(b.yang,b.e);
+
+      const scene=document.createElement('div');
+      scene.className='jz-scene';
+      scene.setAttribute('role','listitem');
+
+      const card=document.createElement('div');
+      card.className='jz-card'+(i===CURRENT?' is-current':'');
+      card.setAttribute('aria-label',`Par ${num}: ${s.pt} + ${b.ptA}`);
+      card.onclick=()=>card.classList.toggle('flipped');
+
+      card.innerHTML=`
+        <div class="jz-face jz-front">
+          <div class="jz-top">
+            <span class="jz-pinyin ${sc}">${s.py}</span>
+            <span class="jz-h ${sc}">${s.h}</span>
+          </div>
+          <div class="jz-sep">
+            <div class="jz-line"></div>
+            <span class="jz-num">${num}</span>
+            <div class="jz-line"></div>
+          </div>
+          <div class="jz-bot">
+            <span class="jz-h ${sc}">${b.a}</span>
+            <span class="jz-pinyin ${sc}">${b.apyBr}</span>
+          </div>
+        </div>
+        <div class="jz-face jz-back">
+          <div class="jz-top">
+            <span class="jz-pt-main ${sc}">${s.pt}</span>
+          </div>
+          <div class="jz-sep">
+            <div class="jz-line"></div>
+            <span class="jz-num">${num}</span>
+            <div class="jz-line"></div>
+          </div>
+          <div class="jz-bot">
+            <span class="jz-pt-main ${bc}">${b.ptA}</span>
+            <span class="jz-pt-sub ${bc}">${b.energy}</span>
+          </div>
+        </div>`;
+
+      scene.appendChild(card);
+      grid.appendChild(scene);
+    }
+  })();
+  </script>
+
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Anos Recentes no Ciclo</h3>
+  <p>O calendário chinês é inteiramente construído sobre esse ciclo:</p>
+
+  <div style="background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s4);margin:var(--s4) 0" role="list" aria-label="Anos recentes no ciclo sexagenário">
+    <div class="year-row" role="listitem">
+      <span class="year-hanzi">甲辰</span>
+      <span class="year-info">Dragão de Madeira Yang</span>
+      <span class="year-num">2024</span>
+    </div>
+    <div class="year-row" role="listitem">
+      <span class="year-hanzi">乙巳</span>
+      <span class="year-info">Serpente de Madeira Yin</span>
+      <span class="year-num">2025</span>
+    </div>
+    <div class="year-row" role="listitem">
+      <span class="year-hanzi" style="color:var(--gold)">丙午</span>
+      <span class="year-info" style="color:var(--gold)">Cavalo de Fogo Yang</span>
+      <span class="year-num">2026</span>
+    </div>
+    <div class="year-row" role="listitem">
+      <span class="year-hanzi">丁未</span>
+      <span class="year-info">Cabra de Fogo Yin</span>
+      <span class="year-num">2027</span>
+    </div>
+    <div class="year-row" role="listitem">
+      <span class="year-hanzi">戊申</span>
+      <span class="year-info">Macaco de Terra Yang</span>
+      <span class="year-num">2028</span>
+    </div>
+  </div>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">O ciclo sexagenário é um calendário matemático, usado ininterruptamente por mais de 3.000 anos. O BaZi mapeia em que posição do ciclo cósmico você emergiu para o mundo.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>甲子</td><td>Jiǎzǐ</td><td>"O primeiro par do ciclo" — casca que rompe + bebê que nasce.</td></tr>
+          <tr><td>子</td><td>Zǐ</td><td>"Bebê", "semente", "filho" — o início do ciclo.</td></tr>
+          <tr><td>亥</td><td>Hài</td><td>"Núcleo", "semente dupla" — o fim que guarda o próximo começo.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-8">
+    <p class="concepts-title" id="concepts-title-8">Conceito-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">甲子</span>
+      <span class="concept-text"><strong>Jiǎzǐ</strong> (甲子) = O ciclo de 60 — 甲 (casca que rompe) + 子 (semente/bebê): o primeiro broto do novo ciclo.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="level-07.html" aria-label="Nível 7 — Os Doze Ramos">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">甲子</div>
+    Nível 8 de 12
+  </div>
+  <a class="btn bp" href="level-09.html" aria-label="Nível 9 — O Mapa dos Quatro Pilares">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 8, total: 12 });
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 10 · O Mestre do Dia e os Dez Deuses — BAZILAR Didático</title>
+<meta name="description" content="Shíshen (十神): dez formas de relação. Quem sou eu neste mapa? Décimo nível da Trilha BaZi.">
+<meta name="level" content="10">
+<meta name="prereq" content="Nível 9">
+<meta name="tempo_leitura" content="7 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* Tabela dos Dez Deuses */
+.gods-table{width:100%;border-collapse:collapse;margin:var(--s4) 0;font-family:var(--fd2);font-size:.813rem}
+.gods-table th{font-family:var(--fm2);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--id);padding:var(--s1) var(--s2);text-align:left;border-bottom:1px solid var(--gb)}
+.gods-table td{padding:var(--s2);border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent);color:var(--is);vertical-align:top;line-height:1.5}
+.gods-table td:first-child{font-family:var(--fc);font-size:1.333rem;color:var(--ip);font-style:normal;width:36px;text-align:center}
+.gods-table td:nth-child(2){font-weight:500;color:var(--ip);white-space:nowrap}
+.gods-table tr:hover td{background:var(--si)}
+.gods-group{font-family:var(--fm2);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding:var(--s1) var(--s2);background:var(--gs)}
+/* Diagrama de relações */
+.rel-diagram{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);margin:var(--s4) 0}
+.rel-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s2);text-align:center}
+.rel-card-icon{font-family:var(--fc);font-size:1.333rem;display:block;margin-bottom:var(--s1);font-style:normal}
+.rel-card-name{font-family:var(--fd2);font-size:.625rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ip);display:block;margin-bottom:4px}
+.rel-card-desc{font-family:var(--fd2);font-size:.688rem;font-weight:300;color:var(--is);line-height:1.5}
+@media(max-width:540px){.rel-diagram{grid-template-columns:repeat(2,1fr)}}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="index.html" aria-label="Voltar à trilha completa">
+    <span class="nsym" aria-hidden="true">八</span>BAZILAR
+  </a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="index.html" aria-label="Ver todos os níveis">Trilha</a>
+    <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">神</span>
+  <div class="ha">
+    <p class="he">Nível 10 · As Folhas · 7 min · <a href="interativos/level-10.html" style="color:var(--gold);text-decoration:none">↗ versão interativa</a></p>
+    <h1 class="ht" id="level-title">O Mestre do Dia<br>e os <em>Dez Deuses</em></h1>
+    <blockquote class="hero-question">
+      Em qualquer grupo, sua relação com cada pessoa muda como você age e sente.
+      Com seu chefe age diferente do que com seu filho. No BaZi, cada elemento no seu mapa
+      tem uma relação com o seu elemento central — e essa relação tem um nome.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Shíshen <span style="font-family:var(--fc);color:var(--gold)">十神</span>: Dez Formas de Relação
+  </h2>
+
+  <p>Os <strong>Dez Deuses</strong> (<span style="font-family:var(--fc)">十神</span>, Shíshen) são dez categorias de relação entre o <strong>Mestre do Dia</strong> e cada um dos outros elementos no mapa. "Deus" aqui é uma tradução convencional de <em>Shen</em> (<span style="font-family:var(--fc)">神</span>), que tende a significar "força", "espírito", "qualidade operante".</p>
+
+  <p>Toda a lógica deriva de dois princípios do Wu Xing (Nível 5): o ciclo de Geração e o ciclo de Controle. Com cinco relações possíveis e duas polaridades (mesma ou diferente polaridade Yin/Yang), chegamos a dez categorias.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>As Cinco Relações Fundamentais</h3>
+
+  <div class="rel-diagram" role="list" aria-label="Cinco relações do Mestre do Dia">
+    <div class="rel-card" role="listitem">
+      <span class="rel-card-icon" style="color:var(--om)" aria-hidden="true">生</span>
+      <span class="rel-card-name">Recurso</span>
+      <span class="rel-card-desc">O elemento que <em>gera</em> o Mestre do Dia. O que me nutre e suporta.</span>
+    </div>
+    <div class="rel-card" role="listitem">
+      <span class="rel-card-icon" style="color:var(--fm)" aria-hidden="true">洩</span>
+      <span class="rel-card-name">Expressão</span>
+      <span class="rel-card-desc">O elemento que o Mestre do Dia <em>gera</em>. O que produzo e expresso.</span>
+    </div>
+    <div class="rel-card" role="listitem">
+      <span class="rel-card-icon" style="color:var(--gold)" aria-hidden="true">剋</span>
+      <span class="rel-card-name">Riqueza</span>
+      <span class="rel-card-desc">O elemento que o Mestre do Dia <em>controla</em>. O que domino e conquisto.</span>
+    </div>
+    <div class="rel-card" role="listitem">
+      <span class="rel-card-icon" style="color:var(--mm)" aria-hidden="true">官</span>
+      <span class="rel-card-name">Autoridade</span>
+      <span class="rel-card-desc">O elemento que <em>controla</em> o Mestre do Dia. Estrutura e responsabilidade.</span>
+    </div>
+    <div class="rel-card" role="listitem">
+      <span class="rel-card-icon" style="color:var(--wm)" aria-hidden="true">比</span>
+      <span class="rel-card-name">Companhia</span>
+      <span class="rel-card-desc">O mesmo elemento do Mestre do Dia. Pares, rivais, parceiros.</span>
+    </div>
+    <div class="rel-card" role="listitem" style="background:var(--gs);border-color:var(--gold)">
+      <span class="rel-card-icon" style="color:var(--gold)" aria-hidden="true">×2</span>
+      <span class="rel-card-name">×2 = Dez</span>
+      <span class="rel-card-desc">Cada relação se divide em Yang e Yin, gerando dez categorias no total.</span>
+    </div>
+  </div>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Os Dez Deuses — Tabela Completa</h3>
+  <p>A versão interativa deste nível (<a href="interativos/level-10.html" style="color:var(--gold)">↗ abrir</a>) permite selecionar o Mestre do Dia e ver as relações calculadas automaticamente.</p>
+
+  <table class="gods-table" aria-label="Os dez deuses e suas qualidades">
+    <thead>
+      <tr>
+        <th scope="col">Hanzi</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Relação com o Mestre do Dia</th>
+        <th scope="col">Qualidade associada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="gods-group"><td colspan="4">Companhia (mesmo elemento)</td></tr>
+      <tr>
+        <td aria-hidden="true">比</td>
+        <td>Bǐjiān <span style="font-family:var(--fc)">比肩</span></td>
+        <td>Mesmo elemento, mesma polaridade</td>
+        <td>Independência, confiança, par</td>
+      </tr>
+      <tr>
+        <td aria-hidden="true">劫</td>
+        <td>Jiécái <span style="font-family:var(--fc)">劫財</span></td>
+        <td>Mesmo elemento, polaridade oposta</td>
+        <td>Competição, parceria, impulso</td>
+      </tr>
+      <tr class="gods-group"><td colspan="4">Expressão (Mestre gera)</td></tr>
+      <tr>
+        <td aria-hidden="true">食</td>
+        <td>Shíshén <span style="font-family:var(--fc)">食神</span></td>
+        <td>Gera, mesma polaridade</td>
+        <td>Prazer, criatividade, gentileza</td>
+      </tr>
+      <tr>
+        <td aria-hidden="true">傷</td>
+        <td>Shāngguān <span style="font-family:var(--fc)">傷官</span></td>
+        <td>Gera, polaridade oposta</td>
+        <td>Talento, rebeldia, inovação</td>
+      </tr>
+      <tr class="gods-group"><td colspan="4">Riqueza (Mestre controla)</td></tr>
+      <tr>
+        <td aria-hidden="true">偏</td>
+        <td>Piáncái <span style="font-family:var(--fc)">偏財</span></td>
+        <td>Controla, mesma polaridade</td>
+        <td>Recursos, fluxo, oportunidade</td>
+      </tr>
+      <tr>
+        <td aria-hidden="true">正</td>
+        <td>Zhèngcái <span style="font-family:var(--fc)">正財</span></td>
+        <td>Controla, polaridade oposta</td>
+        <td>Estabilidade, patrimônio, mérito</td>
+      </tr>
+      <tr class="gods-group"><td colspan="4">Autoridade (controla o Mestre)</td></tr>
+      <tr>
+        <td aria-hidden="true">七</td>
+        <td>Qīshā <span style="font-family:var(--fc)">七殺</span></td>
+        <td>Controla o Mestre, mesma polaridade</td>
+        <td>Pressão, liderança, coragem</td>
+      </tr>
+      <tr>
+        <td aria-hidden="true">官</td>
+        <td>Zhèngguān <span style="font-family:var(--fc)">正官</span></td>
+        <td>Controla o Mestre, polaridade oposta</td>
+        <td>Disciplina, reputação, estrutura</td>
+      </tr>
+      <tr class="gods-group"><td colspan="4">Recurso (gera o Mestre)</td></tr>
+      <tr>
+        <td aria-hidden="true">偏印</td>
+        <td>Piānyìn <span style="font-family:var(--fc)">偏印</span></td>
+        <td>Gera o Mestre, mesma polaridade</td>
+        <td>Intuição, aprendizado não-convencional</td>
+      </tr>
+      <tr>
+        <td aria-hidden="true">印</td>
+        <td>Zhèngyìn <span style="font-family:var(--fc)">正印</span></td>
+        <td>Gera o Mestre, polaridade oposta</td>
+        <td>Suporte, conhecimento, proteção</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">Os Dez Deuses são padrões de relação que indicam como certas forças tendem a operar no seu mapa. Um Qīshā forte tende a indicar pressão e resiliência; um Shíshén proeminente, expressividade e prazer. Mas o contexto do mapa inteiro é o que permite interpretar.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>十神</td><td>Shíshen</td><td>"Dez espíritos/forças" — dez qualidades operantes no mapa.</td></tr>
+          <tr><td>食神</td><td>Shíshén</td><td>"Espírito do alimento" — o que sacia e expressa.</td></tr>
+          <tr><td>七殺</td><td>Qīshā</td><td>"Sétimo assassino" — a sétima relação no sistema tradicional, intensa e transformadora.</td></tr>
+          <tr><td>正印</td><td>Zhèngyìn</td><td>"Selo correto" — o carimbo de autenticidade; proteção e legitimidade.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-10">
+    <p class="concepts-title" id="concepts-title-10">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">十神</span>
+      <span class="concept-text"><strong>Shíshen</strong> (十神) = Dez Deuses/Forças — dez categorias de relação entre o Mestre do Dia e cada elemento do mapa.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">日主</span>
+      <span class="concept-text"><strong>Rì Zhǔ</strong> (日主) = Mestre do Dia — o eixo de referência a partir do qual todos os Dez Deuses são calculados.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="level-09.html" aria-label="Nível 9 — O Mapa dos Quatro Pilares">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">十神</div>
+    Nível 10 de 12
+  </div>
+  <a class="btn bp" href="level-11.html" aria-label="Nível 11 — Os Grandes Ciclos">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 10, total: 12 });
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 11 · Os Grandes Ciclos — BAZILAR Didático</title>
+<meta name="description" content="Dàyùn (大運): ciclos de 10 anos. Como o tempo transforma o mapa? Décimo primeiro nível da Trilha BaZi.">
+<meta name="level" content="11">
+<meta name="prereq" content="Nível 10">
+<meta name="tempo_leitura" content="6 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* Linha do tempo de ciclos */
+.dayun-strip{display:flex;gap:0;overflow-x:auto;margin:var(--s5) 0;border-radius:var(--rl);overflow:hidden;scrollbar-width:thin;scrollbar-color:var(--gb) transparent}
+.dayun-block{flex:0 0 auto;width:80px;padding:var(--s3) var(--s2);text-align:center;border-right:1px solid var(--gb);background:var(--sc);transition:background .2s;cursor:default}
+.dayun-block:last-child{border-right:none}
+.dayun-block.active{background:var(--gs);border-top:2px solid var(--gold);margin-top:-1px}
+.dayun-age{font-family:var(--fm2);font-size:.5rem;color:var(--id);letter-spacing:.08em;display:block;margin-bottom:4px}
+.dayun-hanzi{font-family:var(--fc);font-size:1.333rem;color:var(--ip);display:block;line-height:1.1;font-style:normal;margin-bottom:2px}
+.dayun-elem{font-family:var(--fd2);font-size:.563rem;font-weight:300;color:var(--is);display:block}
+.dayun-active-label{font-family:var(--fm2);font-size:.5rem;color:var(--gold);letter-spacing:.08em;display:block;margin-top:4px}
+/* Camadas de tempo */
+.time-layers{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin:var(--s5) 0}
+.time-layer{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3)}
+.time-layer-title{font-family:var(--fm2);font-size:.563rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--s2);display:block}
+.time-layer-hanzi{font-family:var(--fc);font-size:1.777rem;color:var(--ip);display:block;margin-bottom:var(--s1);font-style:normal}
+.time-layer-desc{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--is);line-height:1.6}
+@media(max-width:500px){.time-layers{grid-template-columns:1fr}}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="index.html" aria-label="Voltar à trilha completa">
+    <span class="nsym" aria-hidden="true">八</span>BAZILAR
+  </a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="index.html" aria-label="Ver todos os níveis">Trilha</a>
+    <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">運</span>
+  <div class="ha">
+    <p class="he">Nível 11 · Os Frutos · 6 min de leitura</p>
+    <h1 class="ht" id="level-title">Os Grandes<br><em>Ciclos</em></h1>
+    <blockquote class="hero-question">
+      Uma planta não floresce todo mês — tem estações. Da mesma forma, a vida humana
+      atravessa grandes estações de dez anos cada. Não determinadas, mas mapeadas.
+      O BaZi tem um sistema para descrever essas estações.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Dàyùn <span style="font-family:var(--fc);color:var(--gold)">大運</span>: As Grandes Estações da Vida
+  </h2>
+
+  <p>O mapa BaZi (Nível 9) é estático — uma fotografia do momento do nascimento. Mas a vida se move. O sistema de <strong>Grandes Ciclos</strong> (<span style="font-family:var(--fc)">大運</span>, Dàyùn) descreve como energias adicionais se sobrepõem ao mapa natal ao longo do tempo, em blocos de <strong>dez anos</strong>.</p>
+
+  <p>Cada Dàyùn é composto por um par Tronco–Ramo, como os pilares do mapa natal — mas agora esses pares chegam sequencialmente, modificando o campo de relações (os Dez Deuses) durante uma década cada.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Estrutura de um Dàyùn</h3>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Exemplo ilustrativo · Nascimento Yang, progressão direta</p>
+
+  <div class="dayun-strip" role="list" aria-label="Sequência de grandes ciclos — exemplo">
+    <div class="dayun-block" role="listitem" aria-label="Ciclo dos 8 aos 17 anos">
+      <span class="dayun-age">8–17</span>
+      <span class="dayun-hanzi">辛</span>
+      <span class="dayun-elem">Yin Metal</span>
+      <span class="dayun-hanzi">亥</span>
+      <span class="dayun-elem">Porco · Água</span>
+    </div>
+    <div class="dayun-block" role="listitem" aria-label="Ciclo dos 18 aos 27 anos">
+      <span class="dayun-age">18–27</span>
+      <span class="dayun-hanzi">壬</span>
+      <span class="dayun-elem">Yang Água</span>
+      <span class="dayun-hanzi">子</span>
+      <span class="dayun-elem">Rato · Água</span>
+    </div>
+    <div class="dayun-block active" role="listitem" aria-label="Ciclo dos 28 aos 37 anos — atual">
+      <span class="dayun-age">28–37</span>
+      <span class="dayun-hanzi">癸</span>
+      <span class="dayun-elem">Yin Água</span>
+      <span class="dayun-hanzi">丑</span>
+      <span class="dayun-elem">Boi · Terra/Metal</span>
+      <span class="dayun-active-label">▲ atual</span>
+    </div>
+    <div class="dayun-block" role="listitem" aria-label="Ciclo dos 38 aos 47 anos">
+      <span class="dayun-age">38–47</span>
+      <span class="dayun-hanzi">甲</span>
+      <span class="dayun-elem">Yang Madeira</span>
+      <span class="dayun-hanzi">寅</span>
+      <span class="dayun-elem">Tigre · Madeira</span>
+    </div>
+    <div class="dayun-block" role="listitem" aria-label="Ciclo dos 48 aos 57 anos">
+      <span class="dayun-age">48–57</span>
+      <span class="dayun-hanzi">乙</span>
+      <span class="dayun-elem">Yin Madeira</span>
+      <span class="dayun-hanzi">卯</span>
+      <span class="dayun-elem">Coelho · Madeira</span>
+    </div>
+    <div class="dayun-block" role="listitem" aria-label="Ciclo dos 58 aos 67 anos">
+      <span class="dayun-age">58–67</span>
+      <span class="dayun-hanzi">丙</span>
+      <span class="dayun-elem">Yang Fogo</span>
+      <span class="dayun-hanzi">辰</span>
+      <span class="dayun-elem">Dragão · Terra</span>
+    </div>
+  </div>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>As Camadas de Tempo no BaZi</h3>
+  <p>O BaZi trabalha com múltiplas camadas de tempo sobrepostas, do macro ao micro:</p>
+
+  <div class="time-layers" role="list" aria-label="Camadas de tempo no BaZi">
+    <div class="time-layer" role="listitem">
+      <span class="time-layer-title">Grande Ciclo · 10 anos</span>
+      <span class="time-layer-hanzi">大運</span>
+      <span class="time-layer-desc">Dàyùn — o clima predominante de uma década. Altera quais Dez Deuses estão mais ativos.</span>
+    </div>
+    <div class="time-layer" role="listitem">
+      <span class="time-layer-title">Ano · Anual</span>
+      <span class="time-layer-hanzi">流年</span>
+      <span class="time-layer-desc">Liúnián — o ano corrente do calendário chinês, sobreposto ao Dàyùn e ao mapa natal.</span>
+    </div>
+    <div class="time-layer" role="listitem">
+      <span class="time-layer-title">Mês · Mensal</span>
+      <span class="time-layer-hanzi">流月</span>
+      <span class="time-layer-desc">Liúyuè — o mês corrente. Tende a trazer oscilações mais rápidas.</span>
+    </div>
+    <div class="time-layer" role="listitem">
+      <span class="time-layer-title">Mapa Natal · Fixo</span>
+      <span class="time-layer-hanzi">命盤</span>
+      <span class="time-layer-desc">Mìngpán — a base imutável. As camadas de tempo interagem com ela, preservando-a.</span>
+    </div>
+  </div>
+
+  <p>A interpretação avançada do BaZi observa as interações entre essas camadas: quando um Ano Liúnián reforça o elemento do Dàyùn atual, a energia tende a ser mais intensa. Quando contraria, pode indicar tensão e ajuste.</p>
+
+  <aside class="callout" aria-label="Atenção">
+    <div class="callout-bar" style="background:var(--wm)"></div>
+    <div class="callout-body">
+      <p class="callout-title" style="color:var(--wm)">Atenção</p>
+      <p class="callout-text">Os Grandes Ciclos descrevem energias disponíveis — paisagens de possibilidade. Um Dàyùn de Metal forte pode indicar um período de refinamento, clareza e corte do supérfluo; como isso se manifesta depende do mapa natal e das escolhas da pessoa.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>大運</td><td>Dàyùn</td><td>"Grande destino/transporte" — a corrente maior que carrega a vida por uma década.</td></tr>
+          <tr><td>流年</td><td>Liúnián</td><td>"Ano fluente" — o ano que passa, em movimento.</td></tr>
+          <tr><td>命盤</td><td>Mìngpán</td><td>"Bandeja do destino/vida" — o mapa natal como recipiente.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-11">
+    <p class="concepts-title" id="concepts-title-11">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">大運</span>
+      <span class="concept-text"><strong>Dàyùn</strong> (大運) = Grandes Ciclos — blocos de 10 anos que sobrepõem energias ao mapa natal, alterando o campo ativo dos Dez Deuses.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">流年</span>
+      <span class="concept-text"><strong>Liúnián</strong> (流年) = Ano Fluente — o ano corrente do calendário chinês, terceira camada de interpretação.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="level-10.html" aria-label="Nível 10 — O Mestre do Dia e os Dez Deuses">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">大運</div>
+    Nível 11 de 12
+  </div>
+  <a class="btn bp" href="level-12.html" aria-label="Nível 12 — Os 12 Estágios de Vida">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 11, total: 12 });
+</script>
+</body>
+</html>
