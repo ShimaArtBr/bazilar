@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 9 · O Mapa dos Quatro Pilares — BAZILAR Didático</title>
+<meta name="description" content="BaZi (八字): oito caracteres, uma vida. O que cada pilar representa? Nono nível da Trilha BaZi.">
+<meta name="level" content="9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   MAPA BAZI — visual fiel ao bazipt DS v2.3
+   Cores hardcoded por tema (dark default); atualiza via JS ao toggle
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Nota didática */
+.bazi-nota {
+  font-family: var(--fm2);
+  font-size: .625rem;
+  color: var(--id);
+  letter-spacing: .06em;
+  text-align: center;
+  margin-bottom: var(--s3);
+}
+.bazi-nota em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+/* Container do mapa */
+.bazi-map {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s2);
+  margin: var(--s5) 0;
+}
+
+/* Pilar */
+.bazi-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--rl);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .18s var(--ee), box-shadow .22s var(--ee), border-color .18s;
+  outline: none;
+  /* animação entrada */
+  opacity: 0;
+  transform: translateY(12px);
+}
+.bazi-pillar:hover,
+.bazi-pillar:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  border-color: rgba(192,154,74,.45);
+}
+.bazi-pillar.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(192,154,74,.30);
+}
+.bazi-pillar.is-day-master {
+  border-color: rgba(192,154,74,.55);
+}
+
+/* Stagger de entrada */
+.bazi-map.revealed .bazi-pillar:nth-child(1) { animation: pillarIn .38s .00s var(--ee) forwards; }
+.bazi-map.revealed .bazi-pillar:nth-child(2) { animation: pillarIn .38s .08s var(--ee) forwards; }
+.bazi-map.revealed .bazi-pillar:nth-child(3) { animation: pillarIn .38s .16s var(--ee) forwards; }
+.bazi-map.revealed .bazi-pillar:nth-child(4) { animation: pillarIn .38s .24s var(--ee) forwards; }
+@keyframes pillarIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Metade Tronco */
+.bazi-stem {
+  padding: var(--s3) var(--s2) var(--s2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+
+/* Metade Ramo */
+.bazi-branch {
+  padding: var(--s2) var(--s2) var(--s3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+}
+
+/* Rótulo central */
+.bazi-header {
+  background: var(--sc);
+  font-family: var(--fm2);
+  font-size: .45rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--id);
+  text-align: center;
+  padding: 5px 4px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.is-day-master .bazi-header {
+  color: var(--gold);
+}
+
+/* Hanzi principal */
+.bazi-char {
+  font-family: var(--fc);
+  font-size: 2rem;
+  line-height: 1;
+  color: rgba(255,255,255,.92);
+  display: block;
+}
+
+/* Badge de elemento */
+.bazi-badge {
+  font-family: var(--fm2);
+  font-size: .45rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.72);
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: rgba(0,0,0,.25);
+  display: inline-block;
+}
+
+/* Yin/Yang label */
+.bazi-label {
+  font-family: var(--fd2);
+  font-size: .5rem;
+  color: rgba(255,255,255,.60);
+}
+
+/* Troncos Ocultos */
+.bazi-hidden {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  align-items: center;
+}
+.bazi-hidden-stem {
+  font-family: var(--fc);
+  font-size: .65rem;
+  padding: 2px 5px;
+  border-radius: 2px;
+  color: rgba(255,255,255,.88);
+  white-space: nowrap;
+}
+
+/* Painel de info */
+.bazi-info {
+  margin-top: var(--s4);
+  min-height: 80px;
+  padding: var(--s3) var(--s4);
+  background: var(--sc);
+  border: 1px solid var(--gb);
+  border-radius: var(--rl);
+  transition: all .25s;
+}
+.bazi-info-hint { font-family: var(--fm2); font-size: .625rem; color: var(--id); letter-spacing: .06em; }
+.bazi-info-tag  { font-family: var(--fm2); font-size: .5rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 4px; }
+.bazi-info-title{ font-family: var(--ff); font-size: 1.125rem; font-weight: 500; color: var(--ip); margin-bottom: var(--s1); }
+.bazi-info-body { font-family: var(--fd2); font-size: .875rem; font-weight: 300; color: var(--is); line-height: 1.6; }
+.bazi-info-years{ font-family: var(--fm2); font-size: .625rem; color: var(--im); margin-top: var(--s1); letter-spacing: .04em; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .bazi-map { grid-template-columns: repeat(2, 1fr); }
+  .bazi-char { font-size: 1.6rem; }
+}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="../index.html"><span class="nsym" aria-hidden="true">八</span>BAZILAR</a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="../index.html">Trilha</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">柱</span>
+  <div class="ha">
+    <p class="he">Nível 09 · Os Pilares · 5 min · Interativo</p>
+    <h1 class="ht" id="level-title">O Mapa dos<br><em>Quatro Pilares</em></h1>
+    <blockquote class="hero-question">
+      Se você precisasse descrever uma pessoa com apenas oito palavras, quais escolheria?
+      O BaZi faz algo parecido: usa oito caracteres chineses para mapear as energias mais fundamentais da sua existência.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    BaZi <span style="font-family:var(--fc);color:var(--gold)">八字</span>: Oito Caracteres, Uma Vida
+  </h2>
+
+  <p><strong>BaZi</strong> (<span style="font-family:var(--fc)">八字</span>) significa literalmente "Oito Caracteres". Também chamado de <strong>Sì Zhù</strong> (<span style="font-family:var(--fc)">四柱</span>, "Quatro Pilares"). Quatro colunas, cada uma com Tronco em cima e Ramo embaixo — oito caracteres.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <!-- ── MAPA INTERATIVO ─────────────────────────────────────────── -->
+  <div role="region" aria-label="Mapa dos Quatro Pilares — exemplo didático">
+    <p class="bazi-nota">Mapa de exemplo · <em>Clique em qualquer pilar</em> para saber o que ele representa</p>
+
+    <!-- grade: Hora · Dia · Mês · Ano (ordem clássica leitura) -->
+    <div class="bazi-map" id="bazi-map" role="list" aria-label="Os quatro pilares do BaZi">
+
+      <!-- ── PILAR DA HORA ── Tronco: 壬 Água-Yang | Ramo: 子 Água-Yin ── -->
+      <article class="bazi-pillar" tabindex="0" role="listitem button"
+               data-pilar="hora"
+               aria-label="Pilar da Hora: Tronco Rén (壬), Água Yang · Ramo Zǐ (子), Rato, Água Yin"
+               aria-pressed="false">
+        <!-- Tronco: Água -->
+        <div class="bazi-stem" style="background:#3060C0">
+          <span class="bazi-char" aria-label="壬 — Rén">壬</span>
+          <span class="bazi-badge" role="img" aria-label="Elemento Água">Água</span>
+          <span class="bazi-label">Yang</span>
+        </div>
+        <div class="bazi-header">HORA · 時</div>
+        <!-- Ramo: Água -->
+        <div class="bazi-branch" style="background:#2652A8">
+          <span class="bazi-char" aria-label="子 — Zǐ, Rato">子</span>
+          <span class="bazi-badge" role="img" aria-label="Elemento Água">Água · Rato</span>
+          <span class="bazi-label">Yin</span>
+          <div class="bazi-hidden" aria-label="Troncos ocultos do Ramo">
+            <span class="bazi-hidden-stem" style="background:#2652A8;color:rgba(255,255,255,.88)">癸 Principal</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── PILAR DO DIA (Mestre do Dia) ── Tronco: 甲 Madeira-Yang | Ramo: 午 Fogo-Yang ── -->
+      <article class="bazi-pillar is-day-master" tabindex="0" role="listitem button"
+               data-pilar="dia"
+               aria-label="Pilar do Dia: Tronco Jiǎ (甲), Madeira Yang — Mestre do Dia · Ramo Wǔ (午), Cavalo, Fogo Yang"
+               aria-pressed="false">
+        <!-- Tronco: Madeira -->
+        <div class="bazi-stem" style="background:#0E6038">
+          <span class="bazi-char" aria-label="甲 — Jiǎ">甲</span>
+          <span class="bazi-badge" role="img" aria-label="Elemento Madeira">Madeira</span>
+          <span class="bazi-label">Yang</span>
+        </div>
+        <div class="bazi-header">DIA · 日 ✦</div>
+        <!-- Ramo: Fogo -->
+        <div class="bazi-branch" style="background:#A81820">
+          <span class="bazi-char" aria-label="午 — Wǔ, Cavalo">午</span>
+          <span class="bazi-badge" role="img" aria-label="Elemento Fogo">Fogo · Cavalo</span>
+          <span class="bazi-label">Yang</span>
+          <div class="bazi-hidden" aria-label="Troncos ocultos do Ramo">
+            <span class="bazi-hidden-stem" style="background:#A81820;color:rgba(255,255,255,.88)">丙 Principal</span>
+            <span class="bazi-hidden-stem" style="background:#A07808;color:rgba(255,255,255,.88)">己 Meio</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── PILAR DO MÊS ── Tronco: 丙 Fogo-Yang | Ramo: 寅 Madeira-Yang ── -->
+      <article class="bazi-pillar" tabindex="0" role="listitem button"
+               data-pilar="mes"
+               aria-label="Pilar do Mês: Tronco Bǐng (丙), Fogo Yang · Ramo Yín (寅), Tigre, Madeira Yang"
+               aria-pressed="false">
+        <!-- Tronco: Fogo -->
+        <div class="bazi-stem" style="background:#A81820">
+          <span class="bazi-char" aria-label="丙 — Bǐng">丙</span>
+          <span class="bazi-badge" role="img" aria-label="Elemento Fogo">Fogo</span>
+          <span class="bazi-label">Yang</span>
+        </div>
+        <div class="bazi-header">MÊS · 月 · 月令</div>
+        <!-- Ramo: Madeira -->
+        <div class="bazi-branch" style="background:#0E6038">
+          <span class="bazi-char" aria-label="寅 — Yín, Tigre">寅</span>
+          <span class="bazi-badge" role="img" aria-label="Elemento Madeira">Madeira · Tigre</span>
+          <span class="bazi-label">Yang</span>
+          <div class="bazi-hidden" aria-label="Troncos ocultos do Ramo">
+            <span class="bazi-hidden-stem" style="background:#0E6038;color:rgba(255,255,255,.88)">甲 Principal</span>
+            <span class="bazi-hidden-stem" style="background:#A81820;color:rgba(255,255,255,.88)">丙 Meio</span>
+            <span class="bazi-hidden-stem" style="background:#A07808;color:rgba(255,255,255,.88)">戊 Resíduo</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── PILAR DO ANO ── Tronco: 庚 Metal-Yang | Ramo: 辰 Terra-Yang ── -->
+      <article class="bazi-pillar" tabindex="0" role="listitem button"
+               data-pilar="ano"
+               aria-label="Pilar do Ano: Tronco Gēng (庚), Metal Yang · Ramo Chén (辰), Dragão, Terra Yang"
+               aria-pressed="false">
+        <!-- Tronco: Metal -->
+        <div class="bazi-stem" style="background:#848484">
+          <span class="bazi-char" aria-label="庚 — Gēng">庚</span>
+          <span class="bazi-badge" role="img" aria-label="Elemento Metal">Metal</span>
+          <span class="bazi-label">Yang</span>
+        </div>
+        <div class="bazi-header">ANO · 年</div>
+        <!-- Ramo: Terra -->
+        <div class="bazi-branch" style="background:#A07808">
+          <span class="bazi-char" aria-label="辰 — Chén, Dragão">辰</span>
+          <span class="bazi-badge" role="img" aria-label="Elemento Terra">Terra · Dragão</span>
+          <span class="bazi-label">Yang</span>
+          <div class="bazi-hidden" aria-label="Troncos ocultos do Ramo">
+            <span class="bazi-hidden-stem" style="background:#A07808;color:rgba(255,255,255,.88)">戊 Principal</span>
+            <span class="bazi-hidden-stem" style="background:#0E6038;color:rgba(255,255,255,.88)">乙 Meio</span>
+            <span class="bazi-hidden-stem" style="background:#2652A8;color:rgba(255,255,255,.88)">癸 Resíduo</span>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- .bazi-map -->
+
+    <!-- Painel de info -->
+    <div class="bazi-info" id="bazi-info" aria-live="polite" aria-atomic="true">
+      <span class="bazi-info-hint">Selecione um pilar para explorar seu significado</span>
+    </div>
+  </div>
+  <!-- ── fim mapa ────────────────────────────────────────────────── -->
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>O Que Cada Pilar Representa</h3>
+
+  <p><strong>Pilar do Ano</strong> (<span style="font-family:var(--fc)">年柱</span>) — Herança, ancestrais, família de origem, reputação social herdada. O Ramo do Ano: a infância. Influência mais forte nos primeiros 16–18 anos.</p>
+  <p><strong>Pilar do Mês</strong> (<span style="font-family:var(--fc)">月柱</span>) — O mais poderoso. Tronco: talentos naturais, carreira. O Ramo (Comandante do Mês): qual energia está "em estação" no nascimento. Influência mais forte dos 17 aos 32 anos.</p>
+  <p><strong>Pilar do Dia</strong> (<span style="font-family:var(--fc)">日柱</span>) — Tronco: o Mestre do Dia, o Eu. Ramo: potenciais latentes, aspectos do cônjuge. Influência mais forte dos 33 aos 48 anos.</p>
+  <p><strong>Pilar da Hora</strong> (<span style="font-family:var(--fc)">時柱</span>) — Desejos profundos, criatividade, legado, filhos. Vida após os 50 anos. O pilar mais interior, menos visível ao mundo.</p>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">Muitas pessoas ficam presas ao Pilar do Ano (o animal do zodíaco) — mas esse é apenas 1/8 do mapa. O que mais diz sobre quem você é é o Pilar do Dia — especialmente o Mestre do Dia.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>八字</td><td>Bāzì</td><td>"Oito caracteres" — os oito signos do mapa de nascimento.</td></tr>
+          <tr><td>字</td><td>Zì</td><td>"Caractere", "palavra" — literalmente "criança nascendo sob um teto".</td></tr>
+          <tr><td>四柱</td><td>Sì Zhù</td><td>"Quatro Pilares" — as quatro colunas que sustentam o mapa.</td></tr>
+          <tr><td>柱</td><td>Zhù</td><td>"Pilar", "coluna" — a coluna de madeira que sustenta a casa.</td></tr>
+          <tr><td>年</td><td>Nián</td><td>"Ano" — uma pessoa carregando a colheita.</td></tr>
+          <tr><td>月</td><td>Yuè</td><td>"Mês" / "Lua" — o mesmo caractere, a mesma raiz.</td></tr>
+          <tr><td>日</td><td>Rì</td><td>"Sol" / "Dia" — o disco solar.</td></tr>
+          <tr><td>時</td><td>Shí</td><td>"Hora" / "Tempo".</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-9">
+    <p class="concepts-title" id="concepts-title-9">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">八字</span>
+      <span class="concept-text"><strong>BaZi</strong> (八字) = Oito Caracteres. 字 = bebê nascendo sob um teto — o nascimento de um signo.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">四柱</span>
+      <span class="concept-text"><strong>Sì Zhù</strong> (四柱) = Quatro Pilares. 柱 = coluna de madeira que sustenta a casa.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="../level-08.html">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">四柱</div>
+    Nível 9 de 12
+  </div>
+  <a class="btn bp" href="../level-10.html">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <p class="ft">BAZILAR · Trilha Didática · Nível 9 de 12 · DS v2.5</p>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 9, total: 12 });
+
+  // ── Dados por pilar ────────────────────────────────────────────────
+  const PILARES = {
+    hora: {
+      tag: 'Pilar da Hora · 時柱',
+      title: 'Desejos Profundos e Legado',
+      body: 'O pilar mais interior — raramente visível ao mundo externo. Fala dos desejos mais profundos, da criatividade, dos filhos e do que a pessoa deseja deixar como legado. As energias deste pilar emergem com mais força após os 50 anos.',
+      years: 'Influência: após os 50 anos'
+    },
+    dia: {
+      tag: 'Pilar do Dia · 日柱 · Mestre do Dia',
+      title: 'O Eu Central — 日主 Rì Zhǔ',
+      body: 'O Tronco do Dia é o Mestre do Dia (日主) — o "eu" permanente do mapa. Todos os outros elementos são definidos em relação a ele. Os Dez Deuses (Nível 10) emergem deste ponto. O Ramo do Dia guarda potenciais latentes e fala do cônjuge.',
+      years: 'Influência: 33 a 48 anos · o Eu permanente'
+    },
+    mes: {
+      tag: 'Pilar do Mês · 月柱 · Comandante do Mês',
+      title: 'O Mais Poderoso do Mapa — 月令',
+      body: 'O Ramo do Mês é chamado Yuè Lìng (月令), "Comandante do Mês": determina qual elemento está em estação no nascimento. É o fator mais poderoso do mapa inteiro — define a força relativa de todos os outros elementos. O Tronco revela talentos naturais e carreira.',
+      years: 'Influência: 17 a 32 anos · pilar dominante'
+    },
+    ano: {
+      tag: 'Pilar do Ano · 年柱',
+      title: 'Herança e Família de Origem',
+      body: 'Fala da herança energética transmitida pelos ancestrais, da família de origem e da reputação herdada. O Ramo do Ano é o "animal do zodíaco" — amplamente conhecido, mas representa apenas 1/8 do mapa. Influência mais marcante na infância.',
+      years: 'Influência: 0 a 16–18 anos'
+    },
+  };
+
+  // ── Cores por elemento para atualizar ao trocar tema ──────────────
+  const EL_DARK  = {
+    wood:  '#0E6038', fire: '#A81820', earth: '#A07808', metal: '#848484', water: '#3060C0'
+  };
+  const EL_LIGHT = {
+    wood:  '#147A48', fire: '#D3232E', earth: '#B87C14', metal: '#848484', water: '#2652A8'
+  };
+
+  // Mapa de elemento por célula (stem/branch de cada pilar)
+  const PILLAR_ELEMENTS = {
+    hora:  { stem: 'water', branch: 'water' },
+    dia:   { stem: 'wood',  branch: 'fire'  },
+    mes:   { stem: 'fire',  branch: 'wood'  },
+    ano:   { stem: 'metal', branch: 'earth' },
+  };
+  // Troncos ocultos por pilar: [{ char, role, el }]
+  const HIDDEN = {
+    hora: [{ char: '癸', role: 'Principal', el: 'water' }],
+    dia:  [{ char: '丙', role: 'Principal', el: 'fire' }, { char: '己', role: 'Meio', el: 'earth' }],
+    mes:  [{ char: '甲', role: 'Principal', el: 'wood' }, { char: '丙', role: 'Meio', el: 'fire' }, { char: '戊', role: 'Resíduo', el: 'earth' }],
+    ano:  [{ char: '戊', role: 'Principal', el: 'earth' }, { char: '乙', role: 'Meio', el: 'wood' }, { char: '癸', role: 'Resíduo', el: 'water' }],
+  };
+
+  function getColors() {
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? EL_DARK : EL_LIGHT;
+  }
+
+  function updatePillarColors() {
+    const c = getColors();
+    document.querySelectorAll('.bazi-pillar').forEach(p => {
+      const key = p.dataset.pilar;
+      const els = PILLAR_ELEMENTS[key];
+      if (!els) return;
+      p.querySelector('.bazi-stem').style.background   = c[els.stem];
+      p.querySelector('.bazi-branch').style.background = c[els.branch];
+      p.querySelectorAll('.bazi-hidden-stem').forEach((hs, i) => {
+        hs.style.background = c[HIDDEN[key][i].el];
+      });
+    });
+  }
+
+  // Observa mudança de tema (toggle do nav.js)
+  const observer = new MutationObserver(updatePillarColors);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  // ── Interatividade ─────────────────────────────────────────────────
+  const infoBox = document.getElementById('bazi-info');
+  let activeEl = null;
+
+  document.querySelectorAll('.bazi-pillar').forEach(pillar => {
+    const key = pillar.dataset.pilar;
+
+    const activate = () => {
+      if (activeEl === pillar) {
+        pillar.classList.remove('active');
+        pillar.setAttribute('aria-pressed', 'false');
+        infoBox.innerHTML = '<span class="bazi-info-hint">Selecione um pilar para explorar seu significado</span>';
+        activeEl = null;
+        return;
+      }
+      if (activeEl) {
+        activeEl.classList.remove('active');
+        activeEl.setAttribute('aria-pressed', 'false');
+      }
+      pillar.classList.add('active');
+      pillar.setAttribute('aria-pressed', 'true');
+      activeEl = pillar;
+
+      const d = PILARES[key];
+      infoBox.innerHTML = `
+        <span class="bazi-info-tag">${d.tag}</span>
+        <p class="bazi-info-title">${d.title}</p>
+        <p class="bazi-info-body">${d.body}</p>
+        <p class="bazi-info-years">${d.years}</p>`;
+    };
+
+    pillar.addEventListener('click', activate);
+    pillar.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+      if (e.key === 'Escape') {
+        pillar.classList.remove('active');
+        pillar.setAttribute('aria-pressed', 'false');
+        infoBox.innerHTML = '<span class="bazi-info-hint">Selecione um pilar para explorar seu significado</span>';
+        activeEl = null;
+      }
+    });
+  });
+
+  // ── Animação de entrada ────────────────────────────────────────────
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.getElementById('bazi-map').classList.add('revealed');
+  }));
+</script>
+</body>
+</html>

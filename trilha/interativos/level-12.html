@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 12 · Os Doze Estágios de Vida — BAZILAR Didático</title>
+<meta name="description" content="Shí Èr Cháng Shēng (十二長生): o ciclo de uma energia. O décimo segundo e último nível da Trilha BaZi.">
+<meta name="level" content="12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* ── RODA DOS 12 ESTÁGIOS ── */
+.wheel-wrap{margin:var(--s5) 0;user-select:none}
+.wheel-hint{font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:var(--s2);text-align:center}
+
+.wheel-svg{width:100%;max-width:420px;display:block;margin:0 auto;overflow:visible;cursor:pointer}
+
+/* Setores */
+.wheel-sector{transition:opacity .2s,filter .2s}
+.wheel-sector path{stroke:var(--sp);stroke-width:2;transition:filter .2s}
+.wheel-sector:hover path,.wheel-sector:focus path,.wheel-sector.active path{filter:brightness(1.35)}
+.wheel-sector.dimmed path{opacity:.3}
+.wheel-sector:focus{outline:none}
+.wheel-sector:focus path{stroke:var(--gold);stroke-width:3}
+
+/* Label dentro do setor */
+.wheel-label{font-family:var(--fc);font-size:13px;fill:rgba(255,255,255,.88);text-anchor:middle;dominant-baseline:middle;pointer-events:none;font-style:normal}
+.wheel-sub{font-family:var(--fd2);font-size:6px;fill:rgba(255,255,255,.55);text-anchor:middle;dominant-baseline:middle;pointer-events:none;font-weight:600;letter-spacing:.06em}
+
+/* Círculo central */
+.wheel-center{cursor:pointer}
+.wheel-center circle{fill:var(--sc);stroke:var(--gb);stroke-width:1.5;transition:fill .2s}
+.wheel-center:hover circle,.wheel-center:focus circle{fill:var(--si);outline:none}
+.wheel-center-text{font-family:var(--fc);font-size:22px;fill:var(--gold);text-anchor:middle;dominant-baseline:middle;pointer-events:none;font-style:normal}
+
+/* Painel de info */
+.wheel-info{margin-top:var(--s4);min-height:96px;padding:var(--s3) var(--s4);background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);transition:all .25s}
+.wheel-info-hint{font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em}
+.wheel-info-num{font-family:var(--fm2);font-size:.5rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px}
+.wheel-info-title{font-family:var(--ff);font-size:1.125rem;font-weight:500;color:var(--ip);margin-bottom:4px;display:flex;align-items:baseline;gap:8px}
+.wheel-info-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--im)}
+.wheel-info-body{font-family:var(--fd2);font-size:.875rem;font-weight:300;color:var(--is);line-height:1.6}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="../index.html"><span class="nsym" aria-hidden="true">八</span>BAZILAR</a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="../index.html">Trilha</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">生</span>
+  <div class="ha">
+    <p class="he">Nível 12 · O Encerramento · 6 min · Interativo</p>
+    <h1 class="ht" id="level-title">Os Doze Estágios<br>de <em>Vida</em></h1>
+    <blockquote class="hero-question">
+      Você já viveu um projeto, um relacionamento, ou uma fase que passou por todas essas etapas:
+      nasceu cheio de esperança, cresceu, atingiu o auge, começou a cansar, passou por uma crise, encerrou —
+      e então, inesperadamente, algo novo surgiu das cinzas?
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Shí Èr Cháng Shēng <span style="font-family:var(--fc);color:var(--gold)">十二長生</span>
+  </h2>
+
+  <p>Os <strong>Doze Estágios de Vida</strong> (<span style="font-family:var(--fc)">十二長生</span>) descrevem as doze fases que qualquer elemento atravessa em relação ao Ramo que o hospeda. É a metáfora completa do ciclo da vida — nascimento, crescimento, auge, declínio, morte, dissolução, gestação e renascimento.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <!-- RODA INTERATIVA -->
+  <div class="wheel-wrap" role="region" aria-label="Roda dos doze estágios de vida">
+    <p class="wheel-hint">Clique em qualquer setor para explorar o estágio</p>
+
+    <svg id="wheel-svg" class="wheel-svg" viewBox="0 0 420 420"
+         role="img" aria-label="Roda dos doze estágios — clique para explorar"
+         xmlns="http://www.w3.org/2000/svg">
+      <!-- setores gerados por JS -->
+      <g id="wheel-sectors"></g>
+      <!-- círculo central -->
+      <g class="wheel-center" id="wheel-center" tabindex="0" role="button" aria-label="Resetar seleção">
+        <circle cx="210" cy="210" r="52"/>
+        <text class="wheel-center-text" x="210" y="210">十二</text>
+      </g>
+    </svg>
+
+    <div class="wheel-info" id="wheel-info" aria-live="polite" aria-atomic="true">
+      <span class="wheel-info-hint">Selecione um estágio na roda para ver sua descrição</span>
+    </div>
+  </div>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <aside class="callout" aria-label="Para refletir — encerramento da trilha">
+    <div class="callout-bar" style="background:var(--gold)"></div>
+    <div class="callout-body">
+      <p class="callout-title" style="color:var(--gold)">Para refletir — e encerrar a trilha</p>
+      <p class="callout-text">Os 12 Estágios ensinam que nenhuma fase é permanente. O auge passa, mas também o fundo. O BaZi não existe para te dizer quando serão seus "melhores" anos. Existe para te ajudar a estar presente e consciente em todos eles.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th>Caractere</th><th>Pinyin</th><th>Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>十二長生</td><td>Shí Èr Cháng Shēng</td><td>"Doze [estágios do] Longo Viver".</td></tr>
+          <tr><td>長生</td><td>Cháng Shēng</td><td>"Longo viver" — o nascimento com potencial de vida longa.</td></tr>
+          <tr><td>帝旺</td><td>Dì Wàng</td><td>"Glória imperial" — o pico do poder.</td></tr>
+          <tr><td>墓</td><td>Mù</td><td>"Túmulo", "armazenamento" — o que está guardado, não perdido.</td></tr>
+          <tr><td>絕</td><td>Jué</td><td>"Extinção", "dissolução" — o fundo antes do renascimento.</td></tr>
+          <tr><td>胎</td><td>Tāi</td><td>"Gestação", "embrião" — a vida antes de ser vida.</td></tr>
+          <tr><td>養</td><td>Yǎng</td><td>"Nutrir" — cuidar com paciência do que ainda não pode agradecer.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-12">
+    <p class="concepts-title" id="concepts-title-12">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">十二長生</span>
+      <span class="concept-text"><strong>Shí Èr Cháng Shēng</strong> (十二長生) = Doze Estágios. 長 = comprimento+crescimento; 生 = broto rompendo o solo.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">生→旺→死→絕→胎→生</span>
+      <span class="concept-text">Ciclo completo: Nascimento → Glória → Morte → Extinção → Gestação → Nascimento. Nenhuma fase é permanente.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="../level-11.html">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">十二長生</div>
+    Nível 12 de 12
+  </div>
+  <a class="btn bp" href="../index.html" aria-label="Voltar à trilha completa">Trilha completa →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <p class="ft">BAZILAR · Trilha Didática · Nível 12 de 12 · DS v2.5 · Trilha concluída ✦</p>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 12, total: 12 });
+
+  // ── Dados dos 12 Estágios ─────────────────────────────────────────
+  const STAGES = [
+    { num:1,  hanzi:'長生', pinyin:'Cháng Shēng', name:'Nascimento',       phase:'ascendente',
+      desc:'O elemento emerge com vitalidade máxima. Começos, novas possibilidades. Potencial inexplorado — tudo ainda por fazer.' },
+    { num:2,  hanzi:'沐浴', pinyin:'Mù Yù',        name:'Banho',           phase:'ascendente',
+      desc:'Ingenuidade, curiosidade, absorção do mundo. Abertura que pode ser criativa ou dispersiva.' },
+    { num:3,  hanzi:'冠帶', pinyin:'Guān Dài',     name:'Vestir a Coroa',  phase:'ascendente',
+      desc:'Adolescência, identidade em formação, aprendizado das regras do mundo.' },
+    { num:4,  hanzi:'臨官', pinyin:'Lín Guān',     name:'Assumir o Cargo', phase:'ascendente',
+      desc:'Entrada na vida adulta, trabalho, responsabilidade. Ambição saudável em construção.' },
+    { num:5,  hanzi:'帝旺', pinyin:'Dì Wàng',      name:'Glória Imperial', phase:'auge',
+      desc:'O pico. Força máxima, presença, influência. É também onde o declínio começa, imperceptível.' },
+    { num:6,  hanzi:'衰',   pinyin:'Shuāi',         name:'Declínio',        phase:'descendente',
+      desc:'O pico passou. Menos velocidade, mais sabedoria. Consolidação, não conquista.' },
+    { num:7,  hanzi:'病',   pinyin:'Bìng',           name:'Doença',          phase:'descendente',
+      desc:'Vulnerabilidade que pede recolhimento. Sinal de que o ciclo precisa se renovar.' },
+    { num:8,  hanzi:'死',   pinyin:'Sǐ',             name:'Morte',           phase:'descendente',
+      desc:'Fim de um ciclo — não extinção, mas transformação. Como a crisálida antes da borboleta.' },
+    { num:9,  hanzi:'墓',   pinyin:'Mù',             name:'Túmulo',          phase:'dissolucao',
+      desc:'A energia foi guardada, não morreu. Como o grão no celeiro durante o inverno.' },
+    { num:10, hanzi:'絕',   pinyin:'Jué',            name:'Extinção',        phase:'dissolucao',
+      desc:'O fundo do ciclo — o vazio antes do potencial. Semelhante ao Wuji do Nível 1.' },
+    { num:11, hanzi:'胎',   pinyin:'Tāi',            name:'Gestação',        phase:'renascimento',
+      desc:'Uma nova semente se forma no escuro. O próximo ciclo começa, ainda invisível.' },
+    { num:12, hanzi:'養',   pinyin:'Yǎng',           name:'Nutrição',        phase:'renascimento',
+      desc:'O embrião cresce protegido. A nova energia aguarda o momento certo para emergir.' },
+  ];
+
+  // Paleta por fase (usando tokens DS)
+  const PHASE_COLOR = {
+    ascendente:  '#2E4A30',  // --od (Madeira)
+    auge:        '#7A3520',  // --fd (Fogo)
+    descendente: '#6B4A1C',  // --ed (Terra)
+    dissolucao:  '#3E3C3C',  // --md (Metal)
+    renascimento:'#2C3E6B',  // --wd (Água)
+  };
+  const PHASE_STROKE = {
+    ascendente:  '#4a7c4e',
+    auge:        '#c0522e',
+    descendente: '#a07028',
+    dissolucao:  '#6e6a6a',
+    renascimento:'#4a6aad',
+  };
+
+  const CX = 210, CY = 210;
+  const R_OUT = 170, R_IN = 60;
+  const sectorsG = document.getElementById('wheel-sectors');
+  const infoBox  = document.getElementById('wheel-info');
+  let activeIdx  = null;
+
+  // Gerar setores
+  STAGES.forEach((s, i) => {
+    const startAngle = (i * 30 - 90) * Math.PI / 180;  // 30° each, start at top
+    const endAngle   = ((i+1) * 30 - 90) * Math.PI / 180;
+
+    const x1o = CX + R_OUT * Math.cos(startAngle);
+    const y1o = CY + R_OUT * Math.sin(startAngle);
+    const x2o = CX + R_OUT * Math.cos(endAngle);
+    const y2o = CY + R_OUT * Math.sin(endAngle);
+    const x1i = CX + R_IN  * Math.cos(startAngle);
+    const y1i = CY + R_IN  * Math.sin(startAngle);
+    const x2i = CX + R_IN  * Math.cos(endAngle);
+    const y2i = CY + R_IN  * Math.sin(endAngle);
+
+    const d = `M${x1i},${y1i} L${x1o},${y1o} A${R_OUT},${R_OUT} 0 0,1 ${x2o},${y2o} L${x2i},${y2i} A${R_IN},${R_IN} 0 0,0 ${x1i},${y1i} Z`;
+
+    // Centro do setor para posicionar texto
+    const midAngle = ((i + 0.5) * 30 - 90) * Math.PI / 180;
+    const R_TXT    = (R_OUT + R_IN) / 2;
+    const tx = CX + R_TXT * Math.cos(midAngle);
+    const ty = CY + R_TXT * Math.sin(midAngle);
+
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','wheel-sector');
+    g.setAttribute('tabindex','0');
+    g.setAttribute('role','button');
+    g.setAttribute('aria-label',`${s.num}. ${s.name} — ${s.pinyin}`);
+    g.setAttribute('data-idx', i);
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', PHASE_COLOR[s.phase]);
+
+    const hanziT = document.createElementNS('http://www.w3.org/2000/svg','text');
+    hanziT.setAttribute('class','wheel-label');
+    hanziT.setAttribute('x', tx);
+    hanziT.setAttribute('y', ty - 6);
+    hanziT.textContent = s.hanzi;
+
+    const numT = document.createElementNS('http://www.w3.org/2000/svg','text');
+    numT.setAttribute('class','wheel-sub');
+    numT.setAttribute('x', tx);
+    numT.setAttribute('y', ty + 12);
+    numT.textContent = String(s.num).padStart(2,'0');
+
+    g.appendChild(path);
+    g.appendChild(hanziT);
+    g.appendChild(numT);
+    sectorsG.appendChild(g);
+
+    const activate = () => {
+      const all = document.querySelectorAll('.wheel-sector');
+      if (activeIdx === i) {
+        // reset
+        all.forEach(el => el.classList.remove('active','dimmed'));
+        infoBox.innerHTML = '<span class="wheel-info-hint">Selecione um estágio na roda para ver sua descrição</span>';
+        activeIdx = null;
+        return;
+      }
+      activeIdx = i;
+      all.forEach((el,j) => {
+        el.classList.toggle('active', j === i);
+        el.classList.toggle('dimmed', j !== i);
+      });
+      infoBox.innerHTML = `
+        <span class="wheel-info-num">Estágio ${s.num} de 12 · ${s.phase}</span>
+        <p class="wheel-info-title">
+          <span style="font-family:var(--fc);font-size:1.5rem;color:${PHASE_STROKE[s.phase]};font-style:normal">${s.hanzi}</span>
+          ${s.name}
+          <span class="wheel-info-pinyin">${s.pinyin}</span>
+        </p>
+        <p class="wheel-info-body">${s.desc}</p>`;
+    };
+
+    g.addEventListener('click', activate);
+    g.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.wheel-sector').forEach(el => el.classList.remove('active','dimmed'));
+        infoBox.innerHTML = '<span class="wheel-info-hint">Selecione um estágio na roda para ver sua descrição</span>';
+        activeIdx = null;
+      }
+      // navegar com setas
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = sectorsG.children[(i+1)%12];
+        next && next.focus();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = sectorsG.children[(i+11)%12];
+        prev && prev.focus();
+      }
+    });
+  });
+
+  // Centro: reset
+  const center = document.getElementById('wheel-center');
+  const resetAll = () => {
+    document.querySelectorAll('.wheel-sector').forEach(el => el.classList.remove('active','dimmed'));
+    infoBox.innerHTML = '<span class="wheel-info-hint">Selecione um estágio na roda para ver sua descrição</span>';
+    activeIdx = null;
+  };
+  center.addEventListener('click', resetAll);
+  center.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); resetAll(); }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 9 · O Mapa dos Quatro Pilares — BAZILAR Didático</title>
+<meta name="description" content="BaZi (八字): oito caracteres, quatro pilares. O que cada pilar representa? Nono nível da Trilha BaZi.">
+<meta name="level" content="9">
+<meta name="prereq" content="Nível 8">
+<meta name="tempo_leitura" content="6 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+
+.corr-table{width:100%;border-collapse:collapse;margin:var(--s4) 0;font-family:var(--fd2);font-size:.813rem}
+.corr-table th{font-family:var(--fm2);font-size:.563rem;letter-spacing:.1em;text-transform:uppercase;color:var(--id);padding:var(--s1) var(--s2);text-align:left;border-bottom:1px solid var(--gb)}
+.corr-table td{padding:var(--s2);border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent);color:var(--is);vertical-align:top}
+.corr-table td:first-child{font-family:var(--fc);font-size:1.333rem;color:var(--ip);font-style:normal;text-align:center;width:44px}
+.corr-table tr:hover td{background:var(--si)}
+
+/* Pilares — fundos dark com textos light */
+.bazi-pillar__label{color:rgba(255,255,255,.75)}
+.bazi-pillar__badge{font-weight:600;letter-spacing:.06em}
+
+@media(max-width:500px){}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="index.html" aria-label="Voltar à trilha completa">
+    <span class="nsym" aria-hidden="true">八</span>BAZILAR
+  </a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="index.html" aria-label="Ver todos os níveis">Trilha</a>
+    <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">柱</span>
+  <div class="ha">
+    <p class="he">Nível 09 · As Folhas · 6 min de leitura · <a href="interativos/level-09.html" style="color:var(--gold);text-decoration:none">↗ versão interativa</a></p>
+    <h1 class="ht" id="level-title">O Mapa dos<br><em>Quatro Pilares</em></h1>
+    <blockquote class="hero-question">
+      Imagine que, no momento em que você nasceu, quatro relógios cósmicos foram fotografados
+      ao mesmo tempo — o relógio do Ano, do Mês, do Dia e da Hora.
+      Essa fotografia de quatro pares é o seu BaZi.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    BaZi <span style="font-family:var(--fc);color:var(--gold)">八字</span>: Oito Caracteres, Uma Vida
+  </h2>
+
+  <p><strong>BaZi</strong> (<span style="font-family:var(--fc)">八字</span>) significa literalmente <em>oito caracteres</em>. São quatro pares Tronco–Ramo: cada par é um <strong>pilar</strong> (<span style="font-family:var(--fc)">柱</span>, Zhù), e cada pilar corresponde a uma camada de tempo no momento do nascimento.</p>
+
+  <p>O ciclo de 60 (Nível 8) opera em quatro escalas simultâneas: Ano, Mês, Dia e Hora. No momento em que você nasce, cada um desses ciclos está em uma posição específica. A combinação das quatro posições — oito caracteres no total — é o seu mapa.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Os Quatro Pilares</h3>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Exemplo ilustrativo · Leitura da direita para a esquerda (tradição chinesa)</p>
+
+    <div class="bazi-map bazi-map--revealed" role="list" aria-label="Os quatro pilares do BaZi">
+    <div class="bazi-pillar" tabindex="0" role="button" aria-label="Pilar do Hora: 甲 Jiǎ, 子 Zǐ">
+      <div class="bazi-pillar__stem" style="background:#0B5233;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">
+        <span class="bazi-pillar__char" style="color:#A8DBBF" lang="zh-Hant">甲</span>
+        <span class="bazi-pillar__badge" style="color:#A8DBBF">Madeira Yang</span>
+        <span class="bazi-pillar__label">Yang</span>
+      </div>
+      <div class="bazi-pillar__header">HORA · 时</div>
+      <div class="bazi-pillar__branch" style="background:#0B5233;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">
+        <span class="bazi-pillar__char" style="color:#A8DBBF" lang="zh-Hant">子</span>
+        <span class="bazi-pillar__label">Rato · Água</span>
+        <div class="bazi-pillar__hidden-stems">
+          <span class="bazi-pillar__hidden-stem" style="background:#0B5233;color:rgba(255,255,255,.9)" lang="zh-Hant">癸</span>
+        </div>
+      </div>
+    </div>
+    <div class="bazi-pillar is-day-master" tabindex="0" role="button" aria-label="Pilar do Dia: 丙 Bǐng, 午 Wǔ">
+      <div class="bazi-pillar__stem" style="background:#8C0A12;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">
+        <span class="bazi-pillar__char" style="color:#F5BBBF" lang="zh-Hant">丙</span>
+        <span class="bazi-pillar__badge" style="color:#F5BBBF">Fogo Yang</span>
+        <span class="bazi-pillar__label">Yang</span>
+      </div>
+      <div class="bazi-pillar__header">DIA · 日 ✦</div>
+      <div class="bazi-pillar__branch" style="background:#8C0A12;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">
+        <span class="bazi-pillar__char" style="color:#F5BBBF" lang="zh-Hant">午</span>
+        <span class="bazi-pillar__label">Cavalo · Fogo</span>
+        <div class="bazi-pillar__hidden-stems">
+          <span class="bazi-pillar__hidden-stem" style="background:#8C0A12;color:rgba(255,255,255,.9)" lang="zh-Hant">丙</span>
+          <span class="bazi-pillar__hidden-stem" style="background:#7A4C08;color:rgba(255,255,255,.9)" lang="zh-Hant">己</span>
+        </div>
+      </div>
+    </div>
+    <div class="bazi-pillar" tabindex="0" role="button" aria-label="Pilar do Mês: 庚 Gēng, 戌 Xū">
+      <div class="bazi-pillar__stem" style="background:#383838;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">
+        <span class="bazi-pillar__char" style="color:#E0E0E0" lang="zh-Hant">庚</span>
+        <span class="bazi-pillar__badge" style="color:#E0E0E0">Metal Yang</span>
+        <span class="bazi-pillar__label">Yang</span>
+      </div>
+      <div class="bazi-pillar__header">MÊS · 月</div>
+      <div class="bazi-pillar__branch" style="background:#383838;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">
+        <span class="bazi-pillar__char" style="color:#E0E0E0" lang="zh-Hant">戌</span>
+        <span class="bazi-pillar__label">Cão · Terra</span>
+        <div class="bazi-pillar__hidden-stems">
+          <span class="bazi-pillar__hidden-stem" style="background:#383838;color:rgba(255,255,255,.9)" lang="zh-Hant">戊</span>
+          <span class="bazi-pillar__hidden-stem" style="background:#383838;color:rgba(255,255,255,.9)" lang="zh-Hant">辛</span>
+          <span class="bazi-pillar__hidden-stem" style="background:#383838;color:rgba(255,255,255,.9)" lang="zh-Hant">丁</span>
+        </div>
+      </div>
+    </div>
+    <div class="bazi-pillar" tabindex="0" role="button" aria-label="Pilar do Ano: 壬 Rén, 申 Shēn">
+      <div class="bazi-pillar__stem" style="background:#1C3A72;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">
+        <span class="bazi-pillar__char" style="color:#B8CCF0" lang="zh-Hant">壬</span>
+        <span class="bazi-pillar__badge" style="color:#B8CCF0">Água Yang</span>
+        <span class="bazi-pillar__label">Yang</span>
+      </div>
+      <div class="bazi-pillar__header">ANO · 年</div>
+      <div class="bazi-pillar__branch" style="background:#1C3A72;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)">
+        <span class="bazi-pillar__char" style="color:#B8CCF0" lang="zh-Hant">申</span>
+        <span class="bazi-pillar__label">Macaco · Metal</span>
+        <div class="bazi-pillar__hidden-stems">
+          <span class="bazi-pillar__hidden-stem" style="background:#1C3A72;color:rgba(255,255,255,.9)" lang="zh-Hant">庚</span>
+          <span class="bazi-pillar__hidden-stem" style="background:#1C3A72;color:rgba(255,255,255,.9)" lang="zh-Hant">壬</span>
+          <span class="bazi-pillar__hidden-stem" style="background:#1C3A72;color:rgba(255,255,255,.9)" lang="zh-Hant">戊</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <p>A fileira de cima — os <strong>Troncos Celestiais</strong> — representa forças visíveis, conscientes, manifestas. A fileira de baixo — os <strong>Ramos Terrestres</strong> — representa raízes invisíveis, contexto, o que opera abaixo da superfície. Cada Ramo carrega em seu interior Troncos Ocultos (Nível 7), adicionando profundidade ao mapa.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>O Que Cada Pilar Representa</h3>
+
+  <table class="corr-table" aria-label="Correspondências dos quatro pilares">
+    <thead>
+      <tr>
+        <th scope="col">Hanzi</th>
+        <th scope="col">Pilar</th>
+        <th scope="col">Dimensão primária</th>
+        <th scope="col">Dimensão secundária</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td aria-hidden="true">年</td>
+        <td><strong>Ano</strong> (Nián)</td>
+        <td>Herança, ancestralidade, contexto geracional</td>
+        <td>Sociedade, como o mundo me percebe</td>
+      </tr>
+      <tr>
+        <td aria-hidden="true">月</td>
+        <td><strong>Mês</strong> (Yuè)</td>
+        <td>Pais, infância, condicionamentos</td>
+        <td>Carreira, como trabalho e expresso meu potencial</td>
+      </tr>
+      <tr>
+        <td aria-hidden="true">日</td>
+        <td><strong>Dia</strong> (Rì)</td>
+        <td>O eu central — o Tronco do Dia é o <em>Mestre do Dia</em></td>
+        <td>Relacionamentos íntimos, cônjuge</td>
+      </tr>
+      <tr>
+        <td aria-hidden="true">時</td>
+        <td><strong>Hora</strong> (Shí)</td>
+        <td>Filhos, legado, o que criamos</td>
+        <td>Aspirações, vida futura</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>O <strong>Tronco do Dia</strong> (<span style="font-family:var(--fc)">日主</span>, Rì Zhǔ) tem posição especial: é o <em>Mestre do Dia</em>, o eixo em torno do qual todos os outros elementos são interpretados. No Nível 10, cada relação entre o Mestre do Dia e os demais elementos gera um dos Dez Deuses.</p>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">O BaZi mapeia o campo de forças em que você emergiu. Um mapa de estradas revela o terreno. Você escolhe o caminho.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>八字</td><td>Bāzì</td><td>"Oito caracteres" — ba (8) + zi (caractere/semente).</td></tr>
+          <tr><td>柱</td><td>Zhù</td><td>"Pilar", "coluna" — a estrutura que sustenta.</td></tr>
+          <tr><td>日主</td><td>Rì Zhǔ</td><td>"Mestre do Dia" — o sol que orienta o mapa.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-9">
+    <p class="concepts-title" id="concepts-title-9">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">八字</span>
+      <span class="concept-text"><strong>BaZi</strong> (八字) = Oito caracteres — quatro pares Tronco+Ramo correspondentes ao Ano, Mês, Dia e Hora do nascimento.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">日主</span>
+      <span class="concept-text"><strong>Rì Zhǔ</strong> (日主) = Mestre do Dia — o Tronco do pilar do Dia, eixo central de toda a interpretação.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="level-08.html" aria-label="Nível 8 — O Ciclo de Sessenta">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">八字</div>
+    Nível 9 de 12
+  </div>
+  <a class="btn bp" href="level-10.html" aria-label="Nível 10 — O Mestre do Dia e os Dez Deuses">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 9, total: 12 });
+</script>
+</body>
+</html>

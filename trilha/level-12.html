@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 12 · Os 12 Estágios de Vida — BAZILAR Didático</title>
+<meta name="description" content="Shíèr Zhǎngshēng (十二長生): os doze estágios do ciclo vital. Em que fase estou agora? Décimo segundo nível da Trilha BaZi.">
+<meta name="level" content="12">
+<meta name="prereq" content="Nível 11">
+<meta name="tempo_leitura" content="7 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* Grade dos 12 estágios */
+.stages-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin:var(--s5) 0}
+.stage-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s2);transition:border-color .2s}
+.stage-card:hover{border-color:var(--gold)}
+.stage-num{font-family:var(--fm2);font-size:.5rem;color:var(--id);letter-spacing:.08em;display:block;margin-bottom:4px}
+.stage-hanzi{font-family:var(--fc);font-size:1.333rem;color:var(--ip);display:block;font-style:normal;margin-bottom:4px;line-height:1}
+.stage-name{font-family:var(--fd2);font-size:.688rem;font-weight:600;color:var(--ip);display:block;margin-bottom:4px}
+.stage-energy{display:inline-block;font-family:var(--fm2);font-size:.45rem;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;border-radius:100px;margin-bottom:6px}
+.energy-rise{background:color-mix(in srgb,var(--om) 15%,transparent);color:var(--om)}
+.energy-peak{background:color-mix(in srgb,var(--fm) 15%,transparent);color:var(--fm)}
+.energy-fall{background:color-mix(in srgb,var(--mm) 15%,transparent);color:var(--mm)}
+.energy-rest{background:color-mix(in srgb,var(--wm) 15%,transparent);color:var(--wm)}
+.stage-desc{font-family:var(--fd2);font-size:.625rem;font-weight:300;color:var(--is);line-height:1.5}
+@media(max-width:600px){.stages-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:360px){.stages-grid{grid-template-columns:1fr}}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="index.html" aria-label="Voltar à trilha completa">
+    <span class="nsym" aria-hidden="true">八</span>BAZILAR
+  </a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="index.html" aria-label="Ver todos os níveis">Trilha</a>
+    <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">生</span>
+  <div class="ha">
+    <p class="he">Nível 12 · Os Frutos · 7 min · <a href="interativos/level-12.html" style="color:var(--gold);text-decoration:none">↗ versão interativa</a></p>
+    <h1 class="ht" id="level-title">Os 12 Estágios<br>de <em>Vida</em></h1>
+    <blockquote class="hero-question">
+      Uma semente germina, cresce, floresce, frutifica, murcha e retorna à terra — para germinar novamente.
+      No BaZi, cada elemento percorre esses mesmos doze estágios em relação aos Ramos Terrestres.
+      Saber em que estágio uma energia está tende a indicar como ela se manifesta.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Shíèr Zhǎngshēng <span style="font-family:var(--fc);color:var(--gold)">十二長生</span>: O Ciclo Vital dos Elementos
+  </h2>
+
+  <p>O sistema dos <strong>12 Estágios de Vida</strong> (<span style="font-family:var(--fc)">十二長生</span>, Shíèr Zhǎngshēng) mapeia o grau de vitalidade de um elemento em relação a cada um dos 12 Ramos Terrestres. Um mesmo elemento pode estar em seu pico de força em um Ramo e em total repouso em outro.</p>
+
+  <p>A versão interativa deste nível (<a href="interativos/level-12.html" style="color:var(--gold)">↗ abrir</a>) apresenta a roda completa dos 12 estágios com capacidade de seleção de elemento.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Os Doze Estágios</h3>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Cada estágio corresponde a um Ramo Terrestre · A sequência varia por elemento</p>
+
+  <div class="stages-grid" role="list" aria-label="Os doze estágios de vida dos elementos">
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">01</span>
+      <span class="stage-hanzi">長生</span>
+      <span class="stage-name">Zhǎngshēng · Nascimento</span>
+      <span class="stage-energy energy-rise">ascensão</span>
+      <span class="stage-desc">Surgimento, vitalidade inicial, potencial recém-ativado.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">02</span>
+      <span class="stage-hanzi">沐浴</span>
+      <span class="stage-name">Mùyù · Banho</span>
+      <span class="stage-energy energy-rise">ascensão</span>
+      <span class="stage-desc">Vulnerabilidade, aprendizado, remoção do velho para revelar o novo.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">03</span>
+      <span class="stage-hanzi">冠帶</span>
+      <span class="stage-name">Guàndài · Vestuário</span>
+      <span class="stage-energy energy-rise">ascensão</span>
+      <span class="stage-desc">Desenvolvimento, educação, início da expressão da identidade.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">04</span>
+      <span class="stage-hanzi">臨官</span>
+      <span class="stage-name">Línguān · Carreira</span>
+      <span class="stage-energy energy-rise">ascensão</span>
+      <span class="stage-desc">Estabelecimento, ingresso na vida adulta, afirmação no mundo.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">05</span>
+      <span class="stage-hanzi">帝旺</span>
+      <span class="stage-name">Dìwàng · Pico Imperial</span>
+      <span class="stage-energy energy-peak">pico</span>
+      <span class="stage-desc">Plenitude, força máxima, esplendor — o elemento em seu ápice.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">06</span>
+      <span class="stage-hanzi">衰</span>
+      <span class="stage-name">Shuāi · Declínio</span>
+      <span class="stage-energy energy-fall">declínio</span>
+      <span class="stage-desc">Início da retirada, sabedoria crescente, energia ainda presente mas cedendo.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">07</span>
+      <span class="stage-hanzi">病</span>
+      <span class="stage-name">Bìng · Doença</span>
+      <span class="stage-energy energy-fall">declínio</span>
+      <span class="stage-desc">Fragilização, revisão necessária, o que cumpriu seu papel começa a se soltar.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">08</span>
+      <span class="stage-hanzi">死</span>
+      <span class="stage-name">Sǐ · Morte</span>
+      <span class="stage-energy energy-fall">declínio</span>
+      <span class="stage-desc">Encerramento de um ciclo — transformação que abre espaço ao próximo.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">09</span>
+      <span class="stage-hanzi">墓</span>
+      <span class="stage-name">Mù · Sepultura</span>
+      <span class="stage-energy energy-rest">repouso</span>
+      <span class="stage-desc">Armazenamento, consolidação do que foi vivido, gestação do próximo ciclo.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">10</span>
+      <span class="stage-hanzi">絕</span>
+      <span class="stage-name">Jué · Extinção</span>
+      <span class="stage-energy energy-rest">repouso</span>
+      <span class="stage-desc">Dispersão completa, o elemento perde sua forma — condição para o renascimento.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">11</span>
+      <span class="stage-hanzi">胎</span>
+      <span class="stage-name">Tāi · Embrião</span>
+      <span class="stage-energy energy-rest">repouso</span>
+      <span class="stage-desc">Concepção do próximo ciclo, potencial latente, gestação invisível.</span>
+    </div>
+
+    <div class="stage-card" role="listitem">
+      <span class="stage-num">12</span>
+      <span class="stage-hanzi">養</span>
+      <span class="stage-name">Yǎng · Nutrição</span>
+      <span class="stage-energy energy-rest">repouso</span>
+      <span class="stage-desc">Incubação, preparação final antes do surgimento — o ciclo recomeça.</span>
+    </div>
+
+  </div>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Como Usar os Estágios na Leitura</h3>
+  <p>Quando o Mestre do Dia ou um elemento importante do seu mapa está num Ramo de estágio <strong>Dìwàng</strong> (Pico), essa energia tende a estar em seu ápice de expressão. No Ramo de <strong>Jué</strong> (Extinção), a mesma energia pode estar fragilizada — um período de transição e reorientação.</p>
+
+  <p>Combinando os estágios com os Dez Deuses (Nível 10) e os Grandes Ciclos (Nível 11), o praticante pode identificar não apenas quais forças estão ativas em um período, mas em que nível de vitalidade cada uma se encontra.</p>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">Todo estágio carrega propósito. A Morte e a Extinção são tão essenciais ao ciclo quanto o Nascimento e o Pico. Um período de Sepultura convida ao recolhimento e à integração — solo fértil para o que virá. O mapa tende a indicar o momento; a pessoa escolhe como atravessá-lo.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>長生</td><td>Zhǎngshēng</td><td>"Crescer e nascer" — o estágio inaugural do ciclo.</td></tr>
+          <tr><td>帝旺</td><td>Dìwàng</td><td>"Esplendor imperial" — vitalidade máxima, o imperador em seu trono.</td></tr>
+          <tr><td>墓</td><td>Mù</td><td>"Tumba", "armazém" — reservatório onde o passado é guardado e o futuro gestado.</td></tr>
+          <tr><td>胎</td><td>Tāi</td><td>"Embrião", "placenta" — o germe invisível do próximo ciclo.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-12">
+    <p class="concepts-title" id="concepts-title-12">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">長生</span>
+      <span class="concept-text"><strong>Shíèr Zhǎngshēng</strong> (十二長生) = Doze Estágios de Vida — o ciclo completo de vitalidade de um elemento em relação aos 12 Ramos.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">帝旺</span>
+      <span class="concept-text"><strong>Dìwàng</strong> (帝旺) = Pico Imperial — o estágio de máxima força e expressão de um elemento.</span>
+    </div>
+  </section>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <div style="background:var(--gs);border:1px solid var(--gold);border-radius:var(--rl);padding:var(--s4);text-align:center;margin:var(--s5) 0">
+    <p style="font-family:var(--fc);font-size:2rem;color:var(--gold);margin-bottom:var(--s2)" aria-hidden="true">八字</p>
+    <p style="font-family:var(--ff);font-size:1.333rem;font-weight:500;color:var(--ip);margin-bottom:var(--s2)">Trilha Completa</p>
+    <p style="font-family:var(--fd2);font-size:.875rem;font-weight:300;color:var(--is);line-height:1.7;max-width:480px;margin:0 auto var(--s3)">Você percorreu os 12 níveis — do Vazio Primordial aos Estágios de Vida. Do Wuji ao Zhǎngshēng. Este é o mapa; a leitura é uma prática que se aprofunda com o tempo.</p>
+    <a class="btn bp" href="index.html" style="display:inline-flex">← Voltar à Trilha</a>
+  </div>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="level-11.html" aria-label="Nível 11 — Os Grandes Ciclos">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">長生</div>
+    Nível 12 de 12
+  </div>
+  <a class="btn bp" href="index.html" aria-label="Voltar à trilha completa">Ver Trilha completa →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+</footer>
+
+<script type="module">
+  import { initNav } from '/public/components/nav.js';
+  initNav({ current: 12, total: 12 });
+</script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nível 5 · As Cinco Fases — BAZILAR Didático</title>
+<meta name="description" content="Wu Xing (五行): não elementos — movimentos. Como a energia se move? Quinto nível da Trilha BaZi.">
+<meta name="level" content="5">
+<meta name="prereq" content="Nível 4">
+<meta name="tempo_leitura" content="6 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/main.css">
+<style>
+/* Wu Xing cards adaptados do DS */
+.wx-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s1);margin:var(--s5) 0}
+.wx-card{border-radius:var(--rl);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;border:2px solid transparent}
+.wx-card:hover,.wx-card:focus{transform:translateY(-3px);box-shadow:var(--shm);outline:none;border-color:var(--gold)}
+.wx-head{height:88px;display:flex;align-items:center;justify-content:center}
+.wx-sym{font-family:var(--fc);font-size:3.157rem;line-height:1;font-style:normal}
+.wx-body{padding:var(--s1) var(--s2) var(--s2);background:var(--sc)}
+.wx-name{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:4px}
+.wx-desc{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--im);line-height:1.5}
+/* ciclos Wu Xing interativo */
+.cycle-placeholder{background:var(--sc);border:1px dashed var(--gb);border-radius:var(--rl);padding:var(--s8) var(--s4);text-align:center;margin:var(--s5) 0}
+.cycle-placeholder p{font-family:var(--fm2);font-size:.75rem;color:var(--id);letter-spacing:.06em}
+.cycle-placeholder span{color:var(--gold)}
+@media(max-width:600px){.wx-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* ── DIAGRAMA WU XING INTERATIVO ── */
+.wxd-wrap{margin:var(--s5) 0;background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s4) var(--s3) var(--s3);user-select:none}
+.wxd-tabs{display:flex;gap:var(--s1);margin-bottom:var(--s3)}
+.wxd-tab{font-family:var(--fd2);font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--gb);border-radius:var(--r);background:transparent;color:var(--im);padding:6px 16px;cursor:pointer;transition:all .2s}
+.wxd-tab--active{background:var(--gs);border-color:var(--gold);color:var(--gold)}
+.wxd-tab:hover:not(.wxd-tab--active){color:var(--ip);background:var(--si)}
+.wxd-tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wxd-info{min-height:48px;margin-bottom:var(--s2);padding:var(--s1) var(--s2);border-radius:var(--r);background:var(--si);transition:all .3s}
+.wxd-info-hint{font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em}
+.wxd-info-content{display:none;gap:var(--s2);align-items:flex-start}
+.wxd-info-content.visible{display:flex}
+.wxd-info-glyph{font-family:var(--fc);font-size:1.777rem;line-height:1;font-style:normal;flex-shrink:0}
+.wxd-info-name{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px}
+.wxd-info-rel{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--is);line-height:1.5}
+.wxd-svg{width:100%;max-width:400px;display:block;margin:0 auto;overflow:visible}
+.wxd-node{cursor:pointer}
+.wxd-node:focus{outline:none}
+.wxd-node:hover .wxd-node-bg,.wxd-node:focus .wxd-node-bg{filter:brightness(1.25)}
+.wxd-node:hover .wxd-node-ring,.wxd-node:focus .wxd-node-ring{opacity:.5}
+.wxd-node.active .wxd-node-ring{opacity:1!important;stroke-width:3}
+.wxd-node.dimmed .wxd-node-bg,.wxd-node.dimmed .wxd-node-label{opacity:.3}
+.wxd-arrow{fill:none;stroke-width:2;transition:opacity .3s,stroke-width .2s}
+.wxd-gen{stroke:var(--om);opacity:.55}
+.wxd-ctrl{stroke:var(--gold);opacity:.55}
+.wxd-arrow.active-arrow{stroke-width:3;opacity:1}
+.wxd-arrow.dimmed-arrow{opacity:.08}
+.wxd-gen-layer,.wxd-ctrl-layer{transition:opacity .35s}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0F0E0A">
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Navegação da trilha">
+  <a class="nb" href="index.html" aria-label="Voltar à trilha completa">
+    <span class="nsym" aria-hidden="true">八</span>BAZILAR
+  </a>
+  <div class="nr">
+    <span class="nav-progress" aria-label="Posição na trilha"></span>
+    <a class="nl" href="index.html" aria-label="Ver todos os níveis">Trilha</a>
+    <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+    <button class="tb" onclick="toggleTheme()" aria-label="Alternar tema"><span id="theme-icon" aria-hidden="true">☀️</span></button>
+  </div>
+</nav>
+<div class="scroll-bar" aria-hidden="true"><div class="scroll-bar-fill"></div></div>
+
+<header class="hero" aria-labelledby="level-title">
+  <span class="hero-glyph" aria-hidden="true">行</span>
+  <div class="ha">
+    <p class="he">Nível 05 · O Tronco · 6 min · Interativo</p>
+    <h1 class="ht" id="level-title">As Cinco<br><em>Fases</em></h1>
+    <blockquote class="hero-question">
+      Você já tentou apagar um incêndio jogando água? Funciona. E já percebeu que a areia (terra) também funciona?
+      Esses não são "truques" — são padrões de relação entre forças que os chineses mapearam há três mil anos.
+    </blockquote>
+  </div>
+</header>
+
+<main>
+<article class="level-body">
+
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+    Wu Xing <span style="font-family:var(--fc);color:var(--gold)">五行</span>: Não Elementos — Movimentos
+  </h2>
+
+  <p>O conceito mais mal traduzido da metafísica chinesa é o <strong>Wu Xing</strong> (<span style="font-family:var(--fc)">五行</span>). "Cinco Elementos" está errado. A palavra <strong>Xíng</strong> (<span style="font-family:var(--fc)">行</span>) não significa "elemento estático" — significa <em>movimento</em>, <em>processo</em>, <em>fase</em>, <em>andar</em>.</p>
+  <p>Wu Xing são <strong>Cinco Processos em Transformação Contínua</strong>.</p>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>As Cinco Fases e suas Qualidades</h3>
+
+  <div class="wx-grid" role="list" aria-label="As cinco fases do Wu Xing">
+    <div class="wx-card" role="listitem" tabindex="0" aria-label="Madeira — crescimento, primavera">
+      <div class="wx-head" style="background:var(--od)"><span class="wx-sym" style="color:rgba(255,255,255,.9)">木</span></div>
+      <div class="wx-body">
+        <span class="wx-name" style="color:var(--om)">Madeira 木</span>
+        <span class="wx-desc">Crescimento, expansão, impulso. Primavera. Benevolência.</span>
+      </div>
+    </div>
+    <div class="wx-card" role="listitem" tabindex="0" aria-label="Fogo — florescimento, verão">
+      <div class="wx-head" style="background:var(--fd)"><span class="wx-sym" style="color:rgba(255,255,255,.9)">火</span></div>
+      <div class="wx-body">
+        <span class="wx-name" style="color:var(--fm)">Fogo 火</span>
+        <span class="wx-desc">Florescimento, calor, irradiação. Verão. Cortesia.</span>
+      </div>
+    </div>
+    <div class="wx-card" role="listitem" tabindex="0" aria-label="Terra — estabilização, centro">
+      <div class="wx-head" style="background:var(--ed)"><span class="wx-sym" style="color:rgba(255,255,255,.9)">土</span></div>
+      <div class="wx-body">
+        <span class="wx-name" style="color:var(--em)">Terra 土</span>
+        <span class="wx-desc">Estabilização, nutrição, centramento. Transições. Confiança.</span>
+      </div>
+    </div>
+    <div class="wx-card" role="listitem" tabindex="0" aria-label="Metal — condensação, outono">
+      <div class="wx-head" style="background:var(--md)"><span class="wx-sym" style="color:rgba(255,255,255,.9)">金</span></div>
+      <div class="wx-body">
+        <span class="wx-name" style="color:var(--mm)">Metal 金</span>
+        <span class="wx-desc">Condensação, refinamento, corte. Outono. Retidão.</span>
+      </div>
+    </div>
+    <div class="wx-card" role="listitem" tabindex="0" aria-label="Água — profundidade, inverno">
+      <div class="wx-head" style="background:var(--wd)"><span class="wx-sym" style="color:rgba(255,255,255,.9)">水</span></div>
+      <div class="wx-body">
+        <span class="wx-name" style="color:var(--wm)">Água 水</span>
+        <span class="wx-desc">Descida, profundidade, repouso fecundo. Inverno. Sabedoria.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <h3>Os Dois Ciclos Fundamentais</h3>
+
+  <p><strong>Ciclo de Geração</strong> (<span style="font-family:var(--fc)">相生</span>, Xiāng Shēng): Água → Madeira → Fogo → Terra → Metal → Água… A Água nutre a Madeira. A Madeira alimenta o Fogo. O Fogo produz cinzas (Terra). A Terra revela o Metal. O Metal condensado produz Água.</p>
+  <p><strong>Ciclo de Controle</strong> (<span style="font-family:var(--fc)">相剋</span>, Xiāng Kè): Água → Fogo → Metal → Madeira → Terra → Água… A Água apaga o Fogo. O Fogo funde o Metal. O Metal corta a Madeira. A Madeira finca raízes na Terra. A Terra absorve a Água.</p>
+
+  <!-- INTERATIVO D4 — Diagrama SVG dos ciclos Wu Xing -->
+  <div class="wxd-wrap" role="region" aria-label="Diagrama interativo dos ciclos Wu Xing">
+
+    <!-- Toggle de ciclo -->
+    <div class="wxd-tabs" role="tablist" aria-label="Selecionar ciclo">
+      <button class="wxd-tab wxd-tab--active" role="tab" aria-selected="true"
+              aria-controls="wxd-diagram" id="tab-gen" data-cycle="gen">
+        相生 · Geração
+      </button>
+      <button class="wxd-tab" role="tab" aria-selected="false"
+              aria-controls="wxd-diagram" id="tab-ctrl" data-cycle="ctrl">
+        相剋 · Controle
+      </button>
+    </div>
+
+    <!-- Painel de info do elemento ativo -->
+    <div class="wxd-info" id="wxd-info" aria-live="polite" aria-atomic="true">
+      <span class="wxd-info-hint">Clique em um elemento para explorar suas relações</span>
+    </div>
+
+    <!-- SVG pentagonal com círculo de inscrição e simetria perfeita -->
+    <svg id="wxd-diagram" viewBox="0 0 1266 1327" xmlns="http://www.w3.org/2000/svg" class="wxd-svg">
+      <!-- Ciclo de Geração (setas pretas) -->
+      <g class="wxd-gen-layer" id="gen-layer" style="transition:opacity .35s">
+        <path d="M650 165V160H650L650 165ZM945.857 266.265C948.586 265.844 950.456 263.289 950.035 260.56L943.161 216.088C942.739 213.359 940.185 211.489 937.456 211.911C934.727 212.333 932.856 214.887 933.278 217.616L939.388 257.146L899.858 263.256C897.129 263.678 895.258 266.232 895.68 268.961C896.102 271.691 898.656 273.561 901.385 273.139L945.857 266.265ZM649.933 160C647.172 160 644.933 162.239 644.934 165C644.934 167.762 647.172 170 649.934 170L649.934 165L649.933 160ZM650 165V170C759.27 170 860.258 205.4 942.139 265.358L945.093 261.324L948.047 257.29C864.51 196.119 761.466 160 650 160V165ZM649.934 165L649.934 170L650.001 170L650 165L650 160L649.933 160L649.934 165Z" fill="black" class="wxd-arrow wxd-gen" data-from="water" data-to="wood"/>
+        <path d="M1121.42 821.172C1122.68 823.63 1125.69 824.604 1128.15 823.346L1168.21 802.853C1170.67 801.595 1171.64 798.583 1170.38 796.124C1169.13 793.666 1166.11 792.692 1163.65 793.95L1128.04 812.166L1109.83 776.555C1108.57 774.097 1105.56 773.123 1103.1 774.381C1100.64 775.638 1099.67 778.651 1100.92 781.109L1121.42 821.172ZM1130.9 510.407C1130.05 507.778 1127.24 506.331 1124.61 507.175C1121.98 508.02 1120.53 510.836 1121.38 513.465L1126.14 511.936L1130.9 510.407ZM1150 665H1145C1145 718.167 1136.62 769.368 1121.11 817.357L1125.87 818.895L1130.63 820.432C1146.45 771.461 1155 719.224 1155 665H1150ZM1126.14 511.936L1121.38 513.465C1136.72 561.217 1145 612.136 1145 665H1150H1155C1155 611.086 1146.55 559.135 1130.9 510.407L1126.14 511.936Z" fill="black" class="wxd-arrow wxd-gen" data-from="wood" data-to="fire"/>
+        <path d="M943.218 1076.2C945.465 1074.6 945.985 1071.47 944.38 1069.23C942.775 1066.98 939.652 1066.46 937.405 1068.07L940.311 1072.13L943.218 1076.2ZM650.437 1161.48C648.5 1163.44 648.524 1166.61 650.492 1168.55L682.56 1200.12C684.528 1202.05 687.694 1202.03 689.631 1200.06C691.569 1198.09 691.544 1194.93 689.576 1192.99L661.071 1164.93L689.133 1136.42C691.07 1134.46 691.045 1131.29 689.077 1129.35C687.109 1127.42 683.944 1127.44 682.006 1129.41L650.437 1161.48ZM940.311 1072.13L937.405 1068.07C857.378 1125.23 759.617 1159.16 653.961 1159.98L654 1164.98L654.039 1169.98C761.82 1169.14 861.572 1134.53 943.218 1076.2L940.311 1072.13Z" fill="black" class="wxd-arrow wxd-gen" data-from="fire" data-to="earth"/>
+        <path d="M169.557 509.003C168.704 511.629 170.143 514.449 172.769 515.302C175.396 516.154 178.216 514.715 179.068 512.089L174.312 510.546L169.557 509.003ZM359.622 262.251C360.043 259.522 358.171 256.969 355.442 256.548L310.966 249.7C308.237 249.279 305.683 251.151 305.263 253.88C304.843 256.61 306.715 259.163 309.444 259.583L348.978 265.671L342.89 305.205C342.47 307.934 344.342 310.487 347.071 310.908C349.8 311.328 352.353 309.456 352.774 306.727L359.622 262.251ZM174.312 510.546L179.068 512.089C211.466 412.242 274.741 326.295 357.637 265.523L354.681 261.49L351.724 257.458C267.169 319.447 202.614 407.122 169.557 509.003L174.312 510.546Z" fill="black" class="wxd-arrow wxd-gen" data-from="earth" data-to="metal"/>
+        <path d="M350.358 1071.54C352.58 1073.18 355.71 1072.71 357.351 1070.48C358.991 1068.26 358.519 1065.13 356.298 1063.49L353.328 1067.51L350.358 1071.54ZM177.445 817.694C174.978 816.454 171.973 817.448 170.732 819.915L150.517 860.119C149.276 862.586 150.271 865.591 152.738 866.832C155.205 868.073 158.21 867.078 159.451 864.611L177.42 828.874L213.157 846.844C215.624 848.084 218.629 847.09 219.87 844.623C221.111 842.156 220.116 839.15 217.649 837.909L177.445 817.694ZM353.328 1067.51L356.298 1063.49C274.8 1003.32 212.423 918.758 179.946 820.591L175.199 822.161L170.452 823.732C203.59 923.899 267.229 1010.16 350.358 1071.54L353.328 1067.51Z" fill="black" class="wxd-arrow wxd-gen" data-from="metal" data-to="water"/>
+      </g>
+
+      <!-- Ciclo de Controle (setas brancas) -->
+      <g class="wxd-ctrl-layer" id="ctrl-layer" style="opacity:0;pointer-events:none;transition:opacity .35s">
+        <path d="M540 986C540 988.761 542.239 991 545 991C547.761 991 550 988.761 550 986L545 986L540 986ZM548.536 336.464C546.583 334.512 543.417 334.512 541.464 336.464L509.645 368.284C507.692 370.237 507.692 373.403 509.645 375.355C511.597 377.308 514.763 377.308 516.716 375.355L545 347.071L573.284 375.355C575.237 377.308 578.403 377.308 580.355 375.355C582.308 373.403 582.308 370.237 580.355 368.284L548.536 336.464ZM545 986L550 986L550 340L545 340L540 340L540 986L545 986Z" fill="white" class="wxd-arrow wxd-ctrl" data-from="water" data-to="fire"/>
+        <path d="M310.455 657.87C307.829 658.723 306.391 661.544 307.245 664.17C308.098 666.796 310.919 668.234 313.545 667.38L312 662.625L310.455 657.87ZM930.838 465.27C932.091 462.81 931.113 459.799 928.652 458.545L888.557 438.115C886.097 436.862 883.086 437.84 881.832 440.301C880.578 442.761 881.557 445.772 884.017 447.025L919.658 465.185L901.498 500.825C900.244 503.286 901.222 506.297 903.683 507.55C906.143 508.804 909.154 507.826 910.408 505.365L930.838 465.27ZM312 662.625L313.545 667.38L927.928 467.755L926.382 463L924.837 458.245L310.455 657.87L312 662.625Z" fill="white" class="wxd-arrow wxd-ctrl" data-from="fire" data-to="metal"/>
+        <path d="M551.592 338.162C549.969 335.927 546.842 335.432 544.608 337.055C542.374 338.678 541.879 341.805 543.502 344.039L547.547 341.1L551.592 338.162ZM926.474 868.664C929.201 869.096 931.763 867.235 932.195 864.508L939.234 820.062C939.666 817.334 937.805 814.773 935.078 814.341C932.35 813.909 929.789 815.77 929.357 818.497L923.1 858.005L883.592 851.747C880.865 851.315 878.304 853.176 877.872 855.904C877.44 858.631 879.301 861.192 882.028 861.624L926.474 868.664ZM547.547 341.1L543.502 344.039L923.211 866.664L927.256 863.725L931.301 860.786L551.592 338.162L547.547 341.1Z" fill="white" class="wxd-arrow wxd-ctrl" data-from="metal" data-to="wood"/>
+        <path d="M930.168 468.701C931.791 466.467 931.296 463.34 929.062 461.717C926.828 460.094 923.701 460.589 922.078 462.823L926.123 465.762L930.168 468.701ZM541.475 989.169C541.907 991.897 544.469 993.758 547.196 993.326L591.642 986.286C594.369 985.854 596.23 983.293 595.798 980.565C595.366 977.838 592.805 975.977 590.078 976.409L550.57 982.667L544.313 943.159C543.881 940.432 541.32 938.571 538.592 939.003C535.865 939.435 534.004 941.996 534.436 944.723L541.475 989.169ZM926.123 465.762L922.078 462.823L542.369 985.448L546.414 988.387L550.459 991.326L930.168 468.701L926.123 465.762Z" fill="white" class="wxd-arrow wxd-ctrl" data-from="wood" data-to="earth"/>
+        <path d="M923.004 869.087C925.63 869.941 928.451 868.504 929.304 865.877C930.157 863.251 928.72 860.43 926.094 859.577L924.549 864.332L923.004 869.087ZM307.896 660.252C305.436 661.506 304.458 664.517 305.711 666.977L326.141 707.073C327.395 709.533 330.405 710.511 332.866 709.258C335.326 708.004 336.305 704.993 335.051 702.533L316.891 666.892L352.532 648.733C354.992 647.479 355.97 644.468 354.717 642.008C353.463 639.547 350.452 638.569 347.992 639.823L307.896 660.252ZM924.549 864.332L926.094 859.577L311.711 659.952L310.166 664.707L308.621 669.463L923.004 869.087L924.549 864.332Z" fill="white" class="wxd-arrow wxd-ctrl" data-from="earth" data-to="water"/>
+      </g>
+
+      <!-- Elementos com cores DARK nos círculos e LIGHT nos textos -->
+      <!-- ÁGUA - Dark: #1C3A72, Light text -->
+      <g class="wxd-node" data-elem="water" tabindex="0" role="button" aria-label="Água — clique para explorar relações">
+        <circle cx="497.13" cy="1141.44" r="150" fill="#1C3A72" class="wxd-node-bg"/>
+        <circle cx="497.13" cy="1141.44" r="150" fill="none" stroke="#1C3A72" stroke-width="2" opacity="0" class="wxd-node-ring"/>
+        <text x="497.13" y="1161.44" font-family="'Noto Serif TC'" font-size="80" fill="rgba(255,255,255,.92)" text-anchor="middle" dominant-baseline="middle">水</text>
+        <text x="497.13" y="1311.44" font-family="'Noto Sans'" font-size="32" font-weight="600" letter-spacing="2.4" fill="rgba(255,255,255,.88)" text-anchor="middle" text-transform="uppercase">ÁGUA</text>
+      </g>
+
+      <!-- MADEIRA - Dark: #0B5233, Light text -->
+      <g class="wxd-node" data-elem="wood" tabindex="0" role="button" aria-label="Madeira — clique para explorar relações">
+        <circle cx="150" cy="666" r="150" fill="#0B5233" class="wxd-node-bg"/>
+        <circle cx="150" cy="666" r="150" fill="none" stroke="#0B5233" stroke-width="2" opacity="0" class="wxd-node-ring"/>
+        <text x="150" y="686" font-family="'Noto Serif TC'" font-size="80" fill="rgba(255,255,255,.92)" text-anchor="middle" dominant-baseline="middle">木</text>
+        <text x="150" y="836" font-family="'Noto Sans'" font-size="32" font-weight="600" letter-spacing="2.4" fill="rgba(255,255,255,.88)" text-anchor="middle" text-transform="uppercase">MADEIRA</text>
+      </g>
+
+      <!-- FOGO - Dark: #8C0A12, Light text -->
+      <g class="wxd-node" data-elem="fire" tabindex="0" role="button" aria-label="Fogo — clique para explorar relações">
+        <circle cx="493.05" cy="190.05" r="150" fill="#8C0A12" class="wxd-node-bg"/>
+        <circle cx="493.05" cy="190.05" r="150" fill="none" stroke="#8C0A12" stroke-width="2" opacity="0" class="wxd-node-ring"/>
+        <text x="493.05" y="210.05" font-family="'Noto Serif TC'" font-size="80" fill="rgba(255,255,255,.92)" text-anchor="middle" dominant-baseline="middle">火</text>
+        <text x="493.05" y="360.05" font-family="'Noto Sans'" font-size="32" font-weight="600" letter-spacing="2.4" fill="rgba(255,255,255,.88)" text-anchor="middle" text-transform="uppercase">FOGO</text>
+      </g>
+
+      <!-- TERRA - Dark: #5C4B1A, Light text -->
+      <g class="wxd-node" data-elem="earth" tabindex="0" role="button" aria-label="Terra — clique para explorar relações">
+        <circle cx="1055.18" cy="371.549" r="150" fill="#5C4B1A" class="wxd-node-bg"/>
+        <circle cx="1055.18" cy="371.549" r="150" fill="none" stroke="#5C4B1A" stroke-width="2" opacity="0" class="wxd-node-ring"/>
+        <text x="1055.18" y="391.549" font-family="'Noto Serif TC'" font-size="80" fill="rgba(255,255,255,.92)" text-anchor="middle" dominant-baseline="middle">土</text>
+        <text x="1055.18" y="541.549" font-family="'Noto Sans'" font-size="32" font-weight="600" letter-spacing="2.4" fill="rgba(255,255,255,.88)" text-anchor="middle" text-transform="uppercase">TERRA</text>
+      </g>
+
+      <!-- METAL - Dark: #3D3D3D, Light text -->
+      <g class="wxd-node" data-elem="metal" tabindex="0" role="button" aria-label="Metal — clique para explorar relações">
+        <circle cx="1054.82" cy="958.875" r="150" fill="#3D3D3D" class="wxd-node-bg"/>
+        <circle cx="1054.82" cy="958.875" r="150" fill="none" stroke="#3D3D3D" stroke-width="2" opacity="0" class="wxd-node-ring"/>
+        <text x="1054.82" y="978.875" font-family="'Noto Serif TC'" font-size="80" fill="rgba(255,255,255,.92)" text-anchor="middle" dominant-baseline="middle">金</text>
+        <text x="1054.82" y="1128.875" font-family="'Noto Sans'" font-size="32" font-weight="600" letter-spacing="2.4" fill="rgba(255,255,255,.88)" text-anchor="middle" text-transform="uppercase">METAL</text>
+      </g>
+
+    </svg>
+  </div><!-- .wxd-wrap -->
+
+  <aside class="callout" aria-label="Atenção">
+    <div class="callout-bar" style="background:var(--wm)"></div>
+    <div class="callout-body">
+      <p class="callout-title" style="color:var(--wm)">Atenção</p>
+      <p class="callout-text">O Ciclo de Controle é tão vital quanto o de Geração. Sem controle, qualquer energia cresce desmedidamente. O controle é necessário à vida saudável — como as leis são necessárias à sociedade.</p>
+    </div>
+  </aside>
+
+  <h3>Por que isso é o coração do BaZi</h3>
+  <p>Toda a lógica dos Dez Deuses (Nível 10) é construída sobre esses dois ciclos. Quando o seu elemento central se relaciona com outro: ele o alimenta → Recurso; você o alimenta → Expressão; ele o controla → Autoridade; você o controla → Riqueza; mesmo elemento → Companhia. Cinco relações × duas polaridades = Dez Deuses.</p>
+
+  <aside class="callout" aria-label="Para refletir">
+    <div class="callout-bar"></div>
+    <div class="callout-body">
+      <p class="callout-title">Para refletir</p>
+      <p class="callout-text">O Wu Xing é um mapa de relações dinâmicas. O seu mapa BaZi indica que Madeira é o seu ponto de partida neste campo de relações.</p>
+    </div>
+  </aside>
+
+  <details class="etym" aria-label="Etimologia dos caracteres deste nível">
+    <summary>O que dizem os caracteres</summary>
+    <div class="etym-body">
+      <table>
+        <thead><tr><th scope="col">Caractere</th><th scope="col">Pinyin</th><th scope="col">Significado literal</th></tr></thead>
+        <tbody>
+          <tr><td>五</td><td>Wǔ</td><td>"Cinco" — os quatro pontos cardeais mais o centro.</td></tr>
+          <tr><td>行</td><td>Xíng</td><td>"Andar", "fase", "processo em movimento" — uma encruzilhada: caminhar implica escolha de direção.</td></tr>
+          <tr><td>木</td><td>Mù</td><td>"Árvore" — galhos para cima, raízes para baixo.</td></tr>
+          <tr><td>火</td><td>Huǒ</td><td>"Fogo" — chama com centelhas se dispersando.</td></tr>
+          <tr><td>土</td><td>Tǔ</td><td>"Solo", "terra" — substância que nutre.</td></tr>
+          <tr><td>金</td><td>Jīn</td><td>"Metal", "ouro" — pepitas ocultas na terra.</td></tr>
+          <tr><td>水</td><td>Shuǐ</td><td>"Água" — curso d'água com seus afluentes.</td></tr>
+          <tr><td>相生</td><td>Xiāng Shēng</td><td>"Gerar mutuamente" — nutrir.</td></tr>
+          <tr><td>相剋</td><td>Xiāng Kè</td><td>"Controlar mutuamente" — regular.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
+
+  <section class="concepts" aria-labelledby="concepts-title-5">
+    <p class="concepts-title" id="concepts-title-5">Conceitos-chave deste nível</p>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">五行</span>
+      <span class="concept-text"><strong>Wu Xing</strong> (五行) = Cinco processos em movimento. 五 = totalidade orientada; 行 = caminhar numa encruzilhada.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">相生</span>
+      <span class="concept-text"><strong>Xiāng Shēng</strong> (相生) = Ciclo de Geração: nutrir.</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-hanzi" aria-hidden="true">相剋</span>
+      <span class="concept-text"><strong>Xiāng Kè</strong> (相剋) = Ciclo de Controle: regular.</span>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<nav class="level-nav" aria-label="Navegação entre níveis">
+  <a class="btn bs" href="level-04.html" aria-label="Nível 4 — Os Oito Trigramas">← Nível anterior</a>
+  <div class="level-nav-center">
+    <div style="font-family:var(--fc);font-size:1rem;color:var(--gold);margin-bottom:4px" aria-hidden="true">五行</div>
+    Nível 5 de 12
+  </div>
+  <a class="btn bp" href="level-06.html" aria-label="Nível 6 — Os Dez Troncos">Próximo nível →</a>
+</nav>
+
+<footer class="foot" role="contentinfo">
+  <span class="fs" aria-hidden="true">八字</span>
+  <a class="btn-ds" href="https://bazilar.app" target="_blank" rel="noopener" aria-label="Calcule seu mapa BaZi">Calcule seu BaZi</a>
+</footer>
+
+
+<script>
+
+  const elemData = {
+    water: { name: 'Água', hanzi: '水', color: '#1C3A72', creates: 'wood', controlledBy: 'earth', controls: 'fire' },
+    wood: { name: 'Madeira', hanzi: '木', color: '#0B5233', creates: 'fire', controlledBy: 'metal', controls: 'earth' },
+    fire: { name: 'Fogo', hanzi: '火', color: '#8C0A12', creates: 'earth', controlledBy: 'water', controls: 'metal' },
+    earth: { name: 'Terra', hanzi: '土', color: '#5C4B1A', creates: 'metal', controlledBy: 'wood', controls: 'water' },
+    metal: { name: 'Metal', hanzi: '金', color: '#3D3D3D', creates: 'water', controlledBy: 'fire', controls: 'wood' }
+  };
+
+  let currentCycle = 'gen';
+  let activeElem = null;
+
+  const infoBox    = document.getElementById('wxd-info');
+  const genLayer   = document.getElementById('gen-layer');
+  const ctrlLayer  = document.getElementById('ctrl-layer');
+
+  // Tab switching
+  document.querySelectorAll('.wxd-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.wxd-tab').forEach(t => {
+        t.classList.remove('wxd-tab--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('wxd-tab--active');
+      tab.setAttribute('aria-selected', 'true');
+      currentCycle = tab.dataset.cycle;
+
+      if (activeElem) {
+        highlightCycle(activeElem, currentCycle);
+        showInfo(activeElem);
+      } else {
+        switchLayers(currentCycle);
+      }
+    });
+  });
+
+  // Element clicking
+  document.querySelectorAll('.wxd-node').forEach(node => {
+    node.addEventListener('click', () => {
+      const elem = node.dataset.elem;
+      activeElem = elem;
+      document.querySelectorAll('.wxd-node').forEach(n => n.classList.remove('active'));
+      node.classList.add('active');
+      showInfo(elem);
+      highlightCycle(elem, currentCycle);
+    });
+    node.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); node.click(); }
+    });
+  });
+
+  function switchLayers(cycle) {
+    genLayer.style.opacity  = cycle === 'gen'  ? '1' : '0';
+    genLayer.style.pointerEvents = cycle === 'gen' ? 'auto' : 'none';
+    ctrlLayer.style.opacity = cycle === 'ctrl' ? '1' : '0';
+    ctrlLayer.style.pointerEvents = cycle === 'ctrl' ? 'auto' : 'none';
+  }
+
+  function showInfo(elem) {
+    const data = elemData[elem];
+    const hint = infoBox.querySelector('.wxd-info-hint');
+    let infoContent = infoBox.querySelector('.wxd-info-content');
+
+    if (hint) hint.style.display = 'none';
+    if (!infoContent) {
+      infoContent = document.createElement('div');
+      infoContent.className = 'wxd-info-content';
+      infoBox.appendChild(infoContent);
+    }
+
+    let relHtml;
+    if (currentCycle === 'gen') {
+      const creator = findCreator(elem);
+      relHtml = `<strong>Gerado por:</strong> ${elemData[creator].name} &nbsp;·&nbsp; <strong>Gera:</strong> ${elemData[data.creates].name}`;
+    } else {
+      const controller = findController(elem);
+      relHtml = `<strong>Controlado por:</strong> ${elemData[controller].name} &nbsp;·&nbsp; <strong>Controla:</strong> ${elemData[data.controls].name}`;
+    }
+
+    infoContent.innerHTML = `
+      <div class="wxd-info-glyph">${data.hanzi}</div>
+      <div class="wxd-info-text">
+        <span class="wxd-info-name" style="color:var(--gold)">${data.name}</span>
+        <div class="wxd-info-rel">${relHtml}</div>
+      </div>
+    `;
+    infoContent.classList.add('visible');
+  }
+
+  function findCreator(elem) {
+    for (let key in elemData) { if (elemData[key].creates === elem) return key; }
+    return null;
+  }
+
+  function findController(elem) {
+    for (let key in elemData) { if (elemData[key].controls === elem) return key; }
+    return null;
+  }
+
+  function highlightCycle(elem, cycle) {
+    switchLayers(cycle);
+    const arrows = document.querySelectorAll('.wxd-arrow');
+    arrows.forEach(arrow => arrow.classList.remove('active-arrow', 'dimmed-arrow'));
+
+    const target = cycle === 'gen' ? elemData[elem].creates : elemData[elem].controls;
+    arrows.forEach(arrow => {
+      if (arrow.dataset.from === elem && arrow.dataset.to === target) {
+        arrow.classList.add('active-arrow');
+      } else {
+        arrow.classList.add('dimmed-arrow');
+      }
+    });
+  }
+
+  // Init: show gen layer
+  switchLayers('gen');
+
+</script>
+</body>
+</html>
