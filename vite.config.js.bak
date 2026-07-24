@@ -1,18 +1,18 @@
-﻿/**
+/**
  * @file vite.config.js
- * @description ConfiguraÃ§Ã£o Vite para o BaZi PWA.
+ * @description Configuração Vite para o BaZi PWA.
  *
- * MIGRAÃ‡ÃƒO (REQ-04): sw-hash-inject manual â†’ vite-plugin-pwa (injectManifest).
+ * MIGRAÇÃO (REQ-04): sw-hash-inject manual → vite-plugin-pwa (injectManifest).
  * - strategy: 'injectManifest' preserva public/sw.js como arquivo-fonte.
  * - self.__WB_MANIFEST substitui CACHE_ASSETS manual com hashes reais dos bundles.
- * - injectRegister: false â€” registro manual em src/app.js preservado.
+ * - injectRegister: false — registro manual em src/app.js preservado.
  * - O plugin gera dist/sw.js com __WB_MANIFEST injetado automaticamente.
- * - getBuildHash() mantÃ©m CACHE_VERSION dinÃ¢mico â†’ limpeza de cache no activate.
+ * - getBuildHash() mantém CACHE_VERSION dinâmico → limpeza de cache no activate.
  *
- * ADIÃ‡ÃƒO: apoie.html declarado como segundo entry point (build.rollupOptions.input)
+ * ADIÇÃO: apoie.html declarado como segundo entry point (build.rollupOptions.input)
  * para que o Vite o inclua no dist e a Vercel sirva /apoie via cleanUrls.
  *
- * VARIÃVEIS DE AMBIENTE VERCEL (Settings â†’ Environment Variables):
+ * VARIÁVEIS DE AMBIENTE VERCEL (Settings → Environment Variables):
  * VITE_BAZI_STEMS_V2=0
  * VITE_BAZI_SOLAR_V2=0
  * VITE_BAZI_JIEQI_V2=0
@@ -25,8 +25,8 @@ import { createHash } from 'crypto';
 import { resolve } from 'path';
 
 /**
- * Gera um hash de build determinÃ­stico de 8 caracteres.
- * Usado para CACHE_VERSION no sw.js â€” garante que activate limpe caches antigos.
+ * Gera um hash de build determinístico de 8 caracteres.
+ * Usado para CACHE_VERSION no sw.js — garante que activate limpe caches antigos.
  * @returns {string}
  */
 function getBuildHash() {
@@ -69,11 +69,10 @@ export default defineConfig(() => {
         trilha_int_level10: resolve(__dirname, 'trilha/interativos/level-10.html'),
         trilha_int_level12: resolve(__dirname, 'trilha/interativos/level-12.html'),
         },
-        external: [/^\/public\//],
       },
     },
 
-    // ExpÃµe o hash para flags.js e sw.js (substituiÃ§Ã£o via define no bundle)
+    // Expõe o hash para flags.js e sw.js (substituição via define no bundle)
     define: {
       '__BUILD_HASH__': JSON.stringify(buildHash),
     },
@@ -85,9 +84,9 @@ export default defineConfig(() => {
         filename: 'sw.js',
         injectRegister: false,
         manifest: {
-          name: 'BaZi å…«å­— â€” Quatro Pilares',
+          name: 'BaZi 八字 — Quatro Pilares',
           short_name: 'BaZi',
-          description: 'Calcule seu Mapa BaZi com precisÃ£o astronÃ´mica.',
+          description: 'Calcule seu Mapa BaZi com precisão astronômica.',
           start_url: '/',
           display: 'standalone',
           background_color: '#0F0E0A',
@@ -116,4 +115,3 @@ export default defineConfig(() => {
     ],
   };
 });
-
