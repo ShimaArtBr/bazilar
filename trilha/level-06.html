@@ -11,28 +11,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="stylesheet" href="./trilha.css">
 <style>
 /* Grid 5x2 — Yang em cima, Yin embaixo, ordem: Água Madeira Fogo Terra Metal */
 .trunk-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s2);margin:var(--s5) 0}
-.trunk-card{cursor:pointer;height:120px;border-radius:var(--rl);border:1px solid var(--gb);background:var(--sc);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--s2);text-align:center;transition:all .2s;user-select:none;position:relative}
+.trunk-card{cursor:pointer;height:120px;border-radius:var(--rl);border:1px solid var(--color-gold-border);background:var(--color-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--s2);text-align:center;transition:all .2s;user-select:none;position:relative}
 .trunk-card:hover{border-color:var(--gold);box-shadow:0 4px 12px rgba(192,154,74,.15)}
 .trunk-card:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(192,154,74,.2)}
 
 @media(max-width:768px){.trunk-grid{grid-template-columns:repeat(3,1fr)}.trunk-card{height:100px}}
-.trunk-hanzi{font-family:var(--fc);font-size:2.369rem;color:var(--ip);font-style:normal;line-height:1;margin-bottom:4px}
+.trunk-hanzi{font-family:var(--fc);font-size:2.369rem;color:var(--color-text);font-style:normal;line-height:1;margin-bottom:4px}
 .trunk-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--gold);display:block}
 .trunk-elem-badge{font-family:var(--fd2);font-size:.5rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:4px;display:block}
 /* MODAL */
 .trunk-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:var(--s3)}
 .trunk-modal.active{display:flex}
-.trunk-modal-content{background:var(--sc);border-radius:var(--rl);border:1px solid var(--gb);max-width:min(90vw,600px);max-height:90vh;overflow-y:auto;padding:var(--s4);position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.trunk-modal-close{position:absolute;top:var(--s2);right:var(--s2);width:32px;height:32px;background:transparent;border:1px solid var(--gb);border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--im);font-size:1.4rem;transition:all .2s}
-.trunk-modal-close:hover{background:var(--gs);border-color:var(--gold);color:var(--gold)}
+.trunk-modal-content{background:var(--color-surface);border-radius:var(--rl);border:1px solid var(--color-gold-border);max-width:min(90vw,600px);max-height:90vh;overflow-y:auto;padding:var(--s4);position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.trunk-modal-close{position:absolute;top:var(--s2);right:var(--s2);width:32px;height:32px;background:transparent;border:1px solid var(--color-gold-border);border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);font-size:1.4rem;transition:all .2s}
+.trunk-modal-close:hover{background:var(--color-gold-bg);border-color:var(--gold);color:var(--gold)}
 .trunk-modal-close:focus{outline:none;box-shadow:0 0 0 2px var(--gold)}
-.trunk-modal-title{font-family:var(--fc);font-size:2.369rem;color:var(--ip);font-style:normal;margin-bottom:var(--s1);line-height:1}
+.trunk-modal-title{font-family:var(--fc);font-size:2.369rem;color:var(--color-text);font-style:normal;margin-bottom:var(--s1);line-height:1}
 .trunk-modal-subtitle{font-family:var(--fm2);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--s2)}
-.trunk-modal-desc{font-family:var(--fd2);font-size:1rem;font-weight:300;color:var(--is);line-height:1.7;margin-bottom:var(--s3)}
+.trunk-modal-desc{font-family:var(--fd2);font-size:1rem;font-weight:300;color:var(--color-text-secondary);line-height:1.7;margin-bottom:var(--s3)}
 @media(max-width:768px){.trunk-grid{grid-template-columns:repeat(2,1fr)}.trunk-card{height:100px}}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -70,7 +71,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     Tiān Gān <span style="font-family:var(--fc);color:var(--gold)">天干</span>: As Dez Faces do Céu
   </h2>
 
@@ -79,7 +80,7 @@
   <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
 
   <h3>Os Dez Troncos — Toque para explorar</h3>
-  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Clique em qualquer card para ver a descrição completa</p>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--color-text-dim);letter-spacing:.06em;margin-bottom:0">Clique em qualquer card para ver a descrição completa</p>
 
   <div class="trunk-grid" role="list" aria-label="Os dez troncos celestiais — clique para expandir">
 

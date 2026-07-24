@@ -11,22 +11,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../../src/styles/tokens.css">
+<link rel="stylesheet" href="../trilha.css">
 <style>
 /* Tabela de Ramos com hover para Troncos Ocultos — zero JS */
 .branch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s1);margin:var(--s5) 0}
-.branch-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s2);text-align:center;position:relative;transition:border-color .2s,box-shadow .2s}
+.branch-card{background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--rl);padding:var(--s3) var(--s2);text-align:center;position:relative;transition:border-color .2s,box-shadow .2s}
 .branch-card:hover,.branch-card:focus-within{border-color:var(--gold);box-shadow:var(--shm)}
-.branch-hanzi{font-family:var(--fc);font-size:1.8rem;color:var(--ip);display:block;font-style:normal;line-height:1}
+.branch-hanzi{font-family:var(--fc);font-size:1.8rem;color:var(--color-text);display:block;font-style:normal;line-height:1}
 .branch-animal{font-size:1.2rem;display:block;margin:4px 0}
 .branch-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--gold);display:block}
-.branch-elem{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--im);display:block;margin-top:2px}
+.branch-elem{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);display:block;margin-top:2px}
 /* Troncos Ocultos — revelados no hover via CSS (zero JS) */
 .branch-hidden{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:var(--s1);opacity:0;transition:opacity .3s;min-height:24px}
 .branch-card:hover .branch-hidden,
 .branch-card:focus-within .branch-hidden{opacity:1}
-.hidden-stem{font-family:var(--fc);font-size:.75rem;padding:2px 6px;border-radius:3px;background:var(--gs);color:var(--gold);font-style:normal}
-.hidden-label{font-family:var(--fm2);font-size:.5rem;color:var(--id);letter-spacing:.08em;width:100%;text-align:center;display:block;margin-bottom:2px}
+.hidden-stem{font-family:var(--fc);font-size:.75rem;padding:2px 6px;border-radius:3px;background:var(--color-gold-bg);color:var(--gold);font-style:normal}
+.hidden-label{font-family:var(--fm2);font-size:.5rem;color:var(--color-text-dim);letter-spacing:.08em;width:100%;text-align:center;display:block;margin-bottom:2px}
 @media(max-width:600px){.branch-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:400px){.branch-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
@@ -64,7 +65,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     Dì Zhī <span style="font-family:var(--fc);color:var(--gold)">地支</span>: As Doze Câmaras da Terra
   </h2>
 
@@ -73,7 +74,7 @@
   <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
 
   <h3>Os Doze Ramos — Passe o cursor para ver os Troncos Ocultos</h3>
-  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Hover ou toque em cada card · Os Troncos Ocultos aparecem abaixo do animal</p>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--color-text-dim);letter-spacing:.06em;margin-bottom:0">Hover ou toque em cada card · Os Troncos Ocultos aparecem abaixo do animal</p>
 
   <div class="branch-grid" role="list" aria-label="Os doze ramos terrestres com seus troncos ocultos">
 

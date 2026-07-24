@@ -11,21 +11,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="stylesheet" href="./trilha.css">
 <style>
 /* Grade dos 12 estágios */
 .stages-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin:var(--s5) 0}
-.stage-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s2);transition:border-color .2s}
+.stage-card{background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--rl);padding:var(--s3) var(--s2);transition:border-color .2s}
 .stage-card:hover{border-color:var(--gold)}
-.stage-num{font-family:var(--fm2);font-size:.5rem;color:var(--id);letter-spacing:.08em;display:block;margin-bottom:4px}
-.stage-hanzi{font-family:var(--fc);font-size:1.333rem;color:var(--ip);display:block;font-style:normal;margin-bottom:4px;line-height:1}
-.stage-name{font-family:var(--fd2);font-size:.688rem;font-weight:600;color:var(--ip);display:block;margin-bottom:4px}
+.stage-num{font-family:var(--fm2);font-size:.5rem;color:var(--color-text-dim);letter-spacing:.08em;display:block;margin-bottom:4px}
+.stage-hanzi{font-family:var(--fc);font-size:1.333rem;color:var(--color-text);display:block;font-style:normal;margin-bottom:4px;line-height:1}
+.stage-name{font-family:var(--fd2);font-size:.688rem;font-weight:600;color:var(--color-text);display:block;margin-bottom:4px}
 .stage-energy{display:inline-block;font-family:var(--fm2);font-size:.45rem;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;border-radius:100px;margin-bottom:6px}
 .energy-rise{background:color-mix(in srgb,var(--om) 15%,transparent);color:var(--om)}
 .energy-peak{background:color-mix(in srgb,var(--fm) 15%,transparent);color:var(--fm)}
 .energy-fall{background:color-mix(in srgb,var(--mm) 15%,transparent);color:var(--mm)}
 .energy-rest{background:color-mix(in srgb,var(--wm) 15%,transparent);color:var(--wm)}
-.stage-desc{font-family:var(--fd2);font-size:.625rem;font-weight:300;color:var(--is);line-height:1.5}
+.stage-desc{font-family:var(--fd2);font-size:.625rem;font-weight:300;color:var(--color-text-secondary);line-height:1.5}
 @media(max-width:600px){.stages-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:360px){.stages-grid{grid-template-columns:1fr}}
 </style>
@@ -64,7 +65,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     Shíèr Zhǎngshēng <span style="font-family:var(--fc);color:var(--gold)">十二長生</span>: O Ciclo Vital dos Elementos
   </h2>
 
@@ -75,7 +76,7 @@
   <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
 
   <h3>Os Doze Estágios</h3>
-  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Cada estágio corresponde a um Ramo Terrestre · A sequência varia por elemento</p>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--color-text-dim);letter-spacing:.06em;margin-bottom:0">Cada estágio corresponde a um Ramo Terrestre · A sequência varia por elemento</p>
 
   <div class="stages-grid" role="list" aria-label="Os doze estágios de vida dos elementos">
 
@@ -223,10 +224,10 @@
 
   <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
 
-  <div style="background:var(--gs);border:1px solid var(--gold);border-radius:var(--rl);padding:var(--s4);text-align:center;margin:var(--s5) 0">
+  <div style="background:var(--color-gold-bg);border:1px solid var(--gold);border-radius:var(--rl);padding:var(--s4);text-align:center;margin:var(--s5) 0">
     <p style="font-family:var(--fc);font-size:2rem;color:var(--gold);margin-bottom:var(--s2)" aria-hidden="true">八字</p>
-    <p style="font-family:var(--ff);font-size:1.333rem;font-weight:500;color:var(--ip);margin-bottom:var(--s2)">Trilha Completa</p>
-    <p style="font-family:var(--fd2);font-size:.875rem;font-weight:300;color:var(--is);line-height:1.7;max-width:480px;margin:0 auto var(--s3)">Você percorreu os 12 níveis — do Vazio Primordial aos Estágios de Vida. Do Wuji ao Zhǎngshēng. Este é o mapa; a leitura é uma prática que se aprofunda com o tempo.</p>
+    <p style="font-family:var(--ff);font-size:1.333rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s2)">Trilha Completa</p>
+    <p style="font-family:var(--fd2);font-size:.875rem;font-weight:300;color:var(--color-text-secondary);line-height:1.7;max-width:480px;margin:0 auto var(--s3)">Você percorreu os 12 níveis — do Vazio Primordial aos Estágios de Vida. Do Wuji ao Zhǎngshēng. Este é o mapa; a leitura é uma prática que se aprofunda com o tempo.</p>
     <a class="btn bp" href="index.html" style="display:inline-flex">← Voltar à Trilha</a>
   </div>
 

@@ -11,22 +11,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="stylesheet" href="./trilha.css">
 <style>
 /* Tabela dos Dez Deuses */
 .gods-table{width:100%;border-collapse:collapse;margin:var(--s4) 0;font-family:var(--fd2);font-size:.813rem}
-.gods-table th{font-family:var(--fm2);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--id);padding:var(--s1) var(--s2);text-align:left;border-bottom:1px solid var(--gb)}
-.gods-table td{padding:var(--s2);border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent);color:var(--is);vertical-align:top;line-height:1.5}
-.gods-table td:first-child{font-family:var(--fc);font-size:1.333rem;color:var(--ip);font-style:normal;width:36px;text-align:center}
-.gods-table td:nth-child(2){font-weight:500;color:var(--ip);white-space:nowrap}
-.gods-table tr:hover td{background:var(--si)}
-.gods-group{font-family:var(--fm2);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding:var(--s1) var(--s2);background:var(--gs)}
+.gods-table th{font-family:var(--fm2);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-dim);padding:var(--s1) var(--s2);text-align:left;border-bottom:1px solid var(--color-gold-border)}
+.gods-table td{padding:var(--s2);border-bottom:1px solid color-mix(in srgb,var(--color-gold-border) 40%,transparent);color:var(--color-text-secondary);vertical-align:top;line-height:1.5}
+.gods-table td:first-child{font-family:var(--fc);font-size:1.333rem;color:var(--color-text);font-style:normal;width:36px;text-align:center}
+.gods-table td:nth-child(2){font-weight:500;color:var(--color-text);white-space:nowrap}
+.gods-table tr:hover td{background:var(--color-subtle)}
+.gods-group{font-family:var(--fm2);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding:var(--s1) var(--s2);background:var(--color-gold-bg)}
 /* Diagrama de relações */
 .rel-diagram{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);margin:var(--s4) 0}
-.rel-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s2);text-align:center}
+.rel-card{background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--rl);padding:var(--s3) var(--s2);text-align:center}
 .rel-card-icon{font-family:var(--fc);font-size:1.333rem;display:block;margin-bottom:var(--s1);font-style:normal}
-.rel-card-name{font-family:var(--fd2);font-size:.625rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ip);display:block;margin-bottom:4px}
-.rel-card-desc{font-family:var(--fd2);font-size:.688rem;font-weight:300;color:var(--is);line-height:1.5}
+.rel-card-name{font-family:var(--fd2);font-size:.625rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);display:block;margin-bottom:4px}
+.rel-card-desc{font-family:var(--fd2);font-size:.688rem;font-weight:300;color:var(--color-text-secondary);line-height:1.5}
 @media(max-width:540px){.rel-diagram{grid-template-columns:repeat(2,1fr)}}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -64,7 +65,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     Shíshen <span style="font-family:var(--fc);color:var(--gold)">十神</span>: Dez Formas de Relação
   </h2>
 
@@ -102,7 +103,7 @@
       <span class="rel-card-name">Companhia</span>
       <span class="rel-card-desc">O mesmo elemento do Mestre do Dia. Pares, rivais, parceiros.</span>
     </div>
-    <div class="rel-card" role="listitem" style="background:var(--gs);border-color:var(--gold)">
+    <div class="rel-card" role="listitem" style="background:var(--color-gold-bg);border-color:var(--gold)">
       <span class="rel-card-icon" style="color:var(--gold)" aria-hidden="true">×2</span>
       <span class="rel-card-name">×2 = Dez</span>
       <span class="rel-card-desc">Cada relação se divide em Yang e Yin, gerando dez categorias no total.</span>

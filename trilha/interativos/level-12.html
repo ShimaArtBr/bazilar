@@ -9,17 +9,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../../src/styles/tokens.css">
+<link rel="stylesheet" href="../trilha.css">
 <style>
 /* ── RODA DOS 12 ESTÁGIOS ── */
 .wheel-wrap{margin:var(--s5) 0;user-select:none}
-.wheel-hint{font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:var(--s2);text-align:center}
+.wheel-hint{font-family:var(--fm2);font-size:.625rem;color:var(--color-text-dim);letter-spacing:.06em;margin-bottom:var(--s2);text-align:center}
 
 .wheel-svg{width:100%;max-width:420px;display:block;margin:0 auto;overflow:visible;cursor:pointer}
 
 /* Setores */
 .wheel-sector{transition:opacity .2s,filter .2s}
-.wheel-sector path{stroke:var(--sp);stroke-width:2;transition:filter .2s}
+.wheel-sector path{stroke:var(--color-bg);stroke-width:2;transition:filter .2s}
 .wheel-sector:hover path,.wheel-sector:focus path,.wheel-sector.active path{filter:brightness(1.35)}
 .wheel-sector.dimmed path{opacity:.3}
 .wheel-sector:focus{outline:none}
@@ -31,17 +32,17 @@
 
 /* Círculo central */
 .wheel-center{cursor:pointer}
-.wheel-center circle{fill:var(--sc);stroke:var(--gb);stroke-width:1.5;transition:fill .2s}
-.wheel-center:hover circle,.wheel-center:focus circle{fill:var(--si);outline:none}
+.wheel-center circle{fill:var(--color-surface);stroke:var(--color-gold-border);stroke-width:1.5;transition:fill .2s}
+.wheel-center:hover circle,.wheel-center:focus circle{fill:var(--color-subtle);outline:none}
 .wheel-center-text{font-family:var(--fc);font-size:22px;fill:var(--gold);text-anchor:middle;dominant-baseline:middle;pointer-events:none;font-style:normal}
 
 /* Painel de info */
-.wheel-info{margin-top:var(--s4);min-height:96px;padding:var(--s3) var(--s4);background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);transition:all .25s}
-.wheel-info-hint{font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em}
+.wheel-info{margin-top:var(--s4);min-height:96px;padding:var(--s3) var(--s4);background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--rl);transition:all .25s}
+.wheel-info-hint{font-family:var(--fm2);font-size:.625rem;color:var(--color-text-dim);letter-spacing:.06em}
 .wheel-info-num{font-family:var(--fm2);font-size:.5rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px}
-.wheel-info-title{font-family:var(--ff);font-size:1.125rem;font-weight:500;color:var(--ip);margin-bottom:4px;display:flex;align-items:baseline;gap:8px}
-.wheel-info-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--im)}
-.wheel-info-body{font-family:var(--fd2);font-size:.875rem;font-weight:300;color:var(--is);line-height:1.6}
+.wheel-info-title{font-family:var(--ff);font-size:1.125rem;font-weight:500;color:var(--color-text);margin-bottom:4px;display:flex;align-items:baseline;gap:8px}
+.wheel-info-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--color-text-muted)}
+.wheel-info-body{font-family:var(--fd2);font-size:.875rem;font-weight:300;color:var(--color-text-secondary);line-height:1.6}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.json">
@@ -75,7 +76,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     Shí Èr Cháng Shēng <span style="font-family:var(--fc);color:var(--gold)">十二長生</span>
   </h2>
 

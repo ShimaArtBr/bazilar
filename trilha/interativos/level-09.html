@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../../src/styles/tokens.css">
+<link rel="stylesheet" href="../trilha.css">
 <style>
 /* ═══════════════════════════════════════════════════════════════
    MAPA BAZI — visual fiel ao bazipt DS v2.3
@@ -20,7 +21,7 @@
 .bazi-nota {
   font-family: var(--fm2);
   font-size: .625rem;
-  color: var(--id);
+  color: var(--color-text-dim);
   letter-spacing: .06em;
   text-align: center;
   margin-bottom: var(--s3);
@@ -98,13 +99,13 @@
 
 /* Rótulo central */
 .bazi-header {
-  background: var(--sc);
+  background: var(--color-surface);
   font-family: var(--fm2);
   font-size: .45rem;
   font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--id);
+  color: var(--color-text-dim);
   text-align: center;
   padding: 5px 4px;
   border-top: 1px solid rgba(255,255,255,.06);
@@ -167,16 +168,16 @@
   margin-top: var(--s4);
   min-height: 80px;
   padding: var(--s3) var(--s4);
-  background: var(--sc);
-  border: 1px solid var(--gb);
+  background: var(--color-surface);
+  border: 1px solid var(--color-gold-border);
   border-radius: var(--rl);
   transition: all .25s;
 }
-.bazi-info-hint { font-family: var(--fm2); font-size: .625rem; color: var(--id); letter-spacing: .06em; }
+.bazi-info-hint { font-family: var(--fm2); font-size: .625rem; color: var(--color-text-dim); letter-spacing: .06em; }
 .bazi-info-tag  { font-family: var(--fm2); font-size: .5rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 4px; }
-.bazi-info-title{ font-family: var(--ff); font-size: 1.125rem; font-weight: 500; color: var(--ip); margin-bottom: var(--s1); }
-.bazi-info-body { font-family: var(--fd2); font-size: .875rem; font-weight: 300; color: var(--is); line-height: 1.6; }
-.bazi-info-years{ font-family: var(--fm2); font-size: .625rem; color: var(--im); margin-top: var(--s1); letter-spacing: .04em; }
+.bazi-info-title{ font-family: var(--ff); font-size: 1.125rem; font-weight: 500; color: var(--color-text); margin-bottom: var(--s1); }
+.bazi-info-body { font-family: var(--fd2); font-size: .875rem; font-weight: 300; color: var(--color-text-secondary); line-height: 1.6; }
+.bazi-info-years{ font-family: var(--fm2); font-size: .625rem; color: var(--color-text-muted); margin-top: var(--s1); letter-spacing: .04em; }
 
 /* Responsive */
 @media (max-width: 480px) {
@@ -215,7 +216,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     BaZi <span style="font-family:var(--fc);color:var(--gold)">八字</span>: Oito Caracteres, Uma Vida
   </h2>
 

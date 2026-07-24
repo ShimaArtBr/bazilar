@@ -11,15 +11,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="stylesheet" href="./trilha.css">
 <style>
 .bagua-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s1);margin:var(--s5) 0}
-.bagua-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--r);padding:var(--s2) var(--s2) var(--s2);text-align:center;transition:border-color .2s}
+.bagua-card{background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--r);padding:var(--s2) var(--s2) var(--s2);text-align:center;transition:border-color .2s}
 .bagua-card:hover{border-color:var(--gold)}
 .bagua-sym{font-size:2rem;line-height:1;display:block;margin-bottom:var(--s1)}
-.bagua-name{font-family:var(--fc);font-size:1rem;color:var(--ip);display:block;margin-bottom:2px}
-.bagua-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--im);display:block;margin-bottom:4px}
-.bagua-nature{font-family:var(--fd2);font-size:.625rem;font-weight:500;letter-spacing:.06em;color:var(--is);display:block}
+.bagua-name{font-family:var(--fc);font-size:1rem;color:var(--color-text);display:block;margin-bottom:2px}
+.bagua-pinyin{font-family:var(--ff);font-size:.75rem;font-style:italic;color:var(--color-text-muted);display:block;margin-bottom:4px}
+.bagua-nature{font-family:var(--fd2);font-size:.625rem;font-weight:500;letter-spacing:.06em;color:var(--color-text-secondary);display:block}
 @media(max-width:600px){.bagua-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -57,7 +58,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     O Baguá <span style="font-family:var(--fc);color:var(--gold)">八卦</span>: A Gramática do Cosmos
   </h2>
 

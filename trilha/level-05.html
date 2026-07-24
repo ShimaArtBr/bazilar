@@ -11,7 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="stylesheet" href="./trilha.css">
 <style>
 /* Wu Xing cards adaptados do DS */
 .wx-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s1);margin:var(--s5) 0}
@@ -19,29 +20,29 @@
 .wx-card:hover,.wx-card:focus{transform:translateY(-3px);box-shadow:var(--shm);outline:none;border-color:var(--gold)}
 .wx-head{height:88px;display:flex;align-items:center;justify-content:center}
 .wx-sym{font-family:var(--fc);font-size:3.157rem;line-height:1;font-style:normal}
-.wx-body{padding:var(--s1) var(--s2) var(--s2);background:var(--sc)}
+.wx-body{padding:var(--s1) var(--s2) var(--s2);background:var(--color-surface)}
 .wx-name{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:4px}
-.wx-desc{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--im);line-height:1.5}
+.wx-desc{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--color-text-muted);line-height:1.5}
 /* ciclos Wu Xing interativo */
-.cycle-placeholder{background:var(--sc);border:1px dashed var(--gb);border-radius:var(--rl);padding:var(--s8) var(--s4);text-align:center;margin:var(--s5) 0}
-.cycle-placeholder p{font-family:var(--fm2);font-size:.75rem;color:var(--id);letter-spacing:.06em}
+.cycle-placeholder{background:var(--color-surface);border:1px dashed var(--color-gold-border);border-radius:var(--rl);padding:var(--s8) var(--s4);text-align:center;margin:var(--s5) 0}
+.cycle-placeholder p{font-family:var(--fm2);font-size:.75rem;color:var(--color-text-dim);letter-spacing:.06em}
 .cycle-placeholder span{color:var(--gold)}
 @media(max-width:600px){.wx-grid{grid-template-columns:repeat(3,1fr)}}
 
 /* ── DIAGRAMA WU XING INTERATIVO ── */
-.wxd-wrap{margin:var(--s5) 0;background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s4) var(--s3) var(--s3);user-select:none}
+.wxd-wrap{margin:var(--s5) 0;background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--rl);padding:var(--s4) var(--s3) var(--s3);user-select:none}
 .wxd-tabs{display:flex;gap:var(--s1);margin-bottom:var(--s3)}
-.wxd-tab{font-family:var(--fd2);font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--gb);border-radius:var(--r);background:transparent;color:var(--im);padding:6px 16px;cursor:pointer;transition:all .2s}
-.wxd-tab--active{background:var(--gs);border-color:var(--gold);color:var(--gold)}
-.wxd-tab:hover:not(.wxd-tab--active){color:var(--ip);background:var(--si)}
+.wxd-tab{font-family:var(--fd2);font-size:.625rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--color-gold-border);border-radius:var(--r);background:transparent;color:var(--color-text-muted);padding:6px 16px;cursor:pointer;transition:all .2s}
+.wxd-tab--active{background:var(--color-gold-bg);border-color:var(--gold);color:var(--gold)}
+.wxd-tab:hover:not(.wxd-tab--active){color:var(--color-text);background:var(--color-subtle)}
 .wxd-tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.wxd-info{min-height:48px;margin-bottom:var(--s2);padding:var(--s1) var(--s2);border-radius:var(--r);background:var(--si);transition:all .3s}
-.wxd-info-hint{font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em}
+.wxd-info{min-height:48px;margin-bottom:var(--s2);padding:var(--s1) var(--s2);border-radius:var(--r);background:var(--color-subtle);transition:all .3s}
+.wxd-info-hint{font-family:var(--fm2);font-size:.625rem;color:var(--color-text-dim);letter-spacing:.06em}
 .wxd-info-content{display:none;gap:var(--s2);align-items:flex-start}
 .wxd-info-content.visible{display:flex}
 .wxd-info-glyph{font-family:var(--fc);font-size:1.777rem;line-height:1;font-style:normal;flex-shrink:0}
 .wxd-info-name{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px}
-.wxd-info-rel{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--is);line-height:1.5}
+.wxd-info-rel{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--color-text-secondary);line-height:1.5}
 .wxd-svg{width:100%;max-width:400px;display:block;margin:0 auto;overflow:visible}
 .wxd-node{cursor:pointer}
 .wxd-node:focus{outline:none}
@@ -90,7 +91,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     Wu Xing <span style="font-family:var(--fc);color:var(--gold)">五行</span>: Não Elementos — Movimentos
   </h2>
 

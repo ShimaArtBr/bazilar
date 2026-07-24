@@ -11,7 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+<link rel="stylesheet" href="./trilha.css">
 <style>
 /* Grid dos 60 pares — cards com flip */
 .jiazi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:var(--s4) 0}
@@ -28,17 +29,17 @@
   position:absolute;inset:0;border-radius:var(--r);
   display:flex;flex-direction:column;
   backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  border:1px solid var(--gb);overflow:hidden;
+  border:1px solid var(--color-gold-border);overflow:hidden;
 }
-.jz-front{background:var(--sc)}
-.jz-back{background:var(--si);transform:rotateY(180deg)}
+.jz-front{background:var(--color-surface)}
+.jz-back{background:var(--color-subtle);transform:rotateY(180deg)}
 .jz-card.is-current .jz-face{border-color:var(--gold)}
 .jz-scene:hover .jz-face{border-color:var(--gold)}
 
 .jz-top,.jz-bot{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;}
 .jz-sep{flex:0 0 auto;display:flex;align-items:center;gap:5px;padding:0 10%}
 .jz-line{flex:1;height:1px;background:rgba(255,255,255,.12)}
-.jz-num{font-family:var(--fm2);font-size:.75rem;color:var(--id);letter-spacing:.06em;line-height:1}
+.jz-num{font-family:var(--fm2);font-size:.75rem;color:var(--color-text-dim);letter-spacing:.06em;line-height:1}
 .jz-pinyin{font-family:var(--fd2);font-size:.75rem;font-weight:300;letter-spacing:.04em;line-height:1;opacity:.85}
 .jz-h{font-family:var(--fc);font-size:1.777rem;line-height:1;font-weight:400}
 .jz-pt-main{font-family:var(--fd2);font-size:.75rem;font-weight:600;letter-spacing:.05em;text-align:center;line-height:1.3;text-transform:uppercase;min-height:1.777rem;display:flex;align-items:center;justify-content:center}
@@ -51,10 +52,10 @@
 .c-waterY{color:#7AA0E0}.c-waterN{color:#3060C0}
 
 /* anos destaque */
-.year-row{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) 0;border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)}
+.year-row{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) 0;border-bottom:1px solid color-mix(in srgb,var(--color-gold-border) 40%,transparent)}
 .year-row:last-child{border-bottom:none}
-.year-hanzi{font-family:var(--fc);font-size:1.333rem;color:var(--ip);min-width:48px;font-style:normal}
-.year-info{font-family:var(--fd2);font-size:.875rem;color:var(--is)}
+.year-hanzi{font-family:var(--fc);font-size:1.333rem;color:var(--color-text);min-width:48px;font-style:normal}
+.year-info{font-family:var(--fd2);font-size:.875rem;color:var(--color-text-secondary)}
 .year-num{font-family:var(--fm2);font-size:.75rem;color:var(--gold);margin-left:auto;white-space:nowrap}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -92,7 +93,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     Jiǎzǐ <span style="font-family:var(--fc);color:var(--gold)">甲子</span>: O Relógio de 60 Posições
   </h2>
 
@@ -103,7 +104,7 @@
   <div class="dv" aria-hidden="true"><span class="dvs">·</span></div>
 
   <h3>Os 60 Pares do Ciclo</h3>
-  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--id);letter-spacing:.06em;margin-bottom:0">Combinações Yang+Yang e Yin+Yin · toque para revelar a tradução</p>
+  <p style="font-family:var(--fm2);font-size:.625rem;color:var(--color-text-dim);letter-spacing:.06em;margin-bottom:0">Combinações Yang+Yang e Yin+Yin · toque para revelar a tradução</p>
 
   <div class="jiazi-grid" id="jiazi-grid" role="list" aria-label="Os 60 pares do ciclo Jiǎzǐ"></div>
 
@@ -197,7 +198,7 @@
   <h3>Anos Recentes no Ciclo</h3>
   <p>O calendário chinês é inteiramente construído sobre esse ciclo:</p>
 
-  <div style="background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s4);margin:var(--s4) 0" role="list" aria-label="Anos recentes no ciclo sexagenário">
+  <div style="background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--rl);padding:var(--s3) var(--s4);margin:var(--s4) 0" role="list" aria-label="Anos recentes no ciclo sexagenário">
     <div class="year-row" role="listitem">
       <span class="year-hanzi">甲辰</span>
       <span class="year-info">Dragão de Madeira Yang</span>

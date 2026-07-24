@@ -9,42 +9,43 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/public/main.css">
+<link rel="stylesheet" href="../../src/styles/tokens.css">
+<link rel="stylesheet" href="../trilha.css">
 <style>
 /* ── SELECTOR DE MESTRE DO DIA ── */
 .god-wrap{margin:var(--s5) 0;user-select:none}
 
 /* Selector de Mestre */
 .master-selector{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:var(--s4)}
-.master-btn{font-family:var(--fc);font-size:1.1rem;line-height:1;padding:10px 14px;background:var(--sc);border:1px solid var(--gb);border-radius:var(--r);cursor:pointer;color:var(--ip);transition:all .2s;font-style:normal;position:relative}
+.master-btn{font-family:var(--fc);font-size:1.1rem;line-height:1;padding:10px 14px;background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--r);cursor:pointer;color:var(--color-text);transition:all .2s;font-style:normal;position:relative}
 .master-btn::after{content:attr(data-name);font-family:var(--fd2);font-size:.4rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:2px}
-.master-btn:hover{border-color:var(--gb);background:var(--si)}
+.master-btn:hover{border-color:var(--color-gold-border);background:var(--color-subtle)}
 .master-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.master-btn.active{border-color:var(--gold);background:var(--gs)}
+.master-btn.active{border-color:var(--gold);background:var(--color-gold-bg)}
 /* cores por elemento */
-.master-btn[data-elem="wood"].active{border-color:var(--om);color:var(--om);background:color-mix(in srgb,var(--od) 20%,var(--sc))}
-.master-btn[data-elem="fire"].active{border-color:var(--fm);color:var(--fm);background:color-mix(in srgb,var(--fd) 20%,var(--sc))}
-.master-btn[data-elem="earth"].active{border-color:var(--em);color:var(--em);background:color-mix(in srgb,var(--ed) 20%,var(--sc))}
-.master-btn[data-elem="metal"].active{border-color:var(--mm);color:var(--mm);background:color-mix(in srgb,var(--md) 20%,var(--sc))}
-.master-btn[data-elem="water"].active{border-color:var(--wm);color:var(--wm);background:color-mix(in srgb,var(--wd) 20%,var(--sc))}
+.master-btn[data-elem="wood"].active{border-color:var(--om);color:var(--om);background:color-mix(in srgb,var(--od) 20%,var(--color-surface))}
+.master-btn[data-elem="fire"].active{border-color:var(--fm);color:var(--fm);background:color-mix(in srgb,var(--fd) 20%,var(--color-surface))}
+.master-btn[data-elem="earth"].active{border-color:var(--em);color:var(--em);background:color-mix(in srgb,var(--ed) 20%,var(--color-surface))}
+.master-btn[data-elem="metal"].active{border-color:var(--mm);color:var(--mm);background:color-mix(in srgb,var(--md) 20%,var(--color-surface))}
+.master-btn[data-elem="water"].active{border-color:var(--wm);color:var(--wm);background:color-mix(in srgb,var(--wd) 20%,var(--color-surface))}
 
 /* Grid dos 10 Deuses */
 .god-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2);margin-bottom:var(--s3)}
-.god-card{background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);padding:var(--s3) var(--s3);display:flex;flex-direction:column;gap:4px;transition:border-color .2s,opacity .3s}
+.god-card{background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--rl);padding:var(--s3) var(--s3);display:flex;flex-direction:column;gap:4px;transition:border-color .2s,opacity .3s}
 .god-card.highlight{border-color:var(--gold)}
 .god-card.muted{opacity:.35}
 .god-card-header{display:flex;align-items:baseline;gap:8px}
-.god-hanzi{font-family:var(--fc);font-size:1rem;color:var(--ip);font-style:normal}
+.god-hanzi{font-family:var(--fc);font-size:1rem;color:var(--color-text);font-style:normal}
 .god-name{font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-.god-rel{font-family:var(--fm2);font-size:.5rem;color:var(--id);letter-spacing:.06em;margin-left:auto;white-space:nowrap}
-.god-desc{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--is);line-height:1.55}
-.god-info{font-family:var(--fm2);font-size:.563rem;color:var(--id);letter-spacing:.04em;margin-top:2px}
+.god-rel{font-family:var(--fm2);font-size:.5rem;color:var(--color-text-dim);letter-spacing:.06em;margin-left:auto;white-space:nowrap}
+.god-desc{font-family:var(--fd2);font-size:.75rem;font-weight:300;color:var(--color-text-secondary);line-height:1.55}
+.god-info{font-family:var(--fm2);font-size:.563rem;color:var(--color-text-dim);letter-spacing:.04em;margin-top:2px}
 
 /* Elemento calculado exibido */
 .god-elem-tag{display:inline-block;font-family:var(--fm2);font-size:.45rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:1px 5px;border-radius:3px;margin-left:4px}
 
 /* Legenda acima do grid */
-.god-legend{font-family:var(--fm2);font-size:.563rem;color:var(--id);letter-spacing:.06em;margin-bottom:var(--s2)}
+.god-legend{font-family:var(--fm2);font-size:.563rem;color:var(--color-text-dim);letter-spacing:.06em;margin-bottom:var(--s2)}
 .god-legend strong{color:var(--gold)}
 
 @media(max-width:480px){.god-grid{grid-template-columns:1fr}}
@@ -80,7 +81,7 @@
 <main>
 <article class="level-body">
 
-  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--ip);margin-bottom:var(--s3);line-height:1.2">
+  <h2 style="font-family:var(--ff);font-size:1.777rem;font-weight:500;color:var(--color-text);margin-bottom:var(--s3);line-height:1.2">
     Rì Zhǔ · Shí Shén <span style="font-family:var(--fc);color:var(--gold)">日主·十神</span>
   </h2>
 
@@ -91,7 +92,7 @@
   <!-- INTERATIVO: Selector + Grid -->
   <div class="god-wrap" role="region" aria-label="Calculadora dos Dez Deuses">
 
-    <p style="font-family:var(--fd2);font-size:.875rem;color:var(--is);margin-bottom:var(--s2)">Selecione o seu <strong>Mestre do Dia</strong> para ver como os Dez Deuses se formam:</p>
+    <p style="font-family:var(--fd2);font-size:.875rem;color:var(--color-text-secondary);margin-bottom:var(--s2)">Selecione o seu <strong>Mestre do Dia</strong> para ver como os Dez Deuses se formam:</p>
 
     <div class="master-selector" role="group" aria-label="Selecionar Mestre do Dia">
       <button class="master-btn" data-elem="wood"  data-name="Jiǎ" data-pol="yang" aria-pressed="false">甲</button>
@@ -120,40 +121,40 @@
   <h3>Como os Dez Deuses se formam</h3>
   <p>Cinco relações × duas polaridades (mesmo que o Mestre ou oposta) = dez arquétipos:</p>
 
-  <div style="background:var(--sc);border:1px solid var(--gb);border-radius:var(--rl);overflow:hidden;margin:var(--s4) 0">
+  <div style="background:var(--color-surface);border:1px solid var(--color-gold-border);border-radius:var(--rl);overflow:hidden;margin:var(--s4) 0">
     <table style="width:100%;border-collapse:collapse">
       <thead>
-        <tr style="border-bottom:1px solid var(--gb)">
-          <th style="font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--im);padding:var(--s2) var(--s3);text-align:left">Relação com o Mestre</th>
+        <tr style="border-bottom:1px solid var(--color-gold-border)">
+          <th style="font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);padding:var(--s2) var(--s3);text-align:left">Relação com o Mestre</th>
           <th style="font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--om);padding:var(--s2) var(--s3);text-align:center">Mesma polaridade</th>
           <th style="font-family:var(--fd2);font-size:.563rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--wm);padding:var(--s2) var(--s3);text-align:center">Polaridade oposta</th>
         </tr>
       </thead>
       <tbody>
-        <tr style="border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)">
-          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Mesmo elemento</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">比肩</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">劫財</td>
+        <tr style="border-bottom:1px solid color-mix(in srgb,var(--color-gold-border) 40%,transparent)">
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--color-text-secondary);padding:var(--s2) var(--s3)">Mesmo elemento</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">比肩</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">劫財</td>
         </tr>
-        <tr style="border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)">
-          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Mestre gera</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">食神</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">傷官</td>
+        <tr style="border-bottom:1px solid color-mix(in srgb,var(--color-gold-border) 40%,transparent)">
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--color-text-secondary);padding:var(--s2) var(--s3)">Mestre gera</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">食神</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">傷官</td>
         </tr>
-        <tr style="border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)">
-          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Mestre controla</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">偏財</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">正財</td>
+        <tr style="border-bottom:1px solid color-mix(in srgb,var(--color-gold-border) 40%,transparent)">
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--color-text-secondary);padding:var(--s2) var(--s3)">Mestre controla</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">偏財</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">正財</td>
         </tr>
-        <tr style="border-bottom:1px solid color-mix(in srgb,var(--gb) 40%,transparent)">
-          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Controla o Mestre</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">七殺</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">正官</td>
+        <tr style="border-bottom:1px solid color-mix(in srgb,var(--color-gold-border) 40%,transparent)">
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--color-text-secondary);padding:var(--s2) var(--s3)">Controla o Mestre</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">七殺</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">正官</td>
         </tr>
         <tr>
-          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--is);padding:var(--s2) var(--s3)">Gera o Mestre</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">偏印</td>
-          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--ip);font-style:normal">正印</td>
+          <td style="font-family:var(--fd2);font-size:.75rem;color:var(--color-text-secondary);padding:var(--s2) var(--s3)">Gera o Mestre</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">偏印</td>
+          <td style="font-family:var(--fc);font-size:.875rem;text-align:center;padding:var(--s2) var(--s3);color:var(--color-text);font-style:normal">正印</td>
         </tr>
       </tbody>
     </table>
