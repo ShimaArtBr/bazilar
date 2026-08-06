@@ -519,12 +519,12 @@ function calcularMapa(birth) {
     fourPillars.day.si,  fourPillars.hour.si,
   ];
   const tenGods   = computeTenGods(dmStemIdx, todosTroncos);
-  const strength  = getDayMasterStrength(dmStemIdx, todosTroncos, ramos, 1);
   // Ordem [hora, dia, mês, ano] para elemBalance e stars (convencional BAZILAR)
   const stemsOrdered   = [fourPillars.hour.si, fourPillars.day.si, fourPillars.month.si, fourPillars.year.si];
   const branchesOrdered = [fourPillars.hour.bi, fourPillars.day.bi, fourPillars.month.bi, fourPillars.year.bi];
 
   const balance = elemBalance(stemsOrdered, branchesOrdered);
+  const strength  = getDayMasterStrength(dmStemIdx, stemsOrdered, branchesOrdered, 2);
 
   const favorable = getFavorableElements(strength, { balance });
 
