@@ -955,7 +955,7 @@ function renderInteracoes(interactions, fourPillars, container) {
  * @returns {object} data para exportBaziPDF()
  */
 function _adaptMapaToPDFData(mapa) {
-  const { fourPillars, luckRaw, interactions, balance, stars, sl, solarTerms, rst, birth } = mapa;
+  const { fourPillars, luckRaw, interactions, balance, stars, sl, solarTerms, rst, birth, strength, favorable } = mapa;
 
   const allBranches = [
     fourPillars.hour.bi, fourPillars.day.bi,
@@ -1008,6 +1008,8 @@ function _adaptMapaToPDFData(mapa) {
     interactions: interactions || [],
     tds,
     cti,
+    dmA: strength ?? null,
+    fav: favorable ?? null,
   };
 }
 

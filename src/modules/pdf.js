@@ -24,22 +24,23 @@
      ─────────────────────────
      Total:             246 mm ✓
 
-   TIPOGRAFIA (SOLLUN DS v2)
+   TIPOGRAFIA (DS v2.5 — tokens.css)
    ──────────────────────────────────────────────────────────────
-   PT Serif 400    → marca, títulos de seção
-   Noto Sans SC    → caracteres CJK (stems, branches, termos)
-   JetBrains Mono  → dados técnicos, labels, badges, coords
+   Lora 400/500       → marca, nome, títulos
+   Noto Sans 400/500  → corpo
+   Noto Serif SC      → caracteres CJK (SEMPRE; NUNCA itálico)
+   JetBrains Mono     → dados runtime, labels, badges, coords
    ZERO bold — o peso vem da cor e do tamanho
 
-   PALETA (light mode para impressão em papel)
+   PALETA (DS v2.5 light mode — src/styles/tokens.css)
    ──────────────────────────────────────────────────────────────
-   --bg     #f5f2ea   off-white algodão (papel artesanal)
-   --panel  #ffffff   cards
-   --text   #1a1814   preto-grafite quente
-   --muted  #6b6458   cinza-sépia
-   --dim    #9a9488   labels
-   --gold   #c9a84c   sangue do sistema (bordas, marca, acentos)
-   Elementos: confinados aos pilares calculados
+   --bg     #F6F3ED   areia quente
+   --panel  #FDFCF9   cards (--color-surface)
+   --text   #1E1B15   AAA 14.8:1
+   --muted  #7C7264   AA 4.56:1
+   --dim    #ACA090   decorativo
+   --gold   #967438   AA 4.52:1 sobre bg
+   Elementos: paleta Wu Xing dos tokens (dark p/ glifos, base p/ badges)
 
    ROOT CAUSE CORRIGIDO (v4 → v5 → v6)
    ──────────────────────────────────────────────────────────────
@@ -99,13 +100,24 @@ function esc(s) {
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-/* Paleta de elementos (SOLLUN DS — APENAS dentro de resultados) */
+/* Paleta Wu Xing — tokens.css DS v2.5 (light mode)
+   ELC:      badges (fundo light + texto dark, legível em impressão)
+   EL_GLYPH: cor dos glifos grandes (variante dark)
+   EL_BAR:   preenchimento de barras (variante base) */
 const ELC = {
-  Wood:  { bg: '#D5EDD7', fg: '#165C1E' },  /* #7dba82 family */
-  Fire:  { bg: '#FAD8D4', fg: '#A82010' },  /* #e05c4a family */
-  Earth: { bg: '#F8ECC8', fg: '#6A5406' },  /* #c9a84c family */
-  Metal: { bg: '#D6E4F2', fg: '#264A6C' },  /* #b0bec5 family */
-  Water: { bg: '#C8DFF8', fg: '#13428A' },  /* #5b9fc9 family */
+  Wood:  { bg: '#A8DBBF', fg: '#0B5233' },  /* --element-wood-light/dark */
+  Fire:  { bg: '#F5BBBF', fg: '#8C0A12' },  /* --element-fire-light/dark */
+  Earth: { bg: '#F0E0A0', fg: '#7A4C08' },  /* --element-earth-light/dark */
+  Metal: { bg: '#E0E0E0', fg: '#383838' },  /* --element-metal-light/dark */
+  Water: { bg: '#B8CCF0', fg: '#1C3A72' },  /* --element-water-light/dark */
+};
+const EL_GLYPH = {
+  Wood: '#0B5233', Fire: '#8C0A12', Earth: '#7A4C08',
+  Metal: '#383838', Water: '#1C3A72',
+};
+const EL_BAR = {
+  Wood: '#147A48', Fire: '#D3232E', Earth: '#B87C14',
+  Metal: '#848484', Water: '#2652A8',
 };
 
 function elBadge(el) {
@@ -157,7 +169,7 @@ function pillarCard(hdrTxt, si, bi, dm, isDay) {
   return '<div class="pcard' + (isDay ? ' pcard-dm' : '') + '">'
     + '<div class="pcard-hd' + (isDay ? ' pcard-hd-dm' : '') + '">'
         + esc(hdrTxt) + '</div>'
-    + '<div class="p-stem" style="border-color:' + (isDay ? '#d4af37' : 'rgba(201,168,76,.18)') + '">'
+    + '<div class="p-stem" style="border-color:' + (isDay ? '#B8924C' : 'rgba(150,116,56,.18)') + '">'
       + '<div class="p-char cjk" style="color:' + ecS.fg + '">' + esc(stem.zh) + '</div>'
       + '<div class="p-meta">'
         + '<span class="p-py mono">' + esc(stem.py) + '</span>'
@@ -195,14 +207,14 @@ function infoGridHtml(d, dm, rstStr, clkStr, corrStr, curTerm) {
   return '<div class="info-grid">'
     + ic(t('dm'),
         '<span class="cjk ic-cjk" style="color:' + ec.fg + '">' + esc(dmStem.zh) + '</span>'
-          + ' <span class="mono" style="font-size:7.7pt;color:#9a9488">' + esc(dmStem.py) + '</span>',
+          + ' <span class="mono" style="font-size:7.7pt;color:#ACA090">' + esc(dmStem.py) + '</span>',
         esc(te(dmStem.el)) + ' \u00b7 ' + esc(tp(dmStem.po)) + ' \u00b7 ' + esc(t('dmSub')))
     + ic(t('rst'),
         '<span class="mono ic-rst">' + esc(rstStr) + '</span>',
         esc(t('clk')) + ': ' + esc(clkStr) + '\u00b7' + esc(t('corr')) + ': ' + esc(corrStr))
     + ic(t('yr'),
         '<span class="cjk ic-cjk">' + esc(yZStr) + '</span>'
-          + ' <span class="mono" style="font-size:7.7pt;color:#9a9488">' + d.yP.by + '</span>',
+          + ' <span class="mono" style="font-size:7.7pt;color:#ACA090">' + d.yP.by + '</span>',
         esc(t('yrSub')))
     + ic(t('sun'),
         '<span class="mono">' + esc(d.sl.toFixed(3)) + '\u00b0</span>',
@@ -217,31 +229,58 @@ function balanceHtml(balance) {
   const rows  = ELEMS.map(function (el) {
     const v   = (balance[el] || 0).toFixed(1);
     const pct = Math.round(((balance[el] || 0) / max) * 100);
-    const c   = ELC[el] || { bg: '#EEE', fg: '#444' };
+    const c   = EL_BAR[el] || '#555';
     return '<div class="eb-row">'
       + '<span class="eb-name mono">' + esc(te(el)) + '</span>'
-      + '<div class="eb-track"><div class="eb-fill" style="width:' + pct + '%;background:' + c.fg + '"></div></div>'
+      + '<div class="eb-track"><div class="eb-fill" style="width:' + pct + '%;background:' + c + '"></div></div>'
       + '<span class="eb-val mono">' + v + '</span>'
     + '</div>';
   }).join('');
   return rows;
 }
 
-/* ── FORÇA DO MESTRE DO DIA ── */
-function dmStrengthHtml(dmA) {
+/* ── FORÇA DO MESTRE DO DIA ──
+   fav (taxonomia refinada de getFavorableElements) tem prioridade:
+   用神 Deus Útil · 喜神 Auxiliares · 忌神 Desfavoráveis.
+   Sem fav, mantém as linhas planas favorable/unfavorable (legado). */
+function dmStrengthHtml(dmA, fav) {
   if (!dmA) return '';
   const pct    = Math.min(Math.abs(dmA.score) / 10 * 100, 100).toFixed(0);
-  const barClr = dmA.strong ? '#165C1E' : '#13428A';
+  const barClr = dmA.strong ? EL_BAR.Wood : EL_BAR.Water;
   const sign   = dmA.score >= 0 ? '+' : '';
-  return '<div class="dms-hd">'
+
+  let html = '<div class="dms-hd">'
       + '<span class="dms-verdict">' + esc(t(dmA.strong ? 'dmStrong' : 'dmWeak')) + '</span>'
       + '<span class="mono dms-score">' + esc(t('dmScore')) + ': ' + sign + dmA.score + '</span>'
     + '</div>'
-    + '<div class="dms-track"><div class="dms-bar" style="width:' + pct + '%;background:' + barClr + '"></div></div>'
-    + '<div class="dms-row"><span class="dms-lbl mono">' + esc(t('dmFav')) + '</span>'
+    + '<div class="dms-track"><div class="dms-bar" style="width:' + pct + '%;background:' + barClr + '"></div></div>';
+
+  if (fav && fav.yongShen) {
+    const xi = (fav.xiShen || []).filter(function (e) { return e && e !== fav.yongShen; });
+    if (fav.congGe) {
+      html += '<div class="dms-row"><span class="dms-lbl mono">'
+        + '\u5f9e\u683c \u00b7 Estrutura de Rendi\u00e7\u00e3o</span></div>';
+    }
+    html += '<div class="dms-row"><span class="dms-lbl mono">'
+        + 'Deus \u00datil \u00b7 \u7528\u795e Y\u00f2ng Sh\u00e9n</span>'
+        + elBadge(fav.yongShen) + '</div>';
+    if (xi.length) {
+      html += '<div class="dms-row"><span class="dms-lbl mono">'
+        + 'Auxiliares \u00b7 \u559c\u795e X\u01d0 Sh\u00e9n</span>'
+        + xi.map(elBadge).join('') + '</div>';
+    }
+    if (fav.jiShen && fav.jiShen.length) {
+      html += '<div class="dms-row"><span class="dms-lbl mono">'
+        + 'Desfavor\u00e1veis \u00b7 \u5fcc\u795e J\u00ec Sh\u00e9n</span>'
+        + fav.jiShen.map(elBadge).join('') + '</div>';
+    }
+  } else {
+    html += '<div class="dms-row"><span class="dms-lbl mono">' + esc(t('dmFav')) + '</span>'
         + dmA.favorable.map(elBadge).join('') + '</div>'
-    + '<div class="dms-row"><span class="dms-lbl mono">' + esc(t('dmUnfav')) + '</span>'
+      + '<div class="dms-row"><span class="dms-lbl mono">' + esc(t('dmUnfav')) + '</span>'
         + dmA.unfavorable.map(elBadge).join('') + '</div>';
+  }
+  return html;
 }
 
 /* ── TERMOS SOLARES ── */
@@ -305,10 +344,7 @@ function interactionsHtml(ixs, fp) {
     PILAR_ORIGEM[fp.hour.bi]  = 'HORA';
   }
 
-  var EL_COL = {
-    'Wood':'#2E6B3E','Fire':'#A82010','Earth':'#7A5010',
-    'Metal':'#4A5060','Water':'#2050A0'
-  };
+  var EL_COL = EL_GLYPH; /* tokens DS v2.5 — variante dark */
   var ANIMALS_PT = ['Rato','Boi','Tigre','Coelho','Drag\u00e3o','Serpente',
                     'Cavalo','Cabra','Macaco','Galo','C\u00e3o','Porco'];
 
@@ -332,19 +368,19 @@ function interactionsHtml(ixs, fp) {
     switch (ix.type) {
       case 'harmony6':
         ts = t('harmony6'); branches = [ix.a, ix.b];
-        nt = '\u2192 ' + te(ix.el); cl = '#165C1E'; sep = '+'; break;
+        nt = '\u2192 ' + te(ix.el); cl = '#2E7D52'; sep = '+'; break;
       case 'harmony3':
         ts = t('harmony3'); branches = ix.branches || [];
-        nt = ix.zh || ''; cl = '#165C1E'; sep = '+'; break;
+        nt = ix.zh || ''; cl = '#2E7D52'; sep = '+'; break;
       case 'clash':
         ts = t('clash'); branches = ix.branches || [ix.a, ix.b];
-        nt = '\u26a1'; cl = '#A82010'; sep = '\u2194'; break;
+        nt = '\u26a1'; cl = '#8C0A12'; sep = '\u2194'; break;
       case 'harm':
         ts = t('harm'); branches = ix.branches || [ix.a, ix.b];
-        nt = '\u26a0'; cl = '#904010'; sep = '+'; break;
+        nt = '\u26a0'; cl = '#C45A20'; sep = '+'; break;
       case 'penalty':
         ts = t('penalty'); branches = ix.branches || [];
-        nt = '\u25c8'; cl = '#A82010'; sep = '+'; break;
+        nt = '\u25c8'; cl = '#8C0A12'; sep = '+'; break;
       default: return '';
     }
     var cardsHtml = branches.map(function(b, i) {
@@ -361,15 +397,16 @@ function interactionsHtml(ixs, fp) {
 
 
 /* ══════════════════════════════════════════════════════════════════
-   CSS — SOLLUN DS v2.0 aplicado para impressão
+   CSS — DS v2.5 "Quiet Luxury Tupiniquim" aplicado para impressão
 ══════════════════════════════════════════════════════════════════ */
 
 function buildCSS() {
   return '<link rel="preconnect" href="https://fonts.googleapis.com">'
     + '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     + '<link href="https://fonts.googleapis.com/css2?'
-        + 'family=PT+Serif:wght@400'
-        + '&family=Noto+Sans+SC:wght@400;500'
+        + 'family=Lora:wght@400;500'
+        + '&family=Noto+Sans:wght@400;500'
+        + '&family=Noto+Serif+SC:wght@400;500'
         + '&family=JetBrains+Mono:wght@400;500'
         + '&display=swap" rel="stylesheet">'
     + '<style>'
@@ -380,18 +417,18 @@ function buildCSS() {
 
     /* ── Tokens SOLLUN DS — light mode para papel ── */
     + ':root {'
-      + '--bg: #f5f2ea;'           /* off-white algodão */
-      + '--surface: #faf8f2;'
-      + '--panel: #ffffff;'
-      + '--panel2: #f0ede4;'
-      + '--text: #1a1814;'         /* preto-grafite quente */
-      + '--muted: #6b6458;'        /* cinza-sépia */
-      + '--dim: #9a9488;'          /* labels */
-      + '--gold: #c9a84c;'         /* sangue do sistema */
-      + '--gold2: #e8c97a;'
-      + '--gold-dim: #a08830;'
-      + '--bg-gold: rgba(201,168,76,.10);'
-      + '--bd-gold: rgba(201,168,76,.22);'
+      + '--bg: #F6F3ED;'           /* off-white algodão */
+      + '--surface: #FDFCF9;'
+      + '--panel: #FDFCF9;'
+      + '--panel2: #EDE9E0;'
+      + '--text: #1E1B15;'         /* preto-grafite quente */
+      + '--muted: #7C7264;'        /* cinza-sépia */
+      + '--dim: #ACA090;'          /* labels */
+      + '--gold: #967438;'         /* sangue do sistema */
+      + '--gold2: #B8924C;'
+      + '--gold-dim: #967438;'
+      + '--bg-gold: rgba(150,116,56,.10);'
+      + '--bd-gold: rgba(150,116,56,.22);'
     + '}'
 
     /* ── @page: A4 com 1 polegada ── */
@@ -403,8 +440,8 @@ function buildCSS() {
 
     /* ── Base ── */
     + 'html, body { background: var(--bg); color: var(--text); }'
-    + 'body { font-family: "PT Serif", Georgia, serif; font-size:11.8pt; line-height: 1.3; }'
-    + '.cjk  { font-family: "Noto Sans SC", "Noto Sans CJK SC", sans-serif; }'
+    + 'body { font-family: "Noto Sans", system-ui, sans-serif; font-size:11.8pt; line-height: 1.3; }'
+    + '.cjk  { font-family: "Noto Serif SC", serif; font-style: normal; }'
     + '.mono { font-family: "JetBrains Mono", "Courier New", monospace; }'
 
     /* ══ LAYOUT PRINCIPAL
@@ -418,7 +455,7 @@ function buildCSS() {
     + '.content-col { min-width: 0; }'
 
     /* Seções fixas */
-    + '.report-hd { margin-bottom: 5mm; padding-bottom: 3mm; border-bottom: 0.4pt solid rgba(201,168,76,.3); break-inside: avoid; }'
+    + '.report-hd { margin-bottom: 5mm; padding-bottom: 3mm; border-bottom: 0.4pt solid rgba(150,116,56,.3); break-inside: avoid; }'
     + '.report-ft { margin-top: 5mm; }'
     + '.sec-pillars    { margin-bottom: 4mm; break-inside: avoid; }'
     + '.info-grid-sec  { margin-bottom: 4mm; break-inside: avoid; }'
@@ -448,7 +485,7 @@ function buildCSS() {
       + 'background-image: repeating-linear-gradient('
           + 'to bottom,'
           + 'transparent 0mm, transparent 7.5mm,'
-          + 'rgba(201,168,76,.25) 7.5mm, rgba(201,168,76,.25) 7.8mm'
+          + 'rgba(150,116,56,.25) 7.5mm, rgba(150,116,56,.25) 7.8mm'
       + ');'
       + '-webkit-print-color-adjust: exact;'
       + 'print-color-adjust: exact;'
@@ -471,7 +508,7 @@ function buildCSS() {
       + 'color: var(--muted); display: flex; align-items: center; gap: 12px;'
     + '}'
     + '.print-btn {'
-      + 'padding: 6px 16px; background: var(--gold); color: #1a1814;'
+      + 'padding: 6px 16px; background: var(--gold); color: #1E1B15;'
       + 'border: none; border-radius: 5px; cursor: pointer;'
       + 'font-family: "JetBrains Mono", monospace;'
       + 'font-size:16.9px; letter-spacing: .08em; text-transform: uppercase;'
@@ -513,12 +550,12 @@ function buildCSS() {
       + 'width: 10mm; height: 10mm; flex-shrink: 0;'
       + 'border: 1pt solid var(--gold); border-radius: 50%;'
       + 'display: flex; align-items: center; justify-content: center;'
-      + 'font-family: "Noto Sans SC", sans-serif;'
+      + 'font-family: "Noto Serif SC", serif;'
       + 'font-size:10.1pt; color: var(--gold);'
     + '}'
     /* Nome da marca (SOLLUN DS: PT Serif, uppercase, .12em, --gold) */
     + '.brand-txt {'
-      + 'font-family: "PT Serif", serif; font-size:20.3pt;'
+      + 'font-family: "Lora", serif; font-size:20.3pt;'
       + 'color: var(--gold); letter-spacing: .12em; text-transform: uppercase;'
       + 'line-height: 1;'
     + '}'
@@ -530,7 +567,7 @@ function buildCSS() {
     + '.person { flex: 1; min-width: 0; }'
     /* Nome da pessoa (PT Serif, --text) */
     + '.person-name {'
-      + 'font-family: "PT Serif", serif; font-size:16.9pt;'
+      + 'font-family: "Lora", serif; font-size:16.9pt;'
       + 'color: var(--text); display: block; line-height: 1.1;'
     + '}'
     + '.person-meta {'
@@ -562,10 +599,10 @@ function buildCSS() {
       + 'text-transform: uppercase; letter-spacing: .06em;'
       + 'flex: none;'
     + '}'
-    + '.pcard-hd-dm { background: rgba(201,168,76,.12); color: var(--gold); }'
+    + '.pcard-hd-dm { background: rgba(150,116,56,.12); color: var(--gold); }'
     + '.p-stem  {'
       + 'padding: 3mm 2mm; text-align: center;'
-      + 'border-bottom: 0.4pt solid rgba(201,168,76,.18);'
+      + 'border-bottom: 0.4pt solid rgba(150,116,56,.18);'
       + 'flex: 1; display: flex; flex-direction: column; justify-content: center;'
     + '}'
     + '.p-branch {'
@@ -582,19 +619,19 @@ function buildCSS() {
     + '.p-po  { font-size:6.8pt; color: var(--dim); }'
     + '.p-god {'
       + 'font-size:9.4pt; color: var(--gold);'
-      + 'background: rgba(201,168,76,.10); border-radius: 0.8mm;'
+      + 'background: rgba(150,116,56,.10); border-radius: 0.8mm;'
       + 'padding: 0.2mm 0.8mm; margin-top: 0.6mm;'
       + 'display: inline-block;'
     + '}'
     + '.p-godpy { font-family: "JetBrains Mono", monospace; font-size:5.9pt; color: var(--dim); }'
     + '.p-dm-badge {'
       + 'font-family: "JetBrains Mono", monospace; font-size:6.8pt;'
-      + 'color: var(--gold); background: rgba(201,168,76,.12);'
+      + 'color: var(--gold); background: rgba(150,116,56,.12);'
       + 'border-radius: 0.8mm; padding: 0.2mm 0.8mm; margin-top: 0.6mm;'
       + 'display: inline-block;'
     + '}'
     + '.hs-row {'
-      + 'border-top: 0.2pt dashed rgba(201,168,76,.20);'
+      + 'border-top: 0.2pt dashed rgba(150,116,56,.20);'
       + 'padding-top: 0.8mm; margin-top: 0.8mm;'
       + 'display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5mm;'
     + '}'
@@ -640,7 +677,7 @@ function buildCSS() {
     + '.term-zh    { display: block; font-size:10.1pt; color: var(--text); }'
     + '.term-dt    { display: block; font-size:6.4pt; color: var(--dim); }'
     + '.term-cur   { background: var(--gold) !important; }'
-    + '.term-cur .term-zh, .term-cur .term-dt { color: #1a1814 !important; }'
+    + '.term-cur .term-zh, .term-cur .term-dt { color: #1E1B15 !important; }'
     + '.term-past  { background: transparent; }'
     + '.term-past .term-zh, .term-past .term-dt { color: var(--dim); }'
     + '.term-fut   { background: var(--surface); }'
@@ -653,7 +690,7 @@ function buildCSS() {
       + 'background: var(--surface);'
       + 'display: flex; flex-direction: column; justify-content: space-evenly;'
     + '}'
-    + '.lcard-cur { border-color: var(--gold); border-width: 0.5pt; background: rgba(201,168,76,.08); }'
+    + '.lcard-cur { border-color: var(--gold); border-width: 0.5pt; background: rgba(150,116,56,.08); }'
     + '.lage  { font-size:6.4pt; color: var(--dim); }'
     + '.lchars { font-size:15.2pt; line-height: 1.05; }'
     + '.lpy   { font-size:5.9pt; color: var(--dim); }'
@@ -671,17 +708,17 @@ function buildCSS() {
     + '.star-name  { flex: 1; color: var(--text); font-size:8.1pt; }'
     + '.star-zh    { font-size:12.7pt; color: var(--text); }'
     + '.star-py    { font-size:6.4pt; color: var(--dim); }'
-    + '.star-ck    { font-size:9.4pt; color: #165C1E; min-width: 3mm; text-align: center; }'
+    + '.star-ck    { font-size:9.4pt; color: #2E7D52; min-width: 3mm; text-align: center; }'
     + '.star-src   { font-size:6.4pt; color: var(--dim); }'
 
     /* ══ INTERAÇÕES ══ */
     + '.ix-inner { display: flex; flex-direction: column; gap: 1mm; }'
-    + '.ix-row { display: flex; align-items: center; gap: 2mm; padding: 1.5mm 2mm; border-radius: 0.8mm; border: 0.2pt solid rgba(201,168,76,.15); }'
+    + '.ix-row { display: flex; align-items: center; gap: 2mm; padding: 1.5mm 2mm; border-radius: 0.8mm; border: 0.2pt solid rgba(150,116,56,.15); }'
     + '.ix-type { font-size:7pt; min-width: 14mm; flex-shrink:0; }'
     + '.ix-pair { display: flex; align-items: center; flex-wrap: wrap; gap: 1.5mm; flex: 1; }'
     + '.ix-sep { font-size:8pt; color: var(--muted); padding: 0 0.5mm; }'
     + '.ix-note { font-size:9pt; flex-shrink:0; }'
-    + '.ix-card { display: inline-flex; flex-direction: column; align-items: center; background: var(--surface); border: 0.3pt solid rgba(201,168,76,.25); border-radius: 1mm; padding: 1mm 2mm; min-width: 10mm; }'
+    + '.ix-card { display: inline-flex; flex-direction: column; align-items: center; background: var(--surface); border: 0.3pt solid rgba(150,116,56,.25); border-radius: 1mm; padding: 1mm 2mm; min-width: 10mm; }'
     + '.ix-card__pilar { font-family: "JetBrains Mono", monospace; font-size:5.5pt; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }'
     + '.ix-card__body { display:flex; align-items:baseline; gap:1mm; }'
     + '.ix-card__zh { font-size:11pt; line-height:1; }'
@@ -709,10 +746,15 @@ function buildPrintHTML(data) {
   const i  = d.i;
   const dm = d.dm;
 
-  /* Recalcula força do Mestre do Dia */
-  const stems     = [d.hP.si, d.dP.si, d.mP.si, d.yP.si];
-  const branchIdx = [d.hP.bi, d.dP.bi, d.mP.bi, d.yP.bi];
-  const dmA = calcDayMasterStrength(dm, stems, branchIdx, 2);
+  /* Força do Mestre do Dia: consome o resultado do renderer (paridade site/PDF).
+     Recálculo local apenas como fallback para chamadas legadas sem d.dmA. */
+  let dmA = d.dmA || null;
+  if (!dmA) {
+    const stems     = [d.hP.si, d.dP.si, d.mP.si, d.yP.si];
+    const branchIdx = [d.hP.bi, d.dP.bi, d.mP.bi, d.yP.bi];
+    dmA = calcDayMasterStrength(dm, stems, branchIdx, 2);
+  }
+  const dmFav = d.fav || null;
 
   /* Strings auxiliares */
   const dateFmt  = p2(i.d) + '/' + p2(i.m) + '/' + i.y;
@@ -830,7 +872,7 @@ function buildPrintHTML(data) {
       + '</div>'
       + '<div class="sub-sec">'
         + secLabel(t('secStrength'))
-        + '<div class="dms-inner">' + dmStrengthHtml(dmA) + '</div>'
+        + '<div class="dms-inner">' + dmStrengthHtml(dmA, dmFav) + '</div>'
       + '</div>'
     + '</div>\n'
 
